@@ -28,5 +28,5 @@ public class MemberMapper implements RowMapper<MemberDto> {
 		memberDto.setMemberEmail(rs.getString("member_email"));
 		return memberDto;
 	}
-
 }
+
