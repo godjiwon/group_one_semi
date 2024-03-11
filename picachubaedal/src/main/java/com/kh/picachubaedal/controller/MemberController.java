@@ -65,7 +65,7 @@ public class MemberController {
 	 * 
 	 * return ""; }
 	 */
-	
+	//asd
 	@RequestMapping("/pwUpdateSuccess")
 	public String pwUpdateSuccess() {
 		
