@@ -14,7 +14,7 @@ public class StoreDao {
 	@Autowired
 	private StoreMapper storeMapper;
 
-	// 등록 (가게등록)
+	// 등록 (가게 등록)
 	public void insert(StoreDto storeDto) {
 		String sql = "insert into store(store_no, store_name, store_address, store_category, "
 				+ "store_type, store_contact, store_image, store_intro, store_dtip, store_minprice, "

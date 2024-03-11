@@ -33,4 +33,5 @@ public class StoreMapper implements RowMapper<StoreDto> {
         
         return dto;
     }
+    
 }
