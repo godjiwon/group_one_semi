@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 
-<!--  이 페이지에서만 사용할 JS 코드 -->
+<!--  이 페이지에서만 사용할 JS 코드 11 -->
 <script type="text/javascript">
 	$(function() {
 		//상태객체(React의 state로 개념이 이어짐)
