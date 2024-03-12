@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>메인페이지 임시</h1>
-	
-	<div>
-	<a href="/member/mypage">마이페이지링크(임시)</a>
-	</div>
-	
+		<h1>회원가입완료 임시페이지</h1>
 </body>
 </html>
