@@ -30,4 +30,18 @@ public class MemberDao {
                                 memberDto.getMemberJoin(), memberDto.getMemberUpdate()};
         jdbcTemplate.update(sql, data);
     }
+
+    //member_attach에 첨부파일연결
+	public void connect(String memberId, int attachNo) {
+		String sql = "insert into member_attach(member_id, attach_no) " + "values(?, ?)";
+		Object[] data = {memberId, attachNo};
+		jdbcTemplate.update(sql, data);
+		
+	}
+
+	public int findAttachNo(String memberId) {
+		String sql = "select attach_no from member_attach where member_id = ?";
+		Object[] data = {memberId};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
 }

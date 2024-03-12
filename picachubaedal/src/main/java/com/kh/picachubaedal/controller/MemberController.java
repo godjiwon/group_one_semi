@@ -1,11 +1,20 @@
 package com.kh.picachubaedal.controller;
 
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.picachubaedal.dao.MemberDao;
+import com.kh.picachubaedal.dto.MemberDto;
+import com.kh.picachubaedal.service.AttachService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -13,7 +22,44 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/member")
 public class MemberController {
 
-	//내정보페이지
+	@Autowired
+	MemberDao memberDao;
+	
+	@Autowired
+	private AttachService attachService;
+	
+	//회원가입페이지
+	@GetMapping("/signup")
+	public String signup() {
+		return "/WEB-INF/views/member/signup.jsp";
+	}
+	@PostMapping("/signup")
+	public String signup(@ModelAttribute MemberDto memberDto,
+						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		if(!attach.isEmpty()) {
+			int attachNo = attachService.save(attach);
+			memberDao.connect(memberDto.getMemberId(), attachNo);
+		}
+		
+		return "redirect:signupFinish";
+	}
+	//프사 반환
+	
+	@RequestMapping("/profilePhoto")
+	public String image(HttpSession session) {
+		try {
+			String loginId = (String)session.getAttribute("loginId");
+			int attachNo = memberDao.findAttachNo(loginId);
+			return "redirect:/download?attachNo="+attachNo;
+		}
+		catch(Exception e) {
+			return "redirect:/image/user.png";
+		}
+	}
+	
+	 
+	
+	//내정보페이지11
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
 		
