@@ -20,7 +20,7 @@ public class StoreMapper implements RowMapper<StoreDto> {
         dto.setStoreCategory(rs.getString("store_category"));
         dto.setStoreType(rs.getString("store_type"));
         dto.setStoreContact(rs.getString("store_contact"));
-        dto.setStoreImage(rs.getString("store_image"));
+        dto.setStoreImage(rs.getString("store_image")); // 이미지 경로 설정
         dto.setStoreIntro(rs.getString("store_intro"));
         dto.setStoreDtip(rs.getInt("store_dtip"));
         dto.setStoreMinprice(rs.getInt("store_minprice"));
@@ -33,5 +33,4 @@ public class StoreMapper implements RowMapper<StoreDto> {
         
         return dto;
     }
-    
 }
