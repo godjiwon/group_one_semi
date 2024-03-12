@@ -29,14 +29,14 @@
          <p>
             <strong>주식회사 배달피카츄</strong><br>
             서울특별시 영등포구 선유동2로 57 이레빌딩
-            <span class="bar"> | </span>대표이사 : Group1<span class="bar"> | </span>사업자등록번호 : 000-00-00000
+            <span class="bar"> | </span>대표이사 : 김피카츄<span class="bar"> | </span>사업자등록번호 : 000-00-00000
             <span class="bar"> | </span>개인정보담당자 : 
-            <a href="#">privacy@badalpicachu.co.kr</a>
+            <a href="#">privacy@baedalpikachu.co.kr</a>
             <span class="bar"> | </span>제휴문의 : 
-            <a href="#">partnership@badalpicachu.co.kr</a>
+            <a href="#">partnership@baedalpikachu.co.kr</a>
             <span class="bar" >| </span>고객만족센터 : 
             <span ng-show="#" class="">02-1544-9970(유료) 24시간, 연중무휴</span> 
-            <a href="#">support@badalpicachu.co.kr</a>
+            <a href="#">support@baedalpikachu.co.kr</a>
          </p>
          <div class="footer-terms ng-hide" ng-show="is_mobile_device">
             <a href="#">이용약관</a>

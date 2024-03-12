@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
-	.card {
+   .card {
             box-shadow: 0 0 1px 1px #b2bec3;
     }
     .card > .content-wrapper > .title-wrapper {
@@ -18,50 +18,89 @@
     }
     
     .menu-button-style {
-    	display: flex;
-		justify-content: flex-end;
+       display: flex;
+      justify-content: flex-end;
+    }
+    
+    .menulist {
+      display: flex;
+       flex-direction: column;
+       align-items: center;    
+    }
+    
+    .menuCard {
+       width: 700px;
+    }
+    
+    .menuSubCard {
+      display: flex;
+       flex-direction: column;
+       justify-content: space-between;    
+    }
+    
+    .menu-title-wrapper {
+       font-size: 20px;
+    }
+    
+    .img_wrap {
+       width: 150px;
+       height: 150px;
+       text-align: center;
+       > img {
+           width: 100%;
+          height: 100%;
+          padding: 10px;
+       }
     }
 
 </style>
 
 <div class="cell">
-	<h3 class="menu-button-style">
-		<a class="btn-gradient green small" href="insert">
-			<i class="fa-solid fa-plus"></i>
-			메뉴등록
-		</a>
-	</h3>
-	<c:if test="${menuDto.menuNo > 0}">
-	<div class="cell flex-cell card">
-	    <div class="w-25 flex-cell middle">
-	        <img src="https://via.placeholder.com/200x200?text=F" width="80">
-	    </div>
-	    <div class="content-wrapper width-fill p-10">
-	        <div class="title-wrapper">Test</div>  
-	        <div> 
-	            <span class="yellow">
-	                <i class="fa-solid fa-star"></i> 4.9
-	            </span>
-	            <span class="gray">|</span> 
-	            <span class="review-wrapper">
-	                리뷰 293
-	            </span>
-	            <span class="gray">|</span> 
-	            <span class="reply-wrapper">
-	                사장님댓글 32
-	            </span>
-	        </div>    
-	        <div>
-	            <span class="red">요기서결제</span>
-	            <span class="gray">|</span>
-	            <span class="gray">15,000원 이상 배달</span>
-	        </div>         
-	        <div class="right">
-	            <span class="gray">40~45분</span>
-	        </div> 
-	    </div>
-	</div>
-	</c:if>
+   <h3 class="menu-button-style">
+      <a class="btn-gradient green small" href="insert">
+         <i class="fa-solid fa-plus"></i>
+         메뉴등록
+      </a>
+   </h3>
+   <div class="menulist">
+      <c:forEach var="menuDto" items="${list}">
+         <div class="cell flex-cell card menuCard">
+             <div class="w-25 flex-cell middle">
+                 <div class="img_wrap">
+                    <img src="/image/${menuDto.menuImage}" width="80">
+                 </div>
+             </div>
+             <div class="content-wrapper width-fill p-10 menuSubCard">
+                 <div class="menu-title-wrapper">
+                  <div>${menuDto.menuName}
+                     <c:if test="${menuDto.menuState == 'N'}">
+                        <span class="red review-wrapper">
+                               (품절)
+                           </span>                     
+                        </c:if>
+                  </div>  
+                    <div>  
+                        
+                    </div>    
+                    <div>
+                        <span>${menuDto.menuPrice}원</span>
+                    </div>              
+                 </div>     
+                     
+                 <div class="right">
+                  <a class="btn-gradient blue small" href="insert">
+                     <i class="fa-solid fa-pencil"></i>
+                     수정
+                  </a>
+                  <a class="btn-gradient red small" href="insert">
+                     <i class="fa-solid fa-minus"></i>
+                     삭제
+                  </a>               
+                 </div> 
+             </div>
+         </div>
+      </c:forEach>
+   </div>
 </div>
 
 
