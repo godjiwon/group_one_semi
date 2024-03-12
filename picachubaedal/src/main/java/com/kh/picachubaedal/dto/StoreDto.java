@@ -11,6 +11,7 @@ public class StoreDto {
 	private String storeCategory;
 	private String storeType;
 	private String storeContact;
+	private MultipartFile storeImage;
 	private String storeIntro;
 	private int storeDtip;
 	private int storeMinprice;
@@ -20,14 +21,12 @@ public class StoreDto {
 	private Date storeTime;
 	private Date storeUpdate;
 	private String storeClosed;
-	private String storeImage;
+	
 	
 	public StoreDto() {
 		super();
 	}
 
-	
-	
 	public int getStoreNo() {
 		return storeNo;
 	}
@@ -76,19 +75,13 @@ public class StoreDto {
 		this.storeContact = storeContact;
 	}
 
-	
-
-	public String getStoreImage() {
+	public MultipartFile getStoreImage() {
 		return storeImage;
 	}
 
-
-
-	public void setStoreImage(String storeImage) {
+	public void MultipartFile(MultipartFile storeImage) {
 		this.storeImage = storeImage;
 	}
-
-
 
 	public String getStoreIntro() {
 		return storeIntro;
