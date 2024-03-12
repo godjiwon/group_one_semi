@@ -24,6 +24,7 @@ public class StoreDto {
 	
 	
 	public StoreDto() {
+		
 		super();
 	}
 
@@ -156,4 +157,5 @@ public class StoreDto {
 	}
 	
 	
+
 }
