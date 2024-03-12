@@ -48,10 +48,10 @@
 		font-size: 45px;
       }
       
-      .hr-border {
+      .hr.hr-border {
 		border: 0;
-		height: 3px;
-		background: #ccc;
+    	height: 3px;
+    	background: #fed23d;
       }
    </style>
    
@@ -76,7 +76,7 @@
    <div class="header">
        <div class="header_wrap">
            <a href="/">
-               <img class="image-test" src="/image/pica.png" width="120" height="120">
+               <img class="image-test" src="/image/pica.png" width="110" height="110">
            </a>
            <div class="cell center header-font-style">배츄</div>
          <div class="header_sideMenu right">
@@ -86,7 +86,7 @@
        </div>
    </div>
    
-   <hr class="hr-border">
+   <hr class="hr hr-border">
 
 
         <div class="section">
