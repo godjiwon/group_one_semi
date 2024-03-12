@@ -1,7 +1,6 @@
 package com.kh.picachubaedal.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dto.MemberDto;
+import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.EmailService;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,49 +36,37 @@ public class MemberController {
 	@Autowired
 	private EmailService emailService;
 	
+	@Autowired
+	private AttachService attachService;
+	
 	//회원가입페이지
-		@GetMapping("/signup")
-		public String signup() {
-			return "/WEB-INF/views/member/signup.jsp";
-		}
-		@PostMapping("/signup")
-		public String signup(@ModelAttribute MemberDto memberDto,
-							@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-//			if(!attach.isEmpty()) {
-//				int attachNo = attachService.save(attach);
-//				memberDao.connect(memberDto.getMemberId(), attachNo);
-//			}
-			
-			return "redirect:signupFinish";
+	@GetMapping("/signup")
+	public String signup() {
+		return "/WEB-INF/views/member/signup.jsp";
+	}
+	@PostMapping("/signup")
+	public String signup(@ModelAttribute MemberDto memberDto,
+						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		if(!attach.isEmpty()) {
+			int attachNo = attachService.save(attach);
+			memberDao.connect(memberDto.getMemberId(), attachNo);
 		}
 		
-//		//첨부파일 등록
-//		if(!attach.isEmpty()) {
-//			int attachNo = attachService.save(attach);//파일저장+DB저장
-//			memberDao.connect(memberDto.getMemberId(), attachNo);//연결
-//		}
-		
-		//가입 환영 메일 발송
-//		emailService.sendWelcomeMail(memberDto.getMemberEmail());
-//		
-//		return "redirect:joinFinish";
-//	}
+		return "redirect:signupFinish";
+	}
 	@RequestMapping("/signupFinish")
 	public String joinFinish() {
 		return "/WEB-INF/views/member/signupFinish.jsp";
 	}
 	
 
-	
 	//로그인
-	//- 아이디와 비밀번호 검사를 통과해야만 세션에 데이터를 추가한다
-	//- 사용자가 입력한 아이디를 추가한다
-	@GetMapping("/login")
-	public String login() {
-		return "/WEB-INF/views/member/login.jsp";
+	@GetMapping("/signin")
+	public String signin() {
+		return "/WEB-INF/views/member/signin.jsp";
 	}
-	@PostMapping("/login")
-	public String login(@ModelAttribute MemberDto inputDto, 
+	@PostMapping("/signin")
+	public String signin(@ModelAttribute MemberDto inputDto, 
 																HttpSession session) {
 		//사용자가 입력한 아이디로 회원정보를 조회한다
 		MemberDto findDto = memberDao.selectOne(inputDto.getMemberId());
@@ -90,7 +77,7 @@ public class MemberController {
 		if(isValid) {
 			//세션에 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
-			session.setAttribute("loginLevel", findDto.getMemberGrade());
+			session.setAttribute("loginGrade", findDto.getMemberGrade());
 			
 			//최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
@@ -102,20 +89,31 @@ public class MemberController {
 		}
 	}
 	
-	//실제 로그아웃
-	//- 로그인 때 검사를 했으므로 추가 검사는 불필요
-	//- 로그인 때 저장한 세션의 데이터만 삭제 처리
+	//로그아웃
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId");//세션의 값 삭제
-		session.removeAttribute("loginLevel");//세션의 값 삭제
-//		session.invalidate();//세션 삭제(비추천)
+		session.removeAttribute("loginGrade");//세션의 값 삭제
 		return "redirect:/";
 	}
 	
+	
+	//프사 반환	
+	@RequestMapping("/profilePhoto")
+	public String image(HttpSession session) {
+		try {
+			String loginId = (String)session.getAttribute("loginId");
+			int attachNo = memberDao.findAttachNo(loginId);
+			return "redirect:/download?attachNo="+attachNo;
+		}
+		catch(Exception e) {
+			return "redirect:/image/user.png";
+		}
+	}
+
 	//마이페이지
-	//- (중요) 내 아이디는 HttpSession에 있다
-	//- 그리고 화면에 정보를 표시해야 한다
+
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
 		//1. 세션에 저장된 아이디를 꺼낸다
@@ -130,12 +128,12 @@ public class MemberController {
 		//(추가) 현재 사용자의 구매내역을 첨부
 		//model.addAttribute("buyList", buyDao.selectList(loginId));
 		
-		//(추가) 현재 사용자의 작성 글 내역을 첨부
-		
+		//(추가) 현재 사용자의 작성 글 내역을 첨부	
 		
 		//4. 연결될 화면을 반환한다
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
+	
 	
 	//비밀번호 변경
 	@GetMapping("/password")
@@ -254,18 +252,6 @@ public class MemberController {
 		return "/WEB-INF/views/member/exitFinish.jsp";
 	}
 	
-	//프로필 다운로드 페이지
-	@RequestMapping("/image")
-	public String image(HttpSession session) {
-		try {
-			String loginId = (String)session.getAttribute("loginId");
-			int attachNo = memberDao.findAttachNo(loginId);
-			return "redirect:/download?attachNo="+attachNo;
-		}
-		catch(Exception e) {
-			return "redirect:/image/user.png";
-		}
-	}
 	
 	
 	//아이디 찾기
