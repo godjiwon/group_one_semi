@@ -1,8 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제목을 설정하세요</title>
 
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
-<!--  이 페이지에서만 사용할 JS 코드 11 -->
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/commons.css">
+    <link rel="stylesheet" type="text/css" href="/css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        
+    </style>
+    <!--jquery CDN-->
+    <script src="
+    https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+    <!-- lightpick CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/css/lightpick.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/lightpick.min.js"></script>
+
 <script type="text/javascript">
 	$(function() {
 		//상태객체(React의 state로 개념이 이어짐)
@@ -13,8 +41,8 @@
 			memberPwCheckValid : false,
 			memberNickValid : false,
 			memberEmailValid : false,
-			memberContactValid : false, //선택항목
-			memberAddressValid : false,//선택항목
+			memberContactValid : false, 
+			memberAddressValid : false,
 			//객체에 함수를 변수처럼 생성할 수 있다
 			//- this는 객체 자신(자바와 동일하지만 생략이 불가능)
 			ok : function() {
@@ -113,117 +141,6 @@
 										"fail");
 					}
 				});
-		//인증을 마쳤는데 추가 입력을 하는 경우는 모든 상태를 초기화
-		//- 이메일 판정 취소
-		//- 이메일 피드백 제거
-		//- 인증번호 입력창 제거
-		$("[name=memberEmail]").on("input", function() {
-			if (state.memberEmailValid) {
-				state.memberEmailValid = false;
-				$(this).removeClass("success fail");
-				$(".cert-wrapper").empty();
-			}
-		});
-		//이메일 입력을 마친 상황일 때 잘못 입력한 경우만큼은 상태를 갱신
-		$("[name=memberEmail]").blur(
-				function() {
-					var regex = /^[a-z0-9]{8,20}@[a-z0-9\.]{1,20}$/;
-					var value = $(this).val();
-
-					var isValid = regex.test(value);
-
-					if (isValid == false) {
-						state.memberEmailValid = false;
-					}
-
-					$(this).removeClass("success fail").addClass(
-							isValid ? "success" : "fail");
-					//뒤에 있는 보내기버튼을 활성화 또는 비활성화
-					$(this).next(".btn-send-cert").prop("disabled", !isValid)
-							.removeClass("positive negative").addClass(
-									isValid ? "positive" : "negative");
-				});
-		//인증메일 보내기 이벤트
-		var memberEmail;
-		$(".btn-send-cert").click(
-				function() {
-					var btn = this;
-					$(btn).find("span").text("전송중");
-					$(btn).find("i").removeClass("fa-regular fa-paper-plane")
-							.addClass("fa-solid fa-spinner fa-spin");
-					$(btn).prop("disabled", true);
-
-					//이메일 불러오기
-					var email = $("[name=memberEmail]").val();
-					if (email.length == 0)
-						return;
-
-					$.ajax({
-						url : "/rest/member/sendCert",
-						method : "post",
-						data : {
-							memberEmail : email
-						},
-						success : function(response) {
-							//템플릿을 불러와서 인증번호 입력창을 추가
-							var templateText = $("#cert-template").text();
-							var templateHtml = $.parseHTML(templateText);
-
-							$(".cert-wrapper").empty().append(templateHtml);
-							//$(".cert-wrapper").html(templateHtml);
-
-							//이메일 정보를 저장
-							memberEmail = email;
-						},
-						error : function() {
-							alert("시스템 오류. 잠시 후 이용바람");
-						},
-						complete : function() {
-							$(btn).find("span").text("보내기");
-							$(btn).find("i").removeClass(
-									"fa-solid fa-spinner fa-spin").addClass(
-									"fa-regular fa-paper-plane");
-							$(btn).prop("disabled", false);
-						},
-					});
-				});
-		//인증번호 확인버튼 이벤트
-		$(document).on(
-				"click",
-				".btn-check-cert",
-				function() {
-					var number = $(".cert-input").val();//인증번호
-					if (memberEmail == undefined || number.length == 0)
-						return;
-
-					$.ajax({
-						url : "/rest/member/checkCert",
-						method : "post",
-						data : {
-							certEmail : memberEmail,
-							certNumber : number
-						},
-						success : function(response) {
-							//response는 true 아니면 false이므로 상태를 갱신하도록 처리
-							$(".cert-input").removeClass("success fail")
-									.addClass(
-											response === true ? "success"
-													: "fail");
-							if (response === true) {
-								//$(".btn-check-cert").off("click");
-								//$(".btn-check-cert").remove();
-								$(".btn-check-cert").prop("disabled", true);
-								state.memberEmailValid = true;
-							} else {
-								state.memberEmailValid = false;
-							}
-						},
-						error : function() {
-							alert("확인 과정에서 오류가 발생했습니다");
-						},
-					//complete:function(){}
-					});
-				});
 
 		$("[name=memberContact]").blur(
 				function() {
@@ -273,15 +190,6 @@
 	        });
 	    });
 </script>
-<script type="text/template" id="cert-template">
-        <div>
-            <input type="text" class="tool cert-input" 
-                                        placeholder="인증번호">
-            <button type="button" class="btn btn-check-cert">확인</button>
-            <div class="success-feedback">이메일 인증 완료</div>
-            <div class="fail-feedback">인증번호 불일치</div>
-        </div>
-</script>
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -320,8 +228,8 @@
 		});
 	});
 </script>
-
-<form action="join" method="post" enctype="multipart/form-data"
+<body>
+<form action="signup" method="post" enctype="multipart/form-data"
 	autocomplete="off" class="check-form">
 
 	<div class="container w-500">
@@ -434,6 +342,9 @@
 					</div>
 				</div>
 			</div>
-
+</div>
 		</div>
 </form>
+</head>
+</html>
+</body>
