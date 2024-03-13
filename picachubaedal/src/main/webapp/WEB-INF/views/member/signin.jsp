@@ -152,10 +152,9 @@
 			</div>
 
 			<div class="cell center">
-				<a href="findId">아이디가 기억나지 않습니다</a>
-			</div>
-			<div class="cell center">
-				<a href="findPw">비밀번호가 기억나지 않습니다</a>
+				<a href="findId">아이디 찾기</a>
+				<a href="findPw">비밀번호 찾기</a>
+				<a href="signup">회원가입</a>
 			</div>
 			<c:if test="${param.error != null}">
 				<div class="cell center">

@@ -9,12 +9,13 @@
 	<div class="cell">
 		<h1>${memberDto.memberId}님의 페이지</h1>
 	</div>
-	<div class="cell floating-cell">
-		<div class="w-25">
+	<div class="cell floating-cell" >
+		<div class="w-25 row">
+		<div class="col-md-3">
 			<div class="cell center">
 				<img src="image" width="150" height="150">
 			</div>
-			<div class="cell center">
+			<div class="cell center" >
 				<h2><a class="link link-animation" href="/member/password">비밀번호 변경</a></h2>
 			</div>
 			<div class="cell center">
@@ -23,6 +24,7 @@
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/exit">회원 탈퇴</a></h2>
 			</div>
+		</div>
 		</div>
 		<div class="w-75">
 			<div class="cell">
