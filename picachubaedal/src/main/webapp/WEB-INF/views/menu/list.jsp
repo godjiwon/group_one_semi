@@ -30,6 +30,7 @@
     
     .menuCard {
        width: 700px;
+       height: 100px
     }
     
     .menuSubCard {
@@ -44,7 +45,7 @@
     
     .img_wrap {
        width: 150px;
-       height: 150px;
+       height: 100px;
        text-align: center;
        > img {
            width: 100%;
@@ -52,12 +53,17 @@
           padding: 10px;
        }
     }
+    
+    .list-button-style{
+    	font-size: 16px;
+        text-decoration: none;
+    }
 
 </style>
 
 <div class="cell">
    <h3 class="menu-button-style">
-      <a class="btn-gradient green small" href="insert">
+      <a class="list-button-style gray" href="insert">
          <i class="fa-solid fa-plus"></i>
          메뉴등록
       </a>
@@ -88,11 +94,12 @@
                  </div>     
                      
                  <div class="right">
-                  <a class="btn-gradient blue small" href="insert">
+                  <a class="list-button-style blue" href="edit">
                      <i class="fa-solid fa-pencil"></i>
                      수정
                   </a>
-                  <a class="btn-gradient red small" href="insert">
+                  <span> | </span>
+                  <a class="list-button-style gray" href="delete">
                      <i class="fa-solid fa-minus"></i>
                      삭제
                   </a>               

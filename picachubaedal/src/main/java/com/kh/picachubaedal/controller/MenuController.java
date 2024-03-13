@@ -1,5 +1,7 @@
 package com.kh.picachubaedal.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.MenuDao;
 import com.kh.picachubaedal.dto.MenuDto;
 import com.kh.picachubaedal.vo.PageVO;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -54,4 +59,21 @@ public class MenuController {
 			
 		return "/WEB-INF/views/menu/list.jsp";
 	}
+	
+	  @RequestMapping("/menuFileUpload")
+	   public void menuFileUpload(MultipartFile file, HttpServletRequest request) {
+	      String filePath = request.getSession().getServletContext().getRealPath("/resources/image/");
+	      try {
+	         FileOutputStream fos = new FileOutputStream(filePath + file.getOriginalFilename());
+	         InputStream is = file.getInputStream();
+	         
+	         int readCount = 0;
+	           byte[] buffer = new byte[1024];
+	           while ((readCount = is.read(buffer)) != -1) {
+	               fos.write(buffer, 0, readCount);
+	           }
+	      } catch (Exception e) {
+	         System.out.println(e);
+	      }
+	   }
 }

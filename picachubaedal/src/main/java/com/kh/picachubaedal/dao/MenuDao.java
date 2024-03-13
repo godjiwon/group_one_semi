@@ -23,7 +23,7 @@ public class MenuDao {
 	public void insert(MenuDto menuDto) {
 		String sql = "insert into menu(menu_no, store_no, menu_category, menu_name, menu_price, menu_image, "
 						+ "menu_state, menu_time, menu_update) "
-						+ "values(menu_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ "values(menu_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		Object[] data = {
 				menuDto.getStoreNo(),
 				menuDto.getMenuCategory(),
@@ -31,28 +31,26 @@ public class MenuDao {
 				menuDto.getMenuPrice(),
 				menuDto.getMenuImage(),
 				menuDto.getMenuState(),
-				menuDto.getMenuTime(),
 				menuDto.getMenuUpdate(),
 				};
 		jdbcTemplate.update(sql, data);
 	}
 	
-	//수정
-	public boolean update(MenuDto menuDto) {
-		String sql = "update menu set menu_category=?, menu_name=?, menu_price=?, menu_image=?, menu_state=?, menu_time=?, menu_update=?"
-				+ "where menu_no=?";
-		Object[] data = {
-				menuDto.getMenuCategory(),
-				menuDto.getMenuName(),
-				menuDto.getMenuPrice(),
-				menuDto.getMenuImage(),
-				menuDto.getMenuState(),
-				menuDto.getMenuTime(),
-				menuDto.getMenuUpdate(),
-				menuDto.getMenuNo()
-		};
-		return jdbcTemplate.update(sql, data) > 0;
-	}
+   //수정
+   public boolean update(MenuDto menuDto) {
+      String sql = "update menu set menu_category=?, menu_name=?, menu_price=?, menu_image=?, menu_state=?, menu_time=?, menu_update=SYSDATE"
+    		  		+ "where menu_no=?";
+      Object[] data = {
+            menuDto.getMenuCategory(),
+            menuDto.getMenuName(),
+            menuDto.getMenuPrice(),
+            menuDto.getMenuImage(),
+            menuDto.getMenuState(),
+            menuDto.getMenuTime(),
+            menuDto.getMenuNo()
+      };
+      return jdbcTemplate.update(sql, data) > 0;
+   }
 	
 	//삭제
 	public boolean delete(int menuNo) {
