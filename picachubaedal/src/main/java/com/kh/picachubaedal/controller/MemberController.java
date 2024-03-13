@@ -272,12 +272,11 @@ public class MemberController {
         String memberId = memberDao.findMemberIdByNick(memberNick);
         if (memberId != null) {
             model.addAttribute("memberId", memberId);
-            return "/WEB-INF/views/member/findId.jsp";
-        } else {
-            return "redirect:/findIdFail";
+            model.addAttribute("memberNick", memberNick);
         }
+        return "/WEB-INF/views/member/findId.jsp";
     }
-}
+
 	
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {
