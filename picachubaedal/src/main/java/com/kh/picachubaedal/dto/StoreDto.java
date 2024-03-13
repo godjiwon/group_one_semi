@@ -2,31 +2,27 @@ package com.kh.picachubaedal.dto;
 
 import java.sql.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class StoreDto {
-	private int storeNo;
-	private String storeName;
-	private String StoreAddress;
-	private String storeCategory;
-	private String storeType;
-	private String storeContact;
-	private MultipartFile storeImage;
-	private String storeIntro;
-	private int storeDtip;
-	private int storeMinprice;
-	private int storeLike;
-	private String storeHours;
-	private String storeDelivery;
-	private Date storeTime;
-	private Date storeUpdate;
-	private String storeClosed;
-	
-	
-	public StoreDto() {
-		
-		super();
-	}
+    private int storeNo;
+    private String storeName;
+    private String storeAddress;
+    private String storeCategory;
+    private String storeType;
+    private String storeContact;
+    private String storeImage; // 이미지 파일의 경로를 저장할 필드
+    private String storeIntro;
+    private int storeDtip;
+    private int storeMinprice;
+    private int storeLike;
+    private String storeHours;
+    private String storeDelivery;
+    private Date storeTime;
+    private Date storeUpdate;
+    private String storeClosed;
+    
+    public StoreDto() {
+        super();
+    }
 
 	public int getStoreNo() {
 		return storeNo;
@@ -45,11 +41,11 @@ public class StoreDto {
 	}
 
 	public String getStoreAddress() {
-		return StoreAddress;
+		return storeAddress;
 	}
 
 	public void setStoreAddress(String storeAddress) {
-		StoreAddress = storeAddress;
+		this.storeAddress = storeAddress;
 	}
 
 	public String getStoreCategory() {
@@ -76,11 +72,11 @@ public class StoreDto {
 		this.storeContact = storeContact;
 	}
 
-	public MultipartFile getStoreImage() {
+	public String getStoreImage() {
 		return storeImage;
 	}
 
-	public void MultipartFile(MultipartFile storeImage) {
+	public void setStoreImage(String storeImage) {
 		this.storeImage = storeImage;
 	}
 
@@ -155,7 +151,5 @@ public class StoreDto {
 	public void setStoreClosed(String storeClosed) {
 		this.storeClosed = storeClosed;
 	}
-	
-	
-
+    
 }

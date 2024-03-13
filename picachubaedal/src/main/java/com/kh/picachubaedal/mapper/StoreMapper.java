@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import com.kh.picachubaedal.dto.StoreDto;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class StoreMapper implements RowMapper<StoreDto> {
@@ -21,12 +20,7 @@ public class StoreMapper implements RowMapper<StoreDto> {
         dto.setStoreCategory(rs.getString("store_category"));
         dto.setStoreType(rs.getString("store_type"));
         dto.setStoreContact(rs.getString("store_contact"));
-        // 이미지는 문자열 대신 MultipartFile로 설정
-        // 이미지 데이터는 DB에서 가져오지 않으므로 이 부분을 수정해야 합니다.
-        // 파일의 경로 또는 기타 파일 관련 정보를 DTO에 저장할 수 있어야 합니다.
-        // 따라서 DB에서 이미지 경로를 가져와서 DTO에 설정하거나, 필요에 따라 처리해야 합니다.
-        // 이 예시에서는 MultipartFile을 직접 설정하지 않습니다.
-        // dto.setStoreImage(rs.getString("store_image")); 
+        dto.setStoreImage(rs.getString("store_image")); // 이미지 파일의 경로를 문자열로 설정
 
         dto.setStoreIntro(rs.getString("store_intro"));
         dto.setStoreDtip(rs.getInt("store_dtip"));
@@ -39,6 +33,5 @@ public class StoreMapper implements RowMapper<StoreDto> {
         dto.setStoreClosed(rs.getString("store_closed"));
         
         return dto;
-    
     }
 }

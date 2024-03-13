@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.StoreMapper;
+import com.kh.picachubaedal.vo.PageVO;
+
 
 @Repository
 public class StoreDao {
@@ -87,6 +89,66 @@ public class StoreDao {
 	    List<StoreDto> list = jdbcTemplate.query(sql, storeMapper, data);
 	    return list.isEmpty() ? null : list.get(0);
 	}
+	
+	// 가게 통계
+//	@Autowired
+//	StatMapper statMapper;
+	
+//	public List<StatVO> countByStoreType(){
+//		String sql = "select store_category 항목, count(*) 개수 from store "
+//				+ "group by store_category order by 개수 des, 항목 asc";
+//		return jdbcTemplate.query(sql, statMapper);
+//	}
+	
+	//페이징을 위한 목록/검색/카운트 구현
+	public List<StoreDto> selectListByPaging(PageVO pageVO) {
+	    if (pageVO.isSearch()) {
+	        String sql = "SELECT * FROM (SELECT ROWNUM AS rn, store_no, store_name, store_address, store_category, "
+	                + "store_type, store_contact, store_image, store_intro, store_dtip, store_minprice, "
+	                + "store_like, store_hours, store_delivery, store_time, store_update, store_closed "
+	                + "FROM (SELECT * FROM store WHERE instr(upper(" + pageVO.getColumn() + "), upper(?)) > 0 "
+	                + "ORDER BY " + pageVO.getColumn() + " ASC, store_no ASC) "
+	                + "WHERE ROWNUM <= ?) "
+	                + "WHERE rn >= ?";
+
+	        Object[] data = { pageVO.getKeyword(), pageVO.getEndRow(), pageVO.getBeginRow() };
+	        return jdbcTemplate.query(sql, storeMapper, data);
+	    } else {
+	        String sql = "SELECT * FROM (SELECT ROWNUM AS rn, store_no, store_name, store_address, store_category, "
+	                + "store_type, store_contact, store_image, store_intro, store_dtip, store_minprice, "
+	                + "store_like, store_hours, store_delivery, store_time, store_update, store_closed "
+	                + "FROM store WHERE ROWNUM <= ?) "
+	                + "WHERE rn >= ?";
+
+	        Object[] data = { pageVO.getEndRow(), pageVO.getBeginRow() };
+	        return jdbcTemplate.query(sql, storeMapper, data);
+	    }
+	}
+
+	public int count(PageVO pageVO) {
+		if(pageVO.isSearch()) {
+			String sql = "select count(*) from store "
+					+ "where instr("+pageVO.getColumn()+", ?) > 0";
+			Object[] data = {pageVO.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
+		}
+		else {
+			String sql = "select count(*) from store";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 }
