@@ -1,5 +1,7 @@
 package com.kh.picachubaedal.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dto.StoreDto;
+import com.kh.picachubaedal.vo.PageVO;
 
 @Controller
 @RequestMapping("/store")
@@ -87,6 +90,19 @@ public class StoreController {
 		storeDao.delete(storeNo);
 		return "redirect:list";
 	}
+	
+	@RequestMapping("/list")
+	public String list(@ModelAttribute PageVO pageVO, Model model) {
+	    int count = storeDao.count(pageVO);
+	    pageVO.setCount(count);
+	    model.addAttribute("pageVO", pageVO);
+
+	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+	    model.addAttribute("list", list);
+
+	    return "/WEB-INF/views/store/list2.jsp";
+	}
+
 	
 	
 	
