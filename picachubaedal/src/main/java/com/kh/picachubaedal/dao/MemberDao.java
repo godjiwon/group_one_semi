@@ -71,7 +71,7 @@ public class MemberDao {
 	//최종로그인시각 변경(수정, Update)
 	public boolean updateMemberLogin(String memberId) {
 		String sql = "update member "
-						+ "set member_signin=sysdate "
+						+ "set member_update=sysdate "
 						+ "where member_id = ?";
 		Object[] data = {memberId};
 		return jdbcTemplate.update(sql, data) > 0;

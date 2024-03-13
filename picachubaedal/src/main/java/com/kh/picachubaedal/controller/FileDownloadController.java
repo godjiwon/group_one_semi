@@ -38,7 +38,7 @@ public class FileDownloadController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		File dir = new File(System.getProperty("user.home"), "upload");
+		File dir = new File(System.getProperty("user.home"), "kh13A");
 		File target = new File(dir, String.valueOf(attachDto.getAttachNo()));
 		
 		byte[] data = FileUtils.readFileToByteArray(target);
