@@ -47,7 +47,7 @@ public class MemberController {
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute MemberDto memberDto,
 						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		
+		//회원 등록
 		memberDao.insert(memberDto);
 		
 		if(!attach.isEmpty()) {
