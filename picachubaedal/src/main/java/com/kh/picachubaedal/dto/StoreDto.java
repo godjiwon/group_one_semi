@@ -2,6 +2,8 @@ package com.kh.picachubaedal.dto;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class StoreDto {
 	private int storeNo;
 	private String storeName;
@@ -9,7 +11,7 @@ public class StoreDto {
 	private String storeCategory;
 	private String storeType;
 	private String storeContact;
-	private String storeImage;
+	private MultipartFile storeImage;
 	private String storeIntro;
 	private int storeDtip;
 	private int storeMinprice;
@@ -20,7 +22,9 @@ public class StoreDto {
 	private Date storeUpdate;
 	private String storeClosed;
 	
+	
 	public StoreDto() {
+		
 		super();
 	}
 
@@ -72,11 +76,11 @@ public class StoreDto {
 		this.storeContact = storeContact;
 	}
 
-	public String getStoreImage() {
+	public MultipartFile getStoreImage() {
 		return storeImage;
 	}
 
-	public void setStoreImage(String storeImage) {
+	public void MultipartFile(MultipartFile storeImage) {
 		this.storeImage = storeImage;
 	}
 
@@ -153,4 +157,5 @@ public class StoreDto {
 	}
 	
 	
+
 }
