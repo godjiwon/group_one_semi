@@ -31,16 +31,36 @@ public class StoreDao {
 
 	// 수정 (가게 수정)
 	public boolean update(StoreDto storeDto) {
-		String sql = "update store set "
-				+ "store_name=?, store_address=?, store_category=?, store_type=?, store_contact=?, "
-				+ "store_image=?, store_intro=?, store_dtip=?, store_minprice=?, store_hours=?, "
-				+ "store_delivery=?, store_closed=?";
-		Object[] data = { storeDto.getStoreName(), storeDto.getStoreAddress(), storeDto.getStoreType(),
-				storeDto.getStoreContact(), storeDto.getStoreImage(), storeDto.getStoreIntro(), storeDto.getStoreDtip(),
-				storeDto.getStoreMinprice(), storeDto.getStoreHours(), storeDto.getStoreDelivery(),
-				storeDto.getStoreClosed() };
-		return jdbcTemplate.update(sql, data) > 0;
+	    String sql = "update store set "
+	            + "store_name=?, store_address=?, store_category=?, store_type=?, store_contact=?, "
+	            + "store_intro=?, store_dtip=?, store_minprice=?, store_hours=?, "
+	            + "store_delivery=?, store_closed=? "; // store_image 제거
+	    // store_image는 조건에 따라 추가되도록 함
+	    Object[] data;
+	    if (storeDto.getStoreImage() != null) {
+	        sql += ", store_image=?"; // store_image가 null이 아닌 경우에만 추가
+	        data = new Object[]{
+	                storeDto.getStoreName(), storeDto.getStoreAddress(), storeDto.getStoreCategory(),
+	                storeDto.getStoreType(), storeDto.getStoreContact(), 
+	                storeDto.getStoreIntro(), storeDto.getStoreDtip(), storeDto.getStoreMinprice(),
+	                storeDto.getStoreHours(), storeDto.getStoreDelivery(), storeDto.getStoreClosed(),
+	                storeDto.getStoreImage(), // store_image 추가
+	                storeDto.getStoreNo()
+	        };
+	    } else {
+	        data = new Object[]{
+	                storeDto.getStoreName(), storeDto.getStoreAddress(), storeDto.getStoreCategory(),
+	                storeDto.getStoreType(), storeDto.getStoreContact(), 
+	                storeDto.getStoreIntro(), storeDto.getStoreDtip(), storeDto.getStoreMinprice(),
+	                storeDto.getStoreHours(), storeDto.getStoreDelivery(), storeDto.getStoreClosed(),
+	                storeDto.getStoreNo()
+	        };
+	    }
+	    sql += " where store_no=?"; // WHERE 조건 추가
+	    return jdbcTemplate.update(sql, data) > 0;
 	}
+
+
 
 	// 삭제 (가게 삭제)
 	public boolean delete(int storeNo) {
@@ -61,11 +81,12 @@ public class StoreDao {
 		Object[] data = {keyword};
 		return jdbcTemplate.query(sql, storeMapper, data);
 	}
-	public StoreDto selectOne(int storeName) {
-		String sql = "select * from store where store_name = ?";
-		Object[] data = {storeName};
-		List<StoreDto> list = jdbcTemplate.query(sql, storeMapper, data);
-		return list.isEmpty() ? null : list.get(0);
+	public StoreDto selectOne(int storeNo) {
+	    String sql = "select * from store where store_no = ?";
+	    Object[] data = { storeNo };
+	    List<StoreDto> list = jdbcTemplate.query(sql, storeMapper, data);
+	    return list.isEmpty() ? null : list.get(0);
 	}
+
 	
 }
