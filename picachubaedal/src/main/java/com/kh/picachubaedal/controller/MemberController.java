@@ -260,23 +260,22 @@ public class MemberController {
 	}
 	
 	
-	
 	//아이디 찾기
-	@GetMapping("/findId")
-	public String findId() {
-		return "/WEB-INF/views/member/findId.jsp";
-	}
-	
-	@PostMapping("/findId")
-	public String findId(@RequestParam String memberNick) {
-		boolean result = emailService.sendMemberId(memberNick);
-		if(result) {
-			return "redirect:findIdSuccess";
+		@GetMapping("/findId")
+		public String findId() {
+			return "/WEB-INF/views/member/findId.jsp";
 		}
-		else {
-			return "redirect:findIdFail";
-		}
-	}
+		
+		@PostMapping("/findId")
+		 public String findId(@RequestParam String memberNick, Model model) {
+	        String memberId = memberDao.findMemberIdByNick(memberNick);
+	        if (memberId != null) {
+	            model.addAttribute("memberId", memberId);
+	            model.addAttribute("memberNick", memberNick);
+	        }
+	        return "/WEB-INF/views/member/findId.jsp";
+	    }
+
 	
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {
