@@ -33,12 +33,12 @@ public class StoreController {
 	@Autowired
 	private StoreDao storeDao;
 	
-	@GetMapping("/insert") //가게 등록
+	@GetMapping("/insert1") //가게 등록
 	public String insert() {
-		return "/WEB-INF/views/store/insert.jsp";
+		return "/WEB-INF/views/store/insert1.jsp";
 	}
 	
-	@PostMapping("/insert")
+	@PostMapping("/insert1")
 	public String insert(@ModelAttribute StoreDto storeDto) {
 		storeDao.insert(storeDto);
 		return "redirect:insertFinish";
