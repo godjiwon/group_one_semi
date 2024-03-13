@@ -30,7 +30,7 @@ public class MemberController {
 	//private AttachDao attachDao;
 	
 	//@Autowired
-	//private AttachService attachService;
+	//private AttachService attachService;.
 	
 	
 	@Autowired
@@ -47,9 +47,9 @@ public class MemberController {
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute MemberDto memberDto,
 						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		
+		//회원정보 등록
 		memberDao.insert(memberDto);
-		
+		//첨부파일 등록
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
@@ -58,13 +58,9 @@ public class MemberController {
 		return "redirect:signupFinish";
 	}
 	@RequestMapping("/signupFinish")
-
-	public String signupFinish() {
+	public String joinFinish() {
 		return "/WEB-INF/views/member/signupFinish.jsp";
 	}
-	
-	//프사 반환
-
 	
 
 	//로그인
@@ -302,7 +298,7 @@ public class MemberController {
 		//아이디가 있으면서 이메일까지 일치한다면 통과하는 것으로 판정
 		boolean isValid = findDto != null && 
 				findDto.getMemberEmail().equals(memberDto.getMemberEmail());
-		
+		memberDao.insert(memberDto);
 		if(isValid) {
 			//emailService.sendTempPassword(findDto);
 			return "redirect:findPwSuccess";
