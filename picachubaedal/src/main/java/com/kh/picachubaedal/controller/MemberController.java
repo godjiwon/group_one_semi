@@ -298,7 +298,7 @@ public class MemberController {
 		//아이디가 있으면서 이메일까지 일치한다면 통과하는 것으로 판정
 		boolean isValid = findDto != null && 
 				findDto.getMemberEmail().equals(memberDto.getMemberEmail());
-		
+		memberDao.insert(memberDto);
 		if(isValid) {
 			//emailService.sendTempPassword(findDto);
 			return "redirect:findPwSuccess";
