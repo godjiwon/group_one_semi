@@ -268,15 +268,16 @@ public class MemberController {
 	}
 	
 	@PostMapping("/findId")
-	public String findId(@RequestParam String memberNick) {
-		boolean result = emailService.sendMemberId(memberNick);
-		if(result) {
-			return "redirect:findIdSuccess";
-		}
-		else {
-			return "redirect:findIdFail";
-		}
-	}
+	 public String findId(@RequestParam String memberNick, Model model) {
+        String memberId = memberDao.findMemberIdByNick(memberNick);
+        if (memberId != null) {
+            model.addAttribute("memberId", memberId);
+            return "/WEB-INF/views/member/findId.jsp";
+        } else {
+            return "redirect:/findIdFail";
+        }
+    }
+}
 	
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {

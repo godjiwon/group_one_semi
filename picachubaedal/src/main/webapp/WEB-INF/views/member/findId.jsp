@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>아이디 찾기 결과</title>
     <!-- 여기에 CSS 링크 및 필요한 스타일 시트 등을 추가할 수 있습니다. -->
 </head>
 <body>
     <div class="cell">
         <form action="findId" method="post" autocomplete="off">
-            <div class="container w-400">
+            <div class="container center w-400">
                 <div class="cell center">
                     <h1>아이디 찾기</h1>
                 </div>
@@ -25,6 +24,9 @@
             </div>
         </form>
     </div>
+    
+    <%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
     <div class="cell">
         <div class="container w-400">

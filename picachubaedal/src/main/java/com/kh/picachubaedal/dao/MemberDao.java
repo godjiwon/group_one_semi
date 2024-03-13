@@ -130,6 +130,16 @@ public class MemberDao {
 		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+
+	 public String findMemberIdByNick(String memberNick) {
+	        String sql = "SELECT member_id FROM member WHERE member_nick = ?";
+	        try {
+	            return jdbcTemplate.queryForObject(sql, new Object[]{memberNick}, String.class);
+	        } catch (Exception e) {
+	            // 예외 처리
+	            return null;
+	        }
+	    }
 }
 
  
