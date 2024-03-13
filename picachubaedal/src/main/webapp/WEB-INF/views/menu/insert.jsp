@@ -86,10 +86,9 @@ function insertMenu(file) {
 	    success: function(response) {
 	        if(file !== null && file !== undefined) {
 	        	insertMenuImage(file, response)
+	        } else {
+	        	window.location.href = "/menu/list";
 	        }
-	    },
-	    error: function(xhr, status, error) {
-	        console.error("메뉴 추가 중 오류가 발생하였습니다:", error);
 	    }
    });  
 }
@@ -101,7 +100,7 @@ $(function(){
 
     $("[name='insertMenuButton']").on("click", function(){
         const file = fileInput[0].files[0];
-        insertMenu(imageFile);
+        insertMenu(file);
     }); 
 
     dropArea.on("dragover", (e) => {
@@ -157,7 +156,7 @@ function displayImage(file) {
 </div>
 <div>
    <form method="post" id="insert_form">
-      <input type="hidden" name="storeNo" value="2">
+      <input type="hidden" name="storeNo" value="${storeNo }">
       <section>
           <div class="menuArea container">
               <div id="drop-area">

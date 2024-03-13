@@ -42,8 +42,8 @@
 </div>
 <div>
    <form method="post" id="insert_form" action="change" autocomplete="off">
-      <input type="hidden" name="storeNo" value="${dto.storeNo}">
-      <input type="hidden" name="menuNo" value="${dto.menuNo}">
+      <input type="hidden" name="storeNo" value="${storeNo}">
+      <input type="hidden" name="menuNo" value="${menuNo}">
       <section>
           <div class="menuArea container">
               <div id="drop-area">

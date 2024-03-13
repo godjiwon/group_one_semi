@@ -33,7 +33,8 @@ public class MenuController {
    
    //입력
    @GetMapping("/insert")
-   public String insert() {
+   public String insert(@RequestParam int storeNo, Model model) {
+	  model.addAttribute("storeNo", storeNo);
       return "/WEB-INF/views/menu/insert.jsp";
    }
 
