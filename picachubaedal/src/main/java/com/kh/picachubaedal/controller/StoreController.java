@@ -49,6 +49,8 @@ public class StoreController {
 	@GetMapping("/change")
 	public String change(Model model, @RequestParam int storeNo) {
 		StoreDto dto = storeDao.selectOne(storeNo);
+		
+		
 		if(dto == null) {
 			return "redirect:changeFail";
 		}
@@ -78,7 +80,13 @@ public class StoreController {
 		model.addAttribute("dto",dto);
 		return "/WEB-INF/views/store/detail.jsp";
 	}
-
+	
+	//삭제
+	@GetMapping("/delete")
+	public String delete(@RequestParam int storeNo) {
+		storeDao.delete(storeNo);
+		return "redirect:list";
+	}
 	
 	
 	
