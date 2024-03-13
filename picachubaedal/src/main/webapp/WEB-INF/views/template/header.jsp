@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -80,8 +80,22 @@
            </a>
            <div class="cell center header-font-style">배츄</div>
          <div class="header_sideMenu right">
-              <a class="me-10"href="#">로그인</a>
-              <a href="#">회원가입</a>
+              <c:choose>
+						<c:when test="${sessionScope.loginId != null}">
+							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
+								${sessionScope.loginId}
+							</a>
+							<ul>
+								<a href="/member/mypage">마이페이지</a>
+								<a href="/member/logout">로그아웃</a>
+							</ul>
+						</c:when>
+						<c:otherwise>
+							<a href="/member/signin">로그인</a>
+							<a href="/member/signup">회원가입</a>
+							
+						</c:otherwise>
+					</c:choose>
         </div>           
        </div>
    </div>
@@ -97,3 +111,5 @@
       - 실질적인 홈페이지의 내용이 표시되는 영역
       - 크기는 무제한으로 늘어날 수 있음
     --%>
+
+

@@ -1,4 +1,14 @@
 @charset "UTF-8";
+<<<<<<< HEAD
+/* 
+div를 시각적으로 보여주기 위한 장치
+- border는 폭에 영향을 미치기 때문에 지양
+- 그림자(box-shadow) 처리를 한다
+
+box-shadow : x위치 y위치 두께 번짐 색상;
+*/
+div{
+=======
 
 /* 
     div를 시각적으로 보여주기 위한 장치
@@ -8,5 +18,6 @@
     box-shadow : x위치 y위치 두께 번짐 색상;
 */
 div {
+>>>>>>> branch 'main' of https://github.com/godjiwon/group_one_semi.git
     box-shadow: 0 0 1px 0 gray;
 }
