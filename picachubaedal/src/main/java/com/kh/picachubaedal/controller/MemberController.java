@@ -30,7 +30,7 @@ public class MemberController {
 	//private AttachDao attachDao;
 	
 	//@Autowired
-	//private AttachService attachService;
+	//private AttachService attachService;.
 	
 	
 	@Autowired
