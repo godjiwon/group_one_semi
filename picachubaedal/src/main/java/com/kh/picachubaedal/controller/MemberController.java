@@ -47,6 +47,9 @@ public class MemberController {
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute MemberDto memberDto,
 						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		
+		memberDao.insert(memberDto);
+		
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
@@ -55,9 +58,13 @@ public class MemberController {
 		return "redirect:signupFinish";
 	}
 	@RequestMapping("/signupFinish")
-	public String joinFinish() {
+
+	public String signupFinish() {
 		return "/WEB-INF/views/member/signupFinish.jsp";
 	}
+	
+	//프사 반환
+
 	
 
 	//로그인
