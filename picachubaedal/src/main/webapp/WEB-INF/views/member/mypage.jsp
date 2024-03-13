@@ -20,5 +20,9 @@
 	<div>
 	<a href="pwUpdate">비밀번호변경링크(임시)</a>
 	</div>
+	
+	<div>
+	이미지 테스트용 <img src="profilePhoto" width="150" height="150">
+	</div>
 </body>
 </html>
