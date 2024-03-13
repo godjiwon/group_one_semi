@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.MenuDao;
@@ -37,8 +38,8 @@ public class MenuController {
 	@PostMapping("/insert")
 	public String insert(@ModelAttribute MenuDto dto) {
 		dao.insert(dto);
-		return "redirect:insertComplete";//상대
-//		return "redirect:/menu/insertComplete";//절대
+		System.out.println("test");
+		return "redirect:/menu/list";
 	}
 	
 	@RequestMapping("/insertComplete")
@@ -60,20 +61,42 @@ public class MenuController {
 		return "/WEB-INF/views/menu/list.jsp";
 	}
 	
-	  @RequestMapping("/menuFileUpload")
-	   public void menuFileUpload(MultipartFile file, HttpServletRequest request) {
-	      String filePath = request.getSession().getServletContext().getRealPath("/resources/image/");
-	      try {
-	         FileOutputStream fos = new FileOutputStream(filePath + file.getOriginalFilename());
-	         InputStream is = file.getInputStream();
+	 @RequestMapping("/menuFileUpload")
+	  public void menuFileUpload(MultipartFile file, HttpServletRequest request) {
+	     String filePath = request.getSession().getServletContext().getRealPath("/resources/image/");
+	     try {
+	        FileOutputStream fos = new FileOutputStream(filePath + file.getOriginalFilename());
+	        InputStream is = file.getInputStream();
 	         
-	         int readCount = 0;
-	           byte[] buffer = new byte[1024];
-	           while ((readCount = is.read(buffer)) != -1) {
-	               fos.write(buffer, 0, readCount);
-	           }
-	      } catch (Exception e) {
-	         System.out.println(e);
-	      }
-	   }
+	        int readCount = 0;
+	          byte[] buffer = new byte[1024];
+	          while ((readCount = is.read(buffer)) != -1) {
+	              fos.write(buffer, 0, readCount);
+	          }
+	     } catch (Exception e) {
+	        System.out.println(e);
+	     }
+	  }
+	  
+	 //삭제
+	 @GetMapping("/delete")
+	 public String delete(@RequestParam int menuNo) {
+		 dao.delete(menuNo);
+		 return "redirect:/menu/list";
+	 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

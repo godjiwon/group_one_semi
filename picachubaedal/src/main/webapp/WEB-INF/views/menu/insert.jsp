@@ -116,7 +116,7 @@ $(function(){
     });
 
     dropArea.on("click", () => {
-        fileInput.click();
+        document.getElementById("file-input").click();
     });
 });
 
@@ -169,9 +169,9 @@ function displayImage(file) {
               </div>
           </div>
        </section>
-       <button class="btn-gradient green small" name="insertMenuButton">
+       <button class="btn-gradient green small right" name="insertMenuButton">
           <i class="fa-solid fa-plus"></i>
-          메뉴등록
+          등록하기
        </button>
    </form>
 </div>

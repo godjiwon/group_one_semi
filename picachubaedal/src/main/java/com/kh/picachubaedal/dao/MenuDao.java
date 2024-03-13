@@ -22,8 +22,8 @@ public class MenuDao {
 	//등록
 	public void insert(MenuDto menuDto) {
 		String sql = "insert into menu(menu_no, store_no, menu_category, menu_name, menu_price, menu_image, "
-						+ "menu_state, menu_time, menu_update) "
-						+ "values(menu_seq.nextval, ?, ?, ?, ?, ?, ?)";
+						+ "menu_state, menu_update) "
+						+ "values(menu_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
 		Object[] data = {
 				menuDto.getStoreNo(),
 				menuDto.getMenuCategory(),
