@@ -92,7 +92,7 @@ public class MemberController {
 			return "redirect:/";
 		}
 		else {//로그인 실패
-			return "redirect:login?error";
+			return "redirect:signin?error";
 		}
 	}
 	
