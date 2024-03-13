@@ -61,22 +61,37 @@
 </style>
 <script type="text/javascript">
 
+function insertMenuImage(file, menuNo) {
+    var formData = new FormData();
+    formData.append('file', file);
+    formData.append('menuNo', menuNo);
+    $.ajax({
+        type: "POST",
+        url: "/menu/menuFileUpload",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function () {
+        	window.location.href = "/menu/list";
+        }
+    });
+}
+
 function insertMenu(file) {
-   if(file !== null && file !== undefined) {
-      var formData = new FormData();
-      formData.append('file', file);
-   
-      $.ajax({
-          type: "POST",
-          url: "/menu/menuFileUpload",
-          data: formData,
-          contentType: false,
-          processData: false,
-          success: function () {}
-      });
-   }
-   
-   $("#insert_form").attr("method", "POST").attr("action", "/menu/insert").submit();
+   const menuForm = $("#insert_form").serializeArray();
+   $.ajax({
+	    url: "/menu/insert",
+	    type: "POST",
+	    data: menuForm,
+	    success: function(response) {
+	        if(file !== null && file !== undefined) {
+	        	insertMenuImage(file, response)
+	        }
+	    },
+	    error: function(xhr, status, error) {
+	        console.error("메뉴 추가 중 오류가 발생하였습니다:", error);
+	    }
+   });  
 }
 
 $(function(){
@@ -84,7 +99,7 @@ $(function(){
     const fileInput = $("#file-input");
     var imageFile;
 
-    $("button[name='insertMenuButton']").on("click", function(){
+    $("[name='insertMenuButton']").on("click", function(){
         const file = fileInput[0].files[0];
         insertMenu(imageFile);
     }); 
@@ -143,13 +158,13 @@ function displayImage(file) {
 <div>
    <form method="post" id="insert_form">
       <input type="hidden" name="storeNo" value="2">
-      <section id="ex9">
+      <section>
           <div class="menuArea container">
               <div id="drop-area">
                   <div id="drop-area-content">
                       <i class="fa-solid fa-thin fa-images" style="font-size: 150px;"></i>
                       <p>클릭하여 메뉴 사진을 첨부해주세요</p>
-                      <input type="file" name="menuFileImage" id="file-input" accept="image/*" style="display: none;">
+                      <input type="file" name="attach" id="file-input" accept="image/*" style="display: none;">
                   </div>
                   <img id="image-preview" src="" alt="업로드된 이미지">
               </div>
@@ -169,10 +184,10 @@ function displayImage(file) {
               </div>
           </div>
        </section>
-       <button class="btn-gradient green small right" name="insertMenuButton">
+       <a class="btn-gradient green small right" name="insertMenuButton">
           <i class="fa-solid fa-plus"></i>
           등록하기
-       </button>
+       </a>
    </form>
 </div>
 

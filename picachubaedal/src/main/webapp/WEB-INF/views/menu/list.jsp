@@ -73,7 +73,7 @@
          <div class="cell flex-cell card menuCard">
              <div class="w-25 flex-cell middle">
                  <div class="img_wrap">
-                    <img src="/image/${menuDto.menuImage}" width="80">
+                    <img src="/image/" width="80">
                  </div>
              </div>
              <div class="content-wrapper width-fill p-10 menuSubCard">

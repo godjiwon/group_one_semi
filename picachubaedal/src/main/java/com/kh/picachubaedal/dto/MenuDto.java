@@ -9,7 +9,6 @@ public class MenuDto {
 	private String menuCategory;
 	private String menuName;
 	private int menuPrice;
-	private String menuImage;
 	private String menuState;
 	private Date menuTime;
 	private Date menuUpdate;
@@ -47,12 +46,6 @@ public class MenuDto {
 	}
 	public void setMenuPrice(int menuPrice) {
 		this.menuPrice = menuPrice;
-	}
-	public String getMenuImage() {
-		return menuImage;
-	}
-	public void setMenuImage(String menuImage) {
-		this.menuImage = menuImage;
 	}
 	public String getMenuState() {
 		return menuState;
