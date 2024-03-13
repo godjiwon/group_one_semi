@@ -49,7 +49,7 @@
 			</thead>
 			<tbody align="center">
 				<c:forEach var="dto" items="${list}">
-				<tr>
+				<tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
 					<td>${dto.storeNo}</td>
 					<td>${dto.storeName}</td>
 					<td>${dto.storeAddress}</td>
@@ -65,8 +65,6 @@
 		</table>
 	</div>
 </div>
-
-
 
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
