@@ -12,7 +12,7 @@
 	<div class="cell floating-cell">
 		<div class="w-25">
 			<div class="cell center">
-				<img src="image" width="150" height="150">
+				<img src="profilePhoto" width="150" height="150">
 			</div>
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/password">비밀번호 변경</a></h2>
@@ -116,9 +116,6 @@
 			</div>
 		</div>
 	</div>
+
 </div>
-
-
-
-
 

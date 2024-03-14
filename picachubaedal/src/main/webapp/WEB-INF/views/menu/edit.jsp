@@ -41,9 +41,9 @@
    <h1>메뉴 수정</h1>
 </div>
 <div>
-   <form method="post" id="insert_form" action="change" autocomplete="off">
-      <input type="hidden" name="storeNo" value="${storeNo}">
-      <input type="hidden" name="menuNo" value="${menuNo}">
+   <form method="post" id="insert_form" action="edit" autocomplete="off">
+      <input type="hidden" name="storeNo" value="${dto.storeNo}">
+      <input type="hidden" name="menuNo" value="${dto.menuNo}">
       <section>
           <div class="menuArea container">
               <div id="drop-area">

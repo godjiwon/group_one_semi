@@ -47,6 +47,9 @@ public class MemberController {
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute MemberDto memberDto,
 						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		//회원 등록
+		memberDao.insert(memberDto);
+		
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
@@ -55,9 +58,13 @@ public class MemberController {
 		return "redirect:signupFinish";
 	}
 	@RequestMapping("/signupFinish")
-	public String joinFinish() {
+
+	public String signupFinish() {
 		return "/WEB-INF/views/member/signupFinish.jsp";
 	}
+	
+	//프사 반환
+
 	
 
 	//로그인
@@ -253,23 +260,22 @@ public class MemberController {
 	}
 	
 	
-	
 	//아이디 찾기
-	@GetMapping("/findId")
-	public String findId() {
-		return "/WEB-INF/views/member/findId.jsp";
-	}
-	
-	@PostMapping("/findId")
-	public String findId(@RequestParam String memberNick) {
-		boolean result = emailService.sendMemberId(memberNick);
-		if(result) {
-			return "redirect:findIdSuccess";
+		@GetMapping("/findId")
+		public String findId() {
+			return "/WEB-INF/views/member/findId.jsp";
 		}
-		else {
-			return "redirect:findIdFail";
-		}
-	}
+		
+		@PostMapping("/findId")
+		 public String findId(@RequestParam String memberNick, Model model) {
+	        String memberId = memberDao.findMemberIdByNick(memberNick);
+	        if (memberId != null) {
+	            model.addAttribute("memberId", memberId);
+	            model.addAttribute("memberNick", memberNick);
+	        }
+	        return "/WEB-INF/views/member/findId.jsp";
+	    }
+
 	
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {

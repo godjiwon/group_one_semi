@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import com.kh.picachubaedal.dto.StoreDto;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class StoreMapper implements RowMapper<StoreDto> {

@@ -3,6 +3,7 @@ package com.kh.picachubaedal.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -71,7 +72,7 @@ public class MemberDao {
 	//최종로그인시각 변경(수정, Update)
 	public boolean updateMemberLogin(String memberId) {
 		String sql = "update member "
-						+ "set member_signin=sysdate "
+						+ "set member_update=sysdate "
 						+ "where member_id = ?";
 		Object[] data = {memberId};
 		return jdbcTemplate.update(sql, data) > 0;
@@ -130,6 +131,16 @@ public class MemberDao {
 		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	public String findMemberIdByNick(String memberNick) {
+        String sql = "SELECT member_id FROM member WHERE member_nick = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, memberNick);
+        } catch (EmptyResultDataAccessException e) { //임폴트해주기
+            return null; // 해당하는 닉네임의 회원이 없을 경우 null 반환
+        }
+    }
 }
+   
+
 
  
