@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
-
+///
 
 @Repository
 public class MemberDao {
@@ -20,7 +20,7 @@ public class MemberDao {
 	//@Autowired
 	//private StatMapper statMapper;
 
-	 //가입 (등록)
+	 //가입 (등록)/
 	public void insert(MemberDto memberDto) {
         String sql = "insert into member("
                 + "member_id, member_pw, member_nick, member_contact, "
@@ -62,6 +62,7 @@ public class MemberDao {
 		Object[] data = {dto.getMemberPw(), dto.getMemberId()};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
 	//회원탈퇴(삭제, Delete)
 	public boolean delete(String memberId) {
 		String sql = "delete member where member_id = ?";

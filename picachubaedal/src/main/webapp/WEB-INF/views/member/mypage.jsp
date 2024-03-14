@@ -15,13 +15,13 @@
 				<img src="profilePhoto" width="150" height="150">
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/password">비밀번호 변경</a></h2>
+				<h2><a class="link link-animation" href="/member/pwUpdate">비밀번호 변경</a></h2>
 			</div>
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/change">개인정보 변경</a></h2>
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/exit">회원 탈퇴</a></h2>
+				<h2><a class="link link-animation" href="/member/delete_account">회원 탈퇴</a></h2>
 			</div>
 		</div>
 		<div class="w-75">
@@ -56,8 +56,8 @@
 						<td class="left">${memberDto.memberGrade}</td>
 					</tr>
 					<tr>
-						<th>포인트</th>
-						<td class="left">${memberDto.memberPoint} point</td>
+						<th>포켓볼</th>
+						<td class="left">${memberDto.memberPoint} 개</td>
 					</tr>
 					<tr>
 						<th>가입일시</th>
@@ -78,7 +78,7 @@
 			
 			<div class="cell">
 				<h2>
-					포인트 구매 내역
+					포켓볼 구매 내역
 					<a class="link link-animation ms-30" href="/point/charge">
 						<i class="fa-regular fa-credit-card"></i>
 						추가구매

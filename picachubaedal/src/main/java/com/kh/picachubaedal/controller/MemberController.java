@@ -209,7 +209,9 @@ public class MemberController {
 	// 회원 탈퇴
 	@GetMapping("/delete_account")
 	public String delete_account() {
-		return "/WEB-INF/views/member/delete_account_success.jsp";
+
+		return "/WEB-INF/views/member/delete_account.jsp";
+
 	}
 
 	@PostMapping("/delete_account")

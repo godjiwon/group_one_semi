@@ -28,6 +28,11 @@
             <h3>${memberId}</h3>
         </div>
     </c:if>
+  <c:if test="${empty memberNick && empty memberId}">
+	<div class="cell center" style="color: red;">
+		<h3>닉네임 정보가 일치하지 않습니다</h3>
+	</div>
+</c:if>
         </form>
     </div>
     
