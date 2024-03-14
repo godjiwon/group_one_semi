@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
 * {
 	font-family: 빙그레 메로나체, sans-serif; 
-	<%-- font-family: "Noto Sans KR", sans-serif; --%>
 }
 
 .table.table-horizontal {
 	border-top: 2px solid rgb(197, 88, 18);
 	border-bottom: 2px solid rgb(197, 88, 18);
+	font-size : 16px;
 }
 
 .table.table-horizontal>thead {
@@ -37,12 +38,31 @@
 	color: white;
 	transform: scale(1.05);
 }
+.charge-img {
+	width : 100%;
+}
 </style>
+
+<script type="text/javascript">
+        $(function(){
+            $("a.remove-confirm").click(function(){
+                var message = $(this).data("message");
+                if(message == undefined) {
+                     message = "삭제하시겠습니까?";
+                }
+                var choice = window.confirm(message);
+                return choice;
+            });
+        });
+</script>
 
 <div class="container w-800">
 
 	<div class="cell center">
-		<h1>충전 상품 목록</h1>
+		<h1>
+			<i class="fa-solid fa-gear fa-spin" style="color:rgb(195,195,195)"></i>
+			충전 상품 목록
+		</h1>
 	</div>
 
 	<div class="cell right">
@@ -56,16 +76,23 @@
 		<table class="table table-horizontal">
 			<c:forEach var="pointDto" items="${list}">
 				<tr>
-					<td><img src="image?pointNo=${pointDto.pointNo}"></td>
+					<td style="width:30%"><img src="image?pointNo=${pointDto.pointNo}" class="charge-img"></td>
 					<td>${pointDto.pointName}</td>
-					<td>${pointDto.pointPrice}원</td>
-					<td>${pointDto.pointCharge}포인트충전</td>
+					<td>
+						<fmt:formatNumber value="${pointDto.pointPrice}" pattern="#,##0"/>원
+					</td>
+					<td>
+						포켓볼<fmt:formatNumber value="${pointDto.pointCharge}" pattern="#,##0"/>개
+					</td>
 					<td>
 						<a href="edit?pointNo=${pointDto.pointNo}" class="link">
-						<i class="fa-solid fa-pen green"></i> 수정
+						<i class="fa-solid fa-pen green"></i>
+						수정
 						</a>
-						<a href="delete?pointNo=${pointDto.pointNo}" class="link">
-						<i class="fa-regular fa-trash-can red"></i> 삭제
+						&nbsp&nbsp
+						<a href="delete?pointNo=${pointDto.pointNo}" class="link remove-confirm">
+						<i class="fa-regular fa-trash-can red"></i>
+						삭제
 						</a>
 					</td>
 				</tr>
