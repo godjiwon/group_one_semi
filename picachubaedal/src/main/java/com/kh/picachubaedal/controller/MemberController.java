@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.MemberDao;
@@ -26,12 +28,6 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 
-	// @Autowired
-	// private AttachDao attachDao;
-
-	// @Autowired
-	// private AttachService attachService;
-
 	@Autowired
 	private EmailService emailService;
 
@@ -46,9 +42,10 @@ public class MemberController {
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute MemberDto memberDto,
 						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		//회원 등록
+
+		//회원정보 등록
 		memberDao.insert(memberDto);
-		
+		//첨부파일 등록
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
@@ -280,6 +277,7 @@ public class MemberController {
 	public String findPw(@ModelAttribute MemberDto memberDto, Model model) {
 		MemberDto findDto = memberDao.selectOne(memberDto.getMemberId());
 
+
 		boolean isValid = findDto != null && findDto.getMemberEmail().equals(memberDto.getMemberEmail());
 
 		if (isValid) {
@@ -289,6 +287,7 @@ public class MemberController {
 
 		} else {
 			return "redirect:findPwFail?error"; // 비밀번호 찾기 실패 시 findPwFail 페이지로 리다이렉트
+
 		}
 	}
 
@@ -300,4 +299,16 @@ public class MemberController {
 	public String findPwFail() {
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
-}
+	
+
+	    @PostMapping("/saveMemberGrade")
+	    public String saveMemberGrade(@RequestBody String memberGrade) {
+	        // 받은 회원 등급을 처리하여 DB에 저장하는 로직을 여기에 추가합니다.
+	        // 이 부분은 회원 등급을 DB에 저장하는 서비스나 DAO 메서드를 호출하는 코드로 대체되어야 합니다.
+	        
+	        // 예시로 받은 회원 등급을 그대로 반환합니다.
+	        return memberGrade;
+	    }
+	}
+	
+	

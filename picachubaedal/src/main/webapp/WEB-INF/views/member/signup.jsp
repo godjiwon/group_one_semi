@@ -188,16 +188,6 @@
 													: "fail");
 						});
 		
-
-		//회원등급 선택
-		$("[name=memberGrade]").change(function() {
-			// 선택된 등급 값을 가져옴
-			var selectedGrade = $(this).val();
-
-			// 등급이 "일반회원"인 경우에는 기본값으로 설정, 아닌 경우에는 선택된 등급 값으로 설정
-			 $("input[name=selectedMemberGrade]").val(selectedGrade);
-		});
-		
 	
 		//form 전송
 		$(".check-form").submit(function(e) {
@@ -327,14 +317,17 @@
 
 
 				</div>
+				
 				<div class="cell">
+				
 					<label> 등급 <i class="fa-solid fa-asterisk red"></i>
-					</label> <select class="tool w-100" name="memberGrade"
-						onblur="memberGrade()">
+					</label> <select name="memberGrade" class="tool w-100" >
 						<option value="일반회원">일반회원</option>
 						<option value="사장님">사장님</option>
 						<option value="관리자">관리자</option>
 					</select>
+					
+					
 					<div class="cell">
 						<!-- 주소 : 모두 입력하든가 입력하지 않든가 -->
 						<div class="cell">
@@ -377,6 +370,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 	</form>
 </head>
