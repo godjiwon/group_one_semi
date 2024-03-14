@@ -6,7 +6,7 @@
 
 <form action="delete_account" method="post">
 <div class="container w-500">
-	<div class="cell center"><h1>회원 탈퇴</h1></div>
+	<div class="cell center"><h1>회원    탈퇴</h1></div>
 	<div class="cell center"><p>탈퇴를 위해 비밀번호를 한 번 더 입력해 주세요</p></div>
 	<div class="cell">
 		<input type="password" name="memberPw" placeholder="비밀번호 입력" required class="tool w-100">
