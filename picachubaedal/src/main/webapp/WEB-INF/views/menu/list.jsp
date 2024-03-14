@@ -4,6 +4,7 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
    .card {
@@ -63,7 +64,7 @@
 
 <div class="cell">
    <h3 class="menu-button-style">
-      <a class="list-button-style gray" href="insert">
+      <a class="list-button-style gray" href="insert?storeNo=2">
          <i class="fa-solid fa-plus"></i>
          메뉴등록
       </a>
@@ -89,7 +90,7 @@
                         
                     </div>    
                     <div>
-                        <span>${menuDto.menuPrice}원</span>
+						<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>원</span>
                     </div>              
                  </div>     
                      

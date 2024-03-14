@@ -41,8 +41,8 @@ public class MenuController {
     //등록
     @PostMapping("/insert")
     @ResponseBody
-    public int insert(@ModelAttribute MenuDto dto) {
-     menuDao.insert(dto);
+    public int insert(@ModelAttribute MenuDto menuDto) {
+     menuDao.insert(menuDto);
        int test = menuDao.selectRecentMenu();
        return test;
      }
@@ -86,11 +86,23 @@ public class MenuController {
     @GetMapping("/edit")
     public String edit(@RequestParam int menuNo, Model model) {
        MenuDto menuDto = menuDao.selectOne(menuNo);
-       if(menuDto == null) {
-          return "redirect:";
+       if(menuDto == null) {//없는 메뉴일 경우
+          return "redirect:editFail";
+       } else {// 있는 메뉴일 경우
+    	  model.addAttribute("menuDto", menuDto);
+    	  return "/WEB-INF/views/menu/edit.jsp";
        }
-       return "";
     }
+    
+    @PostMapping("/edit")
+    public String edit(@ModelAttribute MenuDto menuDto) {
+    	menuDao.update(menuDto);
+    	return "redirect:/menu/list";
+    }
+    @RequestMapping("/editFail")
+	public String editFail() {
+		return "/WEB-INF/views/menu/editFail.jsp";
+	}
 }
 
 

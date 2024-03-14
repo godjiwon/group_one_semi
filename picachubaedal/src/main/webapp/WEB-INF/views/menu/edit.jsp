@@ -5,45 +5,70 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
-   .menu-wrap {
-       display: flex;
-       justify-content: center;
+
+   .menuArea {
+      display: flex;
+      flex-direction: column;
+      align-items: center;          
    }
-   .menu_form {
-       text-align: left;
-       display: flex;
-       flex-direction: column;
-       align-items: flex-end;
-      > div {
-         margin-bottom: 10px;
-         font-size: 20px;
+   #drop-area {
+       box-shadow: 1px 1px 5px 1px gray;
+      border: 2px dashed #ccc;
+      width: 500px;
+      height: 300px;
+      text-align: center;
+      transition: background-color 0.3s ease-in-out;
+      background-color: #fed23d;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;          
+   }
+   #input-area {
+       box-shadow: 1px 1px 5px 1px gray;
+      border: 2px dashed #ccc;
+      width: 500px;
+      height: 300px;
+      text-align: center;
+      transition: background-color 0.3s ease-in-out;
+      background-color: #fafafa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      
+      > input {
+         border: none;
+          padding: 10px 20px 10px 20px;
+          font-size: 18px;      
+      }
+      
+      > select {
+         border: none;
+          padding: 10px 20px 10px 15px;
+          font-size: 18px;      
       }
    }
-   .emp-input {
-      font-size: 20px;
-       outline: none;
-       border: 2px solid #808e9b;
-       border-radius: 0.1em;
+   #drop-area:hover {
+      background-color: #eee;
    }
-   .insert-input-text {
-      vertical-align: bottom;
-      margin-right: 10px;
+   #image-preview {
+      max-width: 100%;
+      max-height: 100%;
+      display: none;
    }
-   .nav-submit {
-      text-align: right;
-      margin-top: 60px;
+   .hidden {
+      display: none;
    }
+   
 </style>
 
-<h1>수정화면 Test</h1>
 
-<div class="cell center">
+<div class="cell center py-10">
    <h1>메뉴 수정</h1>
 </div>
 <div>
    <form method="post" id="insert_form" action="edit" autocomplete="off">
-      <input type="hidden" name="storeNo" value="${dto.storeNo}">
-      <input type="hidden" name="menuNo" value="${dto.menuNo}">
+      <input type="hidden" name="storeNo" value="12">
+      <input type="hidden" name="menuNo" value="24">
       <section>
           <div class="menuArea container">
               <div id="drop-area">
@@ -70,10 +95,11 @@
               </div>
           </div>
        </section>
-       <button type="submit" class="btn-gradient green small right" name="insertMenuButton">
-          <i class="fa-solid fa-plus"></i>
-          수정
-       </button>
+       <div class="right pt-50">
+	       <button  type="submit" form="insert_form" class="btn-gradient green">
+	          수정
+	       </button>
+       </div>
    </form>
 </div>
 

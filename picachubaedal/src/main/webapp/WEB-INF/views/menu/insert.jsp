@@ -99,9 +99,8 @@ $(function(){
     var imageFile;
 
     $("[name='insertMenuButton']").on("click", function(){
-        const file = fileInput[0].files[0];
-        insertMenu(file);
-    }); 
+        insertMenu(imageFile);
+    });
 
     dropArea.on("dragover", (e) => {
         e.preventDefault();
@@ -148,15 +147,46 @@ function displayImage(file) {
     reader.readAsDataURL(file);
 }
 
+</script>
 
+<script type="text/javascript">
+function checkMenuCategory() {
+    var inputTarget = document.querySelector("[name=menuCategory]");
+
+    var isValid = menuCategory.length > 0;
+
+    inputTarget.classList.remove("success", "fail");
+    inputTarget.classList.add(isValid ? "success" : "fail");
+    return isValid;
+}
+function checkMenuName() {
+    var inputTarget = document.querySelector("[name=menuName]");
+
+    var regex = /^[가-힣a-zA-Z0-9\[\]\(\)]+$/;
+    var isValid = regex.test(inputTarget.value);
+
+    inputTarget.classList.remove("success", "fail");
+    inputTarget.classList.add(isValid ? "success" : "fail");
+    return isValid;
+}
+function checkMenuPrice() {
+    var inputTarget = document.querySelector("[name=menuPrice]");
+
+    var regex = /^[0-9]+$/;
+    var isValid = regex.test(inputTarget.value);
+
+    inputTarget.classList.remove("success", "fail");
+    inputTarget.classList.add(isValid ? "success" : "fail");
+    return isValid;
+}
 </script>
 
 <div class="cell center">
    <h1>메뉴 등록</h1>
 </div>
 <div>
-   <form method="post" id="insert_form">
-      <input type="hidden" name="storeNo" value="${storeNo}">
+   <form method="post" id="insert_form" action="/menu/insert" autocomplete="off" onsubmit="return checkForm();">
+      <input type="hidden" name="storeNo" value="12">
       <section>
           <div class="menuArea container">
               <div id="drop-area">
@@ -183,10 +213,11 @@ function displayImage(file) {
               </div>
           </div>
        </section>
-       <a class="btn-gradient green small right" name="insertMenuButton">
-          <i class="fa-solid fa-plus"></i>
-          등록하기
-       </a>
+       <div class="right pt-50">
+	       <a class="btn-gradient orange" name="insertMenuButton">
+	          등록
+	       </a>
+       </div>
    </form>
 </div>
 
