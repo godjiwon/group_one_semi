@@ -56,15 +56,16 @@ public class MenuController {
    //paging 처리 별도의 VO 클래스로 구현
    @RequestMapping("/list")
    public String list(@ModelAttribute PageVO pageVO, Model model, HttpSession session) {
-      
+      System.out.println(pageVO.getColumn());
+      System.out.println(pageVO.getKeyword());
 	  String loginId = (String) session.getAttribute("loginId");
 //	  System.out.println(loginId);
 	  // 로그인 아이디를 사용하여 해당 사용자의 storeNo를 가져옴
 	  int storeNo = menuDao.selectStoreNo(loginId);
 //	  System.out.println("Store No: " + storeNo);
 	 //세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
-      int count = menuDao.count(pageVO);
-      	pageVO.setCount(count);
+//      int count = menuDao.count(pageVO);
+//      	pageVO.setCount(count);
       	model.addAttribute("pageVO", pageVO);
          
       	List<MenuDto> list = menuDao.selectListByPaging(pageVO);
@@ -84,6 +85,16 @@ public class MenuController {
 	   }
 	   return "redirect:list";
    }
+   
+   @RequestMapping("/menuPhoto")
+   public String menuPhoto(@RequestParam int menuNo) {
+	   try {
+		   int attachNo = menuDao.findAttachNo(menuNo);
+		   return "redirect:/download?attachNo="+attachNo;
+	   } catch(Exception e) {
+		   return "redirect:/image/default.png";
+	   }
+   }
  
     //삭제
     @GetMapping("/delete")
@@ -96,12 +107,7 @@ public class MenuController {
     @GetMapping("/edit")
     public String edit(@RequestParam int menuNo, Model model) {
        MenuDto menuDto = menuDao.selectOne(menuNo);
-       if(menuDto == null) {//없는 메뉴일 경우
-          return "redirect:editFail";
-       } else {// 있는 메뉴일 경우
-    	  model.addAttribute("menuDto", menuDto);
-    	  return "/WEB-INF/views/menu/edit.jsp";
-       }
+	   return "/WEB-INF/views/menu/edit.jsp";
     }
     
     @PostMapping("/edit")
@@ -113,6 +119,7 @@ public class MenuController {
 	public String editFail() {
 		return "/WEB-INF/views/menu/editFail.jsp";
 	}
+   
 }
 
 
