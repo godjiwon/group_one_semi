@@ -75,6 +75,7 @@ public class MemberDao {
 	public boolean updateMemberLogin(String memberId) {
 		String sql = "update member "
 						+ "set member_update=sysdate "
+
 						+ "where member_id = ?";
 		Object[] data = {memberId};
 		return jdbcTemplate.update(sql, data) > 0;

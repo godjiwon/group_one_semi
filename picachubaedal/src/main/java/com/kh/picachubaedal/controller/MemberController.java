@@ -28,12 +28,6 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 
-	// @Autowired
-	// private AttachDao attachDao;
-
-	// @Autowired
-	// private AttachService attachService;
-
 	@Autowired
 	private EmailService emailService;
 
@@ -48,9 +42,10 @@ public class MemberController {
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute MemberDto memberDto,
 						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		//회원 등록
+
+		//회원정보 등록
 		memberDao.insert(memberDto);
-		
+		//첨부파일 등록
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
@@ -282,6 +277,7 @@ public class MemberController {
 	public String findPw(@ModelAttribute MemberDto memberDto, Model model) {
 		MemberDto findDto = memberDao.selectOne(memberDto.getMemberId());
 
+
 		boolean isValid = findDto != null && findDto.getMemberEmail().equals(memberDto.getMemberEmail());
 
 		if (isValid) {
@@ -291,6 +287,7 @@ public class MemberController {
 
 		} else {
 			return "redirect:findPwFail?error"; // 비밀번호 찾기 실패 시 findPwFail 페이지로 리다이렉트
+
 		}
 	}
 

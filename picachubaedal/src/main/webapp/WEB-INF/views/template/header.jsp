@@ -85,13 +85,14 @@
 							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
 								${sessionScope.loginId}
 							</a>
-							<ul>
+							<div>
 								<a href="/member/mypage">마이페이지</a>
 								<a href="/member/logout">로그아웃</a>
-							</ul>
+							</div>
 						</c:when>
 						<c:otherwise>
 							<a href="/member/signin">로그인</a>
+							
 							<a href="/member/signup">회원가입</a>
 							
 						</c:otherwise>
