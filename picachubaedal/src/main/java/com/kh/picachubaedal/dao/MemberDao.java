@@ -20,7 +20,7 @@ public class MemberDao {
 	//@Autowired
 	//private StatMapper statMapper;
 
-	 //가입 (등록)
+	 //가입 (등록)/
 	public void insert(MemberDto memberDto) {
         String sql = "insert into member("
                 + "member_id, member_pw, member_nick, member_contact, "
