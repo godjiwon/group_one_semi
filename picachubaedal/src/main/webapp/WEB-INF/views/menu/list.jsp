@@ -64,7 +64,7 @@
 
 <div class="cell">
    <h3 class="menu-button-style">
-      <a class="list-button-style gray" href="insert?storeNo=2">
+      <a class="list-button-style gray" href="insert?storeNo=${storeNo}">
          <i class="fa-solid fa-plus"></i>
          메뉴등록
       </a>

@@ -186,7 +186,7 @@ function checkMenuPrice() {
 </div>
 <div>
    <form method="post" id="insert_form" action="/menu/insert" autocomplete="off" onsubmit="return checkForm();">
-      <input type="hidden" name="storeNo" value="12">
+      <input type="hidden" name="storeNo" value="${storeNo}">
       <section>
           <div class="menuArea container">
               <div id="drop-area">
