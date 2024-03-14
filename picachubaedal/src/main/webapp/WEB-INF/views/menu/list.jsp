@@ -95,7 +95,7 @@
                  </div>     
                      
                  <div class="right">
-                  <a class="list-button-style blue" href="edit">
+                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
                      <i class="fa-solid fa-pencil"></i>
                      수정
                   </a>

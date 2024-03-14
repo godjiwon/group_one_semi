@@ -37,14 +37,13 @@ public class MenuDao {
 	
    //수정
    public boolean update(MenuDto menuDto) {
-      String sql = "update menu set menu_category=?, menu_name=?, menu_price=?, menu_state=?, menu_time=?, menu_update=SYSDATE"
-    		  		+ "where menu_no=?";
+      String sql = "update menu set menu_category=?, menu_name=?, menu_price=?, menu_state=?, menu_update=SYSDATE"
+    		  		+ " where menu_no=?";
       Object[] data = {
             menuDto.getMenuCategory(),
             menuDto.getMenuName(),
             menuDto.getMenuPrice(),
             menuDto.getMenuState(),
-            menuDto.getMenuTime(),
             menuDto.getMenuNo()
       };
       return jdbcTemplate.update(sql, data) > 0;
