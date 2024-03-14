@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import com.kh.picachubaedal.dto.StoreDto;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class StoreMapper implements RowMapper<StoreDto> {
@@ -37,6 +36,7 @@ public class StoreMapper implements RowMapper<StoreDto> {
         dto.setStoreTime(rs.getDate("store_time"));
         dto.setStoreUpdate(rs.getDate("store_update"));
         dto.setStoreClosed(rs.getString("store_closed"));
+        
         
         return dto;
     

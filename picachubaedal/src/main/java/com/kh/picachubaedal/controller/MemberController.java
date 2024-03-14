@@ -209,7 +209,9 @@ public class MemberController {
 	// 회원 탈퇴
 	@GetMapping("/delete_account")
 	public String delete_account() {
+
 		return "/WEB-INF/views/member/delete_account.jsp";
+
 	}
 
 	@PostMapping("/delete_account")
@@ -277,7 +279,7 @@ public class MemberController {
 	@PostMapping("/findPw")
 	public String findPw(@ModelAttribute MemberDto memberDto, Model model) {
 		MemberDto findDto = memberDao.selectOne(memberDto.getMemberId());
-System.out.println(findDto);
+
 		boolean isValid = findDto != null && findDto.getMemberEmail().equals(memberDto.getMemberEmail());
 
 		if (isValid) {

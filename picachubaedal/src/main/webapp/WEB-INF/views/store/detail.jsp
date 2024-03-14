@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <td>가게 사진</td>
-                    <td>${dto.storeImage}</td>
+                    <td><img src="" alt="가게 사진"></td>
                 </tr>
                 <tr>
                     <td>가게 소개글</td>
@@ -88,11 +88,15 @@
                 </tr>
                 <tr>
                     <td>가게 정보 수정일</td>
-                    <td>${dto.storeTime}</td>
+                    <td>${dto.storeUpdate}</td>
                 </tr>
                 <tr>
                     <td>휴무일</td>
                     <td>${dto.storeClosed}</td>
+                </tr>
+                <tr>
+                	<td>사업자 등록번호</td>
+                	<td>${dto.storeBusinessNumber}</td>
                 </tr>
             </table>
             <form action="/store/change" method="get">
