@@ -29,7 +29,7 @@
             $(".buy-charge").click(function(){
                 var message = $(this).data("message");
                 if(message == undefined) {
-                    message = "결제하시겠습니까?"
+                    message = "결제 하시겠습니까?"
                 }
                 var choice = window.confirm(message);
                 return choice;
@@ -47,22 +47,34 @@
 
         <div class="cell flex-cell my-50">
             <div class="w-50 center p-20">
-                <img src="/image/pb10.png" class="charge-item">
+                <form action="charge" method="post" autocomplete="off">
+				<input type="hidden" name="pointCharge" value="10">
+                <img src="/image/pb10.png" class="charge-item"><br>
                 <button class="btn buy-charge">구매</button>
+                </form>
             </div>
             <div class="w-50 center p-20">
-                <img src="/image/pb20.png" class="charge-item">
+          		<form action="charge" method="post" autocomplete="off">
+          		<input type="hidden" name="pointCharge" value="20">
+                <img src="/image/pb20.png" class="charge-item"><br>
                 <button class="btn buy-charge">구매</button>
+                </form>
             </div>
         </div>
         <div class="cell flex-cell my-50">
             <div class="w-50 center p-20">
-                <img src="/image/pb30.png" class="charge-item">
+                <form action="charge" method="post" autocomplete="off">
+          		<input type="hidden" name="pointCharge" value="30">
+                <img src="/image/pb30.png" class="charge-item"><br>
                 <button class="btn buy-charge">구매</button>
+                </form>
             </div>
             <div class="w-50 center p-20">
-                <img src="/image/pb50.png" class="charge-item">
+                <form action="charge" method="post" autocomplete="off">
+          		<input type="hidden" name="pointCharge" value="50">
+                <img src="/image/pb50.png" class="charge-item"><br>
                 <button class="btn buy-charge">구매</button>
+                </form>
             </div>
         </div>
     </div>
