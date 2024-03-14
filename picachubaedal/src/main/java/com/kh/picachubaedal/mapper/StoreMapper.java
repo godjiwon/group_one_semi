@@ -36,7 +36,7 @@ public class StoreMapper implements RowMapper<StoreDto> {
         dto.setStoreTime(rs.getDate("store_time"));
         dto.setStoreUpdate(rs.getDate("store_update"));
         dto.setStoreClosed(rs.getString("store_closed"));
-        dto.setStoreBusinessNumber(rs.getString("store_business_number"));
+        
         
         return dto;
     

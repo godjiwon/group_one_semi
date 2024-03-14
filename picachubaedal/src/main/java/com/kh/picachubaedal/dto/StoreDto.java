@@ -21,16 +21,7 @@ public class StoreDto {
 	private Date storeTime;
 	private Date storeUpdate;
 	private String storeClosed;
-	private String storeBusinessNumber;
 	
-	
-	public String getStoreBusinessNumber() {
-		return storeBusinessNumber;
-	}
-
-	public void setStoreBusinessNumber(String storeBusinessNumber) {
-		this.storeBusinessNumber = storeBusinessNumber;
-	}
 
 //	public void setStoreImage(MultipartFile storeImage) {
 //		this.storeImage = storeImage;

@@ -24,10 +24,111 @@
     <!-- jquery cdn -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
-    <script src="commons.js"></script>
+
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
     <script type="text/javascript">
+
+   
+
+    
+    $(document).ready(function () {
+        // 등록 버튼 클릭 시 폼 데이터를 서버로 전송하는 함수
+        $("#registerButton").click(function () {
+            var selectedValues = [];
+            $(".storeType:checked").each(function () {
+                selectedValues.push($(this).val());
+            });
+            var formData = $("#storeForm").serialize();
+            formData += "&selectedValues=" + JSON.stringify(selectedValues);
+            formData += "&storeBusinessNumber=" + $("[name=businessNumber]").val();
+
+            $.ajax({
+                type: "POST",
+                url: "insert1",
+                data: formData,
+                success: function (response) {
+                    console.log("가게 등록이 성공적으로 처리되었습니다.");
+                },
+                error: function (xhr, status, error) {
+                    console.error("서버 통신 중 오류가 발생했습니다: " + error);
+                }
+            });
+        });
+        
+        // 폼 제출 전에 유효성 검사 함수 호출
+        $(".check-form").submit(function () {
+            if (!validateInputFields()) {
+                return false; // 폼 제출 중단
+            }
+            return true; // 유효성 검사 통과 시 폼 제출
+        });
+    });
+
+        // 입력 필드 유효성 검사 함수
+        function validateBusinessNumber(input) {
+            var businessNumber = input.value.replace(/-/g, '');
+            var businessNumberPattern = /^\d{3}\d{2}\d{5}$/;
+            if (!businessNumberPattern.test(businessNumber)) {
+                $("#business_number_error").text("잘못된 사업자 등록번호 형식입니다").show();
+                $(input).removeClass("success").addClass("fail");
+            } else {
+                $("#business_number_error").hide();
+                $(input).removeClass("fail").addClass("success");
+            }
+        }
+
+
+    
+    function validateBusinessNumber(input) {
+        var businessNumber = input.value.replace(/-/g, ''); // 하이픈(-) 제거
+        // 사업자 등록번호 정규식 패턴
+        var businessNumberPattern = /^\d{3}\d{2}\d{5}$/; // 하이픈 없이 10자리 숫자만 허용
+        if (!businessNumberPattern.test(businessNumber)) {
+            $("#business_number_error").text("잘못된 사업자 등록번호 형식입니다").show();
+            $(input).removeClass("success").addClass("fail");
+        } else {
+            $("#business_number_error").hide();
+            $(input).removeClass("fail").addClass("success");
+        }
+    }
+
+    
+    function checkStoreName() {
+        var storeName = $("#storeName").val().trim();
+        if (storeName === "") {
+            $("#storeName").removeClass("success").addClass("fail");
+            $(".fail-feedback").show().text("가게 이름을 반드시 입력하세요");
+        } else {
+            $("#storeName").removeClass("fail").addClass("success");
+            $(".fail-feedback").hide();
+        }
+    }
+
+    function checkStoreCategory() {
+        var storeCategory = $("#storeCategory").val();
+        if (storeCategory === "") {
+            $("#storeCategory").removeClass("success").addClass("fail");
+            $(".fail-feedback").show().text("음식 카테고리를 선택하세요");
+        } else {
+            $("#storeCategory").removeClass("fail").addClass("success");
+            $(".fail-feedback").hide();
+        }
+    }
+
+    function checkStoreContact() {
+        var storeContact = $("[name=storeContact]").val().replace(/-/g, ''); // 하이픈(-) 제거
+        // 전화번호 정규식 패턴
+        var phonePattern = /^\d{3}\d{3,4}\d{4}$/; // 하이픈 없이 10자리 또는 11자리 숫자만 허용
+        if (!phonePattern.test(storeContact)) {
+            $("[name=storeContact]").removeClass("success").addClass("fail");
+            $(".fail-feedback").show().text("잘못된 전화번호 형식입니다");
+        } else {
+            $("[name=storeContact]").removeClass("fail").addClass("success");
+            $(".fail-feedback").hide();
+        }
+    }
+
 
 $("[name=storeAddress2]").blur(function(){
 	        var post = $("[name=storePost]").val();
@@ -303,9 +404,9 @@ $("[name=storeAddress2]").blur(function(){
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
                     <div class="cell">
-                        <input type="checkbox" id="배달만" name="checkBaedal" class="checkBaedal">
+                        <input type="checkbox" id="배달만" name="storeType" class="storeType">
                         배달만
-                        <input type="checkbox" id="포장만" name="checkBaedal" class="checkBaedal">
+                        <input type="checkbox" id="포장만" name="storeType" class="storeType">
                         포장만
                     </div>
 
@@ -453,7 +554,7 @@ $("[name=storeAddress2]").blur(function(){
                             사업자 등록번호
                             <i class="fa-solid fa-asterisk red"></i>
                         </label>
-                        <input type="text" name="business_number" placeholder="123-45-67890('-' (하이픈)없이 입력)"
+                        <input type="text" name="businessNumber" placeholder="123-45-67890('-' (하이픈)없이 입력)"
                             class="tool w-100" oninput="validateBusinessNumber(this)">
                         <div class="fail-feedback" id="business_number_error"></div>
                     </div>

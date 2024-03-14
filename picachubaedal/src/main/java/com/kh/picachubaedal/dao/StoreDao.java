@@ -18,28 +18,34 @@ public class StoreDao {
     @Autowired
     private StoreMapper storeMapper;
 
-    // 등록 (가게 등록)
     public void insert(StoreDto storeDto) {
-        // 쿼리문 상수화
-        final String INSERT_SQL = "INSERT INTO store (" +
-                "store_name, store_address, store_category, store_type, " +
-                "store_contact, store_intro, store_dtip, store_minprice, " +
-                "store_like, store_hours, store_delivery, store_time, " +
-                "store_update, store_closed, store_business_number" +
-                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, NULL, ?)";
-
-        try {
-            jdbcTemplate.update(INSERT_SQL,
-                    storeDto.getStoreName(), storeDto.getStoreAddress(), storeDto.getStoreCategory(),
-                    storeDto.getStoreType(), storeDto.getStoreContact(), storeDto.getStoreIntro(),
-                    storeDto.getStoreDtip(), storeDto.getStoreMinprice(), storeDto.getStoreLike(),
-                    storeDto.getStoreHours(), storeDto.getStoreDelivery(), storeDto.getStoreBusinessNumber());
-        } catch (DataAccessException e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 필요한 예외 처리 로직 추가
-        }
+        String sql = "INSERT INTO store (" +
+                    "store_name, store_address, store_category, store_type, " +
+                    "store_contact, store_intro, store_dtip, store_minprice, " +
+                    "store_like, store_hours, store_delivery, store_time, " +
+                    "store_closed" + // store_update 제거
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?)";
+        
+        Object[] data = {
+            storeDto.getStoreName(),
+            storeDto.getStoreAddress(),
+            storeDto.getStoreCategory(),
+            storeDto.getStoreType(),
+            storeDto.getStoreContact(),
+            storeDto.getStoreIntro(),
+            storeDto.getStoreDtip(),
+            storeDto.getStoreMinprice(),
+            storeDto.getStoreLike(),
+            storeDto.getStoreHours(),
+            storeDto.getStoreDelivery(),
+            storeDto.getStoreClosed(),
+            
+        };
+        
+        jdbcTemplate.update(sql, data);
     }
+
+
 
     // 수정 (가게 수정)
     public boolean update(StoreDto storeDto) {
@@ -47,7 +53,7 @@ public class StoreDao {
         final String UPDATE_SQL = "UPDATE store SET " +
                 "store_name=?, store_address=?, store_category=?, store_type=?, " +
                 "store_contact=?, store_intro=?, store_dtip=?, store_minprice=?, " +
-                "store_hours=?, store_delivery=?, store_closed=?, store_business_number=? " +
+                "store_hours=?, store_delivery=?, store_closed=? " +
                 "WHERE store_no=?";
 
         try {
@@ -55,7 +61,7 @@ public class StoreDao {
                     storeDto.getStoreName(), storeDto.getStoreAddress(), storeDto.getStoreCategory(),
                     storeDto.getStoreType(), storeDto.getStoreContact(), storeDto.getStoreIntro(),
                     storeDto.getStoreDtip(), storeDto.getStoreMinprice(), storeDto.getStoreHours(),
-                    storeDto.getStoreDelivery(), storeDto.getStoreClosed(), storeDto.getStoreBusinessNumber(),
+                    storeDto.getStoreDelivery(), storeDto.getStoreClosed(),
                     storeDto.getStoreNo()) > 0;
         } catch (DataAccessException e) {
             // 예외 처리
