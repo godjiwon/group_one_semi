@@ -29,7 +29,55 @@
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
     <script type="text/javascript">
 
-   
+    
+    
+    $(document).ready(function() {
+        // 운영 시작 시간과 종료 시간을 선택할 때마다 호출되는 함수
+        $(".storeHour").change(function() {
+            // 운영 시작 시간과 종료 시간의 값을 가져옴
+            var startTime = $("select[name=store_open_hour]").val();
+            var endTime = $("select[name=store_close_hour]").val();
+
+            // 값이 선택되었는지 확인하고, 선택되었다면 하이픈(-)을 이용하여 문자열로 합침
+            if (startTime && endTime) {
+                var storeHours = startTime + " - " + endTime;
+                
+                // 만들어진 문자열을 숨겨진 input 요소에 할당
+                $("input[name=storeHours]").val(storeHours);
+            }
+        });
+    });
+    
+    $(document).ready(function () {
+        // 등록 버튼 클릭 시 폼 데이터를 서버로 전송하는 함수
+        $("#registerButton").click(function () {
+            // 가게 소개글, 운영 시간, 배달 가능 지역, 휴무일 값을 가져옵니다.
+            var storeIntro = $("#storeIntro").val();
+            var storeHours = $("#storeHours").val();
+            var storeDelivery = $("#storeDelivery").val();
+            var storeClosed = $("#storeClosed").val();
+
+            // 폼 데이터에 추가합니다.
+            var formData = $("#storeForm").serialize();
+            formData += "&storeIntro=" + storeIntro;
+            formData += "&storeHours=" + storeHours;
+            formData += "&storeDelivery=" + storeDelivery;
+            formData += "&storeClosed=" + storeClosed;
+
+            // AJAX를 사용하여 서버로 폼 데이터를 전송합니다.
+            $.ajax({
+                type: "POST",
+                url: "insert1",
+                data: formData,
+                success: function (response) {
+                    console.log("가게 등록이 성공적으로 처리되었습니다.");
+                },
+                error: function (xhr, status, error) {
+                    console.error("서버 통신 중 오류가 발생했습니다: " + error);
+                }
+            });
+        });
+    });
 
     
     $(document).ready(function () {
@@ -37,7 +85,7 @@
         $("#registerButton").click(function () {
             var selectedValues = [];
             $(".storeType:checked").each(function () {
-                selectedValues.push($(this).val());
+                selectedValues.push($(this).attr('id'));
             });
             var formData = $("#storeForm").serialize();
             formData += "&selectedValues=" + JSON.stringify(selectedValues);
@@ -174,6 +222,17 @@ $("[name=storeAddress2]").blur(function(){
 	        });
 	    }
 
+	    // form 전송을 위한 이벤트 핸들러
+	    $(".check-form").submit(function(){
+	        // 입력 필드의 유효성을 검사합니다.
+	        if (!validateInputFields()) {
+	            // 유효성 검사에 실패한 경우 폼 전송을 중단합니다.
+	            return false;
+	        }
+	        
+	        // 성공적으로 유효성 검사를 통과한 경우 폼을 전송합니다.
+	        return true;
+	    });
 	    
     </script>
 
@@ -237,17 +296,7 @@ $("[name=storeAddress2]").blur(function(){
         return true;
     }
 
-    // form 전송을 위한 이벤트 핸들러
-    $(".check-form").submit(function(){
-        // 입력 필드의 유효성을 검사합니다.
-        if (!validateInputFields()) {
-            // 유효성 검사에 실패한 경우 폼 전송을 중단합니다.
-            return false;
-        }
-        
-        // 성공적으로 유효성 검사를 통과한 경우 폼을 전송합니다.
-        return true;
-    });
+   
 
     
  // 이미지 파일 선택 시 미리보기 기능 추가
@@ -275,13 +324,6 @@ $("[name=storeAddress2]").blur(function(){
 
     });
  
- // form이 submit될 때 실행되는 함수 체크!! 휴무일!
-    $(".check-form").submit(function(){
-        // 입력 필드의 유효성을 검사합니다.
-        if (!validateInputFields()) {
-            // 유효성 검사에 실패한 경우 폼 전송을 중단합니다.
-            return false;
-        }
         
         // 성공적으로 유효성 검사를 통과한 경우, 휴무일 정보를 가져와서 배열에 담습니다.
         var storeClosedDays = [];
@@ -437,7 +479,7 @@ $("[name=storeAddress2]").blur(function(){
 
 
 
-                    <div class="cell store_intro">
+                    <div class="cell storeIntro">
                         <label>
                             가게 소개글
                         </label>
@@ -456,11 +498,17 @@ $("[name=storeAddress2]").blur(function(){
                             최소 주문 금액<!-- 포켓볼 사진 input에 추가  -->
                             <i class="fa-solid fa-asterisk red"></i>
                         </label>
-                        <input type="text" name="store_minprice" placeholder="ex.12,000원" class="tool w-100" oninput="">
+                        <input type="text" name="storeMinprice" placeholder="ex.12,000원" class="tool w-100" oninput="">
                         <div class="name"></div>
                     </div>
-
-                    <select class="tool w-100" name="store_open_hour">
+                    
+                    <div class="cell">
+                    <label>
+                        영업시간
+                        <i class="fa-solid fa-asterisk red"></i>
+                    </label>
+					
+                    <select class="tool w-100" id="store_open_hour" name="store_open_hour">
                         <option value="">운영 시작 시간</option>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -489,7 +537,7 @@ $("[name=storeAddress2]").blur(function(){
                         <option value="24:00">24:00</option>
                     </select>
                     <span>부터</span>
-                    <select class="tool w-100" name="store_close_hour">
+                    <select class="tool w-100" id="store_close_hour" name="store_close_hour">
                         <option value="">운영 종료 시간</option>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -518,6 +566,7 @@ $("[name=storeAddress2]").blur(function(){
                         <option value="24:00">24:00</option>
                     </select>
                     <span>까지 운영합니다.</span>
+                    <input type="hidden" name="storeHours">
                     
                     <div class="cell" name="store_closed">
                         <label>
