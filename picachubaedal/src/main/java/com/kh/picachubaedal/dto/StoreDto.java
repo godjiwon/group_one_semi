@@ -7,11 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class StoreDto {
 	private int storeNo;
 	private String storeName;
-	private String StoreAddress;
+	private String storeAddress;
 	private String storeCategory;
 	private String storeType;
 	private String storeContact;
-	private MultipartFile storeImage;
+//	private MultipartFile storeImage;
 	private String storeIntro;
 	private int storeDtip;
 	private int storeMinprice;
@@ -21,8 +21,21 @@ public class StoreDto {
 	private Date storeTime;
 	private Date storeUpdate;
 	private String storeClosed;
+	private String storeBusinessNumber;
 	
 	
+	public String getStoreBusinessNumber() {
+		return storeBusinessNumber;
+	}
+
+	public void setStoreBusinessNumber(String storeBusinessNumber) {
+		this.storeBusinessNumber = storeBusinessNumber;
+	}
+
+//	public void setStoreImage(MultipartFile storeImage) {
+//		this.storeImage = storeImage;
+//	}
+
 	public StoreDto() {
 		
 		super();
@@ -45,11 +58,11 @@ public class StoreDto {
 	}
 
 	public String getStoreAddress() {
-		return StoreAddress;
+		return storeAddress;
 	}
 
 	public void setStoreAddress(String storeAddress) {
-		StoreAddress = storeAddress;
+		storeAddress = storeAddress;
 	}
 
 	public String getStoreCategory() {
@@ -76,13 +89,13 @@ public class StoreDto {
 		this.storeContact = storeContact;
 	}
 
-	public MultipartFile getStoreImage() {
-		return storeImage;
-	}
-
-	public void MultipartFile(MultipartFile storeImage) {
-		this.storeImage = storeImage;
-	}
+//	public MultipartFile getStoreImage() {
+//		return storeImage;
+//	}
+//
+//	public void MultipartFile(MultipartFile storeImage) {
+//		this.storeImage = storeImage;
+//	}
 
 	public String getStoreIntro() {
 		return storeIntro;

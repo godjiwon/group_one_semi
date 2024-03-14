@@ -67,7 +67,7 @@
     <br>
     
     <label for="storeImage">가게 사진</label>
-    <input type="text" id="storeImage" name="storeImage" value="${dto.storeImage}">
+    <input type="text" id="storeImage" name="storeImage" value="">
     <br>
     
     <label for="storeIntro">가게 소개글</label>
@@ -93,6 +93,9 @@
     <label for="storeClosed">가게 휴무일</label>
     <input type="text" id="storeClosed" name="storeClosed" value="${dto.storeClosed}">
     <br>
+    
+    <label for="storeClosed">사업자 등록번호</label>
+    <input type="text" id="storeBusinessNumber" name="storeBusinessNumber" value="${dto.storeBusinessNumber}">
     
     <button type="submit">변경하기</button>
 </form>
