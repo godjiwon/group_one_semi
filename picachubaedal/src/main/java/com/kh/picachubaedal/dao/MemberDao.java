@@ -24,12 +24,13 @@ public class MemberDao {
 	public void insert(MemberDto memberDto) {
         String sql = "insert into member("
                 + "member_id, member_pw, member_nick, member_contact, "
-                + "member_email, member_post, member_address1, member_address2) "
-                + "values(?, ?, ?, ?, ?, ?, ?, ?)";
+                + "member_email, member_post, member_address1, member_address2,member_grade) "
+                + "values(?, ?, ?, ?, ?, ?, ?, ?,?)";
         Object[] data = {memberDto.getMemberId(), memberDto.getMemberPw(),
                                 memberDto.getMemberNick(), memberDto.getMemberContact(),
                                 memberDto.getMemberEmail(), memberDto.getMemberPost(),
-                                memberDto.getMemberAddress1(), memberDto.getMemberAddress2()};
+                                memberDto.getMemberAddress1(), memberDto.getMemberAddress2(),
+                                memberDto.getMemberGrade()};
         jdbcTemplate.update(sql, data);
     }
 
