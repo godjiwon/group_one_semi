@@ -156,7 +156,7 @@ function displayImage(file) {
 </div>
 <div>
    <form method="post" id="insert_form">
-      <input type="hidden" name="storeNo" value="${storeNo }">
+      <input type="hidden" name="storeNo" value="${storeNo}">
       <section>
           <div class="menuArea container">
               <div id="drop-area">
