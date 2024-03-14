@@ -20,7 +20,6 @@
     <style>
 
     </style>
-    
 
     <!-- jquery cdn -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -30,156 +29,127 @@
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
     <script type="text/javascript">
 
-    
-    
-    $(document).ready(function() {
-        // 운영 시작 시간과 종료 시간을 선택할 때마다 호출되는 함수
-        $(".storeHour").change(function() {
-            // 운영 시작 시간과 종료 시간의 값을 가져옴
-            var startTime = $("select[name=store_open_hour]").val();
-            var endTime = $("select[name=store_close_hour]").val();
+    $(function(){
+	    //상태객체(React의 state로 개념이 이어짐)
+	    var state = {
+	        //key : value
+	        storeNoValid : false,
+	        storeNameValid : false,
+	        storeAddressValid : false,
+	        storeCategoryValid : false,
+	        storeTypeValid : false,
+	        storeContactValid : false, //선택항목
+	        storeImageValid : false,//선택항목
+	        storeIntroValid : false,
+	        storeDtipValid : false,
+	        storeMinpriceValid : false,
+	        storeHoursValid : false,
+	        storeClosedValid : false,
+	        //객체에 함수를 변수처럼 생성할 수 있다
+	        //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
+	        ok : function(){
+	            return this.storeIdValid 
+	                    && this.storeNoValid && this.storeNameValid
+	                    && this.storeAddressValid && this.storeCategoryValid
+	                    && this.storeTypeValid && this.storeContactValid
+	                    && this.storeImageValid && this.storeIntroValid
+	                    && this.storeDtipValid && this.storeMinpriceValid
+	                    && this.storeHoursValid && this.storeClosedValid;
+	        },
+	    };
+	
+	    $("[name=storeContact]").blur(function(){
+	    	var regex = /^\d{2,3}-\d{3,4}-\d{4}$/;
+	        var value = $(this).val();
+	
+	        if(regex.test(value)) {//전화번호 형식 검사를 통과했다면
+	            $.ajax({
+	                url : "/rest/store/checkstoreContact",
+	                method : "post",
+	                data: {
+	                    storeId : value
+	                },
+	                success : function(response) {
+	                    //console.log(response);
+	                    if(response == "NNNNN") {
+	                        $("[name=storeContact]").removeClass("success fail fail2").addClass("fail2");
+	                        state.storeIdValid = false;
+	                    }
+	                    else if(response == "NNNNY") {
+	                        $("[name=storeContact]").removeClass("success fail fail2").addClass("success");
+	                        state.storeIdValid = true;
+	                    }
+	                }
+	            });
+	        }
+	        else {//아이디가 형식검사를 통과하지 못했다면
+	            $("[name=storeContact]").removeClass("success fail fail2").addClass("fail");
+	            state.storeIdValid = false;
+	        }
+	    });
+	    $("[name=storeDtip]").on("blur", function(){
+	    	var regex = /^\d+$/;
 
-            // 값이 선택되었는지 확인하고, 선택되었다면 하이픈(-)을 이용하여 문자열로 합침
-            if (startTime && endTime) {
-                var storeHours = startTime + " - " + endTime;
-                
-                // 만들어진 문자열을 숨겨진 input 요소에 할당
-                $("input[name=storeHours]").val(storeHours);
-            }
-        });
-    });
-    
-    $(document).ready(function () {
-        // 등록 버튼 클릭 시 폼 데이터를 서버로 전송하는 함수
-        $("#registerButton").click(function () {
-            // 가게 소개글, 운영 시간, 배달 가능 지역, 휴무일 값을 가져옵니다.
-            var storeIntro = $("#storeIntro").val();
-            var storeHours = $("#storeHours").val();
-            var storeDelivery = $("#storeDelivery").val();
-            var storeClosed = $("#storeClosed").val();
-
-            // 폼 데이터에 추가합니다.
-            var formData = $("#storeForm").serialize();
-            formData += "&storeIntro=" + storeIntro;
-            formData += "&storeHours=" + storeHours;
-            formData += "&storeDelivery=" + storeDelivery;
-            formData += "&storeClosed=" + storeClosed;
-
-            // AJAX를 사용하여 서버로 폼 데이터를 전송합니다.
-            $.ajax({
-                type: "POST",
-                url: "insert1",
-                data: formData,
-                success: function (response) {
-                    console.log("가게 등록이 성공적으로 처리되었습니다.");
-                },
-                error: function (xhr, status, error) {
-                    console.error("서버 통신 중 오류가 발생했습니다: " + error);
-                }
-            });
-        });
-    });
-
-    
-    $(document).ready(function () {
-        // 등록 버튼 클릭 시 폼 데이터를 서버로 전송하는 함수
-        $("#registerButton").click(function () {
-            var selectedValues = [];
-            $(".storeType:checked").each(function () {
-                selectedValues.push($(this).attr('id'));
-            });
-            var formData = $("#storeForm").serialize();
-            formData += "&selectedValues=" + JSON.stringify(selectedValues);
-            formData += "&storeBusinessNumber=" + $("[name=businessNumber]").val();
-
-            $.ajax({
-                type: "POST",
-                url: "insert1",
-                data: formData,
-                success: function (response) {
-                    console.log("가게 등록이 성공적으로 처리되었습니다.");
-                },
-                error: function (xhr, status, error) {
-                    console.error("서버 통신 중 오류가 발생했습니다: " + error);
-                }
-            });
-        });
+	        state.storePwValid = regex.test($(this).val());
+	        $(this).removeClass("success fail")
+	                    .addClass(state.storePwValid ? "success" : "fail");
+	    });
+	    $("#Dtip-reinput").blur(function(){
+	        var storeDtip = $("[name=storeDtip]").val();
+	        state.storeDtipCheckValid = storeDtip == $(this).val();
+	        
+	        if(storeDtip.length == 0) {
+	            $(this).removeClass("success fail fail2").addClass("fail2");
+	        }
+	        else {
+	            $(this).removeClass("success fail fail2")
+	                        .addClass(state.storeDtipCheckValid ? "success" : "fail");
+	        }
+	    });
+	    $("[name=storeMinprice]").blur(function(){
+	    	var regex = /^\d+$/;
+	        var value = $(this).val();
+	
+	        if(regex.test(value)) {
+	            $.ajax({
+	                url:"/rest/store/checkstoreMinprice",
+	                method:"post",
+	                data : { storeNick : value },
+	                success:function(response){
+	                    if(response) {//사용 가능한 경우 - success
+	                        state.storeNickValid = true;
+	                        $("[name=storeMinprice]")
+	                            .removeClass("success fail fail2")
+	                            .addClass("success");
+	                    }
+	                    else {//이미 사용중인 경우 - fail2
+	                        state.storeNickValid = false;
+	                        $("[name=storeMinprice]")
+	                            .removeClass("success fail fail2")
+	                            .addClass("fail2");
+	                    }
+	                }
+	            });
+	        }
+	        else {//형식이 맞지 않는 경우 - fail
+	            state.storeNickValid = false;
+	            $("[name=storeMinprice]")
+	                .removeClass("success fail fail2")
+	                .addClass("fail");
+	        }
+	    });
+	    
         
-        // 폼 제출 전에 유효성 검사 함수 호출
-        $(".check-form").submit(function () {
-            if (!validateInputFields()) {
-                return false; // 폼 제출 중단
-            }
-            return true; // 유효성 검사 통과 시 폼 제출
-        });
-    });
-
-        // 입력 필드 유효성 검사 함수
-        function validateBusinessNumber(input) {
-            var businessNumber = input.value.replace(/-/g, '');
-            var businessNumberPattern = /^\d{3}\d{2}\d{5}$/;
-            if (!businessNumberPattern.test(businessNumber)) {
-                $("#business_number_error").text("잘못된 사업자 등록번호 형식입니다").show();
-                $(input).removeClass("success").addClass("fail");
-            } else {
-                $("#business_number_error").hide();
-                $(input).removeClass("fail").addClass("success");
-            }
-        }
-
-
-    
-    function validateBusinessNumber(input) {
-        var businessNumber = input.value.replace(/-/g, ''); // 하이픈(-) 제거
-        // 사업자 등록번호 정규식 패턴
-        var businessNumberPattern = /^\d{3}\d{2}\d{5}$/; // 하이픈 없이 10자리 숫자만 허용
-        if (!businessNumberPattern.test(businessNumber)) {
-            $("#business_number_error").text("잘못된 사업자 등록번호 형식입니다").show();
-            $(input).removeClass("success").addClass("fail");
-        } else {
-            $("#business_number_error").hide();
-            $(input).removeClass("fail").addClass("success");
-        }
-    }
-
-    
-    function checkStoreName() {
-        var storeName = $("#storeName").val().trim();
-        if (storeName === "") {
-            $("#storeName").removeClass("success").addClass("fail");
-            $(".fail-feedback").show().text("가게 이름을 반드시 입력하세요");
-        } else {
-            $("#storeName").removeClass("fail").addClass("success");
-            $(".fail-feedback").hide();
-        }
-    }
-
-    function checkStoreCategory() {
-        var storeCategory = $("#storeCategory").val();
-        if (storeCategory === "") {
-            $("#storeCategory").removeClass("success").addClass("fail");
-            $(".fail-feedback").show().text("음식 카테고리를 선택하세요");
-        } else {
-            $("#storeCategory").removeClass("fail").addClass("success");
-            $(".fail-feedback").hide();
-        }
-    }
-
-    function checkStoreContact() {
-        var storeContact = $("[name=storeContact]").val().replace(/-/g, ''); // 하이픈(-) 제거
-        // 전화번호 정규식 패턴
-        var phonePattern = /^\d{3}\d{3,4}\d{4}$/; // 하이픈 없이 10자리 또는 11자리 숫자만 허용
-        if (!phonePattern.test(storeContact)) {
-            $("[name=storeContact]").removeClass("success").addClass("fail");
-            $(".fail-feedback").show().text("잘못된 전화번호 형식입니다");
-        } else {
-            $("[name=storeContact]").removeClass("fail").addClass("success");
-            $(".fail-feedback").hide();
-        }
-    }
-
-
-$("[name=storeAddress2]").blur(function(){
+	    $("[name=storeDelivery]").blur(function(){
+	    	var regex = /^[가-힣]+$/;
+	        var value = $(this).val();
+	        state.storeContactValid = value.length == 0 || regex.test(value);
+	        $(this).removeClass("success fail")
+	                    .addClass(state.storeContactValid ? "success" : "fail");
+	    
+	
+	    //주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
+	    $("[name=storeAddress2]").blur(function(){
 	        var post = $("[name=storePost]").val();
 	        var address1 = $("[name=storeAddress1]").val();
 	        var address2 = $("[name=storeAddress2]").val();
@@ -194,7 +164,7 @@ $("[name=storeAddress2]").blur(function(){
 	                .addClass(state.storeAddressValid ? "success" : "fail");
 	    });
 	
-	    //음식 카테고리 form 전송
+	    //form 전송
 	    $(".check-form").submit(function(){
 	        //$(this).find("[name], #pw-reinput").blur();
 	        //$(this).find(".tool").blur();//모든 창
@@ -203,40 +173,8 @@ $("[name=storeAddress2]").blur(function(){
 	        $(this).find(".tool").not(".success, .fail, .fail2").blur();
 	        return state.ok();
 	    });
-	
-	    function updateCategory() {
-	        var selectedCategory = document.getElementById("storeCategory").value;
-	        
-	        // AJAX를 사용하여 서버에 선택된 카테고리 값을 전송
-	        $.ajax({
-	            type: "POST",
-	            url: "update_category.php", // 카테고리를 업데이트하는 서버 측의 스크립트 경로
-	            data: { category: selectedCategory },
-	            success: function(response) {
-	                // 서버에서 응답을 받았을 때 수행할 작업 (예: 성공 메시지 표시 등)
-	                console.log("카테고리가 성공적으로 업데이트되었습니다.");
-	            },
-	            error: function(xhr, status, error) {
-	                // 서버 통신 오류 발생 시 수행할 작업
-	                console.error("서버 통신 중 오류가 발생했습니다: " + error);
-	            }
-	        });
-	    }
-
-	    // form 전송을 위한 이벤트 핸들러
-	    $(".check-form").submit(function(){
-	        // 입력 필드의 유효성을 검사합니다.
-	        if (!validateInputFields()) {
-	            // 유효성 검사에 실패한 경우 폼 전송을 중단합니다.
-	            return false;
-	        }
-	        
-	        // 성공적으로 유효성 검사를 통과한 경우 폼을 전송합니다.
-	        return true;
-	    });
-	    
-    </script>
-
+	});
+</script>
 <!-- 카카오 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -274,82 +212,29 @@ $("[name=storeAddress2]").blur(function(){
         });
     });
     
- // 입력 필드 유효성 검사 함수 주소!!
-    function validateInputFields() {
-        // 필수 입력 필드들을 배열로 정의합니다.
-        var requiredFields = ["storeName", "storeCategory", "storeContact", "storePost", "storeAddress1", "storeAddress2"];
-
-        // 모든 필수 입력 필드가 채워져 있는지 확인합니다.
-        for (var i = 0; i < requiredFields.length; i++) {
-            var fieldName = requiredFields[i];
-            var fieldValue = $("input[name=" + fieldName + "]").val().trim();
-
-            // 필드가 비어있는 경우
-            if (fieldValue === "") {
-                // 실패 피드백을 표시합니다.
-                $("input[name=" + fieldName + "]").removeClass("success").addClass("fail");
-                $(".fail-feedback").show().text("모든 필수 입력 필드를 작성하세요");
-                return false; // 유효성 검사 실패
-            }
-        }
-
-        // 모든 필수 입력 필드가 채워져 있으면 성공을 반환합니다.
-        return true;
-    }
-
-   
-
-    
- // 이미지 파일 선택 시 미리보기 기능 추가
-    $("input[name='storeImage']").change(function() {
-        var file = this.files[0]; // 선택된 파일
-        var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
-        
-        // 파일을 읽었을 때의 동작 정의
-        reader.onload = function(e) {
-            // 선택된 파일의 미리보기를 화면에 출력
-            $(".preview-image").attr("src", e.target.result);
-        };
-        
-        // 파일 읽기 실행
-        reader.readAsDataURL(file);
-        
-     // 이미지 미리보기를 위한 img 태그
-        var previewImage = document.createElement("img");
-        previewImage.className = "preview-image";
-        previewImage.src = "#";
-        previewImage.alt = "미리보기 이미지";
-        previewImage.style.maxWidth = "100%";
-        previewImage.style.height = "auto";
-
-
-    });
- 
-        
-        // 성공적으로 유효성 검사를 통과한 경우, 휴무일 정보를 가져와서 배열에 담습니다.
-        var storeClosedDays = [];
-        $("input[name='store_off_day']:checked").each(function() {
-            storeClosedDays.push($(this).val());
-        });
-        
-        // AJAX를 사용하여 서버로 휴무일 정보를 전송합니다.
-        $.ajax({
-            type: "POST",
-            url: "update_closed_days.php", // 휴무일 정보를 업데이트하는 서버 측의 스크립트 경로
-            data: { store_closed: storeClosedDays }, // 'store_closed' 필드에 휴무일 정보를 담아 전송
-            success: function(response) {
-                // 서버에서 응답을 받았을 때 수행할 작업 (예: 성공 메시지 표시 등)
-                console.log("휴무일 정보가 성공적으로 업데이트되었습니다.");
-            },
-            error: function(xhr, status, error) {
-                // 서버 통신 오류 발생 시 수행할 작업
-                console.error("서버 통신 중 오류가 발생했습니다: " + error);
+    $(function(){
+        //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
+    	// storeName 입력란의 blur 이벤트 설정
+        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery]").blur(function(){
+            // 입력된 가게 이름 가져오기
+            var storeName = $(this).val();
+            
+            // 여기서 추가적으로 수행할 작업을 작성합니다.
+            // 예를 들어, 가게 이름이 입력되었는지 확인하거나 다른 유효성 검사를 수행할 수 있습니다.
+            
+            // 예시: 가게 이름이 비어 있지 않은 경우에만 유효성 검사 통과 처리
+            if(storeName.trim() !== '') {
+                // 가게 이름이 비어 있지 않은 경우 success 클래스 추가
+                $(this).addClass("success");
+                // 다른 작업 수행 가능
+            } else {
+                // 가게 이름이 비어 있는 경우 fail 클래스 추가
+                $(this).addClass("fail");
+                // 다른 작업 수행 가능
             }
         });
-
-        // 성공적으로 처리되었으므로 폼을 전송합니다.
-        return true;
     });
+
 
 
     
@@ -372,10 +257,10 @@ $("[name=storeAddress2]").blur(function(){
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
                     <input type="text" id="storeName" name="storeName" placeholder="가게 이름을 작성해주세요" class="tool w-100"
-                        onblur="checkStoreName()">
-                    <div class="success-feedback"><i class="fa-solid fa-check"></i></div>
+                        onblur="checkstoreName()">
+                    
                     <div class="fail-feedback"><i class="fa-solid fa-triangle-exclamation"></i> 가게 이름을 반드시 입력하세요</div>
-                    <div class="name"></div>
+                    
                 </div>
 
                 <div class="cell page">
@@ -433,7 +318,6 @@ $("[name=storeAddress2]").blur(function(){
                         <option value="일식/돈까스">일식/돈까스</option>
                         <option value="족발/보쌈">족발/보쌈</option>
                         <option value="야식">야식</option>
-                        <option value="치킨">치킨</option>
                         <option value="분식">분식</option>
                         <option value="카페/디저트">카페/디저트</option>
                     </select>
@@ -446,7 +330,7 @@ $("[name=storeAddress2]").blur(function(){
                         배달/포장 가능 여부(중복 선택 가능)
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
-                    <div class="cell">
+                    <div class="cell"onblur="checkstoreType()">
                         <input type="checkbox" id="배달만" name="storeType" class="storeType">
                         배달만
                         <input type="checkbox" id="포장만" name="storeType" class="storeType">
@@ -491,7 +375,7 @@ $("[name=storeAddress2]").blur(function(){
                             배달팁<!-- 포켓볼 사진 input에 추가  -->
                             <i class="fa-solid fa-asterisk red"></i>
                         </label>
-                        <input type="text" name="storeDtip" placeholder="ex.3,000원" class="tool w-100" oninput="">
+                        <input type="text" name="storeDtip" placeholder="ex.3,000원" class="tool w-100">
                         <div class="name"></div>
                     </div>
                     <div class="cell">
@@ -499,7 +383,7 @@ $("[name=storeAddress2]").blur(function(){
                             최소 주문 금액<!-- 포켓볼 사진 input에 추가  -->
                             <i class="fa-solid fa-asterisk red"></i>
                         </label>
-                        <input type="text" name="storeMinprice" placeholder="ex.12,000원" class="tool w-100" oninput="">
+                        <input type="text" name="storeMinprice" placeholder="ex.12,000원" class="tool w-100">
                         <div class="name"></div>
                     </div>
                     
@@ -595,19 +479,10 @@ $("[name=storeAddress2]").blur(function(){
                             배달 가능 지역
                             <i class="fa-solid fa-asterisk red"></i>
                         </label>
-                        <input type="text" name="store_name" placeholder="ex.노원구(구 단위만 입력)" class="tool w-100"
-                            oninput="">
+                        <input type="text" name="store_name" placeholder="ex.노원구(구 단위만 입력)" class="tool w-100">
                         <div class="name"></div>
                     </div>
-                    <div class="cell">
-                        <label>
-                            사업자 등록번호
-                            <i class="fa-solid fa-asterisk red"></i>
-                        </label>
-                        <input type="text" name="businessNumber" placeholder="123-45-67890('-' (하이픈)없이 입력)"
-                            class="tool w-100" oninput="validateBusinessNumber(this)">
-                        <div class="fail-feedback" id="business_number_error"></div>
-                    </div>
+                    
                     <div class="w-100 right">
                         <button class="btn positive w-100" type="submit">등록하기</button>
                     </div>

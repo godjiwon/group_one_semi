@@ -20,15 +20,15 @@ public class StoreDao {
 
     public void insert(StoreDto storeDto) {
         String sql = "INSERT INTO store (" +
-                    "store_name, store_address, store_category, store_type, " +
+                    "store_name, store_category, store_type, " +
                     "store_contact, store_intro, store_dtip, store_minprice, " +
                     "store_like, store_hours, store_delivery, store_time, " +
-                    "store_closed" + // store_update 제거
-                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?)";
+                    "store_closed, store_address1, store_address2" + // store_update 제거
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?,?,?)";
         
         Object[] data = {
             storeDto.getStoreName(),
-            storeDto.getStoreAddress(),
+            
             storeDto.getStoreCategory(),
             storeDto.getStoreType(),
             storeDto.getStoreContact(),
@@ -39,6 +39,8 @@ public class StoreDao {
             storeDto.getStoreHours(),
             storeDto.getStoreDelivery(),
             storeDto.getStoreClosed(),
+            storeDto.getStoreAddress1(),
+            storeDto.getStoreAddress2()
             
         };
         
@@ -47,29 +49,24 @@ public class StoreDao {
 
 
 
-    // 수정 (가게 수정)
+ // 수정 (가게 수정)
     public boolean update(StoreDto storeDto) {
-        // 쿼리문 상수화
-        final String UPDATE_SQL = "UPDATE store SET " +
-                "store_name=?, store_address=?, store_category=?, store_type=?, " +
+        String sql = "UPDATE store SET " +
+                "store_name=?, store_category=?, store_type=?, " +
                 "store_contact=?, store_intro=?, store_dtip=?, store_minprice=?, " +
-                "store_hours=?, store_delivery=?, store_closed=? " +
+                "store_hours=?, store_delivery=?, store_closed=?, store_address1=?, store_address2=? " +
                 "WHERE store_no=?";
 
-        try {
-            return jdbcTemplate.update(UPDATE_SQL,
-                    storeDto.getStoreName(), storeDto.getStoreAddress(), storeDto.getStoreCategory(),
-                    storeDto.getStoreType(), storeDto.getStoreContact(), storeDto.getStoreIntro(),
-                    storeDto.getStoreDtip(), storeDto.getStoreMinprice(), storeDto.getStoreHours(),
-                    storeDto.getStoreDelivery(), storeDto.getStoreClosed(),
-                    storeDto.getStoreNo()) > 0;
-        } catch (DataAccessException e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 필요한 예외 처리 로직 추가
-            return false;
-        }
+        Object[] data = {storeDto.getStoreName(), storeDto.getStoreCategory(),
+               storeDto.getStoreType(), storeDto.getStoreContact(), storeDto.getStoreIntro(),
+               storeDto.getStoreDtip(), storeDto.getStoreMinprice(), storeDto.getStoreHours(),
+               storeDto.getStoreDelivery(), storeDto.getStoreClosed(), storeDto.getStoreAddress1(), storeDto.getStoreAddress2(),
+               storeDto.getStoreNo()
+        };
+
+        return jdbcTemplate.update(sql, data) > 0;
     }
+
 
     // 삭제 (가게 삭제)
     public boolean delete(int storeNo) {
