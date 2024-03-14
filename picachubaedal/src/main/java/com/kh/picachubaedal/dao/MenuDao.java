@@ -124,16 +124,21 @@ public class MenuDao {
 		jdbcTemplate.update(sql, data);
 	}
 	
-	public int selectStoreNo(String memberId) {
-	      String sql = " SELECT tb1.store_no FROM store tb1 "
+    public int selectStoreNo(String memberId) {
+	    String sql = " SELECT tb1.store_no FROM store tb1 "
 	               + " LEFT OUTER JOIN store_member tb2 "
 	               + " ON tb1.store_no = tb2.store_no "
 	               + " LEFT OUTER JOIN member tb3 "
 	               + " ON tb2.member_id = tb3.member_id "
 	               + " WHERE tb3.member_id = ? ";
-	      Object[] data = {memberId};
-	      return jdbcTemplate.queryForObject(sql, int.class, data);
-	}
+	    Object[] data = {memberId};
+	    try {
+	       int storeNo = jdbcTemplate.queryForObject(sql, int.class, data);
+	       return storeNo;
+	    } catch(Exception e) {
+	       return 0;
+	    }
+    }
 	
 	//검색(메뉴바에서)
 	
