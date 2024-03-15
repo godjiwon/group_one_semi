@@ -78,7 +78,7 @@ public class MemberController {
 			// 세션에 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade());
-
+			session.setAttribute("memberNo", findDto.getMemberNo());
 			// 최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
 
@@ -254,7 +254,7 @@ public class MemberController {
 		    if(memberId != null) {
 		        model.addAttribute("memberId", memberId);
 		        model.addAttribute("memberNick", memberDto.getMemberNick());
-		        return "redirect:findIdSuccess";
+		        return "/WEB-INF/views/member/findIdSuccess.jsp";
 		    } else {
 		        return "redirect:findIdFail";
 		    }

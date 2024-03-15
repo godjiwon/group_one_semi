@@ -1,7 +1,7 @@
 package com.kh.picachubaedal.dto;
 
 import java.sql.Date;
-
+//
 public class MemberDto {
 	private int memberNo;
 	private String memberId;
