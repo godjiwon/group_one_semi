@@ -20,11 +20,11 @@ public class StoreDao {
 
     public void insert(StoreDto storeDto) {
         String sql = "INSERT INTO store (" +
-                    "store_name, store_post, store_address1, store_address2, store_category, "
+                    "store_no, store_name, store_post, store_address1, store_address2, store_category, "
                     + "store_type, store_contact, store_intro, store_dtip, store_minprice, "
                     + "store_open_hour, store_close_hour, store_delivery, store_closed, "
                     + "store_business_number, member_no" +
-                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    ") VALUES (store_seq.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         Object[] data = {
             storeDto.getStoreName(),
