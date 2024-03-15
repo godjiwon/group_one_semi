@@ -87,29 +87,26 @@
 
 <!--  카카오 계정 로그인 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
 <script>
-	Kakao.init('71758ab36b8b8732582af48d99fe3500'); //발급받은 키 중 javascript키를 사용해준다.
+	window.Kakao.init('71758ab36b8b8732582af48d99fe3500'); //발급받은 키 중 javascript키를 사용해준다.
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
 	//카카오로그인
 	function kakaoLogin() {
-		Kakao.Auth.login({
-			success : function(response) {
-				Kakao.API.request({
-					url : '/v2/user/me',
-					success : function(response) {
-						console.log(response)
-					},
-					fail : function(error) {
-						console.log(error)
-					},
-				})
-			},
-			fail : function(error) {
-				console.log(error)
-			},
-		})
-	}
+		window.Kakao.Auth.login({
+			scope : 'profile,account_email,gender'
+				success:(authObj)=>{
+					console.log(authObj);
+					window.kakao.API.request({
+					url:'/v2/user/me',
+					success: res=>{
+						const kakao_account = res.kakao_account;
+						console.log(kakao_account);
+						}
+					});
+				}
+							
+		});
+				}
 	//카카오로그아웃  
 	function kakaoLogout() {
 		if (Kakao.Auth.getAccessToken()) {
@@ -133,6 +130,7 @@
 		onsubmit="return checkForm();">
 		<div class="container w-400">
 			<div class="cell center">
+				<br><br>
 				<h1>로그인</h1>
 			</div>
 
@@ -146,17 +144,17 @@
 					class="tool w-100">
 			</div>
 			<div class="cell">
-				<button class="btn positive w-100">로그인</button>
+				<button class="btn positive w-100" style="background-color:rgb(236,109,70);">로그인</button>
 			</div>
 			<div class="cell btn w-100 kakao" onclick="kakaoLogin();">
 				<span>카카오 계정 로그인</span>
 			</div>
-
 			<div class="cell center">
 
-				<a href="findId">아이디 찾기</a>
-				<a href="findPw">비밀번호 찾기</a>
-				<a href="signup">회원가입</a>
+				<a href="findId" style="text-decoration-line: none;">아이디 찾기</a>
+				<a href="findPw" style="text-decoration-line: none;">비밀번호 찾기</a>
+				<a href="signup" style="text-decoration-line: none;">회원가입</a>
+				<br><br><br><br><br><br>
 			</div>
 			<c:if test="${param.error != null}">
 				<div class="cell center">
