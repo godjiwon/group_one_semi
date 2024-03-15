@@ -52,8 +52,9 @@
 .tool.success ~ .success-feedback, .tool.fail ~ .fail-feedback {
 	display: block;
 }
-.kakao{
-	background-color:rgb(255,235,51);
+
+.kakao {
+	background-color: rgb(255, 235, 51);
 }
 </style>
 <!-- 아이디,비밀번호 유효성 검사 -->
@@ -152,10 +153,10 @@
 			</div>
 
 			<div class="cell center">
-				<a href="findId">아이디가 기억나지 않습니다</a>
-			</div>
-			<div class="cell center">
-				<a href="findPw">비밀번호가 기억나지 않습니다</a>
+
+				<a href="findId">아이디 찾기</a>
+				<a href="findPw">비밀번호 찾기</a>
+				<a href="signup">회원가입</a>
 			</div>
 			<c:if test="${param.error != null}">
 				<div class="cell center">
@@ -169,5 +170,5 @@
 </body>
 </html>
 
-    <%-- 템플릿 페이지를 불러오는 코드 --%>
+<%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
