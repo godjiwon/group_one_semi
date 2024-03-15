@@ -98,7 +98,19 @@ public class StoreDao {
         }
     }
 
-    // 나머지 메서드들은 변경할 필요가 없습니다.
+  //프로필 이미지 연결
+  	public void connect(int storeNo, int attachNo) {
+  		String sql = "insert into store_attach(store_no, attach_no) "
+  						+ "values(?, ?)";
+  		Object[] data = {storeNo, attachNo};
+  		jdbcTemplate.update(sql, data);
+  	}
+
+  	public int findAttachNo(int storeNo) {
+  		String sql = "select attach_no from store_attach where store_no = ?";
+  		Object[] data = {storeNo};
+  		return jdbcTemplate.queryForObject(sql, int.class, data);
+  	}
 
 
 
