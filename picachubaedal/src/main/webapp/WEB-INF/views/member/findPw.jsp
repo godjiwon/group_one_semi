@@ -25,7 +25,7 @@
 					<input type="text" name="memberEmail" required class="tool w-100"
 						placeholder="이메일을 입력하세요">
 				</div>
-				<button type="submit" class="btn positive">
+				<button type="submit" class="btn positive" style="background-color:rgb(254,210,61);">
 					찾기 <i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>

@@ -153,14 +153,10 @@
 			</div>
 
 			<div class="cell center">
-<<<<<<< HEAD
-				<a href="findId">아이디 찾기</a> <a href="findPw">비밀번호 찾기</a> <a
-					href="signup">회원가입</a>
-=======
+
 				<a href="findId">아이디 찾기</a>
 				<a href="findPw">비밀번호 찾기</a>
 				<a href="signup">회원가입</a>
->>>>>>> branch 'kyk' of https://github.com/godjiwon/group_one_semi.git
 			</div>
 			<c:if test="${param.error != null}">
 				<div class="cell center">

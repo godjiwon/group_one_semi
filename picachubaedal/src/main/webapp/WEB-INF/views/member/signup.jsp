@@ -334,10 +334,10 @@
 							<label>주소 <i class="fa-solid fa-asterisk red"></i>
 							</label>
 						</div>
-						<div class="cell">
+						<div class="cell" >
 							<input type="text" name="memberPost" readonly placeholder="우편번호"
 								class="tool" size="6" maxlength="6">
-							<button type="button" class="btn positive btn-address-search">
+							<button type="button" class="btn positive btn-address-search" style="background-color:rgb(254,210,61);">
 								<i class="fa-solid fa-magnifying-glass"></i>
 							</button>
 							<button type="button" class="btn negative btn-address-clear">
@@ -363,7 +363,7 @@
 							</div>
 
 							<div class="w-100 right">
-								<button type="submit" class="btn positive">
+								<button type="submit" class="btn positive" style="background-color:rgb(254,210,61);">
 									<i class="fa-solid fa-user"></i> 회원가입
 								</button>
 							</div>
@@ -378,4 +378,5 @@
 
 </body>
 
-
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
