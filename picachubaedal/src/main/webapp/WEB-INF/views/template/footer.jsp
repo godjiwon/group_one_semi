@@ -17,9 +17,6 @@
             text-decoration: none;
 		}
 	</style>
-
-			</div>
-        </div>
         <hr class="hr hr-border">
         <div class="footer footer-atag-style">
    
@@ -32,7 +29,7 @@
             <span class="bar"> | </span>대표이사 : 김피카츄<span class="bar"> | </span>사업자등록번호 : 000-00-00000
             <span class="bar"> | </span>개인정보담당자 : 
             <a href="#">privacy@baedalpikachu.co.kr</a>
-            <span class="bar"> | </span>제휴문의 : 
+            <span class="bar"> | </span><br>제휴문의 : 
             <a href="#">partnership@baedalpikachu.co.kr</a>
             <span class="bar" >| </span>고객만족센터 : 
             <span ng-show="#" class="">02-1544-9970(유료) 24시간, 연중무휴</span> 

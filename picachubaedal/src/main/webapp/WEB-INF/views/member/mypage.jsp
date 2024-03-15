@@ -16,6 +16,9 @@
 				<img src="profilePhoto" width="150" height="150">
 			</div>
 			<div class="cell center">
+				<h2><a class="link link-animation" href="#">가게등록(임시)</a></h2>
+			</div>
+			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/pwUpdate">비밀번호 변경</a></h2>
 			</div>
 			<div class="cell center">
@@ -27,7 +30,7 @@
 		</div>
 		</div>
 		<div class="w-75">
-			<div class="cell">
+			<div class="cell center">
 				<h2>가입 정보</h2>
 			</div>
 			<div class="cell">
@@ -120,4 +123,8 @@
 	</div>
 
 </div>
+<br>
+
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
