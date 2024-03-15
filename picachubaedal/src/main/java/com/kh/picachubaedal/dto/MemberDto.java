@@ -1,8 +1,9 @@
 package com.kh.picachubaedal.dto;
 
 import java.sql.Date;
-
+//
 public class MemberDto {
+	private int memberNo;
 	private String memberId;
 	private String memberPw;
 	private String memberNick;
@@ -15,8 +16,12 @@ public class MemberDto {
 	private Date memberJoin;
 	private Date memberUpdate;
 	private String memberEmail;
-	public MemberDto() {
-		super();
+	
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -90,4 +95,7 @@ public class MemberDto {
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
+	
+	
 }
+	

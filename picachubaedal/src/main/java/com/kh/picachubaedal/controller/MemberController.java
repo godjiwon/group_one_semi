@@ -1,6 +1,7 @@
 package com.kh.picachubaedal.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.MemberDao;
@@ -26,12 +28,6 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 
-	// @Autowired
-	// private AttachDao attachDao;
-
-	// @Autowired
-	// private AttachService attachService;
-
 	@Autowired
 	private EmailService emailService;
 
@@ -43,24 +39,28 @@ public class MemberController {
 	public String signup() {
 		return "/WEB-INF/views/member/signup.jsp";
 	}
+
 	@PostMapping("/signup")
-	public String signup(@ModelAttribute MemberDto memberDto,
-						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		//회원 등록
+	public String signup(@ModelAttribute MemberDto memberDto, @RequestParam MultipartFile attach)
+			throws IllegalStateException, IOException {
+
+		// 회원정보 등록
 		memberDao.insert(memberDto);
-		
-		if(!attach.isEmpty()) {
+		// 첨부파일 등록
+		if (!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
 		}
-		
+
 		return "redirect:signupFinish";
 	}
+
 	@RequestMapping("/signupFinish")
 
 	public String signupFinish() {
 		return "/WEB-INF/views/member/signupFinish.jsp";
 	}
+
 	// 로그인
 	@GetMapping("/signin")
 	public String signin() {
@@ -78,8 +78,7 @@ public class MemberController {
 			// 세션에 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade());
-			
-
+			session.setAttribute("memberNo", findDto.getMemberNo());
 			// 최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
 
@@ -169,7 +168,7 @@ public class MemberController {
 	}
 
 	// 개인정보 변경
-	@GetMapping("/change")
+	@GetMapping("/profileEdit")
 	public String change(Model model, HttpSession session) {
 		// 사용자 아이디를 세션에서 추출
 		String loginId = (String) session.getAttribute("loginId");
@@ -180,10 +179,11 @@ public class MemberController {
 		// 모델에 정보 추가
 		model.addAttribute("memberDto", memberDto);
 
-		return "/WEB-INF/views/member/change.jsp";
+		return "/WEB-INF/views/member/profileEdit.jsp";
 	}
 
-	@PostMapping("/change")
+
+	@PostMapping("/profileEdit")
 	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
 		// 세션에서 아이디 추출
 		String loginId = (String) session.getAttribute("loginId");
@@ -203,16 +203,15 @@ public class MemberController {
 			return "redirect:mypage";
 		} else {
 			// 이전 페이지로 리다이렉트
-			return "redirect:change?error";
+			return "redirect:profileEdit?error";
 		}
 	}
 
 	// 회원 탈퇴
 	@GetMapping("/delete_account")
 	public String delete_account() {
-		return "/WEB-INF/views/member/delete_account_success.jsp";
+		return "/WEB-INF/views/member/delete_account.jsp";
 	}
-
 	@PostMapping("/delete_account")
 	public String delete_account(@RequestParam String memberPw, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
@@ -242,6 +241,7 @@ public class MemberController {
 		return "/WEB-INF/views/member/delete_account_success.jsp";
 	}
 
+	
 	// 아이디 찾기
 	@GetMapping("/findId")
 	public String findId() {
@@ -249,15 +249,16 @@ public class MemberController {
 	}
 
 	@PostMapping("/findId")
-	public String findId(@RequestParam String memberNick, Model model) {
-		String memberId = memberDao.findMemberIdByNick(memberNick);
-		if (memberId != null) {
-			model.addAttribute("memberId", memberId);
-			model.addAttribute("memberNick", memberNick);
-		}
-		return "/WEB-INF/views/member/findId.jsp";
+	public String findId(@ModelAttribute MemberDto memberDto, Model model) {
+		 String memberId = memberDao.findMemberIdByNick(memberDto.getMemberNick());
+		    if(memberId != null) {
+		        model.addAttribute("memberId", memberId);
+		        model.addAttribute("memberNick", memberDto.getMemberNick());
+		        return "/WEB-INF/views/member/findIdSuccess.jsp";
+		    } else {
+		        return "redirect:findIdFail";
+		    }
 	}
-
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {
 		return "/WEB-INF/views/member/findIdSuccess.jsp";
@@ -268,8 +269,8 @@ public class MemberController {
 		return "/WEB-INF/views/member/findIdFail.jsp";
 	}
 
+	
 	// 비밀번호 찾기
-
 	@GetMapping("/findPw")
 	public String findPw() {
 		return "/WEB-INF/views/member/findPw.jsp";
@@ -288,15 +289,53 @@ public class MemberController {
 
 		} else {
 			return "redirect:findPwFail?error"; // 비밀번호 찾기 실패 시 findPwFail 페이지로 리다이렉트
+
 		}
 	}
 
 	@GetMapping("/findPwSuccess")
 	public String findPwSuccess() {
-	    return "/WEB-INF/views/member/findPwSuccess.jsp";
+		return "/WEB-INF/views/member/findPwSuccess.jsp";
 	}
+
 	@GetMapping("/findPwFail")
 	public String findPwFail() {
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
 }
+//	//카카오 로그인 API 
+//	@ResponseBody
+//	@GetMapping("/kakao")
+//	public BaseResponse<PostLoginRes> kakaoLogin(@RequestParam(required = false) String code) {
+//	    try {
+//	        // URL에 포함된 code를 이용하여 액세스 토큰 발급
+//	        String accessToken = loginService.getKakaoAccessToken(code);
+//	        System.out.println(accessToken);
+//
+//	        // 액세스 토큰을 이용하여 카카오 서버에서 유저 정보(닉네임, 이메일) 받아오기
+//	        HashMap<String, Object> userInfo = loginService.getUserInfo(accessToken);
+//	        System.out.println("login Controller : " + userInfo);
+//
+//	        PostLoginRes postLoginRes = null;
+//
+//	        // 만일, DB에 해당 email을 가지는 유저가 없으면 회원가입 시키고 유저 식별자와 JWT 반환
+//	        // 현재 카카오 유저의 전화번호를 받아올 권한이 없어서 테스트를 하지 못함.
+//	        if(loginProvider.checkEmail(String.valueOf(userInfo.get("email"))) == 0) {
+//	            //PostLoginRes postLoginRes = 해당 서비스;
+//	            return new BaseResponse<>(postLoginRes);
+//	        } else {
+//	            // 아니면 기존 유저의 로그인으로 판단하고 유저 식별자와 JWT 반환
+//	            postLoginRes = loginProvider.getUserInfo(String.valueOf(userInfo.get("email")));
+//	            return new BaseResponse<>(postLoginRes);
+//	        }
+//	    } catch (BaseException exception) {
+//	        return new BaseResponse<>((exception.getStatus()));
+//	    }
+//	}
+//	
+//	//카카오 로그인 콜백 메서드
+//	@GetMapping("/auth/kakao/callback")
+//	public String kakaoCallback(String code) {
+//		
+//	}
+//}

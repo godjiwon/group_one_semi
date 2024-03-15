@@ -10,8 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>메인페이지 임시</h1>
-	
+
 	<div>
 	<a href="/member/mypage">마이페이지링크(임시)</a>
 	</div>
