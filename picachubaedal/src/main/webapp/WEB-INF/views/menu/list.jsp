@@ -103,6 +103,12 @@
 	    height: 40px;
     	width: 230px;
 	}
+	
+	.store_name_design {
+		font-size: 25px;
+	    font-weight: bold;
+	    padding-top: 10px;		
+	}
 </style>
 
 <script type="text/javascript">
@@ -148,6 +154,8 @@
          메뉴등록
       </a>
    </h3>
+   <p>메뉴 검색창 만들기</p>
+   <div class="cell center store_name_design">${storeDto.storeName} 가게 메뉴</div>
    <div class="menulist">
       <c:forEach var="menuDto" items="${list}">
          <div class="cell flex-cell card menuCard">

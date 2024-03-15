@@ -177,17 +177,17 @@ function displayImage(file) {
               </div>
               <div id="input-area">
 				<input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요" value="${menuDto.menuName}">
-				<input type="number" name="menuPrice" placeholder="개수를 입력하세요 (1개당 1000원)" value="${menuDto.menuPrice}">
+				<input type="number" name="menuPrice" placeholder="몬스터볼 개수를 입력하세요" value="${menuDto.menuPrice}">
 		        <select name="menuCategory">
-		           <option>메뉴 카테고리</option>
-		           <option value="한식">한식</option>
-		           <option value="중식">중식</option>
-		           <option value="일식">일식</option>
-		           <option value="양식">양식</option>
-		           <option value="치킨">치킨</option>
-		           <option value="피자">피자</option>
-		           <option value="햄버거">햄버거</option>
-		        </select>
+                   <option>메뉴 카테고리</option>
+                   <option value="추천메뉴">추천메뉴</option>
+                   <option value="식사메뉴">식사메뉴</option>
+                   <option value="사이드">사이드</option>
+                   <option value="세트">세트</option>
+                   <option value="추가">추가</option>
+                   <option value="디저트">디저트</option>
+                   <option value="음료/ 주류">음료/ 주류</option>
+               </select>
 				<div class="right pt-30">
 					<a type="submit" form="insert_form" class="btn-gradient green" style=>
 				    	수정
