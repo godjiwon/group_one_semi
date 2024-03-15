@@ -37,14 +37,13 @@ public class MenuDao {
 	
    //수정
    public boolean update(MenuDto menuDto) {
-      String sql = "update menu set menu_category=?, menu_name=?, menu_price=?, menu_state=?, menu_time=?, menu_update=SYSDATE"
-    		  		+ "where menu_no=?";
+      String sql = "update menu set menu_category=?, menu_name=?, menu_price=?, menu_state=?, menu_update=SYSDATE"
+    		  		+ " where menu_no=?";
       Object[] data = {
             menuDto.getMenuCategory(),
             menuDto.getMenuName(),
             menuDto.getMenuPrice(),
             menuDto.getMenuState(),
-            menuDto.getMenuTime(),
             menuDto.getMenuNo()
       };
       return jdbcTemplate.update(sql, data) > 0;
@@ -69,21 +68,35 @@ public class MenuDao {
 	}
 	
 	//페이징을 위한 목록/검색/카운트 구현
-	public List<MenuDto> selectListByPaging(PageVO pageVO) {
-		if(pageVO.isSearch()) {
+	public List<MenuDto> selectListByPaging(PageVO pageVO) {		
+		if(!pageVO.getColumn().isEmpty()) {
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
 									+ "select * from menu "
-//										+ "where instr("+column+", ?) > 0 "//대소문자 구별
-									+ "where instr(upper("+pageVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
-									+ "order by "+pageVO.getColumn()+" asc, menu_no asc"
+									+ "where menu_category = ? "//대소문자 무시
+									+ "order by menu_no asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
+			Object[] data = {
+				pageVO.getColumn(), 
+				pageVO.getBeginRow(), 
+				pageVO.getEndRow()
+			};
+			return jdbcTemplate.query(sql, menuMapper, data);
+		}
+		else if(!pageVO.getKeyword().isEmpty()) {
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from menu "
+						+ "where instr(upper(menu_name), upper(?)) > 0 " // 대소문자 무시
+						+ "order by menu_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
 			Object[] data = {
 				pageVO.getKeyword(), 
 				pageVO.getBeginRow(), 
 				pageVO.getEndRow()
-			};
+			};			
 			return jdbcTemplate.query(sql, menuMapper, data);
 		}
 		else {
@@ -93,7 +106,7 @@ public class MenuDao {
 								+ ")TMP"
 							+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
-		return jdbcTemplate.query(sql, menuMapper, data);
+			return jdbcTemplate.query(sql, menuMapper, data);
 		}
 	}
 	
@@ -117,14 +130,34 @@ public class MenuDao {
 		}
 	}
 	
+	//메뉴 이미지 연결
+	public int findAttachNo(int menuNo) {
+		String sql = "select attach_no from menu_attach where menu_no = ?";
+		Object[] data = {menuNo};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+	
+	
 	public void connect(int menuNo, int attachNo) {
 		String sql = "insert into menu_attach(menu_no, attach_no) "
 						+ "values(?, ?)";
 		Object[] data = {menuNo, attachNo};
 		jdbcTemplate.update(sql, data);
-	}	
+	}
 	
-	//검색(메뉴바에서)
+	//가게번호 호출
+	public int selectStoreNo(String memberId) {
+       String sql = " SELECT tb1.store_no FROM store tb1 "
+                  + " LEFT OUTER JOIN member tb2 "
+                  + " ON tb1.member_no = tb2.member_no "
+                  + " WHERE tb2.member_id = ? ";
+       Object[] data = {memberId};
+       try {
+          int storeNo = jdbcTemplate.queryForObject(sql, int.class, data);
+          return storeNo;
+       } catch(Exception e) {
+          return 0;
+       }
+    }
 	
-	//검색(가게)
 }
