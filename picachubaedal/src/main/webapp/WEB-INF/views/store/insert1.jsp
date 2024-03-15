@@ -35,15 +35,18 @@
 	        //key : value
 	        storeNoValid : false,
 	        storeNameValid : false,
-	        storeAddressValid : false,
+	        storeAddress1Valid : false,
+	        storeAddress2Valid : false,
+	        storePostValid : false,
 	        storeCategoryValid : false,
 	        storeTypeValid : false,
 	        storeContactValid : false, //선택항목
-	        storeImageValid : false,//선택항목
 	        storeIntroValid : false,
 	        storeDtipValid : false,
 	        storeMinpriceValid : false,
-	        storeHoursValid : false,
+	        storeOpenHourValid : false,
+	        storeCloseHourValid : false,
+	        storeBusinessNumberValid : false,
 	        storeClosedValid : false,
 	        //객체에 함수를 변수처럼 생성할 수 있다
 	        //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
@@ -289,21 +292,6 @@
                         <div class="fail-feedback">주소를 모두 작성하세요</div>
                     </div>
                     
-                    <div class="flex-cell">
-                        <div class="w-100 left">
-                            <button type="button" class="btn btn-prev">
-                                <i class="fa-solid fa-chevron-left"></i>
-                                이전
-                            </button>
-                        </div>
-                        <div class="w-100 right">
-                            <button type="button" class="btn btn-next">
-                                다음
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="cell">
                     <label>

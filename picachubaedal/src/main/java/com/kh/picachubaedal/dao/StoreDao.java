@@ -23,8 +23,8 @@ public class StoreDao {
                     "store_name, store_post, store_address1, store_address2, store_category, "
                     + "store_type, store_contact, store_intro, store_dtip, store_minprice, "
                     + "store_open_hour, store_close_hour, store_delivery, store_closed, "
-                    + "store_time, store_business_number, member_no" +
-                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE , ?, ?)";
+                    + "store_business_number, member_no" +
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         Object[] data = {
             storeDto.getStoreName(),
@@ -41,7 +41,7 @@ public class StoreDao {
             storeDto.getStoreCloseHour(),
             storeDto.getStoreDelivery(),
             storeDto.getStoreClosed(),
-            storeDto.getStoreTime(),
+
             storeDto.getStoreBusinessNumber(),
             storeDto.getMemberNo()
         };
