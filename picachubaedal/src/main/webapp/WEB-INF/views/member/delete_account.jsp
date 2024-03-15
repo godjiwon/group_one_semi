@@ -12,7 +12,7 @@
 		<input type="password" name="memberPw" placeholder="비밀번호 입력" required class="tool w-100">
 	</div>
 	<div class="cell">
-		<button class="btn negative w-100">탈퇴하겠습니다</button>
+		<button class="btn negative w-100" >탈퇴하겠습니다</button>
 	</div>
 	<c:if test="${param.error != null}">
 	<div class="cell">

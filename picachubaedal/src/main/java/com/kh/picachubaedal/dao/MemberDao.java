@@ -23,9 +23,9 @@ public class MemberDao {
 	 //가입 (등록)/
 	public void insert(MemberDto memberDto) {
         String sql = "insert into member("
-                + "member_id, member_pw, member_nick, member_contact, "
+                + "member_no,member_id, member_pw, member_nick, member_contact, "
                 + "member_email, member_post, member_address1, member_address2,member_grade) "
-                + "values(?, ?, ?, ?, ?, ?, ?, ?,?)";
+                + "values(member_seq.nextval,?, ?, ?, ?, ?, ?, ?, ?,?)";
         Object[] data = {memberDto.getMemberId(), memberDto.getMemberPw(),
                                 memberDto.getMemberNick(), memberDto.getMemberContact(),
                                 memberDto.getMemberEmail(), memberDto.getMemberPost(),
@@ -134,6 +134,8 @@ public class MemberDao {
 		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	//아이디 찾기
 	public String findMemberIdByNick(String memberNick) {
         String sql = "SELECT member_id FROM member WHERE member_nick = ?";
         try {

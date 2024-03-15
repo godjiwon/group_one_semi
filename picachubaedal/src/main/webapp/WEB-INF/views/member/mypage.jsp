@@ -15,19 +15,14 @@
 			<div class="cell center">
 				<img src="profilePhoto" width="150" height="150">
 			</div>
-<<<<<<< HEAD
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/pwUpdate">비밀번호 변경</a></h2>
-=======
-			<div class="cell center" >
-				<h2><a class="link link-animation" href="/member/password">비밀번호 변경</a></h2>
->>>>>>> branch 'kyk' of https://github.com/godjiwon/group_one_semi.git
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/change">개인정보 변경</a></h2>
+				<h2><a class="link link-animation" href="/member/profileEdit">개인정보 변경</a></h2>
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/delete_account">회원 탈퇴</a></h2>
+				<h2><a class="link link-animation" href="/member/delete_account" style="color:red";>회원 탈퇴</a></h2>
 			</div>
 		</div>
 		</div>
