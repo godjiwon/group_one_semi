@@ -391,7 +391,7 @@
 					</div>
 
 					<div class="cell">
-						<label> 배달/포장 가능 여부(중복 선택 가능)
+						<label> 배달/포장 가능 여부
 						<i class="fa-solid fa-asterisk red"></i>
 						</label>
 						<div class="cell">

@@ -1,5 +1,6 @@
 package com.kh.picachubaedal.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dto.StoreDto;
+import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
 
 @Controller
@@ -29,7 +32,9 @@ public class StoreController {
 												new StringTrimmerEditor(true));
 	}
 	
-
+	@Autowired
+	private AttachService attachService;
+	
 	@Autowired
 	private StoreDao storeDao;
 	
@@ -39,8 +44,16 @@ public class StoreController {
 	}
 	
 	@PostMapping("/insert1")
-	public String insert(@ModelAttribute StoreDto storeDto) {
+	public String insert(@ModelAttribute StoreDto storeDto, @RequestParam MultipartFile attach)
+				throws IllegalStateException, IOException {
+		//가게 정보 등록
 		storeDao.insert(storeDto);
+		//첨부파일 등록
+		if(!attach.isEmpty()) {
+			int attachNo = attachService.save(attach);
+			storeDao.connect(storeDto.getStoreNo(), attachNo);
+		}
+		
 		return "redirect:insertFinish";
 	}
 	@RequestMapping("/insertFinish") //등록 완료페이지
