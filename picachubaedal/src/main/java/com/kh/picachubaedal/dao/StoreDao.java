@@ -20,28 +20,30 @@ public class StoreDao {
 
     public void insert(StoreDto storeDto) {
         String sql = "INSERT INTO store (" +
-                    "store_name, store_category, store_type, " +
-                    "store_contact, store_intro, store_dtip, store_minprice, " +
-                    "store_like, store_hours, store_delivery, store_time, " +
-                    "store_closed, store_address1, store_address2" + // store_update 제거
-                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?,?,?)";
+                    "store_name, store_post, store_address1, store_address2, store_category, "
+                    + "store_type, store_contact, store_intro, store_dtip, store_minprice, "
+                    + "store_open_hour, store_close_hour, store_delivery, store_closed, "
+                    + "store_time, store_business_number, member_no" +
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE , ?, ?)";
         
         Object[] data = {
             storeDto.getStoreName(),
-            
+            storeDto.getStorePost(),
+            storeDto.getStoreAddress1(),
+            storeDto.getStoreAddress2(),
             storeDto.getStoreCategory(),
             storeDto.getStoreType(),
             storeDto.getStoreContact(),
             storeDto.getStoreIntro(),
             storeDto.getStoreDtip(),
             storeDto.getStoreMinprice(),
-            storeDto.getStoreLike(),
-            storeDto.getStoreHours(),
+            storeDto.getStoreOpenHour(),
+            storeDto.getStoreCloseHour(),
             storeDto.getStoreDelivery(),
             storeDto.getStoreClosed(),
-            storeDto.getStoreAddress1(),
-            storeDto.getStoreAddress2()
-            
+            storeDto.getStoreTime(),
+            storeDto.getStoreBusinessNumber(),
+            storeDto.getMemberNo()
         };
         
         jdbcTemplate.update(sql, data);
@@ -49,19 +51,33 @@ public class StoreDao {
 
 
 
+
  // 수정 (가게 수정)
     public boolean update(StoreDto storeDto) {
-        String sql = "UPDATE store SET " +
-                "store_name=?, store_category=?, store_type=?, " +
-                "store_contact=?, store_intro=?, store_dtip=?, store_minprice=?, " +
-                "store_hours=?, store_delivery=?, store_closed=?, store_address1=?, store_address2=? " +
+        String sql = "UPDATE store SET store_name=?, store_post=?, store_address1=?, store_address2=?, "
+        		+ "store_category=?, store_type=?, store_contact=?, store_intro=?, "
+        		+ "store_dtip=?, store_minprice=?, store_open_hour=?, store_close_hour=?, "
+        		+ "store_delivery=?, store_closed=?, store_update=?, store_business_number=?" +
                 "WHERE store_no=?";
 
-        Object[] data = {storeDto.getStoreName(), storeDto.getStoreCategory(),
-               storeDto.getStoreType(), storeDto.getStoreContact(), storeDto.getStoreIntro(),
-               storeDto.getStoreDtip(), storeDto.getStoreMinprice(), storeDto.getStoreHours(),
-               storeDto.getStoreDelivery(), storeDto.getStoreClosed(), storeDto.getStoreAddress1(), storeDto.getStoreAddress2(),
-               storeDto.getStoreNo()
+        Object[] data = {
+        		storeDto.getStoreName(),
+                storeDto.getStorePost(),
+                storeDto.getStoreAddress1(),
+                storeDto.getStoreAddress2(),
+                storeDto.getStoreCategory(),
+                storeDto.getStoreType(),
+                storeDto.getStoreContact(),
+                storeDto.getStoreIntro(),
+                storeDto.getStoreDtip(),
+                storeDto.getStoreMinprice(),
+                storeDto.getStoreOpenHour(),
+                storeDto.getStoreCloseHour(),
+                storeDto.getStoreDelivery(),
+                storeDto.getStoreClosed(),
+                storeDto.getStoreUpdate(),
+                storeDto.getStoreBusinessNumber(),
+                storeDto.getStoreNo()
         };
 
         return jdbcTemplate.update(sql, data) > 0;

@@ -246,6 +246,7 @@
 <body>
 
     <form action="insert1" method="post" enctype="multipart/form-data" autocomplete="off" class="check-form">
+        <input type="hidden" name="memberNo" value="<%= session.getAttribute("member_no") %>">
         <div class="container w-500">
             <h2>가게 등록 페이지(임시)</h2>
             <div class="cell">
@@ -393,7 +394,7 @@
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
 					
-                    <select class="tool w-100" id="store_open_hour" name="store_open_hour">
+                    <select class="tool w-100" id="storeOpenHour" name="storeOpenHour">
                         <option value="">운영 시작 시간</option>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -421,8 +422,10 @@
                         <option value="23:00">23:00</option>
                         <option value="24:00">24:00</option>
                     </select>
+                    <input type="hidden" name="storeOpenHours">
                     <span>부터</span>
-                    <select class="tool w-100" id="store_close_hour" name="store_close_hour">
+                    
+                    <select class="tool w-100" id="storeCloseHour" name="storeCloseHour">
                         <option value="">운영 종료 시간</option>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -450,10 +453,10 @@
                         <option value="23:00">23:00</option>
                         <option value="24:00">24:00</option>
                     </select>
+                    <input type="hidden" name="storeCloseHours">
                     <span>까지 운영합니다.</span>
-                    <input type="hidden" name="storeHours">
                     
-                    <div class="cell" name="store_closed">
+                    <div class="cell" name="storeClosed">
                         <label>
                             휴무일 선택
                         </label>
@@ -479,9 +482,19 @@
                             배달 가능 지역
                             <i class="fa-solid fa-asterisk red"></i>
                         </label>
-                        <input type="text" name="store_name" placeholder="ex.노원구(구 단위만 입력)" class="tool w-100">
-                        <div class="name"></div>
+                        <input type="text" name="storeDelivery" placeholder="ex.노원구(구 단위만 입력)" class="tool w-100">
+					</div>
                     </div>
+                    <div class="cell">
+                        <label>
+                            사업자 등록번호
+                            <i class="fa-solid fa-asterisk red"></i>
+                        </label>
+                        <input type="text" name="storeBusinessNumber" placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100">
+						</div>
+                    </div>
+                    
+                    
                     
                     <div class="w-100 right">
                         <button class="btn positive w-100" type="submit">등록하기</button>
