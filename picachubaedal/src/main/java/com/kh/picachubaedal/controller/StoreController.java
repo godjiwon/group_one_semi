@@ -44,17 +44,22 @@ public class StoreController {
 	}
 	
 	@PostMapping("/insert1")
-	public String insert(@ModelAttribute StoreDto storeDto, @RequestParam MultipartFile attach)
-				throws IllegalStateException, IOException {
-		//가게 정보 등록
-		storeDao.insert(storeDto);
-		//첨부파일 등록
-		if(!attach.isEmpty()) {
-			int attachNo = attachService.save(attach);
-			storeDao.connect(storeDto.getStoreNo(), attachNo);
-		}
-		
-		return "redirect:insertFinish";
+	public String insert(@ModelAttribute StoreDto storeDto, @RequestParam MultipartFile attach, Model model)
+	            throws IllegalStateException, IOException {
+		// 가게 정보 등록
+		storeDao.insert(storeDto, attach);
+
+	    // 가게 정보가 등록되고 나서 가게 번호를 가져옴
+	    int storeNo = storeDto.getStoreNo();
+
+	    // 첨부 파일 등록
+	    if (!attach.isEmpty()) {
+	        int attachNo = attachService.save(attach);
+	        // 가게 정보에 첨부 파일 연결
+	        storeDao.connect(storeNo, attachNo);
+	    }
+
+	    return "redirect:insertFinish";
 	}
 	@RequestMapping("/insertFinish") //등록 완료페이지
 	public String insertFinish() {

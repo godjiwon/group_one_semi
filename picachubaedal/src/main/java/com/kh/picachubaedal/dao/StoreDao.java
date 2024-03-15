@@ -1,14 +1,17 @@
 package com.kh.picachubaedal.dao;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.StoreMapper;
+import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
 
 @Repository
@@ -17,8 +20,12 @@ public class StoreDao {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private StoreMapper storeMapper;
+    @Autowired
+    private AttachDao attachDao;
+    @Autowired 
+    AttachService attachService;
 
-    public void insert(StoreDto storeDto) {
+    public void insert(StoreDto storeDto, MultipartFile attach) throws IllegalStateException, IOException {
         String sql = "INSERT INTO store (" +
                     "store_no, store_name, store_post, store_address1, store_address2, store_category, "
                     + "store_type, store_contact, store_intro, store_dtip, store_minprice, "
@@ -47,7 +54,18 @@ public class StoreDao {
         };
         
         jdbcTemplate.update(sql, data);
+
+        // 등록한 가게 정보의 가게 번호 가져오기
+        int storeNo = jdbcTemplate.queryForObject("SELECT store_seq.currval FROM dual", Integer.class);
+
+        // 첨부 파일 연결
+        if (storeNo > 0 && attach != null && !attach.isEmpty()) {
+            int attachNo = attachService.save(attach);
+            connect(storeNo, attachNo);
+        }
     }
+
+
 
 
 
