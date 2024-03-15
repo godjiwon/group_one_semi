@@ -94,13 +94,12 @@ public class PointController {
 		return "/WEB-INF/views/point/charge.jsp";
 	}
 	@PostMapping("/charge")
-	public String charge(@ModelAttribute PointDto pointDto, HttpSession session) {
+	public String charge(@RequestParam int pointCharge, HttpSession session) {
 	    String loginId = (String)session.getAttribute("loginId");// 아이디 추출
-   
-	    int point = pointDto.getPointCharge();
-	    memberDao.plusMemberPoint(loginId, point); // 포인트 증가
-	    
-	    return "redirect:pointComplete";
+	    PointDto pointDto = new PointDto();
+	    pointDto.setPointCharge(pointCharge);
+	    memberDao.plusMemberPoint(loginId, pointCharge);
+	    return "redirect:chargeComplete";
 	}
 
 
