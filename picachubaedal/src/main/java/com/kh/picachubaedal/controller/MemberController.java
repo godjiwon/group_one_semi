@@ -78,6 +78,7 @@ public class MemberController {
 			// 세션에 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade());
+			
 
 			// 최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
