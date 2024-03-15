@@ -150,7 +150,7 @@ public class MenuDao {
        String sql = " SELECT tb1.store_no FROM store tb1 "
                   + " LEFT OUTER JOIN member tb2 "
                   + " ON tb1.member_no = tb2.member_no "
-                  + " WHERE tb3.member_id = ? ";
+                  + " WHERE tb2.member_id = ? ";
        Object[] data = {memberId};
        try {
           int storeNo = jdbcTemplate.queryForObject(sql, int.class, data);

@@ -77,6 +77,7 @@ public class MenuController {
        return "/WEB-INF/views/menu/list.jsp";
    }
    
+   //메뉴이미지
    @RequestMapping("/menuFileUpload")
    public String menuFileUpload(MultipartFile file, HttpServletRequest request, @RequestParam("menuNo") int menuNo) throws Exception {
 	   if(!file.isEmpty()) {
@@ -107,6 +108,7 @@ public class MenuController {
     @GetMapping("/edit")
     public String edit(@RequestParam int menuNo, Model model) {
        MenuDto menuDto = menuDao.selectOne(menuNo);
+       model.addAttribute("menuDto",menuDto);
 	   return "/WEB-INF/views/menu/edit.jsp";
     }
     

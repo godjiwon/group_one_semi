@@ -61,7 +61,7 @@
     }
 
 	.menuCategoryBar {
-		bottom: 7%;
+		bottom: 2%;
 		position: relative;
 	    border-left: none;
 	    margin-top: 0;
@@ -154,8 +154,10 @@
          메뉴등록
       </a>
    </h3>
-   <p>메뉴 검색창 만들기</p>
-   <div class="cell center store_name_design">${storeDto.storeName} 가게 메뉴</div>
+   <p class="right">메뉴 검색창 만들기</p>
+   <div class="cell center store_name_design">
+   <i class="fa-solid fa-quote-left"></i>내 가게 메뉴 리스트<i class="fa-solid fa-quote-right"></i></div>
+   
    <div class="menulist">
       <c:forEach var="menuDto" items="${list}">
          <div class="cell flex-cell card menuCard">

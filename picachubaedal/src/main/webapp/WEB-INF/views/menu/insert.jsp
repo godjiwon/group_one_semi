@@ -130,6 +130,7 @@ $(function(){
 
     fileInput.on("change", () => {
         const file = fileInput[0].files[0];
+        imageFile = file;
         if (file && file.type.startsWith("image")) {
             displayImage(file);
         }

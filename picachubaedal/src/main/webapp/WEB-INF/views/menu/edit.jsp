@@ -97,7 +97,7 @@ function insertMenu(file) {
 }
 
 $(document).ready(function() {
-    var menuCategory = "${menuDto.menuCategory}"; // 여기서 "${menuCategory}"는 모델에서 가져온 값입니다.
+    var menuCategory = "${menuDto.menuCategory}"; // 여기서 "${menuCategory}"는 모델에서 가져온 값
     $('[name=menuCategory]').val(menuCategory).prop("selected", true);
 });
 
@@ -156,6 +156,11 @@ function displayImage(file) {
     reader.readAsDataURL(file);
 }
 
+//a태그 전송 폼
+function submitForm() {
+   $("form[id='insert_form']").attr("method", "POST").attr("action", "/menu/edit").submit();
+}
+
 </script>
 
 <div class="cell center py-10">
@@ -189,7 +194,7 @@ function displayImage(file) {
                    <option value="음료/ 주류">음료/ 주류</option>
                </select>
 				<div class="right pt-30">
-					<a type="submit" form="insert_form" class="btn-gradient green" style=>
+					<a href="#" onclick="submitForm()" class="btn-gradient green">
 				    	수정
 					</a>
 				</div>                 
