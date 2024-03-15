@@ -130,7 +130,14 @@ public class MenuDao {
 		}
 	}
 	
-	//가게번호 호출
+	//메뉴 이미지 연결
+	public int findAttachNo(int menuNo) {
+		String sql = "select attach_no from menu_attach where menu_no = ?";
+		Object[] data = {menuNo};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+	
+	
 	public void connect(int menuNo, int attachNo) {
 		String sql = "insert into menu_attach(menu_no, attach_no) "
 						+ "values(?, ?)";
@@ -138,29 +145,19 @@ public class MenuDao {
 		jdbcTemplate.update(sql, data);
 	}
 	
-    public int selectStoreNo(String memberId) {
-	    String sql = " SELECT tb1.store_no FROM store tb1 "
-	               + " LEFT OUTER JOIN store_member tb2 "
-	               + " ON tb1.store_no = tb2.store_no "
-	               + " LEFT OUTER JOIN member tb3 "
-	               + " ON tb2.member_id = tb3.member_id "
-	               + " WHERE tb3.member_id = ? ";
-	    Object[] data = {memberId};
-	    try {
-	       int storeNo = jdbcTemplate.queryForObject(sql, int.class, data);
-	       return storeNo;
-	    } catch(Exception e) {
-	       return 0;
-	    }
+	//가게번호 호출
+	public int selectStoreNo(String memberId) {
+       String sql = " SELECT tb1.store_no FROM store tb1 "
+                  + " LEFT OUTER JOIN member tb2 "
+                  + " ON tb1.member_no = tb2.member_no "
+                  + " WHERE tb3.member_id = ? ";
+       Object[] data = {memberId};
+       try {
+          int storeNo = jdbcTemplate.queryForObject(sql, int.class, data);
+          return storeNo;
+       } catch(Exception e) {
+          return 0;
+       }
     }
-    
-	public int findAttachNo(int menuNo) {
-		String sql = "select attach_no from menu_attach where menu_no = ?";
-		Object[] data = {menuNo};
-		return jdbcTemplate.queryForObject(sql, int.class, data);
-	}    
 	
-	//검색(메뉴바에서)
-	
-	//검색(가게)
 }
