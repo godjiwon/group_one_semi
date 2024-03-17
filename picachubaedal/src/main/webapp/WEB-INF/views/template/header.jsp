@@ -92,16 +92,14 @@
 						</c:when>
 						<c:otherwise>
 							<a href="/member/signin">로그인</a>
-							
 							<a href="/member/signup">회원가입</a>
-							
 						</c:otherwise>
 					</c:choose>
         </div>           
        </div>
    </div>
    
-   <hr class="hr hr-border">
+   <hr class="hr hr-border header-hr">
 
 
         <div class="section">

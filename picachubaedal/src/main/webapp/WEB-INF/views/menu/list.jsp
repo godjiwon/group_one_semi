@@ -7,6 +7,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
+	.header-hr {
+	    display: none;
+	}
    .card {
         box-shadow: 0 0 1px 1px #b2bec3;
     }
@@ -61,7 +64,6 @@
     }
 
 	.menuCategoryBar {
-		bottom: 2%;
 		position: relative;
 	    border-left: none;
 	    margin-top: 0;
@@ -73,6 +75,7 @@
 	    ul {
 	    	display: flex;
 	    	justify-content: center;
+	    	margin-top: 0;
 	    }
 	    li {
 	    	width: 100px;
@@ -134,15 +137,15 @@
 				<i class="fa-solid fa-magnifying-glass fa-images"></i>
 			</li>
 			<div class="search_group">
-				<input type="search" class="inputKeyword" name="keyword" placeholder="음식점이나 메뉴를 검색해보세요."">
+				<input type="search" class="inputKeyword" name="keyword" placeholder="메뉴를 검색해보세요."">
 			</div>			
-			<li value="한식" onclick='searchMenuCategory("한식")'>한식</li>
-			<li value="중식" onclick='searchMenuCategory("중식")'>중식</li>
-			<li value="일식" onclick='searchMenuCategory("일식")'>일식</li>
-			<li value="양식" onclick='searchMenuCategory("양식")'>양식</li>
-			<li value="치킨" onclick='searchMenuCategory("치킨")'>치킨</li>
-			<li value="피자" onclick='searchMenuCategory("피자")'>피자</li>
-			<li value="햄버거" onclick='searchMenuCategory("햄버거")'>햄버거</li>
+			<li value="추천메뉴" onclick='searchMenuCategory("추천메뉴")'>추천메뉴</li>
+			<li value="식사메뉴" onclick='searchMenuCategory("식사메뉴")'>식사메뉴</li>
+			<li value="사이드" onclick='searchMenuCategory("사이드")'>사이드</li>
+			<li value="세트" onclick='searchMenuCategory("세트")'>세트</li>
+			<li value="추가" onclick='searchMenuCategory("추가")'>추가</li>
+			<li value="디저트" onclick='searchMenuCategory("디저트")'>디저트</li>
+			<li value="음료/ 주류" onclick='searchMenuCategory("음료/ 주류")'>음료/ 주류</li>
 			<input type="hidden" name="column">
 		</ul>
 	</div>
@@ -154,9 +157,8 @@
          메뉴등록
       </a>
    </h3>
-   <p class="right">메뉴 검색창 만들기</p>
    <div class="cell center store_name_design">
-   <i class="fa-solid fa-quote-left"></i>내 가게 메뉴 리스트<i class="fa-solid fa-quote-right"></i></div>
+   <i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i> 메뉴 리스트</div>
    
    <div class="menulist">
       <c:forEach var="menuDto" items="${list}">

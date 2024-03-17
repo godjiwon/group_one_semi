@@ -68,32 +68,41 @@ public class MenuDao {
 	}
 	
 	//페이징을 위한 목록/검색/카운트 구현
-	public List<MenuDto> selectListByPaging(PageVO pageVO) {		
+	public List<MenuDto> selectListByPaging(PageVO pageVO, int storeNo) {		
 		if(!pageVO.getColumn().isEmpty()) {
+			System.out.println(storeNo);
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
-									+ "select * from menu "
-									+ "where menu_category = ? "//대소문자 무시
-									+ "order by menu_no asc"
+									+ "SELECT tb1.* FROM menu tb1 "
+									+ "LEFT OUTER JOIN store tb2 "
+									+ "ON tb1.store_no = tb2.store_no "
+									+ "WHERE menu_category = ? " 
+									+ "AND tb1.store_no = ? " 
+									+ "ORDER BY menu_no ASC "									
 								+ ")TMP"
 							+ ") where rn between ? and ?";
 			Object[] data = {
 				pageVO.getColumn(), 
+				storeNo,
 				pageVO.getBeginRow(), 
 				pageVO.getEndRow()
 			};
 			return jdbcTemplate.query(sql, menuMapper, data);
 		}
 		else if(!pageVO.getKeyword().isEmpty()) {
-			String sql = "select * from ("
-					+ "select rownum rn, TMP.* from ("
-						+ "select * from menu "
-						+ "where instr(upper(menu_name), upper(?)) > 0 " // 대소문자 무시
-						+ "order by menu_no asc"
+			String sql = "select * from ( "
+					+ "select rownum rn, TMP.* from ( "
+						+ "SELECT tb1.* FROM menu tb1 "
+						+ "LEFT OUTER JOIN store tb2 "
+						+ "ON tb1.store_no = tb2.store_no "
+						+ "WHERE instr(upper(tb1.menu_name), upper(?)) > 0 "
+						+ "AND tb2.store_no = ? "
+						+ "ORDER BY menu_no ASC "
 					+ ")TMP"
 				+ ") where rn between ? and ?";
 			Object[] data = {
-				pageVO.getKeyword(), 
+				pageVO.getKeyword(),
+				storeNo,
 				pageVO.getBeginRow(), 
 				pageVO.getEndRow()
 			};			
@@ -102,7 +111,10 @@ public class MenuDao {
 		else {
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
-									+ "select * from menu order by menu_no asc"
+									+ "select tb1.* from menu tb1 "
+									+ "left outer join store tb2 "
+									+ "on tb1.store_no = tb2.store_no " 
+									+ "order by menu_no asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
