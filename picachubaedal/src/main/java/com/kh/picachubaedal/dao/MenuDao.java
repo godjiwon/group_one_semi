@@ -68,7 +68,7 @@ public class MenuDao {
 	}
 	
 	//페이징을 위한 목록/검색/카운트 구현
-	public List<MenuDto> selectListByPaging(PageVO pageVO, int storeNo) {		
+	public List<MenuDto> selectListByPaging(PageVO pageVO, int storeNo) {	
 		if(!pageVO.getColumn().isEmpty()) {
 			System.out.println(storeNo);
 			String sql = "select * from ("
@@ -132,7 +132,7 @@ public class MenuDao {
 	
 	//카운트(목록일 경우와 검색일 경우를 각각 구현)
 	public int count(PageVO pageVO) {
-		if(pageVO.isSearch()) {//검색
+		if(pageVO.getColumn() != "" && pageVO.getKeyword() != "") {//검색
 			String sql = "select count(*) from menu where instr("+pageVO.getColumn()+", ?) > 0";
 			Object[] data = {pageVO.getKeyword()};
 			return jdbcTemplate.queryForObject(sql, int.class, data);

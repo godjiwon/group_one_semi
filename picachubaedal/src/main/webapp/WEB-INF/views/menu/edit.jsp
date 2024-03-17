@@ -98,7 +98,14 @@ function insertMenu(file) {
 
 $(document).ready(function() {
     var menuCategory = "${menuDto.menuCategory}"; // 여기서 "${menuCategory}"는 모델에서 가져온 값
+    var menuState = "${menuDto.menuState}";
     $('[name=menuCategory]').val(menuCategory).prop("selected", true);
+    if(menuState === "" || menuState === null) {
+    	$("[name=menuCheak_y]").prop('checked',true);
+    } else {
+    	$("[name=menuCheak_n]").prop('checked',true);
+    }
+    
 });
 
 $(function(){
@@ -139,6 +146,12 @@ $(function(){
     dropArea.on("click", () => {
         document.getElementById("file-input").click();
     });
+    
+    $(".menuCheck").change(function(){
+        $(".menuCheck").prop('checked', false);
+        $(this).prop('checked', true);
+        $('[name=menuState]').val($(this).val());
+    }); 
 
 });
 
@@ -193,6 +206,13 @@ function submitForm() {
                    <option value="디저트">디저트</option>
                    <option value="음료/ 주류">음료/ 주류</option>
                </select>
+				<div>
+                    <input type="checkbox" name="menuCheak_n" class="menuCheck" value="N"/>
+                    <label for="horns">품절</label>
+                    <input type="checkbox"  name="menuCheak_y" class="menuCheck" value="" />
+                    <label for="horns">판매중</label>
+                    <input type="hidden" name="menuState">
+               </div> 
 				<div class="right pt-30">
 					<a href="#" onclick="submitForm()" class="btn-gradient green">
 				    	수정

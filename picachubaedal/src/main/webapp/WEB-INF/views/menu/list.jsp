@@ -34,7 +34,7 @@
     
     .menuCard {
        width: 700px;
-       height: 100px
+       height: 130px
     }
     
     .menuSubCard {
@@ -108,9 +108,12 @@
 	}
 	
 	.store_name_design {
-		font-size: 25px;
+		font-size: 28px;
 	    font-weight: bold;
 	    padding-top: 10px;		
+	}
+	.menu-info-style {
+		font-size: 15px;
 	}
 </style>
 
@@ -177,29 +180,67 @@
                            </span>                     
                         </c:if>
                   </div>  
-                    <div>  
-                        
-                    </div>    
                     <div>
-						<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>원</span>
-                    </div>              
+						<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
+                    </div>
+                    <div class="menu-info-style right gray">
+					    <span>등록일 : ${menuDto.menuTime}</span>
+					    <c:if test="${!empty menuDto.menuUpdate}">
+					        <span> | 수정일 : ${menuDto.menuUpdate}</span>
+					    </c:if>
+					</div>          
                  </div>     
                      
                  <div class="right">
-                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
-                     <i class="fa-solid fa-pencil"></i>
-                     수정
-                  </a>
-                  <span> | </span>
-                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
-                     <i class="fa-solid fa-minus"></i>
-                     삭제
-                  </a>               
+	                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
+	                     <i class="fa-solid fa-pencil"></i>
+	                     수정
+	                  </a>
+	                  <span> | </span>
+	                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
+	                     <i class="fa-solid fa-minus"></i>
+	                     삭제
+	                  </a>               
                  </div> 
              </div>
          </div>
       </c:forEach>
    </div>
+<%-- 네비게이터 --%>
+<div class="page-navigator">
+	<%-- 이전이 있을 경우만 링크를 제공 --%>
+	<c:choose>
+		<c:when test="${pageVO.isFirstBlock()}">
+			<a class="off">&lt;이전</a>
+		</c:when>
+		<c:otherwise>
+			<a href="list?page=${pageVO.getPrevBlock()}&${pageVO.getQueryString()}">&lt;이전</a>
+		</c:otherwise>
+	</c:choose>
+	
+	<%-- for(int i=beginBlock; i <= endBlock; i++) { .. } --%>
+	<c:forEach var="i" begin="${pageVO.getBeginBlock()}" end="${pageVO.getEndBlock()}" step="1">
+		<%-- 다른 페이지일 경우만 링크를 제공 --%>
+		<c:choose>
+			<c:when test="${pageVO.isCurrentPage(i)}">
+				<a class="on">${i}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="list?page=${i}&${pageVO.getQueryString()}">${i}</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	
+	<%-- 다음이 있을 경우만 링크를 제공 --%>
+	<c:choose>
+		<c:when test="${pageVO.isLastBlock()}">
+			<a class="off">다음&gt;</a>
+		</c:when>
+		<c:otherwise>
+			<a href="list?page=${pageVO.getNextBlock()}&${pageVO.getQueryString()}">다음&gt;</a> 
+		</c:otherwise>
+	</c:choose>
+</div>
 </div>
 
 

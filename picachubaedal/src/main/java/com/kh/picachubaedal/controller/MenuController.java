@@ -61,25 +61,24 @@ public class MenuController {
    //paging 처리 별도의 VO 클래스로 구현
    @RequestMapping("/list")
    public String list(@ModelAttribute PageVO pageVO, Model model, HttpSession session) {
-
-	  // 테스트 데이터 storeNo 3번
-	  int storeNo = 3;
-	  
-	  //가게이름 가져오기
-	  StoreDto storeDto = storeDao.selectOne(storeNo);
-	  model.addAttribute("storeDto", storeDto);
-	 //세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
-//      int count = menuDao.count(pageVO);
-//      	pageVO.setCount(count);
-      	model.addAttribute("pageVO", pageVO);
-         
-      	List<MenuDto> list = menuDao.selectListByPaging(pageVO, storeNo);
-      	model.addAttribute("list", list);
-        
-     // storeNo를 모델에 추가
-        model.addAttribute("storeNo", storeNo);
-      	
-       return "/WEB-INF/views/menu/list.jsp";
+	   
+		// 테스트 데이터 storeNo 3번
+		int storeNo = 3;
+			  
+		//가게이름 가져오기
+		StoreDto storeDto = storeDao.selectOne(storeNo);
+		model.addAttribute("storeDto", storeDto);
+	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
+		int count = menuDao.count(pageVO);
+		pageVO.setCount(count);
+		model.addAttribute("pageVO", pageVO);
+		List<MenuDto> list = menuDao.selectListByPaging(pageVO, storeNo);
+		model.addAttribute("list", list);
+		        
+		// storeNo를 모델에 추가
+		model.addAttribute("storeNo", storeNo);
+	      	
+		return "/WEB-INF/views/menu/list.jsp";
    }
    
    //메뉴이미지
