@@ -3,6 +3,11 @@ package com.kh.picachubaedal.vo;
 //페이징에 필요한 값들을 전달받아 계산을 수행하는 클래스
 //필요한 값 - column, keyword, page, size, count
 public class PageVO {
+	@Override
+	public String toString() {
+		return "PageVO [column=" + column + ", keyword=" + keyword + ", count=" + count + ", page=" + page + ", size="
+				+ size + ", blockSize=" + blockSize + "]";
+	}
 	private String column, keyword;//검색항목,검색어
 	private int count;//전체 개수
 	private int page=1;//현재 페이지

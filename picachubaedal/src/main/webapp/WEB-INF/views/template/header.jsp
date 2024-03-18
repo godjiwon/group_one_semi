@@ -84,7 +84,9 @@
 					width="110" height="110">
 				</a>
 				<div class="cell center header-font-style">
-					<a href="/" style="text-decoration-line: none;">배츄</a>
+					<a href="/" style="text-decoration-line: none;">
+						<img src="/image/baedal_logo3.png" width="20%">
+					</a>
 				</div>
 				<div class="header_sideMenu right">
 					<c:choose>
@@ -97,7 +99,7 @@
 							</a>
 							
 							<div class="header_sideMenu right">
-							<a href="/store/list2">내가게</a>&nbsp;
+							<a href="/store/list">내가게</a>&nbsp;
 								<a href="/member/mypage">마이페이지</a>&nbsp;
 								<a href="/member/logout">로그아웃</a>
 							</div>

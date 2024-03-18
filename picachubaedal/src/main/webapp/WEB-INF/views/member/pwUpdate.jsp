@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<style>
+.container {
+	display: grid;
+	margin-top: 50px;
+	margin-bottom: 50px; padding : 60px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	padding: 60px;
+}
+</style>
+
 
 <form action="pwUpdate" method="post">
 

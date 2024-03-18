@@ -4,6 +4,18 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+.container {
+	display: grid;
+	margin-top: 50px;
+	margin-bottom: 50px; padding : 60px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	padding: 60px;
+}
+</style>
+
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -44,7 +56,7 @@
 
 <form action="profileEdit" method="post" autocomplete="off">
 
-<div class="container w-500">
+<div class="container w-600">
 	<div class="cell center"><h1>개인정보 변경</h1></div>
 	<div class="cell">
 		<label>닉네임<b style="color:red">*</b></label>
