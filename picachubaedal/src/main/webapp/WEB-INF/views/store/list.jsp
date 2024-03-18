@@ -1,55 +1,113 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h1>가게 목록</h1>
+<style>
+   .card {
+            box-shadow: 0 0 1px 1px #b2bec3;
+    }
+    .card > .content-wrapper > .title-wrapper {
+        font-size: 24px;
+    }
+    .flex-cell.middle {
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .menu-button-style {
+       display: flex;
+      justify-content: flex-end;
+    }
+    
+    .menulist {
+      display: flex;
+       flex-direction: column;
+       align-items: center;    
+    }
+    
+    .menuCard {
+       width: 700px;
+       height: 100px
+    }
+    
+    .menuSubCard {
+      display: flex;
+       flex-direction: column;
+       justify-content: space-between;    
+    }
+    
+    .menu-title-wrapper {
+       font-size: 20px;
+    }
+    
+    .img_wrap {
+       width: 150px;
+       height: 100px;
+       text-align: center;
+       > img {
+           width: 100%;
+          height: 100%;
+          padding: 10px;
+       }
+    }
+    
+    .list-button-style{
+    	font-size: 16px;
+        text-decoration: none;
+    }
 
-<%-- 검색창 --%>
-<form action="list" method="get">
-	<select name="column">
-		<option value="store_name" ${param.column == 'store_name' ? 'selected' : ''}>가게이름</option>
-		<option value="store_address" ${param.column == 'store_address' ? 'selected' : ''}>주소</option>
-		<option value="store_category" ${param.column == 'store_category' ? 'selected' : ''}>음식 카테고리</option>
-		<option value="store_type" ${param.column == 'store_type' ? 'selected' : ''}>배달 or 포장</option>
-		<option value="store_contact" ${param.column == 'store_contact' ? 'selected' : ''}>연락처</option>
-		<option value="store_hours" ${param.column == 'store_hours' ? 'selected' : ''}>가게 운영시간</option>
-		<option value="store_delivery" ${param.column == 'store_delivery' ? 'selected' : ''}>배달 가능지역</option>
-		<option value="store_closed" ${param.column == 'store_closed' ? 'selected' : ''}>가게 휴무일</option>
-	</select>
-	<input type="text" name="keyword" placeholder="검색어 입력" required value="${param.keyword}">
-	<button>검색</button>
-</form>
+</style>
 
-<h2><a href="insert">신규 가게 등록</a></h2>
+<div class="cell">
+   <h3 class="menu-button-style">
+      <a class="list-button-style gray" href="/store/insert1">
+         <i class="fa-solid fa-plus"></i>
+         가게 등록
+      </a>
+   </h3>
+   <div class="menulist">
+      <c:forEach var="menuDto" items="${list}">
+         <div class="cell flex-cell card menuCard">
+             <div class="w-25 flex-cell middle">
+                 
+                    <img class="storeImage" src="${storeDto.storeImgLink}" width="80">
+                 </div>
+             </div>
+             <div class="content-wrapper width-fill p-10 menuSubCard">
+                 <div class="menu-title-wrapper">
+                  <div>${storeDto.storeName}
+                     
+                  </div>  
+                    <div>  
+                        
+                    </div>    
+                    <div>
+                        <span>${storeDto.storeDelivery}</span>
+                        <span>${storeDto.storeAddress1}</span>
+                    </div>              
+                 </div>     
+                     
+                 <div class="right">
+                  <a class="list-button-style blue" href="edit">
+                     <i class="fa-solid fa-pencil"></i>
+                     수정
+                  </a>
+                  <span> | </span>
+                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
+                     <i class="fa-solid fa-minus"></i>
+                     삭제
+                  </a>               
+                 </div> 
+             </div>
+         </div>
+      </c:forEach>
+   </div>
+</div>
 
-<%-- 목록 출력 --%>
-<table border="1">
-	<thead>
-		<tr>
-			<th>가게번호</th>
-			<th>가게이름</th>
-			<th>주소</th>
-			<th>음식 카테고리</th>
-			<th>배달 or 포장</th>
-			<th>연락처</th>
-			<th>가게 운영시간</th>
-			<th>배달 가능지역</th>
-			<th>가게 휴무일</th>
-		</tr>
-	</thead>
-	<tbody align="center">
-		<c:forEach var="dto" items="${list}">
-		<tr>
-			<td>${dto.storeNo}</td>
-			<td>${dto.storeName}</td>
-			<td>${dto.storeAddress}</td>
-			<td>${dto.storeCategory}</td>
-			<td>${dto.storeType}</td>
-			<td>${dto.storeContact}</td>
-			<td>${dto.storeHours}</td>
-			<td>${dto.storeDelivery}</td>
-			<td>${dto.storeClosed}</td>
-		</tr>
-		</c:forEach>
-	</tbody>	
-</table>
+
+
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
