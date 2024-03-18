@@ -29,7 +29,7 @@
         </form>
     </div>
     <div class="cell right">
-        <h2><a class="link link-animation" href="insert">신규 가게 등록</a></h2>
+        <h2><a class="link link-animation" href="insert1">신규 가게 등록</a></h2>
     </div>
 
     <div class="cell">
@@ -49,66 +49,28 @@
                 <th>가게 휴무일</th>
             </tr>
         </thead>
-        <tbody align="center">
-            <c:forEach var="dto" items="${list}">
-                <tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
-                    <td>${dto.storeNo}</td>
-                    <td>${dto.storeName}</td>
-                    <td><img class="storeImage" src="${dto.storeImgLink}" width="30"></td>
-                    <td>${dto.storeAddress1}</td>
-                    <td>${dto.storeCategory}</td>
-                    <td>${dto.storeType}</td>
-                    <td>${dto.storeContact}</td>
-                    <td>${dto.storeOpenHour} - ${dto.storeCloseHour}</td>
-                    <td>${dto.storeDelivery}</td>
-                    <td>${dto.storeClosed}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
+<tbody align="center">
+    <c:forEach var="dto" items="${list}">
+        <c:if test="${dto.memberNo eq sessionScope.memberNo}">
+            <tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
+                <td>${dto.storeNo}</td>
+                <td>${dto.storeName}</td>
+                <td><img class="storeImage" src="${dto.storeImgLink}" width="30"></td>
+                <td>${dto.storeAddress1}</td>
+                <td>${dto.storeCategory}</td>
+                <td>${dto.storeType}</td>
+                <td>${dto.storeContact}</td>
+                <td>${dto.storeOpenHour} - ${dto.storeCloseHour}</td>
+                <td>${dto.storeDelivery}</td>
+                <td>${dto.storeClosed}</td>
+            </tr>
+        </c:if>
+    </c:forEach>
+</tbody>
     </table>
     
-    <%-- 네비게이터 --%>
-    <div class="navigation">
-        <c:if test="${totalPage > 1}">
-            <ul class="pagination">
-                <li class="page-item">
-                    <c:choose>
-                        <c:when test="${page == 1}">
-                            <span class="page-link">&lt;이전</span>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page-link" href="list?page=${page - 1}&size=10&column=${param.column}&keyword=${param.keyword}">&lt;이전</a>
-                        </c:otherwise>
-                    </c:choose>
-                </li>
-                <c:forEach var="i" begin="1" end="${totalPage}" step="1">
-                    <li class="page-item">
-                        <c:choose>
-                            <c:when test="${page == i}">
-                                <span class="page-link">${i}</span>
-                            </c:when>
-                            <c:otherwise>
-                                <a class="page-link" href="list?page=${i}&size=10&column=${param.column}&keyword=${param.keyword}">${i}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </li>
-                </c:forEach>
-                <li class="page-item">
-                    <c:choose>
-                        <c:when test="${page == totalPage}">
-                            <span class="page-link">다음&gt;</span>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page-link" href="list?page=${page + 1}&size=10&column=${param.column}&keyword=${param.keyword}">다음&gt;</a>
-                        </c:otherwise>
-                    </c:choose>
-                </li>
-            </ul>
-        </c:if>
-    </div>
+    
 </div>
-
-
 
 
 

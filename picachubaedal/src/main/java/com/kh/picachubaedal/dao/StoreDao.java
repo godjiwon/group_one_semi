@@ -186,6 +186,7 @@ public class StoreDao {
 
 	//페이징을 위한 목록/검색/카운트 구현
 		public List<StoreDto> selectListByPaging(PageVO pageVO) {
+			System.out.println(pageVO);
 			if(pageVO.isSearch()) {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
@@ -234,10 +235,15 @@ public class StoreDao {
 		
 		public List<StoreDto> selectListAll() {
 
-			String sql = "select * from store9 order by store_no asc";
+			String sql = "select * from store order by store_no asc";
 			return jdbcTemplate.query(sql, storeMapper);
 		}
 
+		public List<StoreDto> selectListByMemberNo(int memberNo) {
+		    String sql = "SELECT * FROM store WHERE member_no = ?";
+		    Object[] data = { memberNo };
+		    return jdbcTemplate.query(sql, storeMapper, data);
+		}
 
 		
 		
