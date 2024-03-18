@@ -5,6 +5,15 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+.storeImage {
+        width: 250px;
+        height: 250px;
+        display: block; /* 이미지를 블록 레벨 요소로 설정하여 가운데 정렬합니다. */
+        margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+    }
+</style>
+
 <div class="container w-1000">
 	<div class="cell">
 		<h1>${storeDto.storeName}</h1>
@@ -13,10 +22,11 @@
 		<div class="w-25 row">
 		<div class="col-md-3">
 			<div class="cell center">
-				<img src="profilePhoto" width="150" height="150">
+				<img class="storeImage" src="${storeDto.storeImgLink}">
+	
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/store/list">비밀번호 변경</a></h2>
+				<h2><a class="link link-animation" href="/store/list">목록으로</a></h2>
 			</div>
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/store/change">가게 정보 수정</a></h2>
@@ -28,96 +38,82 @@
 		</div>
 		<div class="w-75">
 			<div class="cell">
-				<h2>${storeDto.storeName} 가게 정보</h2>
+				
 			</div>
-			<div class="cell">
-				<table class="table table-horizontal">
-					<tr>
-						<th width="30%">가게 이름</th>
-						<td class="left">${stroeDto.memberNick}</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td class="left">${memberDto.memberEmail}</td>
-					</tr>
-					<tr>
-						<th>연락처</th>
-						<td class="left">${memberDto.memberContact}</td>
-					</tr>	
-					
-					<tr>
-						<th>주소</th>
-						<td class="left">
-							[${memberDto.memberPost}] 
-							${memberDto.memberAddress1}
-							${memberDto.memberAddress2}
-						</td>
-					</tr>
-					<tr>
-						<th>등급</th>
-						<td class="left">${memberDto.memberGrade}</td>
-					</tr>
-					<tr>
-						<th>포켓볼</th>
-						<td class="left">${memberDto.memberPoint} 개</td>
-					</tr>
-					<tr>
-						<th>가입일시</th>
-						<td class="left">
-							<fmt:formatDate value="${memberDto.memberJoin}" 
-														pattern="y년 M월 d일 H시 m분 s초"/>
-						</td>
-					</tr>
-					<tr>
-						<th>로그인일시</th>
-						<td class="left">
-							<fmt:formatDate value="${memberDto.memberUpdate}" 
-														pattern="y년 M월 d일 H시 m분 s초"/>
-						</td>
-					</tr>
-				</table>
-			</div>
-			
-			<div class="cell">
-				<h2>
-					포켓볼 구매 내역
-					<a class="link link-animation ms-30" href="/point/charge">
-						<i class="fa-regular fa-credit-card"></i>
-						추가구매
-					</a>
-				</h2>
-			</div>
-			<div class="cell">
-				<table class="table table-horizontal">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>상품명</th>
-							<th>수량</th>
-							<th>구매금액</th>
-							<th>구매일시</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="buyDto" items="${buyList}">
-						<tr>
-							<td>${buyDto.buySerial}</td>
-							<td>${buyDto.itemName}</td>
-							<td>${buyDto.buyQty}</td>
-							<td>
-								<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"/>
-							</td>
-							<td>
-								<fmt:formatDate value="${buyDto.buyTime}" 
-																pattern="yyyy-MM-dd HH:mm"/>
-							</td>
-						</tr>		
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
+			<div class="w-75">
+    <div class="cell">
+        <h2>가게 정보</h2>
+    </div>
+    <div class="cell">
+        <table class="table table-horizontal">
+            <tr>
+                <th width="30%">가게 이름</th>
+                <td class="left">${storeDto.storeName}</td>
+            </tr>
+            <tr>
+                <th>가게 번호</th>
+                <td class="left">${storeDto.storeNo}</td>
+            </tr>
+            <tr>
+                <th>주소</th>
+                <td class="left">
+                    ${storeDto.storeAddress1} ${storeDto.storeAddress2}
+                </td>
+            </tr>
+            <tr>
+                <th>음식 카테고리</th>
+                <td class="left">${storeDto.storeCategory}</td>
+            </tr>
+            <tr>
+                <th>배달/포장</th>
+                <td class="left">${storeDto.storeType}</td>
+            </tr>
+            <tr>
+                <th>연락처</th>
+                <td class="left">${storeDto.storeContact}</td>
+            </tr>
+            <tr>
+                <th>가게 소개</th>
+                <td class="left">${storeDto.storeIntro}</td>
+            </tr>
+            <tr>
+                <th>배달팁</th>
+                <td class="left">${storeDto.storeDtip}</td>
+            </tr>
+            <tr>
+                <th>최소 주문금액</th>
+                <td class="left">${storeDto.storeMinprice}</td>
+            </tr>
+            <tr>
+                <th>좋아요 수</th>
+                <td class="left">${storeDto.storeLike}</td>
+            </tr>
+            <tr>
+                <th>영업 시간</th>
+                <td class="left">${storeDto.storeOpenHour} - ${storeDto.storeCloseHour}</td>
+            </tr>
+            <tr>
+                <th>배달 가능 지역</th>
+                <td class="left">${storeDto.storeDelivery}</td>
+            </tr>
+            <tr>
+                <th>휴무일</th>
+                <td class="left">${storeDto.storeClosed}</td>
+            </tr>
+            <tr>
+                <th>가게 등록일</th>
+                <td class="left">${storeDto.storeTime}</td>
+            </tr>
+            <tr>
+                <th>가게 수정일</th>
+                <td class="left">${storeDto.storeUpdate}</td>
+            </tr>
+            <tr>
+                <th>사업자 등록번호</th>
+                <td class="left">${storeDto.storeBusinessNumber}</td>
+            </tr>
+        </table>
+    </div>
 </div>
+
 

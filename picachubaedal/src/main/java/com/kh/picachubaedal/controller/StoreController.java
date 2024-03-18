@@ -4,22 +4,24 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dao.StoreDao;
+import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.service.AttachService;
+import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.vo.PageVO;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/store")
@@ -31,6 +33,12 @@ public class StoreController {
 	
 	@Autowired
 	private StoreDao storeDao;
+	
+	@Autowired
+	private MemberDao memberDao;
+	
+	@Autowired
+	private ImageService imageService;
 	
 	@GetMapping("/insert1") //가게 등록
 	public String insert() {
@@ -85,13 +93,21 @@ public class StoreController {
 	    return "/WEB-INF/views/store/changeFail.jsp";
 	}
 	
-	//상세
-	@RequestMapping("/detail")
-	public String detail(@RequestParam int storeNo, Model model) {
-		StoreDto dto = storeDao.selectOne(storeNo);
-		model.addAttribute("dto",dto);
-		return "/WEB-INF/views/store/detail.jsp";
-	}
+
+	// 가게 상세
+		@RequestMapping("/detail")
+		public String myStore(@RequestParam int storeNo, Model model) {
+			StoreDto storeDto = storeDao.selectOne(storeNo);
+			String storeImageLink = imageService.getStoreImgLink(storeNo);
+			
+			storeDto.setStoreImgLink(storeImageLink);
+			model.addAttribute("storeDto", storeDto);
+
+			return "/WEB-INF/views/store/detail.jsp";
+		}
+	
+
+
 	
 	//삭제
 	@GetMapping("/delete")
@@ -112,7 +128,29 @@ public class StoreController {
 	    return "/WEB-INF/views/store/list2.jsp";
 	}
 
-	
+	// 사진 반환
+	@RequestMapping("/storePhoto")
+	public String image(HttpSession session) {
+	    try {
+	        int memberNo = (int) session.getAttribute("memberNo"); // 세션에서 로그인된 회원번호 가져오기
+	        int storeNo = storeDao.findStoreNoByMemberNo(memberNo); // 회원번호로 가게번호 찾기
+	        if (storeNo <= 0) {
+	            throw new IllegalStateException("해당 회원의 가게를 찾을 수 없습니다.");
+	        }
+	        
+	        int attachNo = storeDao.findAttachNo(storeNo); // 가게번호로 첨부 파일 번호 찾기
+	        if (attachNo <= 0) {
+	            throw new IllegalStateException("가게에 대한 첨부 파일을 찾을 수 없습니다.");
+	        }
+
+	        return "redirect:/download?attachNo=" + attachNo; // 첨부 파일 다운로드 링크로 리다이렉트
+	    } catch (Exception e) {
+	        // 예외 처리
+
+	        return "redirect:/image/user.png"; // 기본 이미지로 리다이렉트
+	    }
+	}
+
 	
 	
 	
