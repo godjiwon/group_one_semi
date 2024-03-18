@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,12 @@ public class StoreDao {
     private AttachDao attachDao;
     @Autowired 
     AttachService attachService;
+    @Autowired
     private MemberMapper mapper;
+
+    @Autowired
+	private MemberMapper memberMapper;
+
 
     public void insert(StoreDto storeDto, MultipartFile attach) throws IllegalStateException, IOException {
         String sql = "INSERT INTO store (" +
@@ -73,6 +79,17 @@ public class StoreDao {
         String sql = "SELECT MAX(store_no) FROM store";
         return jdbcTemplate.queryForObject(sql, int.class);
      }
+    
+    //회원번호로 가게 번호 찾기
+    public int findStoreNoByMemberNo(int memberNo) {
+        String sql = "SELECT storeNo FROM store WHERE memberNo = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, Integer.class, memberNo);
+        } catch (EmptyResultDataAccessException e) {
+            return -1; // 회원에 해당하는 가게가 없는 경우
+        }
+    }
+
 
 
 
@@ -166,6 +183,7 @@ public class StoreDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
+
 	//페이징을 위한 목록/검색/카운트 구현
 		public List<StoreDto> selectListByPaging(PageVO pageVO) {
 			if(pageVO.isSearch()) {
@@ -213,6 +231,15 @@ public class StoreDao {
 			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
 			return list.isEmpty() ? null : list.get(0);
 		}
+		
+		public List<StoreDto> selectListAll() {
+
+			String sql = "select * from store9 order by store_no asc";
+			return jdbcTemplate.query(sql, storeMapper);
+		}
+
+
+		
 		
 	
 }
