@@ -20,8 +20,10 @@
 <div class="cell center">
  <div style="position: relative; display: inline-block;">
 <input type="text" class="tool" size="25" placeholder="메뉴 검색">
-<button type="button" class="tool"style="background-color:rgb(254,210,61);">
- <i class="fa-solid fa-magnifying-glass"></i>
+<button type="button" class="tool menu_seach"style="background-color:rgb(254,210,61);">
+
+ <div class="cell">
+ <i class="fa-solid fa-magnifying-glass"></i></div>
 								</button></div>
 </div><br><br>
 <div class="cell center">

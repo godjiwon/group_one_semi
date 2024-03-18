@@ -87,41 +87,44 @@
 
 <!--  카카오 계정 로그인 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script>
-	window.Kakao.init('71758ab36b8b8732582af48d99fe3500'); //발급받은 키 중 javascript키를 사용해준다.
-	console.log(Kakao.isInitialized()); // sdk초기화여부판단
-	//카카오로그인
-	function kakaoLogin() {
-		window.Kakao.Auth.login({
-			scope : 'profile,account_email,gender'
-				success:(authObj)=>{
-					console.log(authObj);
-					window.kakao.API.request({
-					url:'/v2/user/me',
-					success: res=>{
-						const kakao_account = res.kakao_account;
-						console.log(kakao_account);
-						}
-					});
-				}
-							
-		});
-				}
-	//카카오로그아웃  
-	function kakaoLogout() {
-		if (Kakao.Auth.getAccessToken()) {
-			Kakao.API.request({
-				url : '/v1/user/unlink',
-				success : function(response) {
-					console.log(response)
-				},
-				fail : function(error) {
-					console.log(error)
-				},
-			})
-			Kakao.Auth.setAccessToken(undefined)
-		}
-	}
+  Kakao.init("71758ab36b8b8732582af48d99fe3500"); //발급받은 키 중 javascript키를 사용해준다.
+  console.log(Kakao.isInitialized()); // sdk초기화여부판단
+  //카카오로그인
+  function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (response) {
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success: function (response) {
+            console.log(response);
+          },
+          fail: function (error) {
+            console.log(error);
+          },
+        });
+      },
+      fail: function (error) {
+        console.log(error);
+      },
+    });
+  }
+  //카카오로그아웃
+  function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: "/v1/user/unlink",
+        success: function (response) {
+          console.log(response);
+        },
+        fail: function (error) {
+          console.log(error);
+        },
+      });
+      Kakao.Auth.setAccessToken(undefined);
+    }
+  }
 </script>
 </head>
 
@@ -148,6 +151,9 @@
 			</div>
 			<div class="cell btn w-100 kakao" onclick="kakaoLogin();">
 				<span>카카오 계정 로그인</span>
+			</div>
+			<div class="cell btn w-100 kakao" onclick="kakaoLogout();">
+				<span>카카오 계정 로그아웃</span>
 			</div>
 			<div class="cell center">
 

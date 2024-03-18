@@ -94,6 +94,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId");// 세션의 값 삭제
 		session.removeAttribute("loginGrade");// 세션의 값 삭제
+		session.removeAttribute("memberNo");
 		return "redirect:/";
 	}
 
