@@ -6,7 +6,17 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<div class="container w-800">
+<style>
+* {
+	font-family: 빙그레 메로나체, sans-serif;
+}
+.table.table-hover > tbody > tr:hover {
+	background-color: #ffeaa7;
+}
+</style>
+
+
+<div class="container w-1000 my-50">
     <div class="cell center">
         <h1>가게 목록</h1>
     </div>
@@ -25,16 +35,18 @@
                 <option value="store_closed" ${param.column == 'store_closed' ? 'selected' : ''}>가게 휴무일</option>
             </select>
             <input type="text" name="keyword" placeholder="검색어 입력" required value="${param.keyword}" class="tool">
-            <button class="btn positive">검색</button>
+            <button class="btn" style="background-color:rgb(254,210,61);">검색</button>
         </form>
     </div>
     <div class="cell right">
-        <h2><a class="link link-animation" href="insert">신규 가게 등록</a></h2>
+        <h2><a class="link link-animation" href="insert">
+        <i class="fa-solid fa-store"></i>
+        신규 가게 등록</a></h2>
     </div>
 
     <div class="cell">
     <%-- 목록 출력 --%>
-    <table class="table table-horizontal">
+    <table class="table table-horizontal table-hover">
         <thead>
             <tr>
                 <th>가게번호</th>
@@ -106,6 +118,7 @@
             </ul>
         </c:if>
     </div>
+</div>
 </div>
 
 

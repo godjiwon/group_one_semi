@@ -22,7 +22,7 @@
 <body>
 	<div class="cell">
 		<form action="findPw" method="post" autocomplete="off">
-			<div class="container center w-400">
+			<div class="container center w-500">
 				<div class="cell center">
 					<h1>비밀번호 찾기</h1>
 				</div>

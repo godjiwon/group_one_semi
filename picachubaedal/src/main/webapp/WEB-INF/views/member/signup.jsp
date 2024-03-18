@@ -29,6 +29,9 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+*{
+	font-family: 빙그레 메로나체, sans-serif;
+}
 .container {
 	display: grid;
 	margin-top: 50px;

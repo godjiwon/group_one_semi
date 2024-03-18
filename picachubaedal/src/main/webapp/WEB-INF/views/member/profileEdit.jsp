@@ -5,6 +5,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
+*{
+	font-family:빙그레 메로나체, sans-serif;
+}
 .container {
 	display: grid;
 	margin-top: 50px;

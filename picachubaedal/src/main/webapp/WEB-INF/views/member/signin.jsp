@@ -27,6 +27,9 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+*{
+	font-family: 빙그레 메로나체, sans-serif;
+}
 .container {
 	display: grid;
 	margin-top: 50px;
@@ -166,9 +169,10 @@
 				<span>카카오 계정 로그아웃</span>
 			</div>
 			<div class="cell center">
-
 				<a href="findId" style="text-decoration-line: none;">아이디 찾기</a>
+				|
 				<a href="findPw" style="text-decoration-line: none;">비밀번호 찾기</a>
+				|
 				<a href="signup" style="text-decoration-line: none;">회원가입</a>
 			</div>
 			<c:if test="${param.error != null}">

@@ -4,6 +4,9 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
+*{
+	font-family: 빙그레 메로나체, sans-serif;
+}
 .container {
 	display: grid;
 	margin-top: 50px;
@@ -32,8 +35,8 @@
 		<button class="btn w-100" style="background-color:rgb(254,210,61)";>비밀번호 변경하기</button>
 	</div>
 	<c:if test="${param.error != null}">
-	<div class="cell">
-		<h3 style="color:red">기존 비밀번호가 일치하지 않습니다</h3>
+	<div class="cell center">
+		<h3 style="color:rgb(232,79,31)">기존 비밀번호가 일치하지 않습니다</h3>
 	</div>
 	</c:if>
 </div>

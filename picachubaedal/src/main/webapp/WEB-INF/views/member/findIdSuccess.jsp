@@ -24,7 +24,9 @@
 	<div class="container w-500">
 		<c:if test="${not empty memberId}">
 			<div class="cell center">
-				<h2>${memberNick}님의아이디는 다음과 같습니다:</h2>
+				<h2>'${memberNick}'님의 아이디 :</h2>
+			</div>
+			<div class="cell center">
 				<h3>${memberId}</h3>
 			</div>
 		</c:if>

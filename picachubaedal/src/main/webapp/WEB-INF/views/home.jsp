@@ -12,13 +12,13 @@
 	.category {
 		text-decoration : none;
 		color: #2d3436;
-		padding: 30px; 
-}
+		padding: 30px;
 	}
+
 </style>
 </head>
 <body>
-<div class="container center w-800">
+<div class="container center w-800 my-50">
 	<form action="#" method="get" autocomplete="off">
 	<div class="cell center my-50" style="position: relative; display: inline-block;">
 		<input type="text" class="tool w-80" size="25" placeholder="메뉴 검색">
@@ -27,7 +27,6 @@
 		</button>
 	</div>
 	</form>
-
 	<br><br>
 
 <div class="cell center">
@@ -44,7 +43,7 @@
 		한식<img src="https://media.discordapp.net/attachments/1187318496942628876/1218123161405624430/image0.jpg?ex=66068499&is=65f40f99&hm=7896af7406ef73d7bc46257ff1545611fc6f262b480e5ad2bc848367f9ad5f11&=&format=webp">
 	</a>
 </div>
-<div class="cell center">
+<div class="cell center my-30">
 	<a href="#" class="category">
 		일식<img src="https://media.discordapp.net/attachments/1187318496942628876/1218123251591544832/image0.jpg?ex=660684ae&is=65f40fae&hm=cdaa532ed83c07d08a53f8f2569a04dd5f3d208d362497cbb3b4bd622b2c66b1&=&format=webp">
 	</a>
@@ -58,8 +57,9 @@
 		카페<img src="https://cdn.discordapp.com/attachments/1187318496942628876/1218123541439053844/image0.jpg?ex=660684f3&is=65f40ff3&hm=f18cf93c233c619a3e125b5d257f9935bc765cc643a3e2551a8786ed4e9457bf&">
 	</a>
 </div>
-	</div>
+</div>
 <br><br><br><br>
+
 	
 
 </body>

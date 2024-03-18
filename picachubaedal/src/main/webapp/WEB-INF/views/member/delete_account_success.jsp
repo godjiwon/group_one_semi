@@ -9,11 +9,14 @@
 </style>
 
 <div class="container w-800">
-	<div class="cell center my-50 p-50">
+	<div class="cell center my-50">
 		<h1>회원탈퇴 완료</h1>
 	</div>
+	<div class="cell center">
+		<img src="/image/pikachu-dduk.png" width="150px;">
+	</div>
 	<div class="cell center my-50">
-		<h3>그동안 이용해 주셔서 감사합니다.</h3>
+		<h3>그동안 배츄를 이용해 주셔서 감사합니다.</h3>
 	</div>
 </div>
 

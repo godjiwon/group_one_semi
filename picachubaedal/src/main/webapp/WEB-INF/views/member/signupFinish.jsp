@@ -12,6 +12,7 @@
 	<div class="cell my-50">
 		<h1>배츄 회원으로 </h1>
 		<h1>가입해 주셔서 감사합니다!</h1>
+		<img class="effect-lift" src="/image/transparent-cute-pikachu.png" width="100px">
 	</div>		
 	<div class="cell my-50">
 		<img class="img center" src=https://media.giphy.com/media/sdR7KXjYmKegU/giphy.gif><br><br>
