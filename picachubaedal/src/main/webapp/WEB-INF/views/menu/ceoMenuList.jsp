@@ -133,7 +133,7 @@
 		});
 	});
 	$(window).scroll(function() {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ($(window).scrollTop() + $(window).innerHeight() >= $('html').prop('scrollHeight')) {
 	  		const menuForm = $("form[name='menuForm']");
 	  		const currentPage = $(".currentPage").val();
 	  		$(".currentPage").val(Number(currentPage)+1);
@@ -234,7 +234,7 @@
          <div class="cell flex-cell card menuCard">
              <div class="w-25 flex-cell middle">
                  <div class="img_wrap">
-                    <%-- <img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80"> --%>
+                 	<img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
                  </div>
              </div>
              <div class="content-wrapper width-fill p-10 menuSubCard">
