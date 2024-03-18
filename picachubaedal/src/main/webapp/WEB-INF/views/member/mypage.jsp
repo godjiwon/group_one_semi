@@ -4,47 +4,30 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<style>
-	* {
-		font-family : 빙그레 메로나체, sans-serif;
-	}
-	.information{
-		display: flex;
-	}
-</style>
 
-<div class="container w-1000 my-50">
-	<div class="cell information">
-		<div class="cell w-50"></div>
-		<div class="cell right w-50">
-			<h1>${memberDto.memberId}님의 정보</h1>
-		</div>
-		<div class="cell w-50">
-			<img src="/image/transparent-cute-pikachu.png" width="25%;">
-		</div>
+<div class="container w-1000">
+	<div class="cell">
+		<h1>${memberDto.memberId}님의 페이지</h1>
 	</div>
-	<div class="cell floating-cell" >
-		<div class="w-25 row">
-		<div class="col-md-3">
+	<div class="cell floating-cell">
+		<div class="w-25">
 			<div class="cell center">
 				<img src="profilePhoto" width="150" height="150">
 			</div>
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/heads/main
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/pwUpdate">비밀번호 변경</a></h2>
+				<h2><a class="link link-animation" href="/member/password">비밀번호 변경</a></h2>
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/profileEdit">개인정보 변경</a></h2>
+				<h2><a class="link link-animation" href="/member/change">개인정보 변경</a></h2>
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/member/delete_account" style="color:red";>회원 탈퇴</a></h2>
+				<h2><a class="link link-animation" href="/member/exit">회원 탈퇴</a></h2>
 			</div>
-		</div>
 		</div>
 		<div class="w-75">
+			<div class="cell">
+				<h2>가입 정보</h2>
+			</div>
 			<div class="cell">
 				<table class="table table-horizontal">
 					<tr>
@@ -73,8 +56,8 @@
 						<td class="left">${memberDto.memberGrade}</td>
 					</tr>
 					<tr>
-						<th>포켓볼</th>
-						<td class="left">${memberDto.memberPoint} 개</td>
+						<th>포인트</th>
+						<td class="left">${memberDto.memberPoint} point</td>
 					</tr>
 					<tr>
 						<th>가입일시</th>
@@ -95,36 +78,36 @@
 			
 			<div class="cell">
 				<h2>
-					주문 내역
+					포인트 구매 내역
+					<a class="link link-animation ms-30" href="/point/charge">
+						<i class="fa-regular fa-credit-card"></i>
+						추가구매
+					</a>
 				</h2>
 			</div>
 			<div class="cell">
 				<table class="table table-horizontal">
 					<thead>
 						<tr>
-							<th>가게</th>
-							<th>메뉴</th>
+							<th>번호</th>
+							<th>상품명</th>
 							<th>수량</th>
-							<th>총 금액</th>
+							<th>구매금액</th>
 							<th>구매일시</th>
-							<th>리뷰</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="ordersDto" items="${ordersList}">
+						<c:forEach var="buyDto" items="${buyList}">
 						<tr>
-							<td>${ordersDto.storeName}</td>
-							<td>${ordersDto.menuName}</td>
-							<td>${ordersDto.ordersqty}</td>
+							<td>${buyDto.buySerial}</td>
+							<td>${buyDto.itemName}</td>
+							<td>${buyDto.buyQty}</td>
 							<td>
-								<fmt:formatNumber value="${ordersDto.ordersTotal}" pattern="#,##0"/>
+								<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"/>
 							</td>
 							<td>
-								<fmt:formatDate value="${ordersDto.ordersTime}" 
+								<fmt:formatDate value="${buyDto.buyTime}" 
 																pattern="yyyy-MM-dd HH:mm"/>
-							</td>
-							<td>
-								<i class="fa-regular fa-pen-to-square"></i>
 							</td>
 						</tr>		
 						</c:forEach>
@@ -135,8 +118,4 @@
 	</div>
 
 </div>
-<br>
-
-<%-- 템플릿 페이지를 불러오는 코드 --%>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
