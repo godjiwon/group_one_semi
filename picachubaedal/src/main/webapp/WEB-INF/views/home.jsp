@@ -8,14 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	.category {
-		text-decoration : none;
-		color: #2d3436;
-		padding: 30px; 
-}
-	}
-</style>
 </head>
 <body>
 <div class="container center w-800">

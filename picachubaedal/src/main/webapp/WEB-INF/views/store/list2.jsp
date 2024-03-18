@@ -55,7 +55,7 @@
             <tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
                 <td>${dto.storeNo}</td>
                 <td>${dto.storeName}</td>
-                <td><img class="storeImage" src="${dto.storeImgLink}" width="30"></td>
+               <td><img src="${imagePath}" width="40" height="40"></td>
                 <td>${dto.storeAddress1}</td>
                 <td>${dto.storeCategory}</td>
                 <td>${dto.storeType}</td>
@@ -69,7 +69,7 @@
 </tbody>
     </table>
     
-    
+</div>
 </div>
 
 

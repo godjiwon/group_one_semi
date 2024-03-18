@@ -8,7 +8,6 @@ class PicachubaedalApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println(System.getProperty("user.home"));
 	}
 
 }
