@@ -97,6 +97,7 @@
 							</a>
 							
 							<div class="header_sideMenu right">
+							<a href="/store/list2">내가게</a>&nbsp;
 								<a href="/member/mypage">마이페이지</a>&nbsp;
 								<a href="/member/logout">로그아웃</a>
 							</div>

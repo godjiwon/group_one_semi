@@ -53,7 +53,7 @@
 				<tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
 					<td>${dto.storeNo}</td>
 					<td>${dto.storeName}</td>
-					<td>${dto.storeAddress}</td>
+					<td>${dto.storeAddress1}</td>
 					<td>${dto.storeCategory}</td>
 					<td>${dto.storeType}</td>
 					<td>${dto.storeContact}</td>

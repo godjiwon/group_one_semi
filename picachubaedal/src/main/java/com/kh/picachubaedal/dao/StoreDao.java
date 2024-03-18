@@ -234,7 +234,7 @@ public class StoreDao {
 		
 		public List<StoreDto> selectListAll() {
 
-			String sql = "select * from store9 order by store_no asc";
+			String sql = "select * from store order by store_no asc";
 			return jdbcTemplate.query(sql, storeMapper);
 		}
 

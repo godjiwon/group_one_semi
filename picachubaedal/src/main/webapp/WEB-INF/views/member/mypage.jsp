@@ -15,10 +15,6 @@
 			<div class="cell center">
 				<img src="profilePhoto" width="150" height="150">
 			</div>
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/heads/main
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/pwUpdate">비밀번호 변경</a></h2>
 			</div>
