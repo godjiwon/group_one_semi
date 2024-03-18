@@ -132,6 +132,70 @@
 		    }
 		});
 	});
+	$(window).scroll(function() {
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+	  		const menuForm = $("form[name='menuForm']");
+	  		const currentPage = $(".currentPage").val();
+	  		$(".currentPage").val(Number(currentPage)+1);
+	  		const param = {
+	  			"keyword": $('.keyword').val(),
+	  			"page": $(".currentPage").val(),
+	  			"column": $(".column").val(),
+	  		}
+	  		if(Number($(".currentPage").val()) > Number($(".totalPage").val())){
+	  			return;
+	  		}
+	  		$.ajax({
+	  		    url: "/rest/menu/restList",
+	  		    type: "POST",
+	  		    data: JSON.stringify(param),
+	  		    dataType: 'json',
+	  		    contentType: "application/json; charset=UTF-8",
+	  		    success: function(result) {
+	  		    	console.log(result);
+	  		        const menuDtoList = result.list;
+	  		        var display = '';
+	  		        menuDtoList.forEach((menuDto) => {
+	  		            display += '<div class="cell flex-cell card menuCard">'
+	  		                     + '    <div class="w-25 flex-cell middle">'
+	  		                     + '        <div class="img_wrap">'
+	  		                     + '            <img src="menuPhoto?menuNo=' + menuDto.menuNo + '" width="80">'
+	  		                     + '        </div>'
+	  		                     + '    </div>'
+	  		                     + '    <div class="content-wrapper width-fill p-10 menuSubCard">'
+	  		                     + '        <div class="menu-title-wrapper">'
+	  		                     + '            <div>' + menuDto.menuName + '';
+	  		            if (menuDto.menuState === 'N') {
+	  		            display  += '                <span class="red review-wrapper">(품절)</span>';
+	  		            }
+	  		            display  + '            </div>'
+	  		                     + '            <div>'
+	  		                     + '                <span>' + menuDto.menuPrice + '개</span>'
+	  		                     + '            </div>'
+	  		                     + '            <div class="menu-info-style right gray">'
+	  		                     + '                <span>등록일 : ' + menuDto.menuTime + '</span>';
+	  		            if (menuDto.menuUpdate !== null && menuDto.menuUpdate !== "") {
+	  		            display  += '                <span> | 수정일 : ' + menuDto.menuUpdate + '</span>';
+	  		            }
+	  		            display  += '            </div>'
+	  		                     + '        </div>'
+	  		                     + '        <div class="right">'
+	  		                     + '            <a class="list-button-style blue" href="/menu/edit?menuNo=' + menuDto.menuNo + '">'
+	  		                     + '                <i class="fa-solid fa-pencil"></i>수정'
+	  		                     + '            </a>'
+	  		                     + '            <span> | </span>'
+	  		                     + '            <a class="list-button-style gray" href="/menu/delete?menuNo=' + menuDto.menuNo + '">'
+	  		                     + '                <i class="fa-solid fa-minus"></i>삭제'
+	  		                     + '            </a>'
+	  		                     + '        </div>'
+	  		                     + '    </div>'
+	  		                     + '</div>';
+	  		        });
+	  		        $(".menulist").append(display);
+	  		    }
+	  		});
+	  	}
+	});
 </script>
 <form class="menuCategoryBar" name="menuForm" action="list" method="get">
 	<div>
@@ -150,6 +214,8 @@
 			<li value="디저트" onclick='searchMenuCategory("디저트")'>디저트</li>
 			<li value="음료/ 주류" onclick='searchMenuCategory("음료/ 주류")'>음료/ 주류</li>
 			<input type="hidden" name="column">
+			<input type="hidden" name="page" class="currentPage" value="1">
+			<input type="hidden" name="page" class="totalPage" value="${pageVO.totalPage}">
 		</ul>
 	</div>
 </form>
@@ -168,27 +234,27 @@
          <div class="cell flex-cell card menuCard">
              <div class="w-25 flex-cell middle">
                  <div class="img_wrap">
-                    <img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
+                    <%-- <img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80"> --%>
                  </div>
              </div>
              <div class="content-wrapper width-fill p-10 menuSubCard">
                  <div class="menu-title-wrapper">
-                  <div>${menuDto.menuName}
-                     <c:if test="${menuDto.menuState == 'N'}">
-                        <span class="red review-wrapper">
-                               (품절)
-                           </span>                     
-                        </c:if>
-                  </div>  
-                    <div>
-						<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
-                    </div>
-                    <div class="menu-info-style right gray">
-					    <span>등록일 : ${menuDto.menuTime}</span>
-					    <c:if test="${!empty menuDto.menuUpdate}">
-					        <span> | 수정일 : ${menuDto.menuUpdate}</span>
-					    </c:if>
-					</div>          
+	                  <div>${menuDto.menuName}
+	                     <c:if test="${menuDto.menuState == 'N'}">
+	                        <span class="red review-wrapper">
+	                               (품절)
+	                           </span>                     
+	                        </c:if>
+	                  </div>  
+	                    <div>
+							<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
+	                    </div>
+	                    <div class="menu-info-style right gray">
+						    <span>등록일 ${menuDto.menuTime}</span>
+						    <c:if test="${!empty menuDto.menuUpdate}">
+						        <span> | 수정일 ${menuDto.menuUpdate}</span>
+						    </c:if>
+						</div>          
                  </div>     
                      
                  <div class="right">
@@ -237,7 +303,7 @@
 			<a class="off">다음&gt;</a>
 		</c:when>
 		<c:otherwise>
-			<a href="list?page=${pageVO.getNextBlock()}&${pageVO.getQueryString()}">다음&gt;</a> 
+			<a href="list?page=${pageVO.getNextBlock()-1}&${pageVO.getQueryString()}">다음&gt;</a> 
 		</c:otherwise>
 	</c:choose>
 </div>
