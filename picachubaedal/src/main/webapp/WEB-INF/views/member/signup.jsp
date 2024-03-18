@@ -29,6 +29,15 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+.container {
+	display: grid;
+	margin-top: 50px;
+	margin-bottom: 50px; padding : 60px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	padding: 60px;
+}
 </style>
 <!--jquery CDN-->
 <script
@@ -248,7 +257,7 @@
 	<form action="signup" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
 
-		<div class="container w-500">
+		<div class="container w-600">
 
 			<div class="cell center">
 				<h1>회원 정보 입력</h1>

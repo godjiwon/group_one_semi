@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,18 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
+*{
+	font-family:빙그레 메로나체, sans-serif;
+}
+.container {
+	display: grid;
+	margin-top: 50px;
+	margin-bottom: 50px; padding : 60px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	padding: 60px;
+}
 </style>
 
 <!-- jquery cdn -->
@@ -323,7 +336,7 @@
 		autocomplete="off" class="check-form">
 
 		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
-		<div class="container w-500">
+		<div class="container w-600">
 			<h2>가게 등록 페이지(임시)</h2>
 			<div class="cell">
 
@@ -549,15 +562,19 @@
 				</label> <input type="text" name="storeBusinessNumber"
 					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100">
 			</div>
-		</div>
+		
 
 
 
-		<div class="w-100 right">
+		<div class="cell right">
 			<button class="btn positive w-100" type="submit">등록하기</button>
+		</div>
 		</div>
 	</form>
 
 </body>
 
 </html>
+
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
