@@ -55,17 +55,21 @@ public class StoreDao {
         
         jdbcTemplate.update(sql, data);
 
-        // 등록한 가게 정보의 가게 번호 가져오기
-        int storeNo = jdbcTemplate.queryForObject("SELECT store_seq.currval FROM dual", Integer.class);
-
-        // 첨부 파일 연결
-        if (storeNo > 0 && attach != null && !attach.isEmpty()) {
-            int attachNo = attachService.save(attach);
-            connect(storeNo, attachNo);
-        }
+//        // 등록한 가게 정보의 가게 번호 가져오기
+//        int storeNo = jdbcTemplate.queryForObject("SELECT store_seq.currval FROM dual", Integer.class);
+//
+//        // 첨부 파일 연결
+//        if (storeNo > 0 && attach != null && !attach.isEmpty()) {
+//            int attachNo = attachService.save(attach);
+//            connect(storeNo, attachNo);
+//        }
     }
 
-
+    //첨부파일 관련
+    public int selectRecentStore() {
+        String sql = "SELECT MAX(store_no) FROM store";
+        return jdbcTemplate.queryForObject(sql, int.class);
+     }
 
 
 
