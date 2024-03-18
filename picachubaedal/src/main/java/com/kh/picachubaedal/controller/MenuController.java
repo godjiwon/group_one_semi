@@ -1,5 +1,6 @@
 package com.kh.picachubaedal.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,21 +33,27 @@ public class MenuController {
    @Autowired
    private AttachService attachService;
    
-   //입력
+   //메뉴등록
    @GetMapping("/insert")
-   public String insert(@RequestParam int storeNo, Model model) {
-	  model.addAttribute("storeNo", storeNo);
+   public String insert() {
       return "/WEB-INF/views/menu/insert.jsp";
    }
 
     //등록
     @PostMapping("/insert")
-    @ResponseBody
-    public int insert(@ModelAttribute MenuDto menuDto) {
+    public String insert(@ModelAttribute MenuDto menuDto, @RequestParam MultipartFile attach)
+    		throws IllegalStateException, IOException {
+    	//메뉴 정보 등록
      menuDao.insert(menuDto);
-       int test = menuDao.selectRecentMenu();
-       return test;
-     }
+     
+     //첨부파일 등록
+     if (!attach.isEmpty()) {
+			int attachNo = attachService.save(attach);
+			menuDao.connect(menuDto.getMenuNo(), attachNo);
+		}
+
+		return "redirect:list";
+	}
    
    @RequestMapping("/insertComplete")
    public String insertComplete() {

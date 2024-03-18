@@ -32,10 +32,10 @@ public class StoreController {
 	private AttachService attachService;
 	
 	@Autowired
+	private MemberDao memberDao;
+	@Autowired
 	private StoreDao storeDao;
 	
-	@Autowired
-	private MemberDao memberDao;
 	
 	@Autowired
 	private ImageService imageService;
@@ -93,6 +93,35 @@ public class StoreController {
 	    return "/WEB-INF/views/store/changeFail.jsp";
 	}
 	
+	
+	@RequestMapping("/detail")
+	public String storeMypage(HttpSession session, Model model) {
+	    // 세션에서 로그인된 회원의 정보를 가져옵니다.
+		String loginId = (String) session.getAttribute("loginId");
+		
+		MemberDto memberDto = memberDao.selectOne(loginId);
+	    
+	    if (memberDto == null) {
+	        // 로그인되지 않은 경우 처리할 내용
+	        return "redirect:/login"; // 로그인 페이지로 이동하도록 리다이렉트합니다.
+	    }
+	    
+	    // 로그인된 회원의 회원번호를 가져옵니다.
+	    int memberNo = memberDto.getMemberNo();
+	    
+	    // 회원 번호를 기준으로 해당 가게의 정보를 조회합니다.
+	    MemberDto storeDto = storeDao.selectByMemberNo(memberNo);
+	    
+	    if (storeDto == null) {
+	        // 가게 정보가 없는 경우 처리할 내용
+	        return "redirect:/insert1"; // 가게 등록 페이지로 이동하도록 리다이렉트합니다.
+	    }
+	    
+	    // 조회된 가게 정보를 모델에 추가하여 가게의 마이페이지 화면으로 전달합니다.
+	    model.addAttribute("storeDto", storeDto);
+		return "/WEB-INF/views/store/detail";
+	}
+
 
 	// 가게 상세
 		@RequestMapping("/detail")

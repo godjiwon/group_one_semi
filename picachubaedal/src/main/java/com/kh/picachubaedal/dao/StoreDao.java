@@ -27,9 +27,12 @@ public class StoreDao {
     private AttachDao attachDao;
     @Autowired 
     AttachService attachService;
-    
+    @Autowired
+    private MemberMapper mapper;
+
     @Autowired
 	private MemberMapper memberMapper;
+
 
     public void insert(StoreDto storeDto, MultipartFile attach) throws IllegalStateException, IOException {
         String sql = "INSERT INTO store (" +
@@ -173,6 +176,14 @@ public class StoreDao {
 	}
 	
 	
+	public MemberDto selectMemberOne(String memberId) {
+		String sql = "select * from member where member_id = ?";
+		Object[] data = {memberId};
+		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
+
 	//페이징을 위한 목록/검색/카운트 구현
 		public List<StoreDto> selectListByPaging(PageVO pageVO) {
 			if(pageVO.isSearch()) {
@@ -212,6 +223,13 @@ public class StoreDao {
 				String sql = "select count(*) from store";
 				return jdbcTemplate.queryForObject(sql, int.class);
 			}
+		}
+
+		public MemberDto selectByMemberNo(int memberNo) {
+			String sql = "select * from store where member_no=?";
+			Object[] data = {memberNo};
+			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+			return list.isEmpty() ? null : list.get(0);
 		}
 		
 		public List<StoreDto> selectListAll() {
