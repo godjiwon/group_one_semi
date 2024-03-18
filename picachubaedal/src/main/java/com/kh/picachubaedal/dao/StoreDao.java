@@ -16,7 +16,7 @@ import com.kh.picachubaedal.mapper.MemberMapper;
 import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
-
+//커밋
 @Repository
 public class StoreDao {
     @Autowired
