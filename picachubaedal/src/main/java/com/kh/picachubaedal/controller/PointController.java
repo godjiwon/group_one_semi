@@ -74,7 +74,7 @@ public class PointController {
 			return "redirect:/download?attachNo=" + attachNo;
 		} catch (Exception e) {
 			// return "기본 이미지 주소";
-			return "redirect:http://via.placeholder.com/200x100";
+			return "redirect:http://via.placeholder.com/200x100/f3d23d/e84e1f.png&text=BAEdalpicaCHU";
 		}
 	}
 	
@@ -86,7 +86,6 @@ public class PointController {
 
 	
 	
-	//아직 안됨...ㅠㅠ
 	// 충전 페이지
 	@GetMapping("/charge")
 	public String charge(Model model) {
@@ -94,17 +93,14 @@ public class PointController {
 		return "/WEB-INF/views/point/charge.jsp";
 	}
 	@PostMapping("/charge")
-	public String charge(@ModelAttribute PointDto pointDto, HttpSession session) {
+	public String charge(@RequestParam int pointCharge, HttpSession session) {
 	    String loginId = (String)session.getAttribute("loginId");// 아이디 추출
-   
-	    int point = pointDto.getPointCharge();
-	    memberDao.plusMemberPoint(loginId, point); // 포인트 증가
-	    
-	    return "redirect:pointComplete";
+	    PointDto pointDto = new PointDto();
+	    pointDto.setPointCharge(pointCharge);
+	    memberDao.plusMemberPoint(loginId, pointCharge);
+	    return "redirect:chargeComplete";
 	}
 
-
-	
 	// 포인트 충전 완료페이지
 	@RequestMapping("/chargeComplete")
 	public String chargeComplete() {
@@ -152,7 +148,7 @@ public class PointController {
 			}
 		catch (Exception e) {}
 			int attachNo = attachDao.getSequence(); //시퀀스 생성
-			File dir = new File(System.getProperty("user.home"),"upload");
+			File dir = new File(System.getProperty("user.home"),"kh13A");
 			File target = new File(dir, String.valueOf(attachNo));
 			attach.transferTo(target); //실물 파일 저장
 			

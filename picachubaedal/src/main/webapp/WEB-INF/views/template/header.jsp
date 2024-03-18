@@ -89,6 +89,9 @@
 				<div class="header_sideMenu right">
 					<c:choose>
 						<c:when test="${sessionScope.loginId != null}">
+							<div class="cell header_sideMenu">
+								<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
+							</div>
 							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
 								${sessionScope.loginId}
 							</a>

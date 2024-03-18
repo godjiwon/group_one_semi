@@ -63,7 +63,7 @@
 <div class="cell center">
 <h2 style="font-family:빙그레 메로나체, sans-serif">포켓볼 충전 상품 수정</h2>
 </div>
-<form action="edit" method="post" enctype="multipart/form-data">
+<form action="edit" method="post"  autocomplete="off" enctype="multipart/form-data">
 	<input type="hidden" name="pointNo" value="${pointDto.pointNo}">
 	
 	<div class="cell">
