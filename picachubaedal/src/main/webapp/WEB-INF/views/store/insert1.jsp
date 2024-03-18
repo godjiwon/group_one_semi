@@ -322,7 +322,7 @@
 	<form action="insert1" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
 
-		<input type="text" name="memberNo" placeholder="멤버넘버">
+		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
 		<div class="container w-500">
 			<h2>가게 등록 페이지(임시)</h2>
 			<div class="cell">
