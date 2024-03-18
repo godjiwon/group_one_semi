@@ -15,7 +15,8 @@
 		<form action="list" method="get">
 			<select name="column" class="tool">
 				<option value="store_name" ${param.column == 'store_name' ? 'selected' : ''}>가게이름</option>
-				<option value="store_address" ${param.column == 'store_address' ? 'selected' : ''}>주소</option>
+				<option value="store_address" ${param.column == 'store_address1' ? 'selected' : ''}>주소</option>
+				<option value="store_address" ${param.column == 'store_address2' ? 'selected' : ''}>상세주소</option>
 				<option value="store_category" ${param.column == 'store_category' ? 'selected' : ''}>음식 카테고리</option>
 				<option value="store_type" ${param.column == 'store_type' ? 'selected' : ''}>배달 or 포장</option>
 				<option value="store_contact" ${param.column == 'store_contact' ? 'selected' : ''}>연락처</option>

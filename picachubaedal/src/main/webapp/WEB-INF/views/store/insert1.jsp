@@ -250,9 +250,8 @@
 	});
 </script>
 <!-- 카카오 api -->
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
     $(function(){
         $(".btn-address-search").click(function(){
             new daum.Postcode({
