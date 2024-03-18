@@ -98,8 +98,10 @@
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (response) {
-            console.log(response);
-          },
+        	  console.log(response);
+              // 로그인 성공 시 화면 이동
+              window.location.href = "http://localhost:8080/member/mypage.jsp"; // 이동할 페이지 경로
+            },
           fail: function (error) {
             console.log(error);
           },
