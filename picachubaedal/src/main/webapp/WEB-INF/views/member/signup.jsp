@@ -1,78 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 
+    pageEncoding="UTF-8"%>
+    
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제목을 설정하세요</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제목을 설정하세요</title>
 
-<!-- 구글 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
-<!-- 내가 구현한 스타일 -->
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
-<link rel="stylesheet" type="text/css" href="/css/test.css">
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/commons.css">
+    <link rel="stylesheet" type="text/css" href="/css/test.css">
 
-<!-- font awesome 아이콘 CDN -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<style>
-.container {
-	display: grid;
-	margin-top: 50px;
-	margin-bottom: 50px; padding : 60px;
-	border: 1px solid #ffffff;
-	background-color: #ffffff;
-	box-shadow: 0 0 5px 5px rgb(255,245,213);
-	padding: 60px;
-}
-</style>
-<!--jquery CDN-->
-<script
-	src="
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        
+    </style>
+    <!--jquery CDN-->
+    <script src="
     https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 
-<!-- lightpick CDN-->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/css/lightpick.min.css">
-<script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/lightpick.min.js"></script>
+    <!-- lightpick CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/css/lightpick.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/lightpick.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
 		//상태객체(React의 state로 개념이 이어짐)
 		var state = {
 			//key : value
-			memberNoValid: false, //회원번호
-			memberIdValid : false, //회원아이디
-			memberPwValid : false, //비밀번호
-			memberPwCheckValid : false, //비밀번호확인
-			memberNickValid : false, //닉네임
-			memberEmailValid : false, //이메일
-			memberContactValid : false, //연락처
-			memberAddressValid : false, //주소
-			memberGradeValid : false, //등급
+			memberIdValid : false,
+			memberPwValid : false,
+			memberPwCheckValid : false,
+			memberNickValid : false,
+			memberEmailValid : false,
+			memberContactValid : false, 
+			memberAddressValid : false,
 			//객체에 함수를 변수처럼 생성할 수 있다
 			//- this는 객체 자신(자바와 동일하지만 생략이 불가능)
 			ok : function() {
 				return this.memberIdValid && this.memberPwValid
 						&& this.memberPwCheckValid && this.memberNickValid
 						&& this.memberEmailValid && this.memberContactValid
-						&& this.memberAddressValid && this.memberGradeValid
-						&& this.memberNoValid;
+						&& this.memberAddressValid;
 			},
 		};
 
@@ -198,8 +182,7 @@
 											state.memberAddressValid ? "success"
 													: "fail");
 						});
-		
-	
+
 		//form 전송
 		$(".check-form").submit(function(e) {
 			//$(this).find("[name], #pw-reinput").blur();
@@ -207,15 +190,12 @@
 
 			//입력창 중에서 success fail fail2가 없는 창
 			$(this).find(".tool").not(".success, .fail, .fail2").blur();
-			if (state.ok()) {
-				e.preventDefault(); // 폼 전송을 막음
-				alert("모든 입력 항목을 올바르게 작성해주세요.");
-			}
-		});
-	});
-	
-
-
+			 if (state.ok()) {
+	                e.preventDefault(); // 폼 전송을 막음
+	                alert("모든 입력 항목을 올바르게 작성해주세요.");
+	            }
+	        });
+	    });
 </script>
 
 <script
@@ -256,138 +236,125 @@
 	});
 </script>
 <body>
-	<form action="signup" method="post" enctype="multipart/form-data"
-		autocomplete="off" class="check-form">
+<form action="signup" method="post" enctype="multipart/form-data"
+	autocomplete="off" class="check-form">
 
-		<div class="container w-600">
+	<div class="container w-500">
 
-			<div class="cell center">
-				<h1>회원 정보 입력</h1>
+		<div class="cell center">
+			<h1>회원 정보 입력</h1>
+		</div>
+
+		<div class="cell">
+			<div class="cell">
+				<label> 아이디 <i class="fa-solid fa-asterisk red"></i>
+				</label> <input type="text" name="memberId"
+					placeholder="영문 소문자시작, 숫자 포함 8~20자" class="tool w-100">
+				<div class="success-feedback">멋진 아이디네요!</div>
+				<div class="fail-feedback">아이디는 소문자 시작, 숫자 포함 8~20자로 작성하세요</div>
+				<div class="fail2-feedback">이미 사용중인 아이디입니다</div>
 			</div>
+			<div class="cell">
+				<label> 비밀번호 <i class="fa-solid fa-asterisk red"></i>
+				</label> <input type="password" name="memberPw"
+					placeholder="영문 대소문자, 숫자, 특수문자 1개 이상 포함 6~15자" class="tool w-100">
+				<div class="success-feedback">비밀번호가 올바른 형식입니다</div>
+				<div class="fail-feedback">비밀번호에는 반드시 영문 대,소문자와 숫자, 특수문자가
+					포함되어야 합니다</div>
+			</div>
+			<div class="cell">
+				<label> 비밀번호 확인 <i class="fa-solid fa-asterisk red"></i>
+				</label>
+				<!-- 비밀번호 확인은 백엔드로 전송되지 않도록 이름을 부여하지 않는다 -->
+				<input type="password" placeholder="" id="pw-reinput"
+					class="tool w-100">
+				<div class="success-feedback">비밀번호가 일치합니다</div>
+				<div class="fail-feedback">비밀번호가 일치하지 않습니다</div>
+				<div class="fail2-feedback">비밀번호를 먼저 입력하세요</div>
+			</div>
+		</div>
+
+		<div class="cell">
+			<div class="cell">
+				<label> 닉네임 <i class="fa-solid fa-asterisk red"></i>
+				</label> <input type="text" name="memberNick" placeholder="한글,숫자 2~10글자"
+					class="tool w-100">
+				<div class="success-feedback">사용 가능한 닉네임입니다</div>
+				<div class="fail-feedback">닉네임을 한글,숫자 2~10글자로 작성하세요</div>
+				<div class="fail2-feedback">이미 사용중인 닉네임입니다</div>
+			</div>
+		</div>
+
+		<div class="cell">
+			<div class="cell">
+				<label>이메일<i class="fa-solid fa-asterisk red"></i></label>
+
+				<div class="flex-cell" style="flex-wrap: wrap;">
+					<input type="email" name="memberEmail" placeholder="test@kh.com"
+						class="tool width-fill">
+
+					<div class="fail-feedback w-100">잘못된 이메일 형식입니다</div>
+				</div>
+			</div>
+
 
 			<div class="cell">
 				<div class="cell">
-					<label> 아이디 <i class="fa-solid fa-asterisk red"></i>
-					</label> <input type="text" name="memberId"
-						placeholder="영문 소문자시작, 숫자 포함 8~20자" class="tool w-100">
-					<div class="success-feedback">멋진 아이디네요!</div>
-					<div class="fail-feedback">아이디는 소문자 시작, 숫자 포함 8~20자로 작성하세요</div>
-					<div class="fail2-feedback">이미 사용중인 아이디입니다</div>
+					<label>연락처  <i class="fa-solid fa-asterisk red"></i>
+					</label> <input type="tel" name="memberContact"
+						placeholder="- 제외하고 입력" class="tool w-100">
+					<div class="fail-feedback">잘못된 휴대전화 번호 형식입니다</div>
+				</div>
+
+
+			</div>
+
+			<div class="cell">
+				<!-- 주소 : 모두 입력하든가 입력하지 않든가 -->
+				<div class="cell">
+					<label>주소  <i class="fa-solid fa-asterisk red"></i> </label>
 				</div>
 				<div class="cell">
-					<label> 비밀번호 <i class="fa-solid fa-asterisk red"></i>
-					</label> <input type="password" name="memberPw"
-						placeholder="영문 대소문자, 숫자, 특수문자 1개 이상 포함 6~15자" class="tool w-100">
-					<div class="success-feedback">비밀번호가 올바른 형식입니다</div>
-					<div class="fail-feedback">비밀번호에는 반드시 영문 대,소문자와 숫자, 특수문자가
-						포함되어야 합니다</div>
+					<input type="text" name="memberPost" readonly placeholder="우편번호"
+						class="tool" size="6" maxlength="6">
+					<button type="button" class="btn positive btn-address-search">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+					<button type="button" class="btn negative btn-address-clear">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
 				</div>
 				<div class="cell">
-					<label> 비밀번호 확인 <i class="fa-solid fa-asterisk red"></i>
-					</label>
-					<!-- 비밀번호 확인은 백엔드로 전송되지 않도록 이름을 부여하지 않는다 -->
-					<input type="password" placeholder="" id="pw-reinput"
+					<input type="text" name="memberAddress1" placeholder="기본주소"
+						class="tool w-100" readonly>
+				</div>
+				<div class="cell">
+					<input type="text" name="memberAddress2" placeholder="상세주소"
 						class="tool w-100">
-					<div class="success-feedback">비밀번호가 일치합니다</div>
-					<div class="fail-feedback">비밀번호가 일치하지 않습니다</div>
-					<div class="fail2-feedback">비밀번호를 먼저 입력하세요</div>
-				</div>
-			</div>
-
-			<div class="cell">
-				<div class="cell">
-					<label> 닉네임 <i class="fa-solid fa-asterisk red"></i>
-					</label> <input type="text" name="memberNick" placeholder="한글,숫자 2~10글자"
-						class="tool w-100">
-					<div class="success-feedback">사용 가능한 닉네임입니다</div>
-					<div class="fail-feedback">닉네임을 한글,숫자 2~10글자로 작성하세요</div>
-					<div class="fail2-feedback">이미 사용중인 닉네임입니다</div>
-				</div>
-			</div>
-
-			<div class="cell">
-				<div class="cell">
-					<label>이메일<i class="fa-solid fa-asterisk red"></i></label>
-
-					<div class="flex-cell" style="flex-wrap: wrap;">
-						<input type="email" name="memberEmail" placeholder="test@kh.com"
-							class="tool width-fill">
-
-						<div class="fail-feedback w-100">잘못된 이메일 형식입니다</div>
-					</div>
+					<div class="fail-feedback">주소를 모두 작성하세요</div>
 				</div>
 
+				<div class="flex-cell"></div>
 
 				<div class="cell">
 					<div class="cell">
-						<label>연락처 <i class="fa-solid fa-asterisk red"></i>
-						</label> <input type="tel" name="memberContact" placeholder="- 제외하고 입력"
+						<label>프로필 이미지</label> <input type="file" name="attach"
 							class="tool w-100">
-						<div class="fail-feedback">잘못된 휴대전화 번호 형식입니다</div>
 					</div>
 
-
-				</div>
-				
-				<div class="cell">
-				
-					<label> 등급 <i class="fa-solid fa-asterisk red"></i>
-					</label> <select name="memberGrade" class="tool w-100" >
-						<option value="일반회원">일반회원</option>
-						<option value="사장님">사장님</option>
-						<option value="관리자">관리자</option>
-					</select>
-					
-					
-					<div class="cell">
-						<!-- 주소 : 모두 입력하든가 입력하지 않든가 -->
-						<div class="cell">
-							<label>주소 <i class="fa-solid fa-asterisk red"></i>
-							</label>
-						</div>
-						<div class="cell" >
-							<input type="text" name="memberPost" readonly placeholder="우편번호"
-								class="tool" size="6" maxlength="6">
-							<button type="button" class="btn positive btn-address-search" style="background-color:rgb(254,210,61);">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</button>
-							<button type="button" class="btn negative btn-address-clear">
-								<i class="fa-solid fa-xmark"></i>
-							</button>
-						</div>
-						<div class="cell">
-							<input type="text" name="memberAddress1" placeholder="기본주소"
-								class="tool w-100" readonly>
-						</div>
-						<div class="cell">
-							<input type="text" name="memberAddress2" placeholder="상세주소"
-								class="tool w-100">
-							<div class="fail-feedback">주소를 모두 작성하세요</div>
-						</div>
-
-						<div class="flex-cell"></div>
-
-						<div class="cell">
-							<div class="cell">
-								<label>프로필 이미지</label> <input type="file" name="attach"
-									class="tool w-100">
-							</div>
-
-							<div class="w-100 right">
-								<button type="submit" class="btn positive" style="background-color:rgb(254,210,61);">
-									<i class="fa-solid fa-user"></i> 회원가입
-								</button>
-							</div>
-						</div>
+					<div class="w-100 right">
+						<button type="submit" class="btn positive">
+							<i class="fa-solid fa-user"></i> 회원가입
+						</button>
 					</div>
 				</div>
 			</div>
-			</div>
-	</form>
+</div>
+		</div>
+</form>
 </head>
 </html>
 
 </body>
 
-<%-- 템플릿 페이지를 불러오는 코드 --%>
-	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
