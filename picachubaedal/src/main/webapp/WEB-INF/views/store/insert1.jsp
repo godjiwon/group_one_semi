@@ -43,7 +43,7 @@
 	        storePostValid : false,
 	        storeCategoryValid : false,
 	        storeTypeValid : false,
-	        storeContactValid : false, //선택항목
+	        storeContactValid : false, //false 필수항목 true 선택항목
 	        storeIntroValid : false,
 	        storeDtipValid : false,
 	        storeMinpriceValid : false,
@@ -51,6 +51,7 @@
 	        storeCloseHourValid : false,
 	        storeBusinessNumberValid : false,
 	        storeClosedValid : false,
+	        memberNoValid : false,
 	        //객체에 함수를 변수처럼 생성할 수 있다
 	        //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
 	        ok : function(){
@@ -60,10 +61,12 @@
 	                    && this.storeTypeValid && this.storeContactValid
 	                    && this.storeImageValid && this.storeIntroValid
 	                    && this.storeDtipValid && this.storeMinpriceValid
-	                    && this.storeHoursValid && this.storeClosedValid;
+	                    && this.storeHoursValid && this.storeClosedValid
+	                    && this.memberNoValid;
 	        },
 	    };
 	
+	    //전화번호 형식검사
 	    $("[name=storeContact]").blur(function(){
 	    	var regex = /^\d{2,3}-\d{3,4}-\d{4}$/;
 	        var value = $(this).val();
@@ -93,15 +96,20 @@
 	            state.storeIdValid = false;
 	        }
 	    });
+	    
+	    //배달팁 형식검사 
 	    $("[name=storeDtip]").on("blur", function(){
-	    	var regex = /^\d+$/;
+	    	var regex = /^\d+$/; //숫자로만
 
 	        state.storePwValid = regex.test($(this).val());
 	        $(this).removeClass("success fail")
 	                    .addClass(state.storePwValid ? "success" : "fail");
 	    });
+	    
+	    //사용자가 입력한 배달팁을 storeDtip에 저장
 	    $("#Dtip-reinput").blur(function(){
 	        var storeDtip = $("[name=storeDtip]").val();
+	        //입력된 storeDtip값과 동일한지 확인 하고 그결과를 storeDtipCheckValid에 저장
 	        state.storeDtipCheckValid = storeDtip == $(this).val();
 	        
 	        if(storeDtip.length == 0) {
@@ -112,8 +120,9 @@
 	                        .addClass(state.storeDtipCheckValid ? "success" : "fail");
 	        }
 	    });
+	    //최소주문금액 형식검사
 	    $("[name=storeMinprice]").blur(function(){
-	    	var regex = /^\d+$/;
+	    	var regex = /^\d+$/; //숫자로만
 	        var value = $(this).val();
 	
 	        if(regex.test(value)) {
