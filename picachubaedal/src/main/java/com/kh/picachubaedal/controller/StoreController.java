@@ -72,12 +72,7 @@ public class StoreController {
 	}
 	
 	//상세
-	@RequestMapping("/detail")
-	public String detail(@RequestParam int storeNo, Model model) {
-		StoreDto dto = storeDao.selectOne(storeNo);
-		model.addAttribute("dto",dto);
-		return "/WEB-INF/views/store/detail.jsp";
-	}
+
 
 	
 	

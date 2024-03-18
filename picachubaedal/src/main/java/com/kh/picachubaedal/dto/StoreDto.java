@@ -23,6 +23,7 @@ public class StoreDto {
 	private String storeClosed;
 	
 	
+	
 	public StoreDto() {
 		
 		super();
