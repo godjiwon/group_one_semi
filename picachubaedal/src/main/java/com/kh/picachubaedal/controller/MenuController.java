@@ -33,7 +33,7 @@ public class MenuController {
    @Autowired
    private AttachService attachService;
    
-   //입력
+   //메뉴등록
    @GetMapping("/insert")
    public String insert() {
       return "/WEB-INF/views/menu/insert.jsp";
