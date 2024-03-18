@@ -29,8 +29,9 @@
 				<h2><a class="link link-animation" href="/store/list">목록으로</a></h2>
 			</div>
 			<div class="cell center">
-				<h2><a class="link link-animation" href="/store/change">가게 정보 수정</a></h2>
-			</div>
+    <h2><a class="link link-animation" href="/store/change?storeNo=${storeDto.storeNo}">가게 정보 수정</a></h2>
+</div>
+
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/store/delete" style="color:red";>가게 삭제</a></h2>
 			</div>

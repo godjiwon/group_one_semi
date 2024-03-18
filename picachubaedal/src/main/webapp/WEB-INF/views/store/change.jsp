@@ -32,135 +32,116 @@
 <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
 <script type="text/javascript">
 
-    $(function(){
-	    //상태객체(React의 state로 개념이 이어짐)
-	    var state = {
-	        //key : value
-	        storeNoValid : false,
-	        storeNameValid : false,
-	        storeAddress1Valid : false,
-	        storeAddress2Valid : false,
-	        storePostValid : false,
-	        storeCategoryValid : false,
-	        storeTypeValid : false,
-	        storeContactValid : false, //false 필수항목 true 선택항목
-	        storeIntroValid : false,
-	        storeDtipValid : false,
-	        storeMinpriceValid : false,
-	        storeOpenHourValid : false,
-	        storeCloseHourValid : false,
-	        storeBusinessNumberValid : false,
-	        storeClosedValid : false,
-	        memberNoValid : false,
-	        //객체에 함수를 변수처럼 생성할 수 있다
-	        //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
-	        ok : function(){
-	            return this.storeIdValid 
-	                    && this.storeNoValid && this.storeNameValid
-	                    && this.storeAddressValid && this.storeCategoryValid
-	                    && this.storeTypeValid && this.storeContactValid
-	                    && this.storeImageValid && this.storeIntroValid
-	                    && this.storeDtipValid && this.storeMinpriceValid
-	                    && this.storeHoursValid && this.storeClosedValid
-	                    && this.memberNoValid;
-	        },
-	    };
-	
-	    //전화번호 형식검사
-	    $("[name=storeContact]").blur(function(){
-	    	var regex = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	        var value = $(this).val();
-	
-	        if(regex.test(value)) {//전화번호 형식 검사를 통과했다면
-	            $.ajax({
-	                url : "/rest/store/checkstoreContact",
-	                method : "post",
-	                data: {
-	                    storeId : value
-	                },
-	                success : function(response) {
-	                    //console.log(response);
-	                    if(response == "NNNNN") {
-	                        $("[name=storeContact]").removeClass("success fail fail2").addClass("fail2");
-	                        state.storeIdValid = false;
-	                    }
-	                    else if(response == "NNNNY") {
-	                        $("[name=storeContact]").removeClass("success fail fail2").addClass("success");
-	                        state.storeIdValid = true;
-	                    }
-	                }
-	            });
-	        }
-	        else {//아이디가 형식검사를 통과하지 못했다면
-	            $("[name=storeContact]").removeClass("success fail fail2").addClass("fail");
-	            state.storeIdValid = false;
-	        }
-	    });
-	    
-	    //배달팁 형식검사 
-	    $("[name=storeDtip]").on("blur", function(){
-	    	var regex = /^\d+$/; //숫자로만
-
-	        state.storePwValid = regex.test($(this).val());
-	        $(this).removeClass("success fail")
-	                    .addClass(state.storePwValid ? "success" : "fail");
-	    });
-	    
-	    //사용자가 입력한 배달팁을 storeDtip에 저장
-	    $("#Dtip-reinput").blur(function(){
-	        var storeDtip = $("[name=storeDtip]").val();
-	        //입력된 storeDtip값과 동일한지 확인 하고 그결과를 storeDtipCheckValid에 저장
-	        state.storeDtipCheckValid = storeDtip == $(this).val();
-	        
-	        if(storeDtip.length == 0) {
-	            $(this).removeClass("success fail fail2").addClass("fail2");
-	        }
-	        else {
-	            $(this).removeClass("success fail fail2")
-	                        .addClass(state.storeDtipCheckValid ? "success" : "fail");
-	        }
-	    });
-	    //최소주문금액 형식검사
-	    $("[name=storeMinprice]").blur(function(){
-	    	var regex = /^\d+$/; //숫자로만
-	        var value = $(this).val();
-	
-	        if(regex.test(value)) {
-	            $.ajax({
-	                url:"/rest/store/checkstoreMinprice",
-	                method:"post",
-	                data : { storeNick : value },
-	                success:function(response){
-	                    if(response) {//사용 가능한 경우 - success
-	                        state.storeNickValid = true;
-	                        $("[name=storeMinprice]")
-	                            .removeClass("success fail fail2")
-	                            .addClass("success");
-	                    }
-	                    else {//이미 사용중인 경우 - fail2
-	                        state.storeNickValid = false;
-	                        $("[name=storeMinprice]")
-	                            .removeClass("success fail fail2")
-	                            .addClass("fail2");
-	                    }
-	                }
-	            });
-	        }
-	        else {//형식이 맞지 않는 경우 - fail
-	            state.storeNickValid = false;
-	            $("[name=storeMinprice]")
-	                .removeClass("success fail fail2")
-	                .addClass("fail");
-	        }
-	    });
-	    
         
-	    $("[name=storeDelivery]").blur(function(){
-	    	var regex = /^[가-힣]+$/;
-	        var value = $(this).val();
-	        state.storeContactValid = value.length == 0 || regex.test(value);
-	        $(this).removeClass("success fail")
-	                    .addClass(state.storeContactValid ? "success" : "fail");
+$(document).ready(function() {
+    // 서버에서 기존 가게 정보를 가져와서 해당 입력 필드에 채움
+    $("#storeName").val("${dto.storeName}");
+    $("#store_post").val("${dto.storePost}");
+    $("#store_address1").val("${dto.storeAddress1}");
+    $("#store_address2").val("${dto.storeAddress2}");
+    $("#store_category").val("${dto.storeCategory}");
+    $("#store_type").val("${dto.storeType}");
+    $("#store_contact").val("${dto.storeContact}");
+    $("#store_intro").val("${dto.storeIntro}");
+    $("#store_dtip").val("${dto.storeDtip}");
+    $("#store_minprice").val("${dto.storeMinprice}");
+    $("#store_like").val("${dto.storeLike}");
+    $("#store_open_hour").val("${dto.storeOpenHour}");
+    $("#store_close_hour").val("${dto.storeCloseHour}");
+    $("#store_delivery").val("${dto.storeDelivery}");
+    $("#store_closed").val("${dto.storeClosed}");
+    $("#store_business_number").val("${dto.storeBusinessNumber}");
+    // 여기에 필요한 입력 필드들의 기존 정보를 가져와서 채우는 코드 추가
+});
+
+// 폼 전송 시 실행되는 부분
+$(".check-form").submit(function() {
+    // 각 입력 필드에 대해 기존 정보를 유지하고 사용자가 입력한 값만 업데이트
+    $("[name=storeName]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeName}");
+        }
+    });
+    $("[name=storePost]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storePost}");
+        }
+    });
+    $("[name=storeAddress1]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeAddress1}");
+        }
+    });
+    $("[name=storeAddress2]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeAddress2}");
+        }
+    });
+    $("[name=storeCategory]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeCategory}");
+        }
+    });
+    $("[name=storeType]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeType}");
+        }
+    });
+    $("[name=storeContact]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeContact}");
+        }
+    });
+    $("[name=storeIntro]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeIntro}");
+        }
+    });
+    $("[name=storeDtip]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeDtip}");
+        }
+    });
+    $("[name=storeMinprice]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeMinprice}");
+        }
+    });
+    $("[name=storeLike]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeLike}");
+        }
+    });
+    $("[name=storeOpenHour]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeOpenHour}");
+        }
+    });
+    $("[name=storeCloseHour]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeCloseHour}");
+        }
+    });
+    $("[name=storeDelivery]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeDelivery}");
+        }
+    });
+    $("[name=storeClosed]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeClosed}");
+        }
+    });
+    $("[name=storeBusinessNumber]").each(function() {
+        if ($(this).val().trim() === '') {
+            $(this).val("${dto.storeBusinessNumber}");
+        }
+    });
+
+    // 유효성 검사 없이 폼을 제출
+    return true;
+});
+
 	    
 	
 	    //주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
@@ -179,15 +160,15 @@
 	                .addClass(state.storeAddressValid ? "success" : "fail");
 	    });
 	
-	    //form 전송
-	    $(".check-form").submit(function(){
-	        //$(this).find("[name], #pw-reinput").blur();
-	        //$(this).find(".tool").blur();//모든 창
-	        
-	        //입력창 중에서 success fail fail2가 없는 창
-	        $(this).find(".tool").not(".success, .fail, .fail2").blur();
-	        return state.ok();
-	    });
+	 // 폼 전송 시 실행되는 부분
+	    $(".check-form").submit(function() {
+	        // 각 입력 필드에 대해 기존 정보를 유지하고 사용자가 입력한 값만 업데이트
+	        $("[name=storeName]").each(function() {
+	            if ($(this).val().trim() === '') {
+	                $(this).val("${dto.storeName}");
+	            }
+	            // 여기에 다른 필드들에 대한 로직 추가
+	        });
 	    
 	    var storeTypes = [];
 	    $(".storeType").change(function() {
@@ -259,7 +240,8 @@
 	});
 </script>
 <!-- 카카오 api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
     $(function(){
         $(".btn-address-search").click(function(){
@@ -295,28 +277,7 @@
         });
     });
     
-    $(function(){
-        //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
-    	// storeName 입력란의 blur 이벤트 설정
-        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery]").blur(function(){
-            // 입력된 가게 이름 가져오기
-            var storeName = $(this).val();
-            
-            // 여기서 추가적으로 수행할 작업을 작성합니다.
-            // 예를 들어, 가게 이름이 입력되었는지 확인하거나 다른 유효성 검사를 수행할 수 있습니다.
-            
-            // 예시: 가게 이름이 비어 있지 않은 경우에만 유효성 검사 통과 처리
-            if(storeName.trim() !== '') {
-                // 가게 이름이 비어 있지 않은 경우 success 클래스 추가
-                $(this).addClass("success");
-                // 다른 작업 수행 가능
-            } else {
-                // 가게 이름이 비어 있는 경우 fail 클래스 추가
-                $(this).addClass("fail");
-                // 다른 작업 수행 가능
-            }
-        });
-    });
+   
 
 
 
@@ -324,76 +285,225 @@
 </script>
 <body>
 
-<form action="insert1" method="post" enctype="multipart/form-data"
+	<form action="insert1" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
 
-		
+
 		<div class="container w-500">
-			<h2>가게 등록 페이지(임시)</h2>
+			<h2>가게 정보 수정</h2>
 			<div class="cell">
 
-
 				<div class="cell">
-					<label> 가게 이름
-					<i class="fa-solid fa-asterisk red"></i>
-					</label> 
-<input type="text" id="storeName" name="storeName"
-			placeholder="가게 이름을 작성해주세요" class="tool w-100"
+					<label> 가게 이름 <i class="fa-solid fa-asterisk red"></i>
+					</label> <input type="text" id="storeName" name="storeName"
+						placeholder="가게 이름을 작성해주세요" class="tool w-100"
 						onblur="checkstoreName()" value="${dto.storeName}">
-    
-    <label for="storeAddress1">가게 주소</label>
-    <input type="text" id="storeAddress1" name="storeAddress1" value="${dto.storeAddress1}">
-    <br>
-    
-    <label for="storeAddress2">가게 상세 주소</label>
-    <input type="text" id="storeAddress2" name="storeAddress2" value="${dto.storeAddress2}">
-    <br>
-    
-    <label for="storeCategory">음식 카테고리</label>
-    <input type="text" id="storeCategory" name="storeCategory" value="${dto.storeCategory}">
-    <br>
-    
-    <label for="storeType">배달/포장 여부</label>
-    <input type="text" id="storeType" name="storeType" value="${dto.storeType}">
-    <br>
-    
-    <label for="storeContact">연락처</label>
-    <input type="text" id="storeContact" name="storeContact" value="${dto.storeContact}">
-    <br>
-    
-    <label for="storeImage">가게 사진</label>
-    <input type="text" id="storeImage" name="storeImage" value="">
-    <br>
-    
-    <label for="storeIntro">가게 소개글</label>
-    <input type="text" id="storeIntro" name="storeIntro" value="${dto.storeIntro}">
-    <br>
-    
-    <label for="storeDtip">배달팁</label>
-    <input type="text" id="storeDtip" name="storeDtip" value="${dto.storeDtip}">
-    <br>
-    
-    <label for="storeMinprice">최소 주문금액</label>
-    <input type="text" id="storeMinprice" name="storeMinprice" value="${dto.storeMinprice}">
-    <br>
-    
-    <label for="storeOpenHour">가게 운영시간</label>
-    <input type="text" id="storeOpenHour" name="storeOpenHour" value="${dto.storeOpenHour}">
-    <br>
-    
-    <label for="storeDelivery">배달 가능 지역</label>
-    <input type="text" id="storeDelivery" name="storeDelivery" value="${dto.storeDelivery}">
-    <br>
-    
-    <label for="storeClosed">가게 휴무일</label>
-    <input type="text" id="storeClosed" name="storeClosed" value="${dto.storeClosed}">
-    <br>
-    
-    <label for="storeClosed">사업자 등록번호</label>
-    <input type="text" id="storeBusinessNumber" name="storeBusinessNumber" value="${dto.storeBusinessNumber}">
-    
-    <button type="submit">변경하기</button>
-</form>
+
+					<div class="cell page">
+						<!-- 주소 : 모두 입력하든가 입력하지 않든가 -->
+						<div class="cell">
+
+							<div class="cell">
+								<div>현재주소 : ${dto.storeAddress1} ${dto.storeAddress2}</div>
+							</div>
+
+							<label>주소 변경하기</label>
+						</div>
+						<div class="cell">
+							<input type="text" name="storePost" readonly placeholder="우편번호"
+								class="tool" size="6" maxlength="6">
+							<button type="button" class="btn positive btn-address-search">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
+							<button type="button" class="btn negative btn-address-clear">
+								<i class="fa-solid fa-xmark"></i>
+							</button>
+						</div>
+						<div class="cell">
+							<input type="text" name="storeAddress1" placeholder="기본주소"
+								class="tool w-100" readonly>
+						</div>
+						<div class="cell">
+							<input type="text" name="storeAddress2" placeholder="상세주소"
+								class="tool w-100">
+							<div class="success-feedback">
+								<i class="fa-solid fa-check"></i>
+							</div>
+
+							<div class="cell">
+								<label> 음식 카테고리 <i class="fa-solid fa-asterisk red"></i>
+								</label> <select class="tool w-100" id="storeCategory"
+									name="storeCategory" onblur="checkStoreCategory()">
+									<option value="">선택하세요</option>
+									<option value="치킨">치킨</option>
+									<option value="피자/양식">피자/양식</option>
+									<option value="중국집">중국집</option>
+									<option value="한식">한식</option>
+									<option value="일식/돈까스">일식/돈까스</option>
+									<option value="족발/보쌈">족발/보쌈</option>
+									<option value="야식">야식</option>
+									<option value="분식">분식</option>
+									<option value="카페/디저트">카페/디저트</option>
+								</select>
+								<div class="success-feedback">
+									<i class="fa-solid fa-check"></i>
+								</div>
+
+								<div class="cell">
+									<label> 배달/포장 가능 여부 <i class="fa-solid fa-asterisk red"></i>
+									</label>
+									<div class="cell">
+										<input type="checkbox" id="delivery" name="storeType"
+											class="storeType" value="배달"> 배달만 <input
+											type="checkbox" id="takeout" name="storeType"
+											class="storeType" value="포장"> 포장만 <input
+											type="checkbox" id="takeout" name="storeType"
+											class="storeType" value="배달,포장"> 배달,포장 모두 가능
+
+									</div>
+								</div>
+
+								<div class="cell">
+									<label> 가게 연락처 <i class="fa-solid fa-asterisk red"></i>
+									</label> <input type="text" name="storeContact"
+										placeholder=" - 제외 숫자만 입력하세요" class="tool w-100"
+										onblur="checkStoreContact()">
+									<div class="success-feedback">
+										<i class="fa-solid fa-check"></i>
+									</div>
+									<div class="fail-feedback">
+										<i class="fa-solid fa-triangle-exclamation"></i> 잘못된 전화번호
+										형식입니다
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="cell page">
+								<div class="cell">
+									<label>가게 이미지</label> <input type="file" name="attach"
+										class="tool w-100">
+								</div>
+
+								<div class="flex-cell"></div>
+							</div>
+						</div>
+
+
+
+
+						<div class="cell storeIntro">
+							<label> 가게 소개글 </label>
+							<textarea class="tool w-100" name="storeIntro"></textarea>
+						</div>
+						<div class="cell">
+							<label> 배달팁<!-- 포켓볼 사진 input에 추가  --> <i
+								class="fa-solid fa-asterisk red"></i>
+							</label> <input type="text" name="storeDtip" placeholder="ex.3,000원"
+								class="tool w-100">
+
+						</div>
+						<div class="cell">
+							<label> 최소 주문 금액<!-- 포켓볼 사진 input에 추가  --> <i
+								class="fa-solid fa-asterisk red"></i>
+							</label> <input type="text" name="storeMinprice" placeholder="ex.12,000원"
+								class="tool w-100">
+
+						</div>
+
+						<div class="cell">
+							<label> 영업시간 <i class="fa-solid fa-asterisk red"></i>
+							</label> <select class="tool w-100" id="storeOpenHour"
+								name="storeOpenHour" onblur="checkStoreOpenHour()">
+								<option value="">운영 시작 시간</option>
+								<option value="00:00">00:00</option>
+								<option value="01:00">01:00</option>
+								<option value="02:00">02:00</option>
+								<option value="03:00">03:00</option>
+								<option value="04:00">04:00</option>
+								<option value="05:00">05:00</option>
+								<option value="06:00">06:00</option>
+								<option value="07:00">07:00</option>
+								<option value="08:00">08:00</option>
+								<option value="09:00">09:00</option>
+								<option value="10:00">10:00</option>
+								<option value="11:00">11:00</option>
+								<option value="12:00">12:00</option>
+								<option value="13:00">13:00</option>
+								<option value="14:00">14:00</option>
+								<option value="15:00">15:00</option>
+								<option value="16:00">16:00</option>
+								<option value="17:00">17:00</option>
+								<option value="18:00">18:00</option>
+								<option value="19:00">19:00</option>
+								<option value="20:00">20:00</option>
+								<option value="21:00">21:00</option>
+								<option value="22:00">22:00</option>
+								<option value="23:00">23:00</option>
+								<option value="24:00">24:00</option>
+							</select> <span>부터</span> <select class="tool w-100" id="storeCloseHour"
+								name="storeCloseHour">
+								<option value="">운영 종료 시간</option>
+								<option value="00:00">00:00</option>
+								<option value="01:00">01:00</option>
+								<option value="02:00">02:00</option>
+								<option value="03:00">03:00</option>
+								<option value="04:00">04:00</option>
+								<option value="05:00">05:00</option>
+								<option value="06:00">06:00</option>
+								<option value="07:00">07:00</option>
+								<option value="08:00">08:00</option>
+								<option value="09:00">09:00</option>
+								<option value="10:00">10:00</option>
+								<option value="11:00">11:00</option>
+								<option value="12:00">12:00</option>
+								<option value="13:00">13:00</option>
+								<option value="14:00">14:00</option>
+								<option value="15:00">15:00</option>
+								<option value="16:00">16:00</option>
+								<option value="17:00">17:00</option>
+								<option value="18:00">18:00</option>
+								<option value="19:00">19:00</option>
+								<option value="20:00">20:00</option>
+								<option value="21:00">21:00</option>
+								<option value="22:00">22:00</option>
+								<option value="23:00">23:00</option>
+								<option value="24:00">24:00</option>
+							</select> <span>까지 운영합니다.</span>
+
+							<div class="cell" name="storeClosed">
+								<label> 휴무일 선택 </label>
+								<div class="cell center">
+									<input type="checkbox" id="monday" name="storeClosed"
+										value="월요일"> <label for="monday">월요일</label> <input
+										type="checkbox" id="tuesday" name="storeClosed" value="화요일">
+									<label for="tuesday">화요일</label> <input type="checkbox"
+										id="wednesday" name="storeClosed" value="수요일"> <label
+										for="wednesday">수요일</label> <input type="checkbox"
+										id="thursday" name="storeClosed" value="목요일"> <label
+										for="thursday">목요일</label> <input type="checkbox" id="friday"
+										name="storeClosed" value="금요일"> <label for="friday">금요일</label>
+
+									<input type="checkbox" id="saturday" name="storeClosed"
+										value="토요일"> <label for="saturday">토요일</label> <input
+										type="checkbox" id="sunday" name="storeClosed" value="일요일">
+									<label for="sunday">일요일</label>
+
+								</div>
+							</div>
+							<div class="cell">
+								<label> 배달 가능 지역 <i class="fa-solid fa-asterisk red"></i>
+								</label> <input type="text" name="storeDelivery"
+									placeholder="ex.노원구(구 단위만 입력)" class="tool w-100">
+							</div>
+						</div>
+
+						<div class="cell right">
+							<button class="btn positive w-100" type="submit">등록하기</button>
+						</div>
+					</div>
+	</form>
 
 </body>
 </html>
