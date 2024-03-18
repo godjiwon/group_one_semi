@@ -4,10 +4,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<style>
+	* {
+		font-family : 빙그레 메로나체, sans-serif;
+	}
+	.information{
+		display: flex;
+	}
+</style>
 
-<div class="container w-1000">
-	<div class="cell">
-		<h1>${memberDto.memberId}님의 페이지</h1>
+<div class="container w-1000 my-50">
+	<div class="cell information">
+		<div class="cell w-50"></div>
+		<div class="cell right w-50">
+			<h1>${memberDto.memberId}님의 정보</h1>
+		</div>
+		<div class="cell w-50">
+			<img src="/image/transparent-cute-pikachu.png" width="25%;">
+		</div>
 	</div>
 	<div class="cell floating-cell" >
 		<div class="w-25 row">
@@ -31,9 +45,6 @@
 		</div>
 		</div>
 		<div class="w-75">
-			<div class="cell center">
-				<h2>가입 정보</h2>
-			</div>
 			<div class="cell">
 				<table class="table table-horizontal">
 					<tr>
@@ -84,36 +95,36 @@
 			
 			<div class="cell">
 				<h2>
-					포켓볼 구매 내역
-					<a class="link link-animation ms-30" href="/point/charge">
-						<i class="fa-regular fa-credit-card"></i>
-						추가구매
-					</a>
+					주문 내역
 				</h2>
 			</div>
 			<div class="cell">
 				<table class="table table-horizontal">
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>상품명</th>
+							<th>가게</th>
+							<th>메뉴</th>
 							<th>수량</th>
-							<th>구매금액</th>
+							<th>총 금액</th>
 							<th>구매일시</th>
+							<th>리뷰</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="buyDto" items="${buyList}">
+						<c:forEach var="ordersDto" items="${ordersList}">
 						<tr>
-							<td>${buyDto.buySerial}</td>
-							<td>${buyDto.itemName}</td>
-							<td>${buyDto.buyQty}</td>
+							<td>${ordersDto.storeName}</td>
+							<td>${ordersDto.menuName}</td>
+							<td>${ordersDto.ordersqty}</td>
 							<td>
-								<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"/>
+								<fmt:formatNumber value="${ordersDto.ordersTotal}" pattern="#,##0"/>
 							</td>
 							<td>
-								<fmt:formatDate value="${buyDto.buyTime}" 
+								<fmt:formatDate value="${ordersDto.ordersTime}" 
 																pattern="yyyy-MM-dd HH:mm"/>
+							</td>
+							<td>
+								<i class="fa-regular fa-pen-to-square"></i>
 							</td>
 						</tr>		
 						</c:forEach>

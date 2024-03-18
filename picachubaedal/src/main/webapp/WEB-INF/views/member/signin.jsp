@@ -27,6 +27,15 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+.container {
+	display: grid;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	padding: 60px;
+}
 .btn.positive {
 	background-color: pink;
 }
@@ -133,9 +142,8 @@
 <body>
 	<form action="signin" method="post" autocomplete="off"
 		onsubmit="return checkForm();">
-		<div class="container w-400">
+		<div class="container w-500">
 			<div class="cell center">
-				<br><br>
 				<h1>로그인</h1>
 			</div>
 
@@ -162,7 +170,6 @@
 				<a href="findId" style="text-decoration-line: none;">아이디 찾기</a>
 				<a href="findPw" style="text-decoration-line: none;">비밀번호 찾기</a>
 				<a href="signup" style="text-decoration-line: none;">회원가입</a>
-				<br><br><br><br><br><br>
 			</div>
 			<c:if test="${param.error != null}">
 				<div class="cell center">

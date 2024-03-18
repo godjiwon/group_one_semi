@@ -4,8 +4,8 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+
 <form action="findPw" method="post" autocomplete="off">
-	
 	<c:if test="${not empty foundPw}">
     <div class="cell center">
         <h1>${memberId}님의 비밀번호: ${foundPw}</h1>
