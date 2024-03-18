@@ -21,6 +21,7 @@ main {
 }
 .article {
     flex-grow: 1;
+    padding: 10px;
 }
 .footer {
     padding: 10px;

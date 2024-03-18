@@ -1,65 +1,45 @@
 package com.kh.picachubaedal.controller;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dao.StoreDao;
-import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
-import com.kh.picachubaedal.service.AttachService;
-import com.kh.picachubaedal.service.ImageService;
-import com.kh.picachubaedal.vo.PageVO;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/store")
 public class StoreController {
 	
 	
-	@Autowired
-	private AttachService attachService;
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, 
+												new StringTrimmerEditor(true));
+	}
 	
-	@Autowired
-	private MemberDao memberDao;
+
 	@Autowired
 	private StoreDao storeDao;
 	
-	
-	@Autowired
-	private ImageService imageService;
-	
-	@GetMapping("/insert1") //가게 등록
+	@GetMapping("/insert") //가게 등록
 	public String insert() {
-		return "/WEB-INF/views/store/insert1.jsp";
+		return "/WEB-INF/views/store/insert.jsp";
 	}
 	
-	   @PostMapping("/insert1")
-	   public String insert(@ModelAttribute StoreDto storeDto, @RequestParam MultipartFile attach)
-	            throws IllegalStateException, IOException {
-	      //가게 정보 등록
-	      storeDao.insert(storeDto, attach);
-	      int recentStoreNo = storeDao.selectRecentStore();
-	      //첨부파일 등록
-	      if(!attach.isEmpty()) {
-	         int attachNo = attachService.save(attach);
-	         storeDao.connect(recentStoreNo, attachNo);
-	      }
-
-	      return "redirect:insertFinish";
-	   }
-	   
+	@PostMapping("/insert")
+	public String insert(@ModelAttribute StoreDto storeDto) {
+		storeDao.insert(storeDto);
+		return "redirect:insertFinish";
+	}
 	@RequestMapping("/insertFinish") //등록 완료페이지
 	public String insertFinish() {
 		return "/WEB-INF/views/store/insertFinish.jsp";
@@ -69,8 +49,6 @@ public class StoreController {
 	@GetMapping("/change")
 	public String change(Model model, @RequestParam int storeNo) {
 		StoreDto dto = storeDao.selectOne(storeNo);
-		
-		
 		if(dto == null) {
 			return "redirect:changeFail";
 		}
@@ -93,48 +71,11 @@ public class StoreController {
 	    return "/WEB-INF/views/store/changeFail.jsp";
 	}
 	
+	//상세
+
+
 	
-//	@RequestMapping("/detail")
-//	public String storeMypage(HttpSession session, Model model) {
-//	    // 세션에서 로그인된 회원의 정보를 가져옵니다.
-//		String loginId = (String) session.getAttribute("loginId");
-//		
-//		MemberDto memberDto = memberDao.selectOne(loginId);
-//	    
-//	    if (memberDto == null) {
-//	        // 로그인되지 않은 경우 처리할 내용
-//	        return "redirect:/login"; // 로그인 페이지로 이동하도록 리다이렉트합니다.
-//	    }
-//	    
-//	    // 로그인된 회원의 회원번호를 가져옵니다.
-//	    int memberNo = memberDto.getMemberNo();
-//	    
-//	    // 회원 번호를 기준으로 해당 가게의 정보를 조회합니다.
-//	    MemberDto storeDto = storeDao.selectByMemberNo(memberNo);
-//	    
-//	    if (storeDto == null) {
-//	        // 가게 정보가 없는 경우 처리할 내용
-//	        return "redirect:/insert1"; // 가게 등록 페이지로 이동하도록 리다이렉트합니다.
-//	    }
-//	    
-//	    // 조회된 가게 정보를 모델에 추가하여 가게의 마이페이지 화면으로 전달합니다.
-//	    model.addAttribute("storeDto", storeDto);
-//		return "/WEB-INF/views/store/detail";
-//	}
 
-
-	// 가게 상세
-		@RequestMapping("/detail")
-		public String myStore(@RequestParam int storeNo, Model model) {
-			StoreDto storeDto = storeDao.selectOne(storeNo);
-			String storeImageLink = imageService.getStoreImgLink(storeNo);
-			
-			storeDto.setStoreImgLink(storeImageLink);
-			model.addAttribute("storeDto", storeDto);
-
-			return "/WEB-INF/views/store/detail.jsp";
-		}
-	
 
 
 	
@@ -203,6 +144,10 @@ public class StoreController {
 	    }
 	    return "storeList"; // storeList는 가게 리스트를 표시하는 뷰 페이지의 이름
 	}
+
+	
+	
+
 	
 	
 	
