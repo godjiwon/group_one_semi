@@ -78,7 +78,7 @@ public class MenuController {
 		// storeNo를 모델에 추가
 		model.addAttribute("storeNo", storeNo);
 	      	
-		return "/WEB-INF/views/menu/list.jsp";
+		return "/WEB-INF/views/menu/ceoMenuList.jsp";
    }
    
    //메뉴이미지
