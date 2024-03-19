@@ -85,22 +85,28 @@
 							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
 								${sessionScope.loginId}
 							</a>
+
+							
+							<div class="header_sideMenu right">
+							<a href="/store/list">내가게</a>&nbsp;
+								<a href="/member/mypage">마이페이지</a>&nbsp;
+
 							<ul>
 								<a href="/member/mypage">마이페이지</a>
+
 								<a href="/member/logout">로그아웃</a>
 							</ul>
 						</c:when>
 						<c:otherwise>
 							<a href="/member/signin">로그인</a>
 							<a href="/member/signup">회원가입</a>
-							
 						</c:otherwise>
 					</c:choose>
         </div>           
        </div>
    </div>
    
-   <hr class="hr hr-border">
+   <hr class="hr hr-border header-hr">
 
 
         <div class="section">
@@ -111,5 +117,3 @@
       - 실질적인 홈페이지의 내용이 표시되는 영역
       - 크기는 무제한으로 늘어날 수 있음
     --%>
-
-

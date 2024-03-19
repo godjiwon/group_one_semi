@@ -7,6 +7,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
+	.header-hr {
+	    display: none;
+	}
    .card {
         box-shadow: 0 0 1px 1px #b2bec3;
     }
@@ -31,7 +34,7 @@
     
     .menuCard {
        width: 700px;
-       height: 100px
+       height: 130px
     }
     
     .menuSubCard {
@@ -61,7 +64,6 @@
     }
 
 	.menuCategoryBar {
-		bottom: 2%;
 		position: relative;
 	    border-left: none;
 	    margin-top: 0;
@@ -73,6 +75,7 @@
 	    ul {
 	    	display: flex;
 	    	justify-content: center;
+	    	margin-top: 0;
 	    }
 	    li {
 	    	width: 100px;
@@ -105,9 +108,12 @@
 	}
 	
 	.store_name_design {
-		font-size: 25px;
+		font-size: 28px;
 	    font-weight: bold;
 	    padding-top: 10px;		
+	}
+	.menu-info-style {
+		font-size: 15px;
 	}
 </style>
 
@@ -126,6 +132,7 @@
 		    }
 		});
 	});
+
 </script>
 <form class="menuCategoryBar" name="menuForm" action="list" method="get">
 	<div>
@@ -134,16 +141,18 @@
 				<i class="fa-solid fa-magnifying-glass fa-images"></i>
 			</li>
 			<div class="search_group">
-				<input type="search" class="inputKeyword" name="keyword" placeholder="음식점이나 메뉴를 검색해보세요."">
+				<input type="search" class="inputKeyword" name="keyword" placeholder="메뉴를 검색해보세요."">
 			</div>			
-			<li value="한식" onclick='searchMenuCategory("한식")'>한식</li>
-			<li value="중식" onclick='searchMenuCategory("중식")'>중식</li>
-			<li value="일식" onclick='searchMenuCategory("일식")'>일식</li>
-			<li value="양식" onclick='searchMenuCategory("양식")'>양식</li>
-			<li value="치킨" onclick='searchMenuCategory("치킨")'>치킨</li>
-			<li value="피자" onclick='searchMenuCategory("피자")'>피자</li>
-			<li value="햄버거" onclick='searchMenuCategory("햄버거")'>햄버거</li>
+			<li value="추천메뉴" onclick='searchMenuCategory("추천메뉴")'>추천메뉴</li>
+			<li value="식사메뉴" onclick='searchMenuCategory("식사메뉴")'>식사메뉴</li>
+			<li value="사이드" onclick='searchMenuCategory("사이드")'>사이드</li>
+			<li value="세트" onclick='searchMenuCategory("세트")'>세트</li>
+			<li value="추가" onclick='searchMenuCategory("추가")'>추가</li>
+			<li value="디저트" onclick='searchMenuCategory("디저트")'>디저트</li>
+			<li value="음료/ 주류" onclick='searchMenuCategory("음료/ 주류")'>음료/ 주류</li>
 			<input type="hidden" name="column">
+			<input type="hidden" name="page" class="currentPage" value="1">
+			<input type="hidden" name="page" class="totalPage" value="${pageVO.totalPage}">
 		</ul>
 	</div>
 </form>
@@ -154,50 +163,87 @@
          메뉴등록
       </a>
    </h3>
-   <p class="right">메뉴 검색창 만들기</p>
    <div class="cell center store_name_design">
-   <i class="fa-solid fa-quote-left"></i>내 가게 메뉴 리스트<i class="fa-solid fa-quote-right"></i></div>
+   <i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i> 메뉴 리스트</div>
    
    <div class="menulist">
       <c:forEach var="menuDto" items="${list}">
          <div class="cell flex-cell card menuCard">
              <div class="w-25 flex-cell middle">
                  <div class="img_wrap">
-                    <img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
+                 	<img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
                  </div>
              </div>
              <div class="content-wrapper width-fill p-10 menuSubCard">
                  <div class="menu-title-wrapper">
-                  <div>${menuDto.menuName}
-                     <c:if test="${menuDto.menuState == 'N'}">
-                        <span class="red review-wrapper">
-                               (품절)
-                           </span>                     
-                        </c:if>
-                  </div>  
-                    <div>  
-                        
-                    </div>    
-                    <div>
-						<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>원</span>
-                    </div>              
+	                  <div>${menuDto.menuName}
+	                     <c:if test="${menuDto.menuState == 'N'}">
+	                        <span class="red review-wrapper">
+	                               (품절)
+	                           </span>                     
+	                        </c:if>
+	                  </div>  
+	                    <div>
+							<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
+	                    </div>
+	                    <div class="menu-info-style right gray">
+						    <span>등록일 ${menuDto.menuTime}</span>
+						    <c:if test="${!empty menuDto.menuUpdate}">
+						        <span> | 수정일 ${menuDto.menuUpdate}</span>
+						    </c:if>
+						</div>          
                  </div>     
                      
                  <div class="right">
-                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
-                     <i class="fa-solid fa-pencil"></i>
-                     수정
-                  </a>
-                  <span> | </span>
-                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
-                     <i class="fa-solid fa-minus"></i>
-                     삭제
-                  </a>               
+	                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
+	                     <i class="fa-solid fa-pencil"></i>
+	                     수정
+	                  </a>
+	                  <span> | </span>
+	                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
+	                     <i class="fa-solid fa-minus"></i>
+	                     삭제
+	                  </a>               
                  </div> 
              </div>
          </div>
       </c:forEach>
    </div>
+<%-- 네비게이터 --%>
+<div class="page-navigator">
+	<%-- 이전이 있을 경우만 링크를 제공 --%>
+	<c:choose>
+		<c:when test="${pageVO.isFirstBlock()}">
+			<a class="off">&lt;이전</a>
+		</c:when>
+		<c:otherwise>
+			<a href="ceoMenuList?page=${pageVO.getPrevBlock()}&${pageVO.getQueryString()}">&lt;이전</a>
+		</c:otherwise>
+	</c:choose>
+	
+	<%-- for(int i=beginBlock; i <= endBlock; i++) { .. } --%>
+	<c:forEach var="i" begin="${pageVO.getBeginBlock()}" end="${pageVO.getEndBlock()}" step="1">
+		<%-- 다른 페이지일 경우만 링크를 제공 --%>
+		<c:choose>
+			<c:when test="${pageVO.isCurrentPage(i)}">
+				<a class="on">${i}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="ceoMenuList?page=${i}&${pageVO.getQueryString()}">${i}</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	
+	<%-- 다음이 있을 경우만 링크를 제공 --%>
+	<c:choose>
+		<c:when test="${pageVO.isLastBlock()}">
+			<a class="off">다음&gt;</a>
+		</c:when>
+		<c:otherwise>
+			<a href="ceoMenuList?page=${pageVO.getNextBlock()-1}&${pageVO.getQueryString()}">다음&gt;</a> 
+		</c:otherwise>
+	</c:choose>
+</div>
 </div>
 
 

@@ -11,7 +11,7 @@ public class PageVO {
 	private String column, keyword;//검색항목,검색어
 	private int count;//전체 개수
 	private int page=1;//현재 페이지
-	private int size=10;//한페이지에 보여줄 게시글 개수
+	private int size=5;//한페이지에 보여줄 게시글 개수
 	private int blockSize=10;//블럭 표시개수
 	public String getColumn() {
 		if(column == null) return "";
