@@ -58,6 +58,9 @@
 	.hidden {
 		display: none;
 	}
+	.form-wrap {
+	    padding-bottom: 70px;
+	}	
    
 </style>
 <script type="text/javascript">
@@ -193,7 +196,7 @@ function checkMenuPrice() {
 <div class="cell center py-10">
    <h1>메뉴 등록</h1>
 </div>
-<div>
+<div class="form-wrap">
    <form method="post" id="insert_form" action="/menu/insert" autocomplete="off" onsubmit="return checkForm();">
       <input type="hidden" name="storeNo" value="${storeNo}">
       <section>

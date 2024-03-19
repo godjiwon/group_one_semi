@@ -1,6 +1,5 @@
 package com.kh.picachubaedal.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.picachubaedal.dao.AttachDao;
 import com.kh.picachubaedal.dao.MenuDao;
 import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dto.MenuDto;
@@ -33,10 +33,13 @@ public class MenuController {
    private MenuDao menuDao;
    
    @Autowired
-   private AttachService attachService;
+   private StoreDao storeDao;
    
    @Autowired
-   private StoreDao storeDao;
+   private AttachDao attachDao;
+   
+   @Autowired
+   private AttachService attachService;
    
    /**
     *  메뉴 등록 페이지
@@ -155,9 +158,35 @@ public class MenuController {
 		   return false;
 	   }
    }
+   
+   /**
+    *  메뉴 파일 수정
+    *  @param file
+    *  @param request
+    *  @param menuNo
+    *  @return redirect:list
+    */
+   @RequestMapping("/menuFileUpdate")
+   @ResponseBody
+   public boolean menuFileUpdate(MultipartFile file, @RequestParam("menuNo") int menuNo) {
+	    try {
+	        if (file.isEmpty()) {
+	            return false;
+	        }
+	        int beforeAttachNo = menuDao.selectAttcahNo(menuNo);
+	        if (beforeAttachNo != 0) {
+	            attachDao.delete(beforeAttachNo);
+	        }
+	        int attachNo = attachService.save(file);
+	        menuDao.connect(menuNo, attachNo);
+	        return true;
+	    } catch (Exception e) {
+	        return false;
+	    }
+	} 
 
    /**
-    *  메뉴 사진 등록
+    *  메뉴 사진 찾기
     *  @param menuNo
     *  @return redirect:/download?attachNo="+attachNo
     *  @return redirect:/image/default.png
@@ -181,7 +210,7 @@ public class MenuController {
    @GetMapping("/delete")
    public String delete(@RequestParam int menuNo) {
       menuDao.delete(menuNo);
-      return "redirect:/menu/list";
+      return "redirect:/menu/ceoMenuList";
    }
     
    /**
@@ -205,9 +234,10 @@ public class MenuController {
     *  @return redirect:/menu/list
     */   
    @PostMapping("/edit")
-   public String edit(@ModelAttribute MenuDto menuDto) {
+   @ResponseBody
+   public int edit(@ModelAttribute MenuDto menuDto) {
 	   menuDao.update(menuDto);
-	   return "redirect:/menu/list";
+	   return menuDto.getMenuNo();
    }
    
    /**

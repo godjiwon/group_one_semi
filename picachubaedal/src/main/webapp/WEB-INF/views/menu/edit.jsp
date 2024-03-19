@@ -59,6 +59,9 @@
 	.hidden {
 		display: none;
 	}
+	.form-wrap {
+	    padding-bottom: 70px;
+	}
    
 </style>
 
@@ -70,51 +73,48 @@ function insertMenuImage(file, menuNo) {
     formData.append('menuNo', menuNo);
     $.ajax({
         type: "POST",
-        url: "/menu/menuFileUpload",
+        url: "/menu/menuFileUpdate",
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
-        	window.location.href = "/menu/list";
-        }
+        success: function(data) {
+        	if(data) {
+        		window.location.href = "/menu/ceoMenuList";	
+        	}
+        }, 
+        error: function(request,status,error) {
+			console.log("menuFileUpload error");
+		}
     });
 }
 
-function insertMenu(file) {
-   const menuForm = $("#insert_form").serializeArray();
-   $.ajax({
-	    url: "/menu/insert",
+function updateMenu(file) {
+	if(!checkMenuName() || !checkMenuPrice() || !checkMenuCategory()) {
+		alert("다시 입력해주세요");
+		return;
+	}
+    const menuForm = $("#update_form").serializeArray();
+    $.ajax({
+	    url: "/menu/edit",
 	    type: "POST",
 	    data: menuForm,
 	    success: function(response) {
 	        if(file !== null && file !== undefined) {
 	        	insertMenuImage(file, response)
 	        } else {
-	        	window.location.href = "/menu/list";
+	        	window.location.href = "/menu/ceoMenuList";
 	        }
 	    }
-   });  
+    });  
 }
-
-$(document).ready(function() {
-    var menuCategory = "${menuDto.menuCategory}"; // 여기서 "${menuCategory}"는 모델에서 가져온 값
-    var menuState = "${menuDto.menuState}";
-    $('[name=menuCategory]').val(menuCategory).prop("selected", true);
-    if(menuState === "" || menuState === null) {
-    	$("[name=menuCheak_y]").prop('checked',true);
-    } else {
-    	$("[name=menuCheak_n]").prop('checked',true);
-    }
-    
-});
 
 $(function(){
     const dropArea = $("#drop-area");
     const fileInput = $("#file-input");
     var imageFile;
 
-    $("[name='insertMenuButton']").on("click", function(){
-        insertMenu(imageFile);
+    $("[name='updateMenuButton']").on("click", function(){
+        updateMenu(imageFile);
     });
 
     dropArea.on("dragover", (e) => {
@@ -138,6 +138,7 @@ $(function(){
 
     fileInput.on("change", () => {
         const file = fileInput[0].files[0];
+        imageFile = file;
         if (file && file.type.startsWith("image")) {
             displayImage(file);
         }
@@ -152,7 +153,27 @@ $(function(){
         $(this).prop('checked', true);
         $('[name=menuState]').val($(this).val());
     }); 
+    
+});
 
+$(document).ready(function() {
+    var menuCategory = "${menuDto.menuCategory}"; // 여기서 "${menuCategory}"는 모델에서 가져온 값
+    var menuState = "${menuDto.menuState}";
+    var imagePreview = document.getElementById("image-preview");
+    $('[name=menuCategory]').val(menuCategory).prop("selected", true);
+    if(menuState === "" || menuState === null) {
+    	$("[name=menuCheak_y]").prop('checked',true);
+    } else {
+    	$("[name=menuCheak_n]").prop('checked',true);
+    }
+    
+    var imagePreview = document.getElementById("image-preview");
+    if(imagePreview !== null || imagePreview !== "") {
+    	var dropAreaContent = document.getElementById("drop-area-content");
+        imagePreview.style.display = "block";
+        dropAreaContent.classList.add("hidden");
+    }
+    
 });
 
 // 이미지 표시 함수
@@ -169,9 +190,34 @@ function displayImage(file) {
     reader.readAsDataURL(file);
 }
 
-//a태그 전송 폼
-function submitForm() {
-   $("form[id='insert_form']").attr("method", "POST").attr("action", "/menu/edit").submit();
+function checkMenuCategory() {
+    var inputTarget = document.querySelector("[name=menuCategory]");
+
+    var isValid = inputTarget.length > 0;
+
+    inputTarget.classList.remove("success", "fail");
+    inputTarget.classList.add(isValid ? "success" : "fail");
+    return isValid;
+}
+function checkMenuName() {
+    var inputTarget = document.querySelector("[name=menuName]");
+
+    var regex = /^[가-힣a-zA-Z0-9\[\]\(\)]+$/;
+    var isValid = regex.test(inputTarget.value);
+
+    inputTarget.classList.remove("success", "fail");
+    inputTarget.classList.add(isValid ? "success" : "fail");
+    return isValid;
+}
+function checkMenuPrice() {
+    var inputTarget = document.querySelector("[name=menuPrice]");
+
+    var regex = /^[0-9]+$/;
+    var isValid = regex.test(inputTarget.value);
+
+    inputTarget.classList.remove("success", "fail");
+    inputTarget.classList.add(isValid ? "success" : "fail");
+    return isValid;
 }
 
 </script>
@@ -179,8 +225,8 @@ function submitForm() {
 <div class="cell center py-10">
    <h1>메뉴 수정</h1>
 </div>
-<div>
-   <form method="post" id="insert_form" action="edit" autocomplete="off">
+<div class="form-wrap">
+   <form method="post" id="update_form" action="edit" autocomplete="off">
       <input type="hidden" name="menuNo" value="${menuDto.menuNo}">
       <section>
           <div class="menuArea container">
@@ -190,7 +236,7 @@ function submitForm() {
                       <p>클릭하여 메뉴 사진을 첨부해주세요</p>
                       <input type="file" name="menuFileImage" id="file-input" accept="image/*" style="display: none;">
                   </div>
-                  <img id="image-preview" src="" alt="업로드이미지">
+                  <img id="image-preview" src="menuPhoto?menuNo=${menuDto.menuNo}" alt="업로드이미지">
               </div>
               <div id="input-area">
 				<input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요" value="${menuDto.menuName}">
@@ -213,7 +259,7 @@ function submitForm() {
                     <input type="hidden" name="menuState">
                </div> 
 				<div class="right pt-30">
-					<a href="#" onclick="submitForm()" class="btn-gradient green">
+					<a class="btn-gradient green" name="updateMenuButton">
 				    	수정
 					</a>
 				</div>                 
