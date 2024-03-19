@@ -10,7 +10,7 @@ public class ImageService {
 
 	@Autowired
 	private StoreDao storeDao;
-	//내용
+	
 	//attachNo찾은후 가게사진주소 반환
 	public String getStoreImgLink(int storeNo) {
 		
