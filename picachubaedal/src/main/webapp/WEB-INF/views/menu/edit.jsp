@@ -181,7 +181,6 @@ function submitForm() {
 </div>
 <div>
    <form method="post" id="insert_form" action="edit" autocomplete="off">
-      <input type="hidden" name="storeNo" value="12">
       <input type="hidden" name="menuNo" value="${menuDto.menuNo}">
       <section>
           <div class="menuArea container">

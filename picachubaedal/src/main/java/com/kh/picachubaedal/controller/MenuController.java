@@ -39,15 +39,17 @@ public class MenuController {
    @Autowired
    private StoreDao storeDao;
    
+   
    //입력
 
-   
-   
+  
    
    //메뉴등록
 
    @GetMapping("/insert")
-   public String insert() {
+   public String insert(Model model) {
+	 //가게번호 test
+	 model.addAttribute("storeNo", 3);
       return "/WEB-INF/views/menu/insert.jsp";
    }
 
@@ -55,16 +57,20 @@ public class MenuController {
     @PostMapping("/insert")
     public String insert(@ModelAttribute MenuDto menuDto, @RequestParam MultipartFile attach)
     		throws IllegalStateException, IOException {
-    	//메뉴 정보 등록
-     menuDao.insert(menuDto);
-     
+    	
+    System.out.println(menuDto.getStoreNo());
+   
+    //메뉴 정보 등록
+    menuDao.insert(menuDto);
+    
+    
      //첨부파일 등록
      if (!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			menuDao.connect(menuDto.getMenuNo(), attachNo);
 		}
 
-		return "redirect:list";
+		return "redirect:ceoMenuList";
 	}
    
    @RequestMapping("/insertComplete")
