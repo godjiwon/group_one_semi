@@ -126,19 +126,13 @@ public class StoreDao {
     }
 
 
-    // 삭제 (가게 삭제)
+    // 삭제 delete
     public boolean delete(int storeNo) {
-        // 쿼리문 상수화
-        final String DELETE_SQL = "DELETE FROM store WHERE store_no = ?";
-        try {
-            return jdbcTemplate.update(DELETE_SQL, storeNo) > 0;
-        } catch (DataAccessException e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 필요한 예외 처리 로직 추가
-            return false;
-        }
+    	String sql = "delete from store where store_no = ?";
+    	Object[] data = {storeNo};
+    	return jdbcTemplate.update(sql, data) > 0;
     }
+    
 
   //프로필 이미지 연결
   	public void connect(int storeNo, int attachNo) {
@@ -186,6 +180,7 @@ public class StoreDao {
 
 	//페이징을 위한 목록/검색/카운트 구현
 		public List<StoreDto> selectListByPaging(PageVO pageVO) {
+			System.out.println(pageVO);
 			if(pageVO.isSearch()) {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
@@ -234,9 +229,16 @@ public class StoreDao {
 		
 		public List<StoreDto> selectListAll() {
 
-			String sql = "select * from store9 order by store_no asc";
+			String sql = "select * from store order by store_no asc";
 			return jdbcTemplate.query(sql, storeMapper);
 		}
+
+		public List<StoreDto> selectListByMemberNo(int memberNo) {
+		    String sql = "SELECT * FROM store WHERE member_no = ?";
+		    Object[] data = { memberNo };
+		    return jdbcTemplate.query(sql, storeMapper, data);
+		}
+		
 
 
 		

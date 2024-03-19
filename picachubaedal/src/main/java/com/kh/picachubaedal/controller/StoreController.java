@@ -145,15 +145,36 @@ public class StoreController {
 		return "redirect:list";
 	}
 	
+//	@RequestMapping("/list")
+//	public String list(@ModelAttribute PageVO pageVO, Model model) {
+//	    int count = storeDao.count(pageVO);
+//	    pageVO.setCount(count);
+//	    model.addAttribute("pageVO", pageVO);
+//
+//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+//	    //System.out.print(list);
+//	    model.addAttribute("list", list);
+//
+//	    return "/WEB-INF/views/store/list2.jsp";
+//	}
+	
 	@RequestMapping("/list")
-	public String list(@ModelAttribute PageVO pageVO, Model model) {
-	    int count = storeDao.count(pageVO);
-	    pageVO.setCount(count);
-	    model.addAttribute("pageVO", pageVO);
+	public String list(Model model, HttpSession session) {
+	    // 세션에서 현재 로그인한 회원의 회원번호를 가져옵니다.
+		 Integer memberNo = (Integer) session.getAttribute("memberNo");
 
-	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+		 // 현재 로그인한 회원의 회원번호가 세션에 없으면 로그인 페이지로 리다이렉트합니다.
+		    if (memberNo == null) {
+		        return "redirect:/login"; // 로그인 페이지 URL로 변경하세요.
+		    }
+		    
+	    // 현재 로그인한 회원의 회원번호를 사용하여 해당 회원이 소유한 가게 리스트를 조회합니다.
+	    List<StoreDto> list = storeDao.selectListByMemberNo(memberNo);
+
+	    // 조회된 가게 리스트를 모델에 추가합니다.
 	    model.addAttribute("list", list);
 
+	    // list2.jsp로 이동합니다.
 	    return "/WEB-INF/views/store/list2.jsp";
 	}
 
@@ -180,6 +201,13 @@ public class StoreController {
 	    }
 	}
 
+	
+	//가게 삭제
+	@GetMapping("/deleteStore")
+	public String deleteStore(@RequestParam int storeNo) {
+		storeDao.delete(storeNo);
+		return "redirect:storeDeleteFinish";
+	}
 	
 	
 	
