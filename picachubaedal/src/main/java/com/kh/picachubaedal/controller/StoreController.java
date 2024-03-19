@@ -144,10 +144,30 @@ public class StoreController {
 		}
 		
 		@PostMapping("/storeDelete")
-		
-		        return "redirect:storeDeleteFinish";
-		   
-		
+		public String deleteStore(HttpSession session, HttpServletRequest request) {
+		    // 사용자가 입력한 사업자 등록번호로 가게를 조회
+		    String businessNumber = request.getParameter("storeBusinessNumber");
+		    StoreDto storeDto = storeDao.selectByBusinessNumber(businessNumber);
+
+		    // 조회된 가게가 있고, 입력한 사업자 등록번호와 일치하는 경우에만 삭제
+		    if (storeDto != null && businessNumber.equals(storeDto.getStoreBusinessNumber())) {
+		        // 가게 삭제 처리
+		        int storeNo = storeDto.getStoreNo();
+		        storeDao.delete(storeNo);
+
+		        // 세션에서 해당 가게 정보 제거
+		        session.removeAttribute("storeNo");
+		        session.removeAttribute("storeBusinessNumber");
+
+		        return "redirect:/storeDeleteFinish";
+		    } else {
+		        // 가게가 없거나 사업자 등록번호가 일치하지 않는 경우
+		        return "redirect:/storeDeleteFail?error=invalidBusinessNumber";
+		    }
+		}
+
+
+
 		
 		@RequestMapping("/storeDeleteFinish")
 		public String deleteStoreFinish() {

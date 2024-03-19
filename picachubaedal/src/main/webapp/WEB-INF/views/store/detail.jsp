@@ -42,7 +42,11 @@
 
 </div>
 
-<input type="text" name="storeNo" placeholder="세션 가게넘버"  value="<%=session.getAttribute("storeNo")%>">
+div class="cell center">
+    <h2><a class="link link-animation" href="/store/storeDelete" style="color:red">메뉴 리스트</a></h2>
+
+</div>
+
 
 		</div>
 		</div>
