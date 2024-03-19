@@ -16,15 +16,24 @@
     background-color: #ffffff;
     box-shadow: 0 0 5px 5px rgb(255, 245, 213);
 }
+
+.img{
+width: 70%;
+}
 </style>
 
 <form method="post" action="storeDelete"> <!-- 수정된 부분: action 속성 변경 -->
     <div class="container w-500">
         <div class="cell center"><h1>가게 삭제</h1></div>
-        <div class="cell center"><h2>다시 한 번 생각해보세요.</h2></div>
+        <div class="cell center"><h2>다시 한 번 생각해보세요.</h2>
+        <img class="img center"
+		src=https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWhqZmxhY2t2ZTlqNnR4cGlxNGp6eHZwOGFtbDFmMjhqeW9rY2pscyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aKXDG5s2Fuzra/giphy.gif><br>
+	<br>
+        </div>
+        
         <div class="cell center"><p>삭제를 위해 사업자 등록번호를 한 번 더 입력해 주세요</p></div>
         <div class="cell">
-            <input type="text" name="storeBusinessNumber" placeholder="사업자 등록번호 입력" required class="tool w-100">
+            <input type="text" name="storeBusinessNumber" placeholder="하이픈 '-' 없이 사업자 등록번호 입력" required class="tool w-100">
         </div>
         <div class="cell">
             <button class="btn negative w-100">삭제하겠습니다</button>
