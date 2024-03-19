@@ -535,6 +535,7 @@
 								${dto.storeCloseHour == '24:00' ? 'selected' : ''}>24:00</option>
 						</select> <span>까지 운영합니다.</span>
 					</div>
+					<!-- ddd -->
 					<div class="cell" name="store_closed">>
 						<label>휴무일 선택 <i class="fa-solid fa-asterisk red"></i></label>
 						<div class="cell">
