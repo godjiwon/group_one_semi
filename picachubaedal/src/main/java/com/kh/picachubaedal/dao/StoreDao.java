@@ -34,6 +34,7 @@ public class StoreDao {
 	private MemberMapper memberMapper;
 
 
+    //가게등록
     public void insert(StoreDto storeDto, MultipartFile attach) throws IllegalStateException, IOException {
         String sql = "INSERT INTO store (" +
                     "store_no, store_name, store_post, store_address1, store_address2, store_category, "
@@ -57,7 +58,6 @@ public class StoreDao {
             storeDto.getStoreCloseHour(),
             storeDto.getStoreDelivery(),
             storeDto.getStoreClosed(),
-
             storeDto.getStoreBusinessNumber(),
             storeDto.getMemberNo()
         };
@@ -95,7 +95,7 @@ public class StoreDao {
 
 
  // 수정 (가게 수정)
-    public boolean update(StoreDto storeDto) {
+    public boolean update(StoreDto storeDto ) {
         String sql = "UPDATE store SET store_name=?, store_post=?, store_address1=?, store_address2=?, "
         		+ "store_category=?, store_type=?, store_contact=?, store_intro=?, "
         		+ "store_dtip=?, store_minprice=?, store_open_hour=?, store_close_hour=?, "
@@ -178,13 +178,22 @@ public class StoreDao {
 
     
 
-  //프로필 이미지 연결
+  //프로필 이미지 연결 (백업 03.19)
   	public void connect(int storeNo, int attachNo) {
   		String sql = "insert into store_attach(store_no, attach_no) "
   						+ "values(?, ?)";
   		Object[] data = {storeNo, attachNo};
   		jdbcTemplate.update(sql, data);
   	}
+  	
+// // 프로필 이미지 연결
+//  	public void connect(int storeNo, int attachNo) {
+//  	    String sql = "insert into store_attach(store_no, attach_no) values(?, ?)";
+//  	    Object[] data = {storeNo, attachNo};
+//  	    jdbcTemplate.update(sql, data);
+//  	}
+
+  	
 
   	public int findAttachNo(int storeNo) {
   		String sql = "select attach_no from store_attach where store_no = ?";
@@ -263,13 +272,14 @@ public class StoreDao {
 				return jdbcTemplate.queryForObject(sql, int.class);
 			}
 		}
-
-		public MemberDto selectByMemberNo(int memberNo) {
-			String sql = "select * from store where member_no=?";
-			Object[] data = {memberNo};
-			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
-			return list.isEmpty() ? null : list.get(0);
-		}
+		
+	//	백업 03.19
+//		public MemberDto selectByMemberNo(int memberNo) {
+//			String sql = "select * from store where member_no=?";
+//			Object[] data = {memberNo};
+//			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+//			return list.isEmpty() ? null : list.get(0);
+//		}
 		
 		public List<StoreDto> selectListAll() {
 
@@ -296,6 +306,17 @@ public class StoreDao {
 		    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
 		    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
 		}
+		
+		
+		public StoreDto selectByMemberNo(String memberId) {
+		    String sql = "SELECT * FROM store WHERE member_no = (SELECT member_no FROM member WHERE member_id = ?)";
+		    try {
+		        return jdbcTemplate.queryForObject(sql, storeMapper, memberId);
+		    } catch (EmptyResultDataAccessException e) {
+		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
+		    }
+		}
+
 	
 		
 	

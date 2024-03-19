@@ -25,22 +25,18 @@
 	</div>
 	<div class="cell floating-cell">
 		<div class="w-25 row">
-			<div class="col-md-3">
-				<div class="cell center">
-					<img class="storeImage" src="${storeDto.storeImgLink}">
 
-				</div>
-				<div class="cell center">
-					<h2>
-						<a class="link link-animation" href="/store/list">목록으로</a>
-					</h2>
-				</div>
-				<div class="cell center">
-					<h2>
-						<a class="link link-animation"
-							href="/store/change?storeNo=${storeDto.storeNo}">가게 정보 수정</a>
-					</h2>
-				</div>
+		<div class="col-md-3">
+			<div class="cell center">
+				<img src="storePhoto" width="150" height="150" >
+	
+			</div>
+			<div class="cell center">
+				<h2><a class="link link-animation" href="/store/list">가게 목록</a></h2>
+			</div>
+			<div class="cell center">
+    <h2><a class="link link-animation" href="/store/change?storeNo=${storeDto.storeNo}">가게 정보 수정</a></h2>
+</div>
 
 				<div class="cell center">
 					<h2>
@@ -50,11 +46,15 @@
 
 				</div>
 
+
+<hidden input type="text" name="storeNo" placeholder="세션 가게넘버"  value="${storeDto.storeNo}">
+
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation" href="/store/storeDelete"
 							style="color: red">가게 삭제</a>
 					</h2>
+
 
 				</div>
 
