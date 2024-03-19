@@ -126,7 +126,7 @@ public class StoreDao {
     }
 
 
-    // 삭제 delete
+    // 가게삭제 delete
     public boolean delete(int storeNo) {
     	String sql = "delete from store where store_no = ?";
     	Object[] data = {storeNo};

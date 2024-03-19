@@ -145,6 +145,34 @@ public class StoreController {
 		return "redirect:list";
 	}
 	
+	//가게 삭제
+		@GetMapping("/storeDelete")
+		public String exit() {
+			return "/WEB-INF/views/store/storeDelete.jsp";
+		}
+		
+		// 가게 삭제
+		@PostMapping("/deleteStore")
+		public String deleteStore(@RequestParam int storeNo, @RequestParam String password, HttpSession session) {
+		    // 세션에서 현재 로그인한 회원의 아이디를 가져옵니다.
+		    String memberId = (String) session.getAttribute("loginId");
+		    
+		    // 회원 테이블에서 해당 아이디의 비밀번호를 조회합니다.
+		    MemberDto memberDto = memberDao.selectOne(memberId);
+		    
+		    // 비밀번호가 일치하는지 확인합니다.
+		    if (memberDto != null && memberDto.getMemberPw().equals(password)) {
+		        // 비밀번호가 일치하는 경우 가게를 삭제합니다.
+		        storeDao.delete(storeNo);
+		        return "redirect:/storeDeleteFinish";
+		    } else {
+		        // 비밀번호가 일치하지 않는 경우에는 비밀번호 입력 페이지로 리다이렉트합니다.
+		        return "redirect:/store/delete?error";
+		    }
+		}
+
+	
+	
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
 //	    int count = storeDao.count(pageVO);
