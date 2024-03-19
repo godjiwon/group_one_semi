@@ -21,6 +21,7 @@ import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.vo.PageVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -136,14 +137,28 @@ public class StoreController {
 		}
 	
 
+		// 가게 삭제
+		@GetMapping("/storeDelete")
+		public String delete_account() {
+			return "/WEB-INF/views/store/storeDelete.jsp";
+		}
+		
+		@PostMapping("/storeDelete")
+		
+		        return "redirect:storeDeleteFinish";
+		   
+		
+		
+		@RequestMapping("/storeDeleteFinish")
+		public String deleteStoreFinish() {
+		    return "/WEB-INF/views/store/storeDeleteFinish.jsp";
+		}
+
+
+
+
 
 	
-	//삭제
-	@GetMapping("/delete")
-	public String delete(@RequestParam int storeNo) {
-		storeDao.delete(storeNo);
-		return "redirect:list";
-	}
 	
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
@@ -201,17 +216,5 @@ public class StoreController {
 	    }
 	}
 
-	
-	//가게 삭제
-	@GetMapping("/deleteStore")
-	public String deleteStore(@RequestParam int storeNo) {
-		storeDao.delete(storeNo);
-		return "redirect:storeDeleteFinish";
-	}
-	
-	
-	
-	
-	
 	
 }

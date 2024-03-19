@@ -82,7 +82,7 @@ public class StoreDao {
     
     //회원번호로 가게 번호 찾기
     public int findStoreNoByMemberNo(int memberNo) {
-        String sql = "SELECT storeNo FROM store WHERE memberNo = ?";
+        String sql = "SELECT store_no FROM store WHERE member_no = ?";
         try {
             return jdbcTemplate.queryForObject(sql, Integer.class, memberNo);
         } catch (EmptyResultDataAccessException e) {
@@ -126,12 +126,28 @@ public class StoreDao {
     }
 
 
-    // 삭제 delete
+  //가게 삭제(삭제, Delete)
     public boolean delete(int storeNo) {
-    	String sql = "delete from store where store_no = ?";
-    	Object[] data = {storeNo};
-    	return jdbcTemplate.update(sql, data) > 0;
+        String sql = "delete from store where store_no = ?";
+        Object[] data = {storeNo};
+        return jdbcTemplate.update(sql, data) > 0;
     }
+
+    
+
+
+  	public boolean deleteByMemberIdAndStoreNo(String memberId, int storeNo) {
+  	    // 세션에서 memberId로 memberNo를 조회하는 쿼리
+  	    String memberNoQuery = "SELECT member_no FROM member WHERE member_id = ?";
+  	    int memberNo = jdbcTemplate.queryForObject(memberNoQuery, Integer.class, memberId);
+
+  	    // 해당 멤버가 소유한 가게 중에서 storeNo가 맞는 가게를 삭제하는 쿼리
+  	    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
+  	    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
+  	}
+
+
+
     
 
   //프로필 이미지 연결
@@ -241,7 +257,18 @@ public class StoreDao {
 		
 
 
-		
+		// StoreDao.java
+
+		public boolean deleteStoreByMemberIdAndStoreNo(String memberId, int storeNo) {
+		    // 세션에서 memberId로 memberNo를 조회하는 쿼리
+		    String memberNoQuery = "SELECT member_no FROM member WHERE member_id = ?";
+		    int memberNo = jdbcTemplate.queryForObject(memberNoQuery, Integer.class, memberId);
+
+		    // 해당 멤버가 소유한 가게 중에서 storeNo가 맞는 가게를 삭제하는 쿼리
+		    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
+		    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
+		}
+	
 		
 	
 }

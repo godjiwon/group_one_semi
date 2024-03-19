@@ -14,6 +14,10 @@
     }
 </style>
 
+<script>
+   
+</script>
+
 
 <div class="container w-1000">
 	<div class="cell">
@@ -34,8 +38,11 @@
 </div>
 
 				<div class="cell center">
-    <h2><a class="link link-animation" href="delete?storeNo=${storeDto.storeNo}" style="color:red";>가게 삭제</a></h2>
+    <h2><a class="link link-animation" href="/store/storeDelete" style="color:red">가게 삭제</a></h2>
+
 </div>
+
+<input type="text" name="storeNo" placeholder="세션 가게넘버"  value="<%=session.getAttribute("storeNo")%>">
 
 		</div>
 		</div>
