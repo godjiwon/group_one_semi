@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>비밀번호 변경 완료!</h1>
+	<h1>비번변경 성공페이지(임시)</h1>
 </body>
 </html>

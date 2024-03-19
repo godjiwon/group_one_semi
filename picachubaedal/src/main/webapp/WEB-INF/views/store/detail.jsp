@@ -1,3 +1,51 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+<style>
+.storeImage {
+        width: 250px;
+        height: 250px;
+        display: block; /* 이미지를 블록 레벨 요소로 설정하여 가운데 정렬합니다. */
+        margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+    }
+</style>
+
+<div class="container w-1000">
+	<div class="cell">
+		<h1>${storeDto.storeName}</h1>
+	</div>
+	<div class="cell floating-cell" >
+		<div class="w-25 row">
+		<div class="col-md-3">
+			<div class="cell center">
+				<img class="storeImage" src="${storeDto.storeImgLink}">
+	
+			</div>
+			<div class="cell center">
+				<h2><a class="link link-animation" href="/store/list">목록으로</a></h2>
+			</div>
+			<div class="cell center">
+    <h2><a class="link link-animation" href="/store/change?storeNo=${storeDto.storeNo}">가게 정보 수정</a></h2>
+</div>
+
+			<div class="cell center">
+				<h2><a class="link link-animation" href="/store/delete" style="color:red";>가게 삭제</a></h2>
+			</div>
+		</div>
+		</div>
+		<div class="w-75">
+			<div class="cell">
+				
+			</div>
+			<div class="w-75">
+    <div class="cell">
+        <h2>가게 정보</h2>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -56,7 +104,7 @@
                 </tr>
                 <tr>
                     <td>가게 사진</td>
-                    <td><img src="" alt="가게 사진"></td>
+                    <td>${dto.storeImage}</td>
                 </tr>
                 <tr>
                     <td>가게 소개글</td>
@@ -88,15 +136,11 @@
                 </tr>
                 <tr>
                     <td>가게 정보 수정일</td>
-                    <td>${dto.storeUpdate}</td>
+                    <td>${dto.storeTime}</td>
                 </tr>
                 <tr>
                     <td>휴무일</td>
                     <td>${dto.storeClosed}</td>
-                </tr>
-                <tr>
-                	<td>사업자 등록번호</td>
-                	<td>${dto.storeBusinessNumber}</td>
                 </tr>
             </table>
             <form action="/store/change" method="get">

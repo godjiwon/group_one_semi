@@ -1,6 +1,6 @@
 package com.kh.picachubaedal.vo;
 
-public class StoreVO {
+public class storeVO {
 
 	private String column, keyword;
 	private int count;
@@ -44,7 +44,7 @@ public class StoreVO {
 	public void setBlockSize(int blockSize) {
 		this.blockSize = blockSize;
 	}
-	public StoreVO() {
+	public storeVO() {
 		super();
 	}
 	

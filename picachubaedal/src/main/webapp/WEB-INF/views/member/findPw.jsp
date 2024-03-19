@@ -5,9 +5,18 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<!DOCTYPE html>
-<html>
-<head>
+<style>
+.container {
+	display: grid;
+	margin-top: 50px;
+	margin-bottom: 50px; padding : 60px;
+	border: 1px solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	padding: 60px;
+}
+</style>
+
 <!-- 여기에 CSS 링크 및 필요한 스타일 시트 등을 추가할 수 있습니다. -->
 </head>
 <body>

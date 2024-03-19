@@ -57,6 +57,25 @@ $(function(){
     - .page 내부에 .btn-prev와 .btn-next를 배치하여 이동버튼을 구현
     - 첫번째 이전버튼과 마지막 다음버튼은 자동 제거되므로 반드시 만들 것
 */
+$(function(){
+    //[1] 모든 페이지를 다 숨기고 1페이지 표시
+    $(".page").hide().first().show();
+    //$(".page").hide().eq(0).show();
+    //$(".page:gt(0)").hide();//권장하지 않음
+
+    //(추가) 첫번째 이전버튼과 마지막 다음버튼을 삭제
+    //$(".page").find(".btn-prev").first().remove();
+    //$(".page").find(".btn-next").last().remove();
+
+    //[2] 다음 버튼을 누르면 버튼이 있는 페이지는 숨기고 다음 페이지를 표시
+    $(".page").find(".btn-next").click(function(){
+        //$(this).parent(".page").hide().next(".page").show();//페이지 바로 밑에 버튼이 있어야 작동
+        $(this).parents(".page").hide().next(".page").show();//페이지 내부에 버튼이 있으면 작동
+    });
+
+    //[3] 이전 버튼을 누르면 버튼이 있는 페이지는 숨기고 이전 페이지를 표시
+    $(".page").find(".btn-prev").click(function(){
+        $(this).parents(".page").hide().prev(".page").show();
 
 /*
     전체선택 체크박스에 대한 이벤트 구현
@@ -111,5 +130,6 @@ $(function() {
     //[3] 이전 버튼을 누르면 버튼이 있는 페이지는 숨기고 이전 페이지를 표시
     $(".page").find(".btn-prev").click(function(){
         $(this).parents(".page").hide().prev(".page").show(); 
+>>>>>>> branch 'main' of https://github.com/godjiwon/group_one_semi.git
     });
 });
