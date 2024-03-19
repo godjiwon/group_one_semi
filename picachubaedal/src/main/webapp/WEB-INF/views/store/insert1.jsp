@@ -345,7 +345,7 @@
 		autocomplete="off" class="check-form">
 
 		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
-		<div class="container w-600">
+		<div class="container w-700">
 			<h2>가게 등록 페이지(임시)</h2>
 			<div class="cell">
 

@@ -85,7 +85,7 @@
 				</a>
 				<div class="cell center header-font-style">
 					<a href="/" style="text-decoration-line: none;">
-						<img src="/image/baedal_logo3.png" width="20%">
+						<img src="/image/baedal_logo3.png" width="24%;">
 					</a>
 				</div>
 				<div class="header_sideMenu right">
