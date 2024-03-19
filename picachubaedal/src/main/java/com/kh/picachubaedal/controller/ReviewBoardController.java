@@ -14,7 +14,7 @@ import com.kh.picachubaedal.dto.ReviewBoardDto;
 import com.kh.picachubaedal.service.ListWithUserInfo;
 
 @Controller
-@RequestMapping("/review-board")
+@RequestMapping("/review-board") 
 public class ReviewBoardController {
 
 	@Autowired
