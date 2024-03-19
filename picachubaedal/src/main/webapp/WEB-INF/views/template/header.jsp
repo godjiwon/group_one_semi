@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="UTF-8">
    <title>배츄</title>
-   
+
    <!-- 구글 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,17 +16,17 @@
    <link rel="stylesheet" type="text/css" href="/css/commons.css">
    <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
    <link rel="stylesheet" type="text/css" href="/css/layout.css">
-    
+
     <!-- font awesome 아이콘 CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <!-- jQuery CDN -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-   
+
    <!-- summernote cdn-->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-   
+
    <style> 
        .header_wrap {
 		    display: flex;
@@ -54,14 +53,14 @@
     	background: #fed23d;
       }
    </style>
-   
+
    <script>
    
    </script>
-   
+
    <!-- 내가 만든 JS -->
    <script src="/js/commons.js"></script>
-   
+
 </head>
 
 <%-- 
@@ -86,16 +85,12 @@
 								${sessionScope.loginId}
 							</a>
 
-							
+
 							<div class="header_sideMenu right">
 							<a href="/store/list">내가게</a>&nbsp;
 								<a href="/member/mypage">마이페이지</a>&nbsp;
 
-							<ul>
-								<a href="/member/mypage">마이페이지</a>
 
-								<a href="/member/logout">로그아웃</a>
-							</ul>
 						</c:when>
 						<c:otherwise>
 							<a href="/member/signin">로그인</a>
@@ -118,5 +113,3 @@
       - 실질적인 홈페이지의 내용이 표시되는 영역
       - 크기는 무제한으로 늘어날 수 있음
     --%>
-
-

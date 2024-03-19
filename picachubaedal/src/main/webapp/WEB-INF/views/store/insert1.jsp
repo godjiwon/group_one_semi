@@ -21,16 +21,18 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-*{
-	font-family:빙그레 메로나체, sans-serif;
+* {
+	font-family: 빙그레 메로나체, sans-serif;
 }
+
 .container {
 	display: grid;
 	margin-top: 50px;
-	margin-bottom: 50px; padding : 60px;
+	margin-bottom: 50px;
+	padding: 60px;
 	border: 1px solid #ffffff;
 	background-color: #ffffff;
-	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	box-shadow: 0 0 5px 5px rgb(255, 245, 213);
 	padding: 60px;
 }
 </style>
@@ -272,7 +274,8 @@
 	});
 </script>
 <!-- 카카오 api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
     $(function(){
         $(".btn-address-search").click(function(){
@@ -344,7 +347,8 @@
 	<form action="insert1" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
 
-		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
+		<input type="text" name="memberNo" placeholder="멤버넘버"
+			value="<%=session.getAttribute("memberNo")%>">
 		<div class="container w-600">
 			<h2>가게 등록 페이지(임시)</h2>
 			<div class="cell">
@@ -412,18 +416,15 @@
 					</div>
 
 					<div class="cell">
-						<label> 배달/포장 가능 여부
-						<i class="fa-solid fa-asterisk red"></i>
+						<label> 배달/포장 가능 여부 <i class="fa-solid fa-asterisk red"></i>
 						</label>
 						<div class="cell">
 							<input type="checkbox" id="delivery" name="storeType"
 								class="storeType" value="배달"> 배달만 <input type="checkbox"
 								id="takeout" name="storeType" class="storeType" value="포장">
-							포장만
-							<input type="checkbox"
-								id="takeout" name="storeType" class="storeType" value="배달,포장">
-						 배달,포장 모두 가능
-							
+							포장만 <input type="checkbox" id="takeout" name="storeType"
+								class="storeType" value="배달,포장"> 배달,포장 모두 가능
+
 						</div>
 					</div>
 
@@ -463,19 +464,20 @@
 					class="fa-solid fa-asterisk red"></i>
 				</label> <input type="text" name="storeDtip" placeholder="ex.3,000원"
 					class="tool w-100">
-				
+
 			</div>
 			<div class="cell">
 				<label> 최소 주문 금액<!-- 포켓볼 사진 input에 추가  --> <i
 					class="fa-solid fa-asterisk red"></i>
 				</label> <input type="text" name="storeMinprice" placeholder="ex.12,000원"
 					class="tool w-100">
-				
+
 			</div>
 
 			<div class="cell">
 				<label> 영업시간 <i class="fa-solid fa-asterisk red"></i>
-				</label> <select class="tool w-100" id="storeOpenHour" name="storeOpenHour" onblur="checkStoreOpenHour()">
+				</label> <select class="tool w-100" id="storeOpenHour" name="storeOpenHour"
+					onblur="checkStoreOpenHour()">
 					<option value="">운영 시작 시간</option>
 					<option value="00:00">00:00</option>
 					<option value="01:00">01:00</option>
@@ -502,9 +504,8 @@
 					<option value="22:00">22:00</option>
 					<option value="23:00">23:00</option>
 					<option value="24:00">24:00</option>
-				</select> <span>부터</span>
-
-				<select class="tool w-100" id="storeCloseHour" name="storeCloseHour">
+				</select> <span>부터</span> <select class="tool w-100" id="storeCloseHour"
+					name="storeCloseHour">
 					<option value="">운영 종료 시간</option>
 					<option value="00:00">00:00</option>
 					<option value="01:00">01:00</option>
@@ -531,35 +532,27 @@
 					<option value="22:00">22:00</option>
 					<option value="23:00">23:00</option>
 					<option value="24:00">24:00</option>
-				</select> <span>까지
-					운영합니다.</span>
+				</select> <span>까지 운영합니다.</span>
 
-				<div class="cell" name="storeClosed">
-					<label> 휴무일 선택 </label>
-					<div class="cell center">
-						<input type="checkbox" id="monday" name="storeClosed" value="월요일">
-<label for="monday">월요일</label>
-
-<input type="checkbox" id="tuesday" name="storeClosed" value="화요일">
-<label for="tuesday">화요일</label>
-
-<input type="checkbox" id="wednesday" name="storeClosed" value="수요일">
-<label for="wednesday">수요일</label>
-
-<input type="checkbox" id="thursday" name="storeClosed" value="목요일">
-<label for="thursday">목요일</label>
-
-<input type="checkbox" id="friday" name="storeClosed" value="금요일">
-<label for="friday">금요일</label>
-
-<input type="checkbox" id="saturday" name="storeClosed" value="토요일">
-<label for="saturday">토요일</label>
-
-<input type="checkbox" id="sunday" name="storeClosed" value="일요일">
-<label for="sunday">일요일</label>
-
-					</div>
-				</div>
+<div class="cell" name="storeClosed">
+    <label>휴무일 선택 <i class="fa-solid fa-asterisk red"></i></label>
+    <div class="cell center">
+        <input type="checkbox" id="monday" name="storeClosedMonday" value="월요일" ${dto.storeClosed && dto.storeClosed.includes('월요일') ? 'checked' : ''}>
+        <label for="monday">월요일</label>
+        <input type="checkbox" id="tuesday" name="storeClosedTuesday" value="화요일" ${dto.storeClosed && dto.storeClosed.includes('화요일') ? 'checked' : ''}>
+        <label for="tuesday">화요일</label>
+        <input type="checkbox" id="wednesday" name="storeClosedWednesday" value="수요일" ${dto.storeClosed && dto.storeClosed.includes('수요일') ? 'checked' : ''}>
+        <label for="wednesday">수요일</label>
+        <input type="checkbox" id="thursday" name="storeClosedThursday" value="목요일" ${dto.storeClosed && dto.storeClosed.includes('목요일') ? 'checked' : ''}>
+        <label for="thursday">목요일</label>
+        <input type="checkbox" id="friday" name="storeClosedFriday" value="금요일" ${dto.storeClosed && dto.storeClosed.includes('금요일') ? 'checked' : ''}>
+        <label for="friday">금요일</label>
+        <input type="checkbox" id="saturday" name="storeClosedSaturday" value="토요일" ${dto.storeClosed && dto.storeClosed.includes('토요일') ? 'checked' : ''}>
+        <label for="saturday">토요일</label>
+        <input type="checkbox" id="sunday" name="storeClosedSunday" value="일요일" ${dto.storeClosed && dto.storeClosed.includes('일요일') ? 'checked' : ''}>
+        <label for="sunday">일요일</label>
+    </div>
+</div>
 				<div class="cell">
 					<label> 배달 가능 지역 <i class="fa-solid fa-asterisk red"></i>
 					</label> <input type="text" name="storeDelivery"
@@ -571,13 +564,10 @@
 				</label> <input type="text" name="storeBusinessNumber"
 					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100">
 			</div>
-		
 
-
-
-		<div class="cell right">
-			<button class="btn positive w-100" type="submit">등록하기</button>
-		</div>
+			<div class="cell right">
+				<button class="btn positive w-100" type="submit">등록하기</button>
+			</div>
 		</div>
 	</form>
 

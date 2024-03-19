@@ -1,19 +1,15 @@
 package com.kh.picachubaedal.mapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-
 import com.kh.picachubaedal.dto.MemberDto;
-
 @Service
 public class MemberMapper implements RowMapper<MemberDto> {
-
 	@Override
 	public MemberDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDto memberDto = new MemberDto();
+		memberDto.setMemberNo(rs.getInt("member_no"));
 		memberDto.setMemberId(rs.getString("member_id"));
 		memberDto.setMemberPw(rs.getString("member_pw"));
 		memberDto.setMemberNick(rs.getString("member_nick"));
@@ -29,4 +25,3 @@ public class MemberMapper implements RowMapper<MemberDto> {
 		return memberDto;
 	}
 }
-
