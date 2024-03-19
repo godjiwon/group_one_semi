@@ -248,7 +248,7 @@
              </div>
          </div>
          <div class="right">
-			<a class="btn-gradient orange" href="/cart/?menuNo=${menuDto.menuNo}">
+			<a class="btn-gradient orange" href="/cart/list?menuNo=${menuDto.menuNo}">
 			   <i class="fa-solid fa-pencil"></i>
 			   메뉴담기
 			</a>                
@@ -263,7 +263,7 @@
 			<a class="off">&lt;이전</a>
 		</c:when>
 		<c:otherwise>
-			<a href="list?page=${pageVO.getPrevBlock()}&${pageVO.getQueryString()}">&lt;이전</a>
+			<a href="customerMenuList?page=${pageVO.getPrevBlock()}&${pageVO.getQueryString()}">&lt;이전</a>
 		</c:otherwise>
 	</c:choose>
 	
@@ -275,7 +275,7 @@
 				<a class="on">${i}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="list?page=${i}&${pageVO.getQueryString()}">${i}</a>
+				<a href="customerMenuList?page=${i}&${pageVO.getQueryString()}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -286,7 +286,7 @@
 			<a class="off">다음&gt;</a>
 		</c:when>
 		<c:otherwise>
-			<a href="list?page=${pageVO.getNextBlock()-1}&${pageVO.getQueryString()}">다음&gt;</a> 
+			<a href="customerMenuList?page=${pageVO.getNextBlock()-1}&${pageVO.getQueryString()}">다음&gt;</a> 
 		</c:otherwise>
 	</c:choose>
 </div>
