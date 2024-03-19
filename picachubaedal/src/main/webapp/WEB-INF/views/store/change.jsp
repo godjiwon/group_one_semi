@@ -538,23 +538,23 @@
 					<div class="cell" name="store_closed">>
 						<label>휴무일 선택 <i class="fa-solid fa-asterisk red"></i></label>
 						<div class="cell">
-							<input type="checkbox" id="monday" name="store_off_day" value="월요일"
+							<input type="checkbox" id="monday" name="store_closed" value="월요일"
 								${dto.storeClosed && dto.storeClosed.includes('월요일') ? 'checked' : ''}>
-							월요일 <input type="checkbox" id="tuesday" name="store_off_day" class="store_off_day"
+							월요일 <input type="checkbox" id="tuesday" name="store_closed" class="store_off_day"
 								value="화요일">
-							화요일 <input type="checkbox" id="wednesday" name="store_off_day"
+							화요일 <input type="checkbox" id="wednesday" name="store_closed"
 								value="수요일"
 								${dto.storeClosed && dto.storeClosed.includes('수요일') ? 'checked' : ''}>
-							수요일 <input type="checkbox" id="thursday" name="store_off_day"
+							수요일 <input type="checkbox" id="thursday" name="store_closed"
 								value="목요일"
 								${dto.storeClosed && dto.storeClosed.includes('목요일') ? 'checked' : ''}>
-							목요일 <input type="checkbox" id="friday" name="store_off_day"
+							목요일 <input type="checkbox" id="friday" name="store_closed"
 								value="금요일"
 								${dto.storeClosed && dto.storeClosed.includes('금요일') ? 'checked' : ''}>
-							금요일 <input type="checkbox" id="saturday" name="store_off_day"
+							금요일 <input type="checkbox" id="saturday" name="store_closed"
 								value="토요일"
 								${dto.storeClosed && dto.storeClosed.includes('토요일') ? 'checked' : ''}>
-							토요일 <input type="checkbox" id="sunday" name="store_off_day"
+							토요일 <input type="checkbox" id="sunday" name="store_closed"
 								value="일요일"
 								${dto.storeClosed && dto.storeClosed.includes('일요일') ? 'checked' : ''}>
 							일요일

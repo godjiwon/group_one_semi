@@ -535,24 +535,31 @@
 				</select> <span>까지 운영합니다.</span>
 
 <div class="cell" name="storeClosed">
-    <label>휴무일 선택 <i class="fa-solid fa-asterisk red"></i></label>
-    <div class="cell center">
-        <input type="checkbox" id="monday" name="storeClosedMonday" value="월요일" ${dto.storeClosed && dto.storeClosed.includes('월요일') ? 'checked' : ''}>
-        <label for="monday">월요일</label>
-        <input type="checkbox" id="tuesday" name="storeClosedTuesday" value="화요일" ${dto.storeClosed && dto.storeClosed.includes('화요일') ? 'checked' : ''}>
-        <label for="tuesday">화요일</label>
-        <input type="checkbox" id="wednesday" name="storeClosedWednesday" value="수요일" ${dto.storeClosed && dto.storeClosed.includes('수요일') ? 'checked' : ''}>
-        <label for="wednesday">수요일</label>
-        <input type="checkbox" id="thursday" name="storeClosedThursday" value="목요일" ${dto.storeClosed && dto.storeClosed.includes('목요일') ? 'checked' : ''}>
-        <label for="thursday">목요일</label>
-        <input type="checkbox" id="friday" name="storeClosedFriday" value="금요일" ${dto.storeClosed && dto.storeClosed.includes('금요일') ? 'checked' : ''}>
-        <label for="friday">금요일</label>
-        <input type="checkbox" id="saturday" name="storeClosedSaturday" value="토요일" ${dto.storeClosed && dto.storeClosed.includes('토요일') ? 'checked' : ''}>
-        <label for="saturday">토요일</label>
-        <input type="checkbox" id="sunday" name="storeClosedSunday" value="일요일" ${dto.storeClosed && dto.storeClosed.includes('일요일') ? 'checked' : ''}>
-        <label for="sunday">일요일</label>
-    </div>
-</div>
+					<label> 휴무일 선택 </label>
+					<div class="cell center">
+						<input type="checkbox" id="monday" name="storeClosed" value="월요일">
+<label for="monday">월요일</label>
+
+<input type="checkbox" id="tuesday" name="storeClosed" value="화요일">
+<label for="tuesday">화요일</label>
+
+<input type="checkbox" id="wednesday" name="storeClosed" value="수요일">
+<label for="wednesday">수요일</label>
+
+<input type="checkbox" id="thursday" name="storeClosed" value="목요일">
+<label for="thursday">목요일</label>
+
+<input type="checkbox" id="friday" name="storeClosed" value="금요일">
+<label for="friday">금요일</label>
+
+<input type="checkbox" id="saturday" name="storeClosed" value="토요일">
+<label for="saturday">토요일</label>
+
+<input type="checkbox" id="sunday" name="storeClosed" value="일요일">
+<label for="sunday">일요일</label>
+
+					</div>
+				</div>
 				<div class="cell">
 					<label> 배달 가능 지역 <i class="fa-solid fa-asterisk red"></i>
 					</label> <input type="text" name="storeDelivery"
