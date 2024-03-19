@@ -22,6 +22,7 @@ public class AttachService {
 		File dir = new File(System.getProperty("user.home"), "kh13A");
 		dir.mkdirs();
 		File target = new File(dir, String.valueOf(attachNo));
+		System.out.println(target.getAbsolutePath());
 		attach.transferTo(target);
 		
 		AttachDto attachDto = new AttachDto();

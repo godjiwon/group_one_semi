@@ -3,12 +3,13 @@ package com.kh.picachubaedal.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
-
+///
 
 @Repository
 public class MemberDao {
@@ -19,16 +20,17 @@ public class MemberDao {
 	//@Autowired
 	//private StatMapper statMapper;
 
-	 //가입 (등록)
+	 //가입 (등록)/
 	public void insert(MemberDto memberDto) {
         String sql = "insert into member("
-                + "member_id, member_pw, member_nick, member_contact, "
-                + "member_email, member_post, member_address1, member_address2) "
-                + "values(?, ?, ?, ?, ?, ?, ?, ?)";
+                + "member_no,member_id, member_pw, member_nick, member_contact, "
+                + "member_email, member_post, member_address1, member_address2,member_grade) "
+                + "values(member_seq.nextval,?, ?, ?, ?, ?, ?, ?, ?,?)";
         Object[] data = {memberDto.getMemberId(), memberDto.getMemberPw(),
                                 memberDto.getMemberNick(), memberDto.getMemberContact(),
                                 memberDto.getMemberEmail(), memberDto.getMemberPost(),
-                                memberDto.getMemberAddress1(), memberDto.getMemberAddress2()};
+                                memberDto.getMemberAddress1(), memberDto.getMemberAddress2(),
+                                memberDto.getMemberGrade()};
         jdbcTemplate.update(sql, data);
     }
 
@@ -61,6 +63,7 @@ public class MemberDao {
 		Object[] data = {dto.getMemberPw(), dto.getMemberId()};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
 	//회원탈퇴(삭제, Delete)
 	public boolean delete(String memberId) {
 		String sql = "delete member where member_id = ?";
@@ -72,6 +75,7 @@ public class MemberDao {
 	public boolean updateMemberLogin(String memberId) {
 		String sql = "update member "
 						+ "set member_update=sysdate "
+
 						+ "where member_id = ?";
 		Object[] data = {memberId};
 		return jdbcTemplate.update(sql, data) > 0;
@@ -124,19 +128,25 @@ public class MemberDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 
+	
 	public MemberDto selectOneByMemberNick(String memberNick) {
 		String sql = "select * from member where member_nick = ?";
 		Object[] data = {memberNick};
 		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
-
-	public String findNick(String reviewBoardWriter) {
-		String sql = "select member_nick from member where member_id = ?";
-		Object[] data = {reviewBoardWriter};
-		return jdbcTemplate.queryForObject(sql, String.class, data);
-
-	}
+	
+	//아이디 찾기
+	public String findMemberIdByNick(String memberNick) {
+        String sql = "SELECT member_id FROM member WHERE member_nick = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, memberNick);
+        } catch (EmptyResultDataAccessException e) { //임폴트해주기
+            return null; // 해당하는 닉네임의 회원이 없을 경우 null 반환
+        }
+    }
 }
+   
+
 
  
