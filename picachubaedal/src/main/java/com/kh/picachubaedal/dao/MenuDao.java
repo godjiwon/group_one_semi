@@ -63,7 +63,7 @@ public class MenuDao {
 	}
 	
 	public int selectRecentMenu() {
-		String sql = "SELECT MAX(menu_no) FROM menu";
+		String sql = "SELECT menu_seq.currval FROM dual ";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 	

@@ -72,19 +72,22 @@ function insertMenuImage(file, menuNo) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function () {
-        	window.location.href = "/menu/list";
-        }
+        success: function(data) {
+        	if(data) {
+        		window.location.href = "/menu/ceoMenuList";	
+        	}
+        }, 
+        error: function(request,status,error) {
+			console.log("menuFileUpload error");
+		}
     });
 }
 
 function insertMenu(file) {
-	
 	if(!checkMenuName() || !checkMenuPrice() || !checkMenuCategory()) {
 		alert("다시 입력해주세요");
 		return;
 	}
-
     const menuForm = $("#insert_form").serializeArray();
     $.ajax({
 	    url: "/menu/insert",
@@ -94,7 +97,7 @@ function insertMenu(file) {
 	        if(file !== null && file !== undefined) {
 	        	insertMenuImage(file, response)
 	        } else {
-	        	window.location.href = "/menu/list";
+	        	window.location.href = "/menu/ceoMenuList";
 	        }
 	    }
     });  
