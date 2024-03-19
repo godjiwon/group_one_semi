@@ -212,7 +212,7 @@
 		                     수정
 		                  </a>
 		                  <span> | </span>
-		                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
+		                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}" onclick="return confirm('삭제하시겠습니까?');">
 		                     <i class="fa-solid fa-minus"></i>
 		                     삭제
 		                  </a>               
