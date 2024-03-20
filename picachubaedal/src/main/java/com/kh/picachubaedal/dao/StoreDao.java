@@ -329,7 +329,7 @@ public class StoreDao {
 
 
 		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
-		public List<StoreDto> selectListByMenuName(String menuName) {
+		public List<StoreDto> searchStoresByMenuName(String menuName) {
 
 		    String sql = "SELECT DISTINCT s.* " +
 		                 "FROM store s " +
