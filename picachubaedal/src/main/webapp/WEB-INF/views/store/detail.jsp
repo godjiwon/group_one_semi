@@ -47,13 +47,15 @@
 							href="/store/change?storeNo=${storeDto.storeNo}">가게 정보 수정</a>
 					</h2>
 				</div>
-
+				
+				
+				
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation" href="/store/storeDelete"
 							style="color: red">가게 삭제</a>
 					</h2>
-						<a class="link link-animation" href="/menu/ceoMenuList">
+						<a class="link link-animation" href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}">
 						메뉴 리스트</a>
 					</h2>
 
