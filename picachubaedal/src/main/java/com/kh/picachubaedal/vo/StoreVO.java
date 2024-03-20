@@ -1,11 +1,17 @@
 package com.kh.picachubaedal.vo;
 
 public class StoreVO {
-
+	
+	@Override
+	public String toString() {
+		return "PageVO [column=" + column + ", keyword=" + keyword + ", count=" + count + ", page=" + page + ", size="
+				+ size + ", blockSize=" + blockSize + "]";
+	}
+	
 	private String column, keyword;
 	private int count;
 	private int page=1;
-	private int size=10;
+	private int size=5;
 	private int blockSize=10;
 	
 	public String getColumn() {
