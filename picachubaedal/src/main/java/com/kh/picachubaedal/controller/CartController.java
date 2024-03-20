@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.picachubaedal.dao.CartDao;
 import com.kh.picachubaedal.dao.MemberDao;
@@ -33,12 +34,19 @@ public class CartController {
 		return "/WEB-INF/views/cart/insertComplete.jsp";
 	}
 
+	//장바구니 목록
 	@RequestMapping("/list")
 	public String list(Model model) {
-
 		List<CartDto> lllist;
 		lllist = cartDao.selectList();
 		model.addAttribute("qwer", lllist);
 		return "/WEB-INF/views/cart/list.jsp";
+	}
+	
+	//장바구니 삭제(테스트전용)
+	@RequestMapping("/delete")
+	public String delete(@RequestParam int cartNo) {
+		cartDao.delete(cartNo);
+		return "redirect:list";
 	}
 }
