@@ -54,7 +54,6 @@
     	background: #fed23d;
       }
    </style>
-   
    <script>
    
    </script>
@@ -70,7 +69,6 @@
    - 로고, 검색창, 각종 메뉴들을 배치   
    - div는 투명한 영역
 --%>
-
 <body>
    <main>  
    <div class="header">
