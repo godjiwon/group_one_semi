@@ -58,49 +58,40 @@
 	.hidden {
 		display: none;
 	}
+	.form-wrap {
+	    padding-bottom: 70px;
+	}	
    
 </style>
 <script type="text/javascript">
 
-function insertMenuImage(file, menuNo) {
-    var formData = new FormData();
-    formData.append('file', file);
-    formData.append('menuNo', menuNo);
-    $.ajax({
-        type: "POST",
-        url: "/menu/menuFileUpload",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function () {
-        	window.location.href = "/menu/list";
-        }
-    });
-}
-
-function insertMenu(file) {
-	
+//메뉴추가
+function insertMenu(file) {//유효성 검사 후 유효하지 않으면 경고메세지 표시
 	if(!checkMenuName() || !checkMenuPrice() || !checkMenuCategory()) {
 		alert("다시 입력해주세요");
 		return;
 	}
-
-    const menuForm = $("#insert_form").serializeArray();
+    //유효하다면 FormData 객체를 생성하여 폼 데이터를 수집-> Ajax로 서버 전송
+    // const menuForm = $("#insert_form").serializeArray();
+    const menuForm = new FormData($("#insert_form")[0]);
+    if (file !== null && file !== undefined) {
+        menuForm.append('menuImage', file);
+    }
     $.ajax({
 	    url: "/menu/insert",
 	    type: "POST",
 	    data: menuForm,
+	    contentType: false,
+        processData: false,
 	    success: function(response) {
-	        if(file !== null && file !== undefined) {
-	        	insertMenuImage(file, response)
-	        } else {
-	        	window.location.href = "/menu/list";
-	        }
+	        window.location.href = "/menu/ceoMenuList";
 	    }
     });  
 }
 
+//jQuery를 사용하여 페이지가 로드될 때 실행(드래그앤드롭)
 $(function(){
+	//파일이 드랍되거나 파일 입력 필드에서 파일이 선택될 때 이미지를 표시하고, 선택된 파일을 변수에 저장
     const dropArea = $("#drop-area");
     const fileInput = $("#file-input");
     var imageFile;
@@ -190,7 +181,7 @@ function checkMenuPrice() {
 <div class="cell center py-10">
    <h1>메뉴 등록</h1>
 </div>
-<div>
+<div class="form-wrap">
    <form method="post" id="insert_form" action="/menu/insert" autocomplete="off" onsubmit="return checkForm();">
       <input type="hidden" name="storeNo" value="${storeNo}">
       <section>

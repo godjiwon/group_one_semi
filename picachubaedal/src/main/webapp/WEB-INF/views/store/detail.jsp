@@ -28,14 +28,19 @@
 
 			<div class="col-md-3">
 				<div class="cell center">
-					<img class="storeImage" src="${storeDto.storeImgLink}">
-
+				<img class="storeImage" src="${storeDto.storeImgLink}">
 				</div>
 				<div class="cell center">
 					<h2>
+
+
 						<a class="link link-animation" href="/store/list">가게 목록</a>
 					</h2>
 				</div>
+
+				<hidden input type="text" name="storeNo" placeholder="세션 가게넘버"
+					value="${storeDto.storeNo}">
+
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation"
@@ -45,29 +50,11 @@
 
 				<div class="cell center">
 					<h2>
-						<a class="link link-animation" href="/menu/ceoMenuList"> 메뉴
-							리스트</a>
-					</h2>
-
-				</div>
-
-
-				<hidden input type="text" name="storeNo" placeholder="세션 가게넘버"
-					value="${storeDto.storeNo}">
-
-				<div class="cell center">
-					<h2>
-						<a class="link link-animation" href="/store/storeDelete"
+						<a class="link link-animation" href="/store5/storeDelete"
 							style="color: red">가게 삭제</a>
 					</h2>
-
-
-				</div>
-
-				<div class="cell center">
-					<h2>
-						<a class="link link-animation" href="/store/storeDelete"
-							style="color: red">메뉴 리스트</a>
+						<a class="link link-animation" href="/menu/ceoMenuList">
+						메뉴 리스트</a>
 					</h2>
 
 				</div>

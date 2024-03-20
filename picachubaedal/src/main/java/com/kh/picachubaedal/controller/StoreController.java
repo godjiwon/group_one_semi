@@ -1,6 +1,7 @@
 package com.kh.picachubaedal.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class StoreController {
 	private MemberDao memberDao;
 	@Autowired
 	private StoreDao storeDao;
+//	@Autowired
+//    private StoreService storeService;
 	
 	
 	@Autowired
@@ -81,17 +84,10 @@ public class StoreController {
 		}
 	}
 	@PostMapping("/change")
-	public String change(@ModelAttribute StoreDto storeDto)
-			throws IllegalStateException, IOException {
-	    //가게 수정 등록
-		storeDao.update(storeDto);
-	  
-//	    //첨부파일 등록
-//	    if(!attach.isEmpty()) {
-//	         int attachNo = attachService.save(attach);
-//	         storeDao.connect(storeDto.getStoreNo(), attachNo);
-//	      }
-	    return "redirect:/store/detail?storeNo=" + storeDto.getStoreNo();
+
+	public String change(@ModelAttribute StoreDto dto) {
+	    storeDao.update(dto);
+	    return "redirect:/store/detail?storeNo=" + dto.getStoreNo();
 	}
 	@RequestMapping("/changeSuccess")
 	public String changeSuccess() {
@@ -153,13 +149,6 @@ public class StoreController {
 		}
 
 		@PostMapping("/storeDelete")
-
-		
-//		        return "redirect:storeDeleteFinish";
-		   
-		
-		
-
 		public String deleteStore(HttpSession session, @RequestParam String storeBusinessNumber) {
 		    // 데이터베이스에서 해당 사업자 등록번호에 해당하는 가게 정보 조회
 		    StoreDto storeDto = storeDao.selectByBusinessNumber(storeBusinessNumber);
@@ -184,8 +173,6 @@ public class StoreController {
 		        return "redirect:storeDeleteFail";
 		    }
 		}
-
-
 
 
 		@RequestMapping("/storeDeleteFinish")
@@ -213,8 +200,22 @@ public class StoreController {
 	    return "/WEB-INF/views/store/list2.jsp";
 	}
 	
-	@RequestMapping("/categoryList")
-	public String categoryList(Model model, HttpSession session) {
+//	@RequestMapping("/list")
+//	public String list(@ModelAttribute PageVO pageVO, Model model) {
+//	    int count = storeDao.count(pageVO);
+//	    pageVO.setCount(count);
+//	    model.addAttribute("pageVO", pageVO);
+//
+//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+//	    //System.out.print(list);
+//	    model.addAttribute("list", list);
+//
+//	    return "/WEB-INF/views/store/list2.jsp";
+//	}
+	
+//		목록
+	@RequestMapping("/list")
+	public String list(Model model, HttpSession session) {
 	    // 세션에서 현재 로그인한 회원의 회원번호를 가져옵니다.
 		 Integer memberNo = (Integer) session.getAttribute("memberNo");
 
@@ -235,48 +236,82 @@ public class StoreController {
 	
 
 
-//	// 사진 반환
-//	@RequestMapping("/storePhoto")
-//	public String image(HttpSession session) {
-//	    try {
-//	        int memberNo = (int) session.getAttribute("memberNo"); // 세션에서 로그인된 회원번호 가져오기
-//	        int storeNo = storeDao.findStoreNoByMemberNo(memberNo); // 회원번호로 가게번호 찾기
-//	        if (storeNo <= 0) {
-//	            throw new IllegalStateException("해당 회원의 가게를 찾을 수 없습니다.");
-//	        }
+//	//전체 목록
+//	 @GetMapping("/categoryList")
+//	    public String yourHandlerMethod(Model model,@RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
+//	        // DAO에서 전체 목록을 조회하여 모델에 추가
+//	        List<StoreDto> categoryList = storeDao.selectListAll();
+//	        model.addAttribute("categoryList", categoryList);
 //	        
-//	        int attachNo = storeDao.findAttachNo(storeNo); // 가게번호로 첨부 파일 번호 찾기
-//	        if (attachNo <= 0) {
-//	            throw new IllegalStateException("가게에 대한 첨부 파일을 찾을 수 없습니다.");
-//	        }
+//	        int count = storeDao.count(pageVO);
+//	        pageVO.setCount(count);
+//	        model.addAttribute("pageVO", pageVO);
+//	        
+//	        List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+//	        
+//	        // 다른 처리 작업...
 //
-//	        return "redirect:/download?attachNo=" + attachNo; // 첨부 파일 다운로드 링크로 리다이렉트
-//	    } catch (Exception e) {
-//	        // 예외 처리
-//
-//	        return "redirect:/image/user.png"; // 기본 이미지로 리다이렉트
+//	        // JSP 파일 이름 반환
+//	        return "/WEB-INF/views/store/categoryList.jsp";
 //	    }
-//	}
+	 
+	//카테고리 전체 목록
+	@GetMapping("/categoryList")
+	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
+	    // DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
+	    List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
+	    model.addAttribute("categoryList", categoryList);
+	    
+	    // 페이지 처리를 위한 작업
+	    int count = storeDao.count(pageVO);
+	    pageVO.setCount(count);
+	    model.addAttribute("pageVO", pageVO);
+	    
+	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+	    
+	    // 다른 처리 작업...
+	    
+	    // JSP 파일 이름 반환
+	    return "/WEB-INF/views/store/categoryList.jsp";
+	}
+
 	
 	
-	// 가게 사진 반환
+	
+	// 사진 반환
 	@RequestMapping("/storePhoto")
 	public String image(HttpSession session) {
 	    try {
-	        String loginId = (String) session.getAttribute("loginId");
-	        StoreDto storeDto = storeDao.selectByMemberNo(loginId); // 로그인한 멤버의 가게 정보 가져오기
-	        if (storeDto != null) { // 가게 정보가 존재하는 경우에만 실행
-	            int storeNo = storeDto.getStoreNo(); // 가게 번호 가져오기
-	            int attachNo = storeDao.findAttachNo(storeNo); // 가게 번호로 사진 첨부파일 번호 가져오기
-	            return "redirect:/download?attachNo=" + attachNo;
-	        } else {
-	            return "redirect:/image/default_store_image.png"; // 가게 정보가 없는 경우 기본 이미지 반환
+	        int memberNo = (int) session.getAttribute("memberNo"); // 세션에서 로그인된 회원번호 가져오기
+	        int storeNo = storeDao.findStoreNoByMemberNo(memberNo); // 회원번호로 가게번호 찾기
+	        if (storeNo <= 0) {
+	            throw new IllegalStateException("해당 회원의 가게를 찾을 수 없습니다.");
 	        }
+	        
+	        int attachNo = storeDao.findAttachNo(storeNo); // 가게번호로 첨부 파일 번호 찾기
+	        if (attachNo <= 0) {
+	            throw new IllegalStateException("가게에 대한 첨부 파일을 찾을 수 없습니다.");
+	        }
+
+	        return "redirect:/download?attachNo=" + attachNo; // 첨부 파일 다운로드 링크로 리다이렉트
 	    } catch (Exception e) {
-	        return "redirect:/image/default_store_image.png"; // 오류 발생 시 기본 이미지 반환
+	        // 예외 처리
+
+	        return "redirect:/image/user.png"; // 기본 이미지로 리다이렉트
 	    }
 	}
+	
+	//홈에서 카테고리별 목록 표시
+	@GetMapping("/")
+	public String home() {
+	    // 홈 페이지로 이동하는 코드 추가
+	    return "home"; // 홈 페이지로 이동하는 뷰의 이름을 반환
+	}
 
+
+	
+	
+	
 
 	
 }

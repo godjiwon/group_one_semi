@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,15 +65,11 @@ public class StoreDao {
         
         jdbcTemplate.update(sql, data);
 
-//        // 등록한 가게 정보의 가게 번호 가져오기
-//        int storeNo = jdbcTemplate.queryForObject("SELECT store_seq.currval FROM dual", Integer.class);
-//
-//        // 첨부 파일 연결
-//        if (storeNo > 0 && attach != null && !attach.isEmpty()) {
-//            int attachNo = attachService.save(attach);
-//            connect(storeNo, attachNo);
-//        }
     }
+    
+
+    
+    
 
     //첨부파일 관련
     public int selectRecentStore() {
@@ -89,8 +86,6 @@ public class StoreDao {
             return -1; // 회원에 해당하는 가게가 없는 경우
         }
     }
-
-
 
 
 
@@ -173,8 +168,9 @@ public class StoreDao {
   	    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
   	    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
   	}
-
-
+  	
+  	
+  	
 
     
 
@@ -201,8 +197,7 @@ public class StoreDao {
   		return jdbcTemplate.queryForObject(sql, int.class, data);
   	}
 
-
-
+  	
 	// 목록, 검색
 	public List<StoreDto> selectList() {
 		String sql = "select * from store order by store_no asc";
@@ -230,7 +225,7 @@ public class StoreDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
-
+	
 	//페이징을 위한 목록/검색/카운트 구현
 		public List<StoreDto> selectListByPaging(PageVO pageVO) {
 			System.out.println(pageVO);
@@ -273,19 +268,30 @@ public class StoreDao {
 		}
 		
 	//	백업 03.19
-//		public MemberDto selectByMemberNo(int memberNo) {
-//			String sql = "select * from store where member_no=?";
-//			Object[] data = {memberNo};
-//			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
-//			return list.isEmpty() ? null : list.get(0);
-//		}
+		public MemberDto selectByMemberNo(int memberNo) {
+			String sql = "select * from store where member_no=?";
+			Object[] data = {memberNo};
+			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+			return list.isEmpty() ? null : list.get(0);
+		}
 		
 		public List<StoreDto> selectListAll() {
 
 			String sql = "select * from store order by store_no asc";
 			return jdbcTemplate.query(sql, storeMapper);
 		}
+		
+		//카테고리 리스트
+		public List<StoreDto> selectListCategory(String storeCategory) {
 
+			String sql = "select * from store where store_category = ? order by store_no asc";
+			Object[] data = {storeCategory};
+			return jdbcTemplate.query(sql, storeMapper, data);
+		}
+
+		
+		
+		//스토어 테이블에서 멤버 넘버 찾기
 		public List<StoreDto> selectListByMemberNo(int memberNo) {
 		    String sql = "SELECT * FROM store WHERE member_no = ?";
 		    Object[] data = { memberNo };

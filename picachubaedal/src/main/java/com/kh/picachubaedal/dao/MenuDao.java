@@ -63,14 +63,13 @@ public class MenuDao {
 	}
 	
 	public int selectRecentMenu() {
-		String sql = "SELECT MAX(menu_no) FROM menu";
+		String sql = "SELECT menu_seq.currval FROM dual ";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 	
 	//페이징을 위한 목록/검색/카운트 구현
 	public List<MenuDto> selectListByPaging(PageVO pageVO, int storeNo) {	
 		if(!pageVO.getColumn().isEmpty()) {
-			System.out.println(storeNo);
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
 									+ "SELECT tb1.* FROM menu tb1 "
@@ -171,16 +170,17 @@ public class MenuDao {
           return 0;
        }
     }
-	
-//	//홈화면에서 메뉴 검색키워드 
-//	public List<MenuDto> selectList(String column, String keyword) {
-//		String sql = "select * from menu "					
-//						+ "where instr(upper("+column+"), upper(?)) > 0 "//대소문자 무시
-//						+ "order by "+column+" asc, menu_no asc";
-//		Object[] data = {keyword};
-//		return jdbcTemplate.query(sql, menuMapper, data);
-	}
-	
-	
 
+	// attachNo 조회
+	public int selectAttcahNo(int menuNo) {
+		try {
+			String sql = "select attach_no from menu_attach where menu_no=?";
+			Object[] data = {menuNo};
+			return jdbcTemplate.queryForObject(sql, int.class, data);			
+		} catch(Exception e) {
+			return 0;
+		}
+	}	
+	
+}
 

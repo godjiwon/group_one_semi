@@ -20,7 +20,10 @@
         justify-content: center;
         align-items: center;
     }
-    
+    .empty-flex-cell {
+		display: flex;
+    	justify-content: center;    
+    }    
     .menu-button-style {
        display: flex;
       justify-content: flex-end;
@@ -121,7 +124,7 @@
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/list").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/customerMenuList").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function(){
@@ -135,7 +138,7 @@
 	});
 
 </script>
-<form class="menuCategoryBar" name="menuForm" action="list" method="get">
+<form class="menuCategoryBar" name="menuForm" action="customerMenuList" method="get">
 	<div>
 		<ul>
 			<li class="main_search">
@@ -162,7 +165,8 @@
    <i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i> 메뉴 리스트</div>
    
    <div class="menulist">
-      <c:forEach var="menuDto" items="${list}">
+   <c:if test="${list.size() != 0}">
+	  <c:forEach var="menuDto" items="${list}">
          <div class="cell flex-cell card menuCard">
              <div class="w-25 flex-cell middle">
                  <div class="img_wrap">
@@ -189,7 +193,16 @@
                 </a>
               </div>              
          </div>
-      </c:forEach>
+      </c:forEach>   
+   </c:if>
+   <c:if test="${list.size() == 0}">
+		<div class="cell empty-flex-cell card menuCard">
+			<div>
+				<h1>메뉴가 없습니다.</h1>
+			</div>
+		</div>
+   </c:if>
+      
    </div>
 <%-- 네비게이터 --%>
 <div class="page-navigator">

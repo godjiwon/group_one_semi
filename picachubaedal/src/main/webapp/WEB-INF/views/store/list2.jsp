@@ -14,15 +14,15 @@
         <%-- 검색창 --%>
         <form action="list" method="get">
             <select name="column" class="tool">
-                <option value="store_name" ${param.column == 'store_name' ? 'selected' : ''}>가게이름</option>
-                <option value="store_address" ${param.column == 'store_address1' ? 'selected' : ''}>주소</option>
-                <option value="store_address" ${param.column == 'store_address2' ? 'selected' : ''}>상세주소</option>
-                <option value="store_category" ${param.column == 'store_category' ? 'selected' : ''}>음식 카테고리</option>
-                <option value="store_type" ${param.column == 'store_type' ? 'selected' : ''}>배달 or 포장</option>
-                <option value="store_contact" ${param.column == 'store_contact' ? 'selected' : ''}>연락처</option>
-                <option value="store_hours" ${param.column == 'store_hours' ? 'selected' : ''}>가게 운영시간</option>
-                <option value="store_delivery" ${param.column == 'store_delivery' ? 'selected' : ''}>배달 가능지역</option>
-                <option value="store_closed" ${param.column == 'store_closed' ? 'selected' : ''}>가게 휴무일</option>
+                <option value="storeName" ${param.column == 'store_name' ? 'selected' : ''}>가게이름</option>
+                <option value="storeAddress1" ${param.column == 'store_address1' ? 'selected' : ''}>주소</option>
+                <option value="storeAddress2" ${param.column == 'store_address2' ? 'selected' : ''}>상세주소</option>
+                <option value="storeCategory" ${param.column == 'store_category' ? 'selected' : ''}>음식 카테고리</option>
+                <option value="storeType" ${param.column == 'store_type' ? 'selected' : ''}>배달 or 포장</option>
+                <option value="storeContact" ${param.column == 'store_contact' ? 'selected' : ''}>연락처</option>
+                <option value="storeHours" ${param.column == 'store_hours' ? 'selected' : ''}>가게 운영시간</option>
+                <option value="storeDelivery" ${param.column == 'store_delivery' ? 'selected' : ''}>배달 가능지역</option>
+                <option value="storeClosed" ${param.column == 'store_closed' ? 'selected' : ''}>가게 휴무일</option>
             </select>
             <input type="text" name="keyword" placeholder="검색어 입력" required value="${param.keyword}" class="tool">
             <button class="btn positive">검색</button>
@@ -71,9 +71,6 @@
     
 </div>
 </div>
-
-
-
 
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
