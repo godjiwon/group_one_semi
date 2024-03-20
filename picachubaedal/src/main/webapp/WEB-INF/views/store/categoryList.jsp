@@ -48,8 +48,54 @@
                 </c:forEach>
             </tbody>
         </table>
+        
+        <%-- 네비게이터 --%>
+        <div class="page-navigator" id="pageNavigator">
+            <%-- 이전 버튼 --%>
+            <c:choose>
+                <c:when test="${storeVO.isFirstBlock()}">
+                    <a class="off">&lt;이전</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="list?page=${storeVO.getPrevBlock()}&${storeVO.getQueryString()}">&lt;이전</a>
+                </c:otherwise>
+            </c:choose>
+            
+            <%-- 페이지 숫자 --%>
+            <c:forEach var="pageNumber" begin="${storeVO.getBeginBlock()}" end="${storeVO.getEndBlock()}" step="1">
+                <c:choose>
+                    <c:when test="${storeVO.isCurrentPage(pageNumber)}">
+                        <a class="on">${pageNumber}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="list?page=${pageNumber}&${storeVO.getQueryString()}">${pageNumber}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <%-- 다음 버튼 --%>
+            <c:choose>
+                <c:when test="${storeVO.isLastBlock()}">
+                    <a class="off">다음&gt;</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="list?page=${storeVO.getNextBlock()}&${storeVO.getQueryString()}">다음&gt;</a> 
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 </div>
 
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+<script>
+    // 네비게이터를 현재 페이지에만 표시하도록 설정
+    var pageNavigator = document.getElementById("pageNavigator");
+    pageNavigator.style.display = "none"; // 일단 숨기기
+
+    // 페이지가 10개를 넘을 때만 네비게이터를 표시
+    if (${storeVO.getTotalPage()} > 10) {
+        pageNavigator.style.display = "block"; // 표시하기
+    }
+</script>
