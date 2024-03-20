@@ -126,7 +126,7 @@
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList?storeNo=${storeNo}").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function(){
