@@ -33,9 +33,14 @@
 				<div class="cell center">
 					<h2>
 
+
 						<a class="link link-animation" href="/store/list">가게 목록</a>
 					</h2>
 				</div>
+
+				<hidden input type="text" name="storeNo" placeholder="세션 가게넘버"
+					value="${storeDto.storeNo}">
+
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation"
@@ -53,12 +58,6 @@
 					</h2>
 
 				</div>
-
-
-				</div>
-				<hidden input type="text" name="storeNo" placeholder="세션 가게넘버"
-					value="${storeDto.storeNo}">
-
 			</div>
 		</div>
 		<div class="w-75">
