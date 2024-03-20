@@ -29,6 +29,9 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
    
    <style> 
+ 		* {
+ 			font-family : 빙그레 메로나체, sans-serif;
+ 		}
        .header_wrap {
 		    display: flex;
 		    align-items: flex-end;  
@@ -80,6 +83,9 @@
          <div class="header_sideMenu right">
               <c:choose>
 						<c:when test="${sessionScope.loginId != null}">
+							<div class="cell header_sideMenu">
+								<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
+							</div>
 							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
 								${sessionScope.loginId}
 							</a>
