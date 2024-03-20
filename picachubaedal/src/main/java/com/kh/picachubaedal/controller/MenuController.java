@@ -102,7 +102,7 @@ public class MenuController {
 		model.addAttribute("storeDto", storeDto);
 		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
-		int count = menuDao.count(pageVO);
+		int count = menuDao.count(pageVO, storeNo);
 		pageVO.setCount(count);
 		model.addAttribute("pageVO", pageVO);
 		List<MenuDto> list = menuDao.selectListByPaging(pageVO, storeNo);
@@ -121,17 +121,14 @@ public class MenuController {
     *  @return /menu/customerMenuList.jsp
     */     
    @RequestMapping("/customerMenuList")
-   public String customerMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session) {
+   public String customerMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session, @RequestParam int storeNo) {
 	   
-		// 테스트 데이터 storeNo 3번
-		int storeNo = 3;
-			  
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
 		model.addAttribute("storeDto", storeDto);
 		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
-		int count = menuDao.count(pageVO);
+		int count = menuDao.count(pageVO, storeNo);
 		pageVO.setCount(count);
 		model.addAttribute("pageVO", pageVO);
 		List<MenuDto> list = menuDao.selectListByPaging(pageVO, storeNo);
