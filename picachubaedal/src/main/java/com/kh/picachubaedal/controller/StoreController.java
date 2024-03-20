@@ -20,6 +20,7 @@ import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
+import com.kh.picachubaedal.service.StoreService;
 import com.kh.picachubaedal.vo.PageVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,8 +38,8 @@ public class StoreController {
 	private MemberDao memberDao;
 	@Autowired
 	private StoreDao storeDao;
-//	@Autowired
-//    private StoreService storeService;
+	@Autowired
+    private StoreService storeService;
 	
 	
 	@Autowired
@@ -298,7 +299,19 @@ public class StoreController {
 	}
 
 
-	
+	@GetMapping("/menuAndStoreList")
+	public String getMenuAndStoreList(@RequestParam("menuName") String menuName, Model model) {
+	    // 메뉴 이름을 기반으로 가게를 검색하는 로직을 호출하여 결과를 가져옵니다.
+	    List<StoreDto> storeList = storeService.searchStoresByMenuName(menuName);
+	    
+	    // 검색 결과를 모델에 추가하여 JSP 파일에서 사용할 수 있도록 합니다.
+	    model.addAttribute("categoryList", storeList);
+	    
+	    // 카테고리 리스트를 보여줄 JSP 파일의 경로를 반환합니다.
+	    return "/WEB-INF/views/store/categoryList.jsp";
+	}
+
+
 	
 	
 

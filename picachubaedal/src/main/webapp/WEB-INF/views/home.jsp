@@ -22,14 +22,16 @@
 </head>
 <body>
 <div class="container center w-800">
-    <form action="#" method="get" autocomplete="off">
-        <div class="cell center my-50" style="position: relative; display: inline-block;">
-            <input type="text" class="tool w-80" size="25" placeholder="메뉴 검색">
-            <button type="button" class="btn tool menu_seach" style="background-color:rgb(254,210,61);">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-    </form>
+    <form action="/store/menuAndStoreList" method="get" autocomplete="off">
+    <div class="cell center my-50" style="position: relative; display: inline-block;">
+        <input type="text" class="tool w-80" size="25" placeholder="메뉴 검색" name="menuName">
+        <button type="submit" class="btn tool menu_search" style="background-color:rgb(254,210,61);">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+</form>
+
+
 
     <br><br>
 
