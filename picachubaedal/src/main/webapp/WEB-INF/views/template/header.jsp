@@ -15,7 +15,7 @@
 
     <!-- 내가 구현한 스타일 -->
    <link rel="stylesheet" type="text/css" href="/css/commons.css">
-   <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
+<!--    <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
    <link rel="stylesheet" type="text/css" href="/css/layout.css">
     
     <!-- font awesome 아이콘 CDN -->
