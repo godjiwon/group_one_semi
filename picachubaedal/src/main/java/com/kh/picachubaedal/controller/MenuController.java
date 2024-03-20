@@ -46,10 +46,11 @@ public class MenuController {
     *  @mappig get
     *  @return /menu/insert.jsp
     */
+   //GET 요청을 처리하는 핸들러 메서드로, 메뉴 등록 폼을 보여줌
    @GetMapping("/insert")
-   public String insert(Model model) {
+   public String insert(Model model) {//Model 객체를 사용하여 뷰로 데이터를 전달
 	  //가게번호 test
-	  model.addAttribute("storeNo", 3);
+	  model.addAttribute("storeNo", 3);// 가게 번호를 모델에 추가
       return "/WEB-INF/views/menu/insert.jsp";
    }
 
@@ -60,13 +61,15 @@ public class MenuController {
     *  @param attach
     *  @return redirect:list
     */
+   //POST 요청을 처리하는 핸들러 메서드로, 실제로 메뉴를 등록
    @PostMapping("/insert")
-   @ResponseBody
-   public int insert(@ModelAttribute MenuDto menuDto, 
+   @ResponseBody//ajax로 데이터 받을 때 사용
+   public int insert(@ModelAttribute MenuDto menuDto,
+		   			//파일 업로드를 처리. menuImage 파라미터는 업로드된 이미지 파일을 받음
 		   			 @RequestParam(value = "menuImage", required = false) MultipartFile menuImage) throws Exception {
 	    //메뉴 정보 등록
 	    menuDao.insert(menuDto);
-	    int menuNo = menuDao.selectRecentMenu();
+	    int menuNo = menuDao.selectRecentMenu();//가장 최근에 등록된 메뉴의 번호를 조회: 이미지 파일과 메뉴 정보를 연결하기 위해
 	    if(menuImage != null) {
 	    	int attachNo = attachService.save(menuImage);
 	    	menuDao.connect(menuNo, attachNo);

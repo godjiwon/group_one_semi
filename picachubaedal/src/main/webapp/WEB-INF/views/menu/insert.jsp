@@ -65,11 +65,13 @@
 </style>
 <script type="text/javascript">
 
-function insertMenu(file) {
+//메뉴추가
+function insertMenu(file) {//유효성 검사 후 유효하지 않으면 경고메세지 표시
 	if(!checkMenuName() || !checkMenuPrice() || !checkMenuCategory()) {
 		alert("다시 입력해주세요");
 		return;
 	}
+    //유효하다면 FormData 객체를 생성하여 폼 데이터를 수집-> Ajax로 서버 전송
     // const menuForm = $("#insert_form").serializeArray();
     const menuForm = new FormData($("#insert_form")[0]);
     if (file !== null && file !== undefined) {
@@ -87,7 +89,9 @@ function insertMenu(file) {
     });  
 }
 
+//jQuery를 사용하여 페이지가 로드될 때 실행(드래그앤드롭)
 $(function(){
+	//파일이 드랍되거나 파일 입력 필드에서 파일이 선택될 때 이미지를 표시하고, 선택된 파일을 변수에 저장
     const dropArea = $("#drop-area");
     const fileInput = $("#file-input");
     var imageFile;

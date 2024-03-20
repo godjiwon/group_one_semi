@@ -124,7 +124,7 @@
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/list").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/customerMenuList").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function(){
@@ -138,7 +138,7 @@
 	});
 
 </script>
-<form class="menuCategoryBar" name="menuForm" action="list" method="get">
+<form class="menuCategoryBar" name="menuForm" action="customerMenuList" method="get">
 	<div>
 		<ul>
 			<li class="main_search">

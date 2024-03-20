@@ -83,11 +83,7 @@ function updateMenu(file) {
 	    contentType: false,
         processData: false,
 	    success: function(response) {
-	        if(file !== null && file !== undefined) {
-	        	insertMenuImage(file, response)
-	        } else {
-	        	window.location.href = "/menu/ceoMenuList";
-	        }
+	    	window.location.href = "/menu/ceoMenuList";
 	    }
     });  
 }
