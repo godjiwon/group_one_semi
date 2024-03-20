@@ -21,6 +21,9 @@
 
 </head>
 <body>
+
+	<%--메뉴&가게 검색창 --%>
+
 <div class="container center w-800">
     <form action="#" method="get" autocomplete="off">
         <div class="cell center my-50" style="position: relative; display: inline-block;">
@@ -30,14 +33,11 @@
             </button>
         </div>
     </form>
-
     <br><br>
 
    <a href="store/categoryList?storeCategory=치킨" class="storeCategory" >
     치킨 <img src="https://media.discordapp.net/attachments/1187318496942628876/1218122788485992449/image0.jpg?ex=66068440&is=65f40f40&hm=ec7ef7954591f58f89ca309828ab4161c6f33b923b02051b2916dcf5b2041294&=&format=webp">
 </a>
-
-
         <a href="/categoryList?storeCategory=치킨" class="storeCategory" onclick="filterByCategory('피자');">
             피자 <img src="https://media.discordapp.net/attachments/1187318496942628876/1218122853250236529/image0.jpg?ex=6606844f&is=65f40f4f&hm=e50e3b7c614936111a4fa91c296efd97cbd300397dfa63c9d20d14b7bc651a05&=&format=webp">
         </a>
