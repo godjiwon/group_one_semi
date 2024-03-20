@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
+import com.kh.picachubaedal.mapper.MenuMapper;
 import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
@@ -32,6 +32,11 @@ public class StoreDao {
 
     @Autowired
 	private MemberMapper memberMapper;
+    
+    @Autowired
+    private MenuDao menuDao;
+    @Autowired
+    private MenuMapper menuMapper;
 
 
     //가게등록
@@ -64,15 +69,11 @@ public class StoreDao {
         
         jdbcTemplate.update(sql, data);
 
-//        // 등록한 가게 정보의 가게 번호 가져오기
-//        int storeNo = jdbcTemplate.queryForObject("SELECT store_seq.currval FROM dual", Integer.class);
-//
-//        // 첨부 파일 연결
-//        if (storeNo > 0 && attach != null && !attach.isEmpty()) {
-//            int attachNo = attachService.save(attach);
-//            connect(storeNo, attachNo);
-//        }
     }
+    
+
+    
+    
 
     //첨부파일 관련
     public int selectRecentStore() {
@@ -89,8 +90,6 @@ public class StoreDao {
             return -1; // 회원에 해당하는 가게가 없는 경우
         }
     }
-
-
 
 
 
@@ -173,8 +172,9 @@ public class StoreDao {
   	    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
   	    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
   	}
-
-
+  	
+  	
+  	
 
     
 
@@ -201,8 +201,7 @@ public class StoreDao {
   		return jdbcTemplate.queryForObject(sql, int.class, data);
   	}
 
-
-
+  	
 	// 목록, 검색
 	public List<StoreDto> selectList() {
 		String sql = "select * from store order by store_no asc";
@@ -230,7 +229,7 @@ public class StoreDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
-
+	
 	//페이징을 위한 목록/검색/카운트 구현
 		public List<StoreDto> selectListByPaging(PageVO pageVO) {
 			System.out.println(pageVO);
@@ -238,7 +237,6 @@ public class StoreDao {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
 										+ "select * from store "
-//										+ "where instr("+column+", ?) > 0 "//대소문자 구별
 										+ "where instr(upper("+pageVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
 										+ "order by "+pageVO.getColumn()+" asc, store_no asc"
 									+ ")TMP"
@@ -286,14 +284,25 @@ public class StoreDao {
 			String sql = "select * from store order by store_no asc";
 			return jdbcTemplate.query(sql, storeMapper);
 		}
+		
+		//카테고리 리스트
+		public List<StoreDto> selectListCategory(String storeCategory) {
 
+			String sql = "select * from store where store_category = ? order by store_no asc";
+			Object[] data = {storeCategory};
+			return jdbcTemplate.query(sql, storeMapper, data);
+		}
+
+		
+		
+		//스토어 테이블에서 멤버 넘버 찾기
 		public List<StoreDto> selectListByMemberNo(int memberNo) {
 		    String sql = "SELECT * FROM store WHERE member_no = ?";
 		    Object[] data = { memberNo };
 		    return jdbcTemplate.query(sql, storeMapper, data);
 		}
 		
-
+	
 
 		// StoreDao.java
 
@@ -316,8 +325,27 @@ public class StoreDao {
 		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
 		    }
 		}
+		
 
-	
+
+		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
+		public List<StoreDto> searchStoresByMenuName(String menuName) {
+
+		    String sql = "SELECT DISTINCT s.* " +
+		                 "FROM store s " +
+		                 "INNER JOIN menu m ON s.store_no = m.store_no " +
+		                 "WHERE INSTR(UPPER(m.menu_name), UPPER(?)) > 0 " +
+		                 "ORDER BY s.store_no ASC";
+
+		    // ? 에 대한 값을 설정하여 SQL 쿼리 실행
+		    Object[] data = { menuName };
+		    List<StoreDto> list = jdbcTemplate.query(sql, storeMapper, data);
+
+		    return list;
+		}
+
+
+
 		
 	
 }
