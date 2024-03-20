@@ -25,13 +25,14 @@
 	</div>
 	<div class="cell floating-cell">
 		<div class="w-25 row">
+
 			<div class="col-md-3">
 				<div class="cell center">
 				<img class="storeImage" src="${storeDto.storeImgLink}">
-
 				</div>
 				<div class="cell center">
 					<h2>
+
 						<a class="link link-animation" href="/store/list">가게 목록</a>
 					</h2>
 				</div>
@@ -47,11 +48,17 @@
 						<a class="link link-animation" href="/store5/storeDelete"
 							style="color: red">가게 삭제</a>
 					</h2>
+						<a class="link link-animation" href="/menu/ceoMenuList">
+						메뉴 리스트</a>
+					</h2>
 
 				</div>
 
+
+				</div>
 				<hidden input type="text" name="storeNo" placeholder="세션 가게넘버"
 					value="${storeDto.storeNo}">
+
 			</div>
 		</div>
 		<div class="w-75">

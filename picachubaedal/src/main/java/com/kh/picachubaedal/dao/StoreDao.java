@@ -132,6 +132,34 @@ public class StoreDao {
         Object[] data = {storeNo};
         return jdbcTemplate.update(sql, data) > 0;
     }
+    
+ // 가게 삭제 (사업자 등록번호로 삭제)
+    public boolean deleteStoreByBusinessNumber(String businessNumber) {
+        // 입력한 사업자 등록번호로 가게를 조회
+        String selectQuery = "SELECT * FROM store WHERE store_business_number = ?";
+        StoreDto storeDto = jdbcTemplate.queryForObject(selectQuery, storeMapper, businessNumber);
+
+        if (storeDto != null && businessNumber.equals(storeDto.getStoreBusinessNumber())) {
+            // 조회된 가게가 있고, 입력한 사업자 등록번호와 일치할 경우 가게 삭제
+            String deleteQuery = "DELETE FROM store WHERE store_business_number = ?";
+            return jdbcTemplate.update(deleteQuery, businessNumber) > 0;
+        } else {
+            // 가게가 없거나 사업자 등록번호가 일치하지 않을 경우 삭제 실패
+            return false;
+        }
+    }
+    
+ // 사업자 등록번호로 가게 조회
+    public StoreDto selectByBusinessNumber(String businessNumber) {
+        String sql = "SELECT * FROM store WHERE store_business_number = ?";
+        Object[] data = {businessNumber};
+        try {
+            return jdbcTemplate.queryForObject(sql, storeMapper, data);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // 해당 사업자 등록번호에 해당하는 가게가 없는 경우
+        }
+    }
+
 
     
 

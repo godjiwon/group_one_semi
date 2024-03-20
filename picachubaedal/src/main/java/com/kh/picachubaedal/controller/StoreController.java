@@ -142,26 +142,63 @@ public class StoreController {
 
 			return "/WEB-INF/views/store/detail.jsp";
 		}
-	
-
-		// 가게 삭제
-		@GetMapping("/storeDelete")
-		public String delete_account() {
-			return "/WEB-INF/views/store/storeDelete.jsp";
-		}
 		
+		
+		
+		//가게 삭제
+		@GetMapping("/storeDelete")
+		public String deleteAccount() {
+		    return "/WEB-INF/views/store/storeDelete.jsp";
+		}
+
 		@PostMapping("/storeDelete")
+
 		
 //		        return "redirect:storeDeleteFinish";
 		   
 		
 		
+
+		public String deleteStore(HttpSession session, @RequestParam String storeBusinessNumber) {
+		    // 데이터베이스에서 해당 사업자 등록번호에 해당하는 가게 정보 조회
+		    StoreDto storeDto = storeDao.selectByBusinessNumber(storeBusinessNumber);
+
+		    // 콘솔에 입력된 사업자 등록번호와 해당하는 가게 정보 출력
+		    System.out.println("입력된 사업자 등록번호: " + storeBusinessNumber);
+		    if (storeDto != null) {
+		        System.out.println("DB에서 조회된 가게 정보: " + storeDto.toString());
+		    } else {
+		        System.out.println("DB에서 해당 사업자 등록번호에 해당하는 가게 정보가 없습니다.");
+		    }
+
+		    // 조회된 가게가 있고, 입력한 사업자 등록번호와 일치하는 경우에만 삭제
+		    if (storeDto != null && storeBusinessNumber.equals(storeDto.getStoreBusinessNumber())) {
+		        // 가게 삭제 처리
+		        int storeNo = storeDto.getStoreNo();
+		        storeDao.delete(storeNo);
+
+		        return "redirect:storeDeleteFinish";
+		    } else {
+		        // 가게가 없거나 사업자 등록번호가 일치하지 않는 경우
+		        return "redirect:storeDeleteFail";
+		    }
+		}
+
+
+
+
 		@RequestMapping("/storeDeleteFinish")
 		public String deleteStoreFinish() {
 		    return "/WEB-INF/views/store/storeDeleteFinish.jsp";
 		}
 
+		@RequestMapping("/storeDeleteFail")
+		public String deleteStoreFail() {
+		    return "/WEB-INF/views/store/storeDeleteFail.jsp";
+		}
 
+
+		
 
 
 
