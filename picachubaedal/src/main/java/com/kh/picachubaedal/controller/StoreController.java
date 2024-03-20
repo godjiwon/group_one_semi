@@ -85,6 +85,7 @@ public class StoreController {
 		}
 	}
 	@PostMapping("/change")
+
 	public String change(@ModelAttribute StoreDto dto) {
 	    storeDao.update(dto);
 	    return "redirect:/store/detail?storeNo=" + dto.getStoreNo();
@@ -186,12 +187,20 @@ public class StoreController {
 		}
 
 
-		
-
-
-
-	
-	
+//	//목록조회
+//	@RequestMapping("/list")
+//	public String list(@ModelAttribute PageVO pageVO, Model model) {
+//	    int count = storeDao.count(pageVO);
+//	    pageVO.setCount(count);
+//	    model.addAttribute("pageVO", pageVO);
+//
+//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+//	    //System.out.print(list);
+//	    model.addAttribute("list", list);
+//
+//	    return "/WEB-INF/views/store/list2.jsp";
+//	}
+//	
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
 //	    int count = storeDao.count(pageVO);
@@ -225,6 +234,8 @@ public class StoreController {
 	    // list2.jsp로 이동합니다.
 	    return "/WEB-INF/views/store/list2.jsp";
 	}
+	
+
 
 //	//전체 목록
 //	 @GetMapping("/categoryList")

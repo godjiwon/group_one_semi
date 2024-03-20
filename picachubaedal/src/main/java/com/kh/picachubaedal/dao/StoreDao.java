@@ -237,7 +237,6 @@ public class StoreDao {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
 										+ "select * from store "
-//										+ "where instr("+column+", ?) > 0 "//대소문자 구별
 										+ "where instr(upper("+pageVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
 										+ "order by "+pageVO.getColumn()+" asc, store_no asc"
 									+ ")TMP"
@@ -303,7 +302,7 @@ public class StoreDao {
 		    return jdbcTemplate.query(sql, storeMapper, data);
 		}
 		
-
+	
 
 		// StoreDao.java
 
@@ -327,8 +326,11 @@ public class StoreDao {
 		    }
 		}
 		
-		//메뉴 이름으로 가게 검색
-		public List<StoreDto> searchStoresByMenuName(String menuName) {
+
+
+		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
+		public List<StoreDto> selectListByMenuName(String menuName) {
+
 		    String sql = "SELECT DISTINCT s.* " +
 		                 "FROM store s " +
 		                 "INNER JOIN menu m ON s.store_no = m.store_no " +
@@ -343,20 +345,6 @@ public class StoreDao {
 		}
 
 
-		//categoryList에서 가게 메뉴 통합검색
-		public List<StoreDto> searchStores(String keyword) {
-		    String sql = "SELECT DISTINCT s.* " +
-		                 "FROM store s " +
-		                 "LEFT JOIN menu m ON s.store_no = m.store_no " +
-		                 "WHERE UPPER(s.storeName) LIKE UPPER(?) OR UPPER(m.menu_name) LIKE UPPER(?) " +
-		                 "ORDER BY s.store_no ASC";
-
-		    // ? 에 대한 값을 설정하여 SQL 쿼리 실행
-		    Object[] data = { "%" + keyword + "%", "%" + keyword + "%" };
-		    List<StoreDto> list = jdbcTemplate.query(sql, data, storeMapper);
-
-		    return list;
-		}
 
 		
 	
