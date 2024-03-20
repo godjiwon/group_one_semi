@@ -43,10 +43,17 @@ public class CartController {
 		return "/WEB-INF/views/cart/list.jsp";
 	}
 	
-	//장바구니 삭제(테스트전용)
+	//장바구니 삭제
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int cartNo) {
 		cartDao.delete(cartNo);
+		return "redirect:list";
+	}
+	
+	//장바구니 전체 삭제
+	@RequestMapping("/deleteAll")
+	public String deleteAll() {
+		cartDao.deleteAll();
 		return "redirect:list";
 	}
 }

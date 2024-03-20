@@ -32,10 +32,16 @@ public class CartDao {
         return jdbcTemplate.query(sql, cartMapper);
     }
 	
-	//장바구니 삭제(테스트전용)
+	//장바구니 개별 삭제
 	public boolean delete(int cartNo) {
 		String sql = "delete cart where cart_no=?";
 		Object[] data = {cartNo};
 		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//장바구니 전체 삭제
+	public void deleteAll() {
+		String sql = "delete from cart";
+		jdbcTemplate.update(sql);
 	}
 }
