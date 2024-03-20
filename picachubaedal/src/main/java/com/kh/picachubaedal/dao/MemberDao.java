@@ -145,6 +145,13 @@ public class MemberDao {
             return null; // 해당하는 닉네임의 회원이 없을 경우 null 반환
         }
     }
+	
+	public String findNick(String reviewBoardWriter) {
+		String sql = "select member_nick from member where member_id = ?";
+		Object[] data = {reviewBoardWriter};
+		return jdbcTemplate.queryForObject(sql, String.class, data);
+
+	}
 }
    
 
