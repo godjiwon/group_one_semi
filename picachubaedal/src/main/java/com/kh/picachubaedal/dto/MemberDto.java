@@ -95,7 +95,7 @@ public class MemberDto {
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
-	
+
 	
 }
 	

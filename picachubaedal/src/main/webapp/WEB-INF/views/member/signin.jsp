@@ -96,7 +96,7 @@
 
 <!--  카카오 계정 로그인 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/v1/kakao.min.js"></script>
 <script>
   Kakao.init("71758ab36b8b8732582af48d99fe3500"); //발급받은 키 중 javascript키를 사용해준다.
   console.log(Kakao.isInitialized()); // sdk초기화여부판단

@@ -21,6 +21,7 @@ import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.vo.PageVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -80,9 +81,16 @@ public class StoreController {
 		}
 	}
 	@PostMapping("/change")
-	public String change(@ModelAttribute StoreDto dto) {
-	    storeDao.update(dto);
-	    return "redirect:/store/detail?storeNo=" + dto.getStoreNo();
+	public String change(@ModelAttribute StoreDto storeDto) {
+	    //가게 수정 등록
+		storeDao.update(storeDto);
+	  
+//	    //첨부파일 등록
+//	    if(!attach.isEmpty()) {
+//	         int attachNo = attachService.save(attach);
+//	         storeDao.connect(storeDto.getStoreNo(), attachNo);
+//	      }
+	    return "redirect:/store/detail?storeNo=" + storeDto.getStoreNo();
 	}
 	@RequestMapping("/changeSuccess")
 	public String changeSuccess() {
@@ -93,7 +101,7 @@ public class StoreController {
 	    return "/WEB-INF/views/store/changeFail.jsp";
 	}
 	
-	
+//	//가게상세
 //	@RequestMapping("/detail")
 //	public String storeMypage(HttpSession session, Model model) {
 //	    // 세션에서 로그인된 회원의 정보를 가져옵니다.
@@ -134,16 +142,67 @@ public class StoreController {
 
 			return "/WEB-INF/views/store/detail.jsp";
 		}
-	
+		
+		
+		
+		//가게 삭제
+		@GetMapping("/storeDelete")
+		public String deleteAccount() {
+		    return "/WEB-INF/views/store/storeDelete.jsp";
+		}
+
+		@PostMapping("/storeDelete")
+
+		
+//		        return "redirect:storeDeleteFinish";
+		   
+		
+		
+
+		public String deleteStore(HttpSession session, @RequestParam String storeBusinessNumber) {
+		    // 데이터베이스에서 해당 사업자 등록번호에 해당하는 가게 정보 조회
+		    StoreDto storeDto = storeDao.selectByBusinessNumber(storeBusinessNumber);
+
+		    // 콘솔에 입력된 사업자 등록번호와 해당하는 가게 정보 출력
+		    System.out.println("입력된 사업자 등록번호: " + storeBusinessNumber);
+		    if (storeDto != null) {
+		        System.out.println("DB에서 조회된 가게 정보: " + storeDto.toString());
+		    } else {
+		        System.out.println("DB에서 해당 사업자 등록번호에 해당하는 가게 정보가 없습니다.");
+		    }
+
+		    // 조회된 가게가 있고, 입력한 사업자 등록번호와 일치하는 경우에만 삭제
+		    if (storeDto != null && storeBusinessNumber.equals(storeDto.getStoreBusinessNumber())) {
+		        // 가게 삭제 처리
+		        int storeNo = storeDto.getStoreNo();
+		        storeDao.delete(storeNo);
+
+		        return "redirect:storeDeleteFinish";
+		    } else {
+		        // 가게가 없거나 사업자 등록번호가 일치하지 않는 경우
+		        return "redirect:storeDeleteFail";
+		    }
+		}
 
 
+
+
+		@RequestMapping("/storeDeleteFinish")
+		public String deleteStoreFinish() {
+		    return "/WEB-INF/views/store/storeDeleteFinish.jsp";
+		}
+
+		@RequestMapping("/storeDeleteFail")
+		public String deleteStoreFail() {
+		    return "/WEB-INF/views/store/storeDeleteFail.jsp";
+		}
+
+
+		
+
+
+
 	
-	//삭제
-	@GetMapping("/delete")
-	public String delete(@RequestParam int storeNo) {
-		storeDao.delete(storeNo);
-		return "redirect:list";
-	}
 	
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
@@ -200,18 +259,28 @@ public class StoreController {
 	        return "redirect:/image/user.png"; // 기본 이미지로 리다이렉트
 	    }
 	}
+	
+	
+//	// 가게 사진 반환
+//	@RequestMapping("/storePhoto")
+//	public String image(HttpSession session,Model model) {
+//	    try {
+//	        String loginId = (String) session.getAttribute("loginId");
+//	        MemberDto storeDto = storeDao.selectByMemberNo(loginId);  // 로그인한 멤버의 가게 정보 가져오기
+//	         // 로그인한 멤버의 가게 정보 가져오기
+//	        if (storeDto != null) { // 가게 정보가 존재하는 경우에만 실행
+//	            int storeNo = storeDto.getStoreNo(); // 가게 번호 가져오기
+//	            int attachNo = storeDao.findAttachNo(storeNo); // 가게 번호로 사진 첨부파일 번호 가져오기
+//	            model.addAttribute("attachNo", attachNo); 
+//	           
+//	        } else {
+//	            return "redirect:/image/default_store_image.png"; // 가게 정보가 없는 경우 기본 이미지 반환
+//	        }
+//	    } catch (Exception e) {
+//	        return "redirect:/image/user.png"; // 오류 발생 시 기본 이미지 반환
+//	    }
+//	}
 
-	
-	//가게 삭제
-	@GetMapping("/deleteStore")
-	public String deleteStore(@RequestParam int storeNo) {
-		storeDao.delete(storeNo);
-		return "redirect:storeDeleteFinish";
-	}
-	
-	
-	
-	
-	
+
 	
 }

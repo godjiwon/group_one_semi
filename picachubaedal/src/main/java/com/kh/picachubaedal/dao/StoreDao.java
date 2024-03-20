@@ -34,6 +34,7 @@ public class StoreDao {
 	private MemberMapper memberMapper;
 
 
+    //가게등록
     public void insert(StoreDto storeDto, MultipartFile attach) throws IllegalStateException, IOException {
         String sql = "INSERT INTO store (" +
                     "store_no, store_name, store_post, store_address1, store_address2, store_category, "
@@ -57,7 +58,6 @@ public class StoreDao {
             storeDto.getStoreCloseHour(),
             storeDto.getStoreDelivery(),
             storeDto.getStoreClosed(),
-
             storeDto.getStoreBusinessNumber(),
             storeDto.getMemberNo()
         };
@@ -82,7 +82,7 @@ public class StoreDao {
     
     //회원번호로 가게 번호 찾기
     public int findStoreNoByMemberNo(int memberNo) {
-        String sql = "SELECT storeNo FROM store WHERE memberNo = ?";
+        String sql = "SELECT store_no FROM store WHERE member_no = ?";
         try {
             return jdbcTemplate.queryForObject(sql, Integer.class, memberNo);
         } catch (EmptyResultDataAccessException e) {
@@ -95,7 +95,7 @@ public class StoreDao {
 
 
  // 수정 (가게 수정)
-    public boolean update(StoreDto storeDto) {
+    public boolean update(StoreDto storeDto ) {
         String sql = "UPDATE store SET store_name=?, store_post=?, store_address1=?, store_address2=?, "
         		+ "store_category=?, store_type=?, store_contact=?, store_intro=?, "
         		+ "store_dtip=?, store_minprice=?, store_open_hour=?, store_close_hour=?, "
@@ -126,21 +126,74 @@ public class StoreDao {
     }
 
 
-    // 삭제 delete
+  //가게 삭제(삭제, Delete)
     public boolean delete(int storeNo) {
-    	String sql = "delete from store where store_no = ?";
-    	Object[] data = {storeNo};
-    	return jdbcTemplate.update(sql, data) > 0;
+        String sql = "delete from store where store_no = ?";
+        Object[] data = {storeNo};
+        return jdbcTemplate.update(sql, data) > 0;
     }
     
+ // 가게 삭제 (사업자 등록번호로 삭제)
+    public boolean deleteStoreByBusinessNumber(String businessNumber) {
+        // 입력한 사업자 등록번호로 가게를 조회
+        String selectQuery = "SELECT * FROM store WHERE store_business_number = ?";
+        StoreDto storeDto = jdbcTemplate.queryForObject(selectQuery, storeMapper, businessNumber);
 
-  //프로필 이미지 연결
+        if (storeDto != null && businessNumber.equals(storeDto.getStoreBusinessNumber())) {
+            // 조회된 가게가 있고, 입력한 사업자 등록번호와 일치할 경우 가게 삭제
+            String deleteQuery = "DELETE FROM store WHERE store_business_number = ?";
+            return jdbcTemplate.update(deleteQuery, businessNumber) > 0;
+        } else {
+            // 가게가 없거나 사업자 등록번호가 일치하지 않을 경우 삭제 실패
+            return false;
+        }
+    }
+    
+ // 사업자 등록번호로 가게 조회
+    public StoreDto selectByBusinessNumber(String businessNumber) {
+        String sql = "SELECT * FROM store WHERE store_business_number = ?";
+        Object[] data = {businessNumber};
+        try {
+            return jdbcTemplate.queryForObject(sql, storeMapper, data);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // 해당 사업자 등록번호에 해당하는 가게가 없는 경우
+        }
+    }
+
+
+    
+
+
+  	public boolean deleteByMemberIdAndStoreNo(String memberId, int storeNo) {
+  	    // 세션에서 memberId로 memberNo를 조회하는 쿼리
+  	    String memberNoQuery = "SELECT member_no FROM member WHERE member_id = ?";
+  	    int memberNo = jdbcTemplate.queryForObject(memberNoQuery, Integer.class, memberId);
+
+  	    // 해당 멤버가 소유한 가게 중에서 storeNo가 맞는 가게를 삭제하는 쿼리
+  	    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
+  	    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
+  	}
+
+
+
+    
+
+  //프로필 이미지 연결 (백업 03.19)
   	public void connect(int storeNo, int attachNo) {
   		String sql = "insert into store_attach(store_no, attach_no) "
   						+ "values(?, ?)";
   		Object[] data = {storeNo, attachNo};
   		jdbcTemplate.update(sql, data);
   	}
+  	
+// // 프로필 이미지 연결
+//  	public void connect(int storeNo, int attachNo) {
+//  	    String sql = "insert into store_attach(store_no, attach_no) values(?, ?)";
+//  	    Object[] data = {storeNo, attachNo};
+//  	    jdbcTemplate.update(sql, data);
+//  	}
+
+  	
 
   	public int findAttachNo(int storeNo) {
   		String sql = "select attach_no from store_attach where store_no = ?";
@@ -219,7 +272,8 @@ public class StoreDao {
 				return jdbcTemplate.queryForObject(sql, int.class);
 			}
 		}
-
+		
+	//	백업 03.19
 		public MemberDto selectByMemberNo(int memberNo) {
 			String sql = "select * from store where member_no=?";
 			Object[] data = {memberNo};
@@ -241,7 +295,29 @@ public class StoreDao {
 		
 
 
+		// StoreDao.java
+
+		public boolean deleteStoreByMemberIdAndStoreNo(String memberId, int storeNo) {
+		    // 세션에서 memberId로 memberNo를 조회하는 쿼리
+		    String memberNoQuery = "SELECT member_no FROM member WHERE member_id = ?";
+		    int memberNo = jdbcTemplate.queryForObject(memberNoQuery, Integer.class, memberId);
+
+		    // 해당 멤버가 소유한 가게 중에서 storeNo가 맞는 가게를 삭제하는 쿼리
+		    String deleteQuery = "DELETE FROM store WHERE member_no = ? AND store_no = ?";
+		    return jdbcTemplate.update(deleteQuery, memberNo, storeNo) > 0;
+		}
 		
+		
+		public StoreDto selectByMemberNo(String memberId) {
+		    String sql = "SELECT * FROM store WHERE member_no = (SELECT member_no FROM member WHERE member_id = ?)";
+		    try {
+		        return jdbcTemplate.queryForObject(sql, storeMapper, memberId);
+		    } catch (EmptyResultDataAccessException e) {
+		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
+		    }
+		}
+
+	
 		
 	
 }

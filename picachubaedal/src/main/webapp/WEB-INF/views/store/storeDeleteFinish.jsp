@@ -5,7 +5,7 @@
 
 <div class="cell" style="text-align: center;">
 	<br>
-	<h1>가게 삭제가 완료되었습니다</h1>
+	<h1>가게 삭제가 완료되었습니다ㅠㅠ</h1>
 	<br>
 	<br> <img class="img center"
 		src=https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWc2cjc3ZjVmMHV0b294aWltaGoycXFrZmxodjh3OXJ5Z2cza3l1dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dJYoOVAWf2QkU/giphy.gif><br>
