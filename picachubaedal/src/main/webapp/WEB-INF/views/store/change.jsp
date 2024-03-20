@@ -439,12 +439,12 @@ $(function(){
 								</div>
 							</div>
 						</div>
-						<div class="cell page">
+<!-- 				<div class="cell page">
 							<div class="cell">
 							<label>가게 이미지</label>
 								 <input type="file" name="attach" class="tool w-100">
 							</div>
-						</div>
+						</div> -->		
 						<div class="flex-cell"></div>
 					</div>
 				</div>

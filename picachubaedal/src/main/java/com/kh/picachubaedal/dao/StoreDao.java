@@ -274,12 +274,12 @@ public class StoreDao {
 		}
 		
 	//	백업 03.19
-//		public MemberDto selectByMemberNo(int memberNo) {
-//			String sql = "select * from store where member_no=?";
-//			Object[] data = {memberNo};
-//			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
-//			return list.isEmpty() ? null : list.get(0);
-//		}
+		public MemberDto selectByMemberNo(int memberNo) {
+			String sql = "select * from store where member_no=?";
+			Object[] data = {memberNo};
+			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+			return list.isEmpty() ? null : list.get(0);
+		}
 		
 		public List<StoreDto> selectListAll() {
 
