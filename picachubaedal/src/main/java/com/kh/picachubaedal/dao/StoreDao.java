@@ -237,7 +237,6 @@ public class StoreDao {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
 										+ "select * from store "
-//										+ "where instr("+column+", ?) > 0 "//대소문자 구별
 										+ "where instr(upper("+pageVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
 										+ "order by "+pageVO.getColumn()+" asc, store_no asc"
 									+ ")TMP"
@@ -303,7 +302,7 @@ public class StoreDao {
 		    return jdbcTemplate.query(sql, storeMapper, data);
 		}
 		
-
+	
 
 		// StoreDao.java
 
@@ -327,6 +326,7 @@ public class StoreDao {
 		    }
 		}
 		
+
 		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
 		public List<StoreDto> selectListByMenuName(String menuName) {
 		    String sql = "SELECT DISTINCT s.* " +
@@ -337,6 +337,7 @@ public class StoreDao {
 		    Object[] data = { menuName };
 		    return jdbcTemplate.query(sql, storeMapper, data);
 		}
+
 
 	
 		
