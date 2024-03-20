@@ -327,19 +327,25 @@ public class StoreDao {
 		}
 		
 
+
 		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
 		public List<StoreDto> selectListByMenuName(String menuName) {
+
 		    String sql = "SELECT DISTINCT s.* " +
 		                 "FROM store s " +
 		                 "INNER JOIN menu m ON s.store_no = m.store_no " +
 		                 "WHERE INSTR(UPPER(m.menu_name), UPPER(?)) > 0 " +
 		                 "ORDER BY s.store_no ASC";
+
+		    // ? 에 대한 값을 설정하여 SQL 쿼리 실행
 		    Object[] data = { menuName };
-		    return jdbcTemplate.query(sql, storeMapper, data);
+		    List<StoreDto> list = jdbcTemplate.query(sql, storeMapper, data);
+
+		    return list;
 		}
 
 
-	
+
 		
 	
 }

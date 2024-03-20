@@ -9,15 +9,7 @@
     <div class="cell center">
         <h1>가게 목록</h1>
     </div>
-    <!-- 카테고리 선택 부분 제거 -->
-    <!-- 검색창 -->
-    <div class="cell center">
-        <form action="list" method="get">
-            <!-- 카테고리 선택 부분 제거 -->
-            <input type="text" name="keyword" placeholder="검색어 입력" required value="${param.keyword}" class="tool">
-            <button class="btn positive">검색</button>
-        </form>
-    </div>
+    
     <div class="cell right">
         <h2><a class="link link-animation" href="insert1">신규 가게 등록</a></h2>
     </div>
