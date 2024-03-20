@@ -81,16 +81,15 @@ public class StoreController {
 		}
 	}
 	@PostMapping("/change")
-	public String change(@ModelAttribute StoreDto storeDto, @RequestParam MultipartFile attach)
-			throws IllegalStateException, IOException {
+	public String change(@ModelAttribute StoreDto storeDto) {
 	    //가게 수정 등록
 		storeDao.update(storeDto);
 	  
-	    //첨부파일 등록
-	    if(!attach.isEmpty()) {
-	         int attachNo = attachService.save(attach);
-	         storeDao.connect(storeDto.getStoreNo(), attachNo);
-	      }
+//	    //첨부파일 등록
+//	    if(!attach.isEmpty()) {
+//	         int attachNo = attachService.save(attach);
+//	         storeDao.connect(storeDto.getStoreNo(), attachNo);
+//	      }
 	    return "redirect:/store/detail?storeNo=" + storeDto.getStoreNo();
 	}
 	@RequestMapping("/changeSuccess")
@@ -102,7 +101,7 @@ public class StoreController {
 	    return "/WEB-INF/views/store/changeFail.jsp";
 	}
 	
-	
+//	//가게상세
 //	@RequestMapping("/detail")
 //	public String storeMypage(HttpSession session, Model model) {
 //	    // 세션에서 로그인된 회원의 정보를 가져옵니다.
@@ -201,47 +200,49 @@ public class StoreController {
 	    return "/WEB-INF/views/store/list2.jsp";
 	}
 
-//	// 사진 반환
-//	@RequestMapping("/storePhoto")
-//	public String image(HttpSession session) {
-//	    try {
-//	        int memberNo = (int) session.getAttribute("memberNo"); // 세션에서 로그인된 회원번호 가져오기
-//	        int storeNo = storeDao.findStoreNoByMemberNo(memberNo); // 회원번호로 가게번호 찾기
-//	        if (storeNo <= 0) {
-//	            throw new IllegalStateException("해당 회원의 가게를 찾을 수 없습니다.");
-//	        }
-//	        
-//	        int attachNo = storeDao.findAttachNo(storeNo); // 가게번호로 첨부 파일 번호 찾기
-//	        if (attachNo <= 0) {
-//	            throw new IllegalStateException("가게에 대한 첨부 파일을 찾을 수 없습니다.");
-//	        }
-//
-//	        return "redirect:/download?attachNo=" + attachNo; // 첨부 파일 다운로드 링크로 리다이렉트
-//	    } catch (Exception e) {
-//	        // 예외 처리
-//
-//	        return "redirect:/image/user.png"; // 기본 이미지로 리다이렉트
-//	    }
-//	}
-	
-	
-	// 가게 사진 반환
+	// 사진 반환
 	@RequestMapping("/storePhoto")
 	public String image(HttpSession session) {
 	    try {
-	        String loginId = (String) session.getAttribute("loginId");
-	        StoreDto storeDto = storeDao.selectByMemberNo(loginId); // 로그인한 멤버의 가게 정보 가져오기
-	        if (storeDto != null) { // 가게 정보가 존재하는 경우에만 실행
-	            int storeNo = storeDto.getStoreNo(); // 가게 번호 가져오기
-	            int attachNo = storeDao.findAttachNo(storeNo); // 가게 번호로 사진 첨부파일 번호 가져오기
-	            return "redirect:/download?attachNo=" + attachNo;
-	        } else {
-	            return "redirect:/image/default_store_image.png"; // 가게 정보가 없는 경우 기본 이미지 반환
+	        int memberNo = (int) session.getAttribute("memberNo"); // 세션에서 로그인된 회원번호 가져오기
+	        int storeNo = storeDao.findStoreNoByMemberNo(memberNo); // 회원번호로 가게번호 찾기
+	        if (storeNo <= 0) {
+	            throw new IllegalStateException("해당 회원의 가게를 찾을 수 없습니다.");
 	        }
+	        
+	        int attachNo = storeDao.findAttachNo(storeNo); // 가게번호로 첨부 파일 번호 찾기
+	        if (attachNo <= 0) {
+	            throw new IllegalStateException("가게에 대한 첨부 파일을 찾을 수 없습니다.");
+	        }
+
+	        return "redirect:/download?attachNo=" + attachNo; // 첨부 파일 다운로드 링크로 리다이렉트
 	    } catch (Exception e) {
-	        return "redirect:/image/default_store_image.png"; // 오류 발생 시 기본 이미지 반환
+	        // 예외 처리
+
+	        return "redirect:/image/user.png"; // 기본 이미지로 리다이렉트
 	    }
 	}
+	
+	
+//	// 가게 사진 반환
+//	@RequestMapping("/storePhoto")
+//	public String image(HttpSession session,Model model) {
+//	    try {
+//	        String loginId = (String) session.getAttribute("loginId");
+//	        MemberDto storeDto = storeDao.selectByMemberNo(loginId);  // 로그인한 멤버의 가게 정보 가져오기
+//	         // 로그인한 멤버의 가게 정보 가져오기
+//	        if (storeDto != null) { // 가게 정보가 존재하는 경우에만 실행
+//	            int storeNo = storeDto.getStoreNo(); // 가게 번호 가져오기
+//	            int attachNo = storeDao.findAttachNo(storeNo); // 가게 번호로 사진 첨부파일 번호 가져오기
+//	            model.addAttribute("attachNo", attachNo); 
+//	           
+//	        } else {
+//	            return "redirect:/image/default_store_image.png"; // 가게 정보가 없는 경우 기본 이미지 반환
+//	        }
+//	    } catch (Exception e) {
+//	        return "redirect:/image/user.png"; // 오류 발생 시 기본 이미지 반환
+//	    }
+//	}
 
 
 	
