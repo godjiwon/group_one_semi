@@ -249,7 +249,7 @@
 				<a class="on">${i}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="ceoMenuList?page=${i}&${pageVO.getQueryString()}">${i}</a>
+				<a href="ceoMenuList?page=${i}&${pageVO.getQueryString()}&storeNo=${storeNo}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
