@@ -1,64 +1,66 @@
 package com.kh.picachubaedal.dto;
 
 public class CartDto {
+
 	private int cartNo;
-	private int cartCount;
 	private int memberNo;
 	private int menuNo;
-	private int storeNo;
-	private String storeName;
-	private String menuName;
-	private int cartPrice;
-	public CartDto() {
-		super();
-	}
-	public int getCartNo() {
-		return cartNo;
-	}
-	public void setCartNo(int cartNo) {
-		this.cartNo = cartNo;
-	}
-	public int getCartCount() {
-		return cartCount;
-	}
-	public void setCartCount(int cartCount) {
-		this.cartCount = cartCount;
-	}
-	public int getMemberNo() {
-		return memberNo;
-	}
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
+	private String itemName;
+	private int itemPrice;
+	private int itemQuantify;
+
+	
+	
 	public int getMenuNo() {
 		return menuNo;
 	}
+
 	public void setMenuNo(int menuNo) {
 		this.menuNo = menuNo;
 	}
-	public int getStoreNo() {
-		return storeNo;
+
+	public CartDto() {
+		super();
 	}
-	public void setStoreNo(int storeNo) {
-		this.storeNo = storeNo;
+
+	public int getCartNo() {
+		return cartNo;
 	}
-	public String getStoreName() {
-		return storeName;
+
+	public void setCartNo(int cartNo) {
+		this.cartNo = cartNo;
 	}
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
+
+	public int getMemberNo() {
+		return memberNo;
 	}
-	public String getMenuName() {
-		return menuName;
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
+
+	public String getItemName() {
+		return itemName;
 	}
-	public int getCartPrice() {
-		return cartPrice;
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
-	public void setCartPrice(int cartPrice) {
-		this.cartPrice = cartPrice;
+
+	public int getItemPrice() {
+		return itemPrice;
 	}
-	
+
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+	public int getItemQuantify() {
+		return itemQuantify;
+	}
+
+	public void setItemQuantify(int itemQuantify) {
+		this.itemQuantify = itemQuantify;
+	}
+
 }

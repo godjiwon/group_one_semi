@@ -20,10 +20,15 @@
         justify-content: center;
         align-items: center;
     }
+    .empty-flex-cell {
+		display: flex;
+    	justify-content: center;    
+    }
     
     .menu-button-style {
        display: flex;
-      justify-content: flex-end;
+       justify-content: flex-end;
+       margin: 0;
     }
     
     .menulist {
@@ -110,7 +115,8 @@
 	.store_name_design {
 		font-size: 28px;
 	    font-weight: bold;
-	    padding-top: 10px;		
+	    padding-top: 30px;
+	    padding-bottom: 7px;		
 	}
 	.menu-info-style {
 		font-size: 15px;
@@ -120,7 +126,7 @@
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/list").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function(){
@@ -134,7 +140,7 @@
 	});
 
 </script>
-<form class="menuCategoryBar" name="menuForm" action="list" method="get">
+<form class="menuCategoryBar" name="menuForm" action="ceoMenuList" method="get">
 	<div>
 		<ul>
 			<li class="main_search">
@@ -157,57 +163,71 @@
 	</div>
 </form>
 <div class="cell">
-   <h3 class="menu-button-style">
-      <a class="list-button-style gray" href="insert?storeNo=${storeNo}">
-         <i class="fa-solid fa-plus"></i>
-         메뉴등록
-      </a>
-   </h3>
    <div class="cell center store_name_design">
-   <i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i> 메뉴 리스트</div>
+   	  <div>
+   	  	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i> 메뉴 리스트
+   	  </div>
+   	  <div>
+		  <h3 class="menu-button-style">
+			  <a class="list-button-style gray" href="insert?storeNo=${storeNo}">
+			     <i class="fa-solid fa-plus"></i>
+			       메뉴등록
+			  </a>
+		  </h3>   	  
+   	  </div>
+   </div>
    
    <div class="menulist">
-      <c:forEach var="menuDto" items="${list}">
-         <div class="cell flex-cell card menuCard">
-             <div class="w-25 flex-cell middle">
-                 <div class="img_wrap">
-                 	<img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
-                 </div>
-             </div>
-             <div class="content-wrapper width-fill p-10 menuSubCard">
-                 <div class="menu-title-wrapper">
-	                  <div>${menuDto.menuName}
-	                     <c:if test="${menuDto.menuState == 'N'}">
-	                        <span class="red review-wrapper">
-	                               (품절)
-	                           </span>                     
-	                        </c:if>
-	                  </div>  
-	                    <div>
-							<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
-	                    </div>
-	                    <div class="menu-info-style right gray">
-						    <span>등록일 ${menuDto.menuTime}</span>
-						    <c:if test="${!empty menuDto.menuUpdate}">
-						        <span> | 수정일 ${menuDto.menuUpdate}</span>
-						    </c:if>
-						</div>          
-                 </div>     
-                     
-                 <div class="right">
-	                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
-	                     <i class="fa-solid fa-pencil"></i>
-	                     수정
-	                  </a>
-	                  <span> | </span>
-	                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}">
-	                     <i class="fa-solid fa-minus"></i>
-	                     삭제
-	                  </a>               
-                 </div> 
-             </div>
-         </div>
-      </c:forEach>
+   		<c:if test="${list.size() != 0}">
+			<c:forEach var="menuDto" items="${list}">
+	         <div class="cell flex-cell card menuCard">
+	             <div class="w-25 flex-cell middle">
+	                 <div class="img_wrap">
+	                 	<img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
+	                 </div>
+	             </div>
+	             <div class="content-wrapper width-fill p-10 menuSubCard">
+	                 <div class="menu-title-wrapper">
+		                  <div>${menuDto.menuName}
+		                     <c:if test="${menuDto.menuState == 'N'}">
+		                        <span class="red review-wrapper">
+		                               (품절)
+		                           </span>                     
+		                        </c:if>
+		                  </div>  
+		                    <div>
+								<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
+		                    </div>
+		                    <div class="menu-info-style right gray">
+							    <span>등록일 ${menuDto.menuTime}</span>
+							    <c:if test="${!empty menuDto.menuUpdate}">
+							        <span> | 수정일 ${menuDto.menuUpdate}</span>
+							    </c:if>
+							</div>          
+	                 </div>     
+	                     
+	                 <div class="right">
+		                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
+		                     <i class="fa-solid fa-pencil"></i>
+		                     수정
+		                  </a>
+		                  <span> | </span>
+		                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}" onclick="return confirm('삭제하시겠습니까?');">
+		                     <i class="fa-solid fa-minus"></i>
+		                     삭제
+		                  </a>               
+	                 </div> 
+	             </div>
+	         </div>
+	      </c:forEach>   		
+   		</c:if>
+   		<c:if test="${list.size() == 0}">
+   			<div class="cell empty-flex-cell card menuCard">
+   				<div>
+   					<h1>메뉴가 없습니다.</h1>
+   				</div>
+   			</div>
+   		</c:if>
    </div>
 <%-- 네비게이터 --%>
 <div class="page-navigator">

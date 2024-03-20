@@ -90,15 +90,10 @@
 							<div class="header_sideMenu right">
 							<a href="/store/list">내가게</a>&nbsp;
 								<a href="/member/mypage">마이페이지</a>&nbsp;
-
-							<ul>
-								<a href="/member/mypage">마이페이지</a>
-
 								<a href="/member/logout">로그아웃</a>
-							</ul>
 						</c:when>
 						<c:otherwise>
-							<a href="/member/signin">로그인</a>
+							<a class="pe-10" href="/member/signin">로그인</a>
 							<a href="/member/signup">회원가입</a>
 						</c:otherwise>
 					</c:choose>

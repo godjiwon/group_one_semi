@@ -442,7 +442,7 @@
 					</div>
 				</div>
 
-				<div class="cell page">
+				<div class="cell">
 					<div class="cell">
 						<label>가게 이미지</label> <input type="file" name="attach"
 							class="tool w-100">
