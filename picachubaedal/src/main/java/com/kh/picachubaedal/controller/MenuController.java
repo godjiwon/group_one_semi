@@ -48,9 +48,9 @@ public class MenuController {
     */
    //GET 요청을 처리하는 핸들러 메서드로, 메뉴 등록 폼을 보여줌
    @GetMapping("/insert")
-   public String insert(Model model) {//Model 객체를 사용하여 뷰로 데이터를 전달
+   public String insert(Model model, @RequestParam int storeNo) {//Model 객체를 사용하여 뷰로 데이터를 전달
 	  //가게번호 test
-	  model.addAttribute("storeNo", 3);// 가게 번호를 모델에 추가
+	  model.addAttribute("storeNo", storeNo);// 가게 번호를 모델에 추가
       return "/WEB-INF/views/menu/insert.jsp";
    }
 
