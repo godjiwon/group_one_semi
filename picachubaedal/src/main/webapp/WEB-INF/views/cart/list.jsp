@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -17,43 +18,46 @@
 }
 </style>
 
-<div class="container w-1000">
-<div class="cell center">
-	<h1>장바구니</h1>
-</div>
+<div class="container w-800">
+	<div class="cell center">
+		<h2>장바구니</h2>
+	</div>
+<input type="text" name="memberNo" class="tool w-100" value="<%=session.getAttribute("memberNo")%>" readonly>
 
-<div class="cell">
-<h3>가게이름</h3>
-<form>
-<img src="menu_no">
-<h3>메뉴명</h3>
-<h3>수량</h3>
-<h3>X (삭제버튼)</h3>
-<a><h3>더담기 (가능하면 구현)</h3></a>
-<button>주문(결제)(최소주문금액 이상일 경우 버튼 클릭가능)</button>
-</form>
-</div>
+<c:choose>
+	<c:when test="${sessionScope.memberNo != null && not empty qwer}">
+		<table border="1">
+			<thead>
+				<tr>
+					<th>메뉴명</th>
+					<th>수량</th>
+					<th>총 금액</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="ppp" items="${qwer}">
+					<tr>
+						<td>${ppp.itemName}</td>
+						<td>${ppp.itemQuantify}</td>
+						<td>${ppp.itemPrice}</td>
+						<td><a href="delete?cartNo=${ppp.cartNo}">삭제</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<form action="/orders/buy" method="get">
+			<input type="text" name="memberNo" class="tool w-100" value="<%=session.getAttribute("memberNo")%>" readonly>
+			<input type="text" name="menuNo" value="${ppp.menuNo}" readonly>
+			<button>주문</button>
+		</form>
+	</c:when>
+	<c:otherwise>
+		<h2>장바구니가 비었습니다</h2>
+	</c:otherwise>
+</c:choose>
 
-<h1>장바구니</h1>
-
-<table class="table table-border">
-	<tr>
-		<th>가게</th>
-		<th>메뉴</th>
-		<th>수량</th>
-		<th>가격</th>
-	</tr>
-	<c:forEach var="cartDto" items="${list}">
-		<tr>
-			<td>${cartDto.storeNo}</td>
-			<td>${cartDto.menuName}</td>
-			<td>${cartDto.cartCount}</td>
-			<td>${cartDto.menuPrice}원</td>
-		</tr>
-	</c:forEach>
-</table>
 </div>
-</form>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
