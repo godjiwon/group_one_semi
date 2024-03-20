@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
+import com.kh.picachubaedal.mapper.MenuMapper;
 import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
@@ -33,6 +32,11 @@ public class StoreDao {
 
     @Autowired
 	private MemberMapper memberMapper;
+    
+    @Autowired
+    private MenuDao menuDao;
+    @Autowired
+    private MenuMapper menuMapper;
 
 
     //가게등록
@@ -322,6 +326,19 @@ public class StoreDao {
 		    }
 		}
 		
+
+		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
+		public List<StoreDto> selectListByMenuName(String menuName) {
+		    String sql = "SELECT DISTINCT s.* " +
+		                 "FROM store s " +
+		                 "INNER JOIN menu m ON s.store_no = m.store_no " +
+		                 "WHERE INSTR(UPPER(m.menu_name), UPPER(?)) > 0 " +
+		                 "ORDER BY s.store_no ASC";
+		    Object[] data = { menuName };
+		    return jdbcTemplate.query(sql, storeMapper, data);
+		}
+
+
 	
 		
 	
