@@ -67,37 +67,21 @@
 
 <script type="text/javascript">
 
-function insertMenuImage(file, menuNo) {
-    var formData = new FormData();
-    formData.append('file', file);
-    formData.append('menuNo', menuNo);
-    $.ajax({
-        type: "POST",
-        url: "/menu/menuFileUpdate",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-        	if(data) {
-        		window.location.href = "/menu/ceoMenuList";	
-        	}
-        }, 
-        error: function(request,status,error) {
-			console.log("menuFileUpload error");
-		}
-    });
-}
-
 function updateMenu(file) {
 	if(!checkMenuName() || !checkMenuPrice() || !checkMenuCategory()) {
 		alert("다시 입력해주세요");
 		return;
 	}
-    const menuForm = $("#update_form").serializeArray();
+	const menuForm = new FormData($("#update_form")[0]);
+	if (file !== null && file !== undefined) {
+        menuForm.append('menuImage', file);
+    }
     $.ajax({
 	    url: "/menu/edit",
 	    type: "POST",
 	    data: menuForm,
+	    contentType: false,
+        processData: false,
 	    success: function(response) {
 	        if(file !== null && file !== undefined) {
 	        	insertMenuImage(file, response)

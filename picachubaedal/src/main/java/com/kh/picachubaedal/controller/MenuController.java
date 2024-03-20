@@ -62,10 +62,15 @@ public class MenuController {
     */
    @PostMapping("/insert")
    @ResponseBody
-   public int insert(@ModelAttribute MenuDto menuDto) throws Exception {
+   public int insert(@ModelAttribute MenuDto menuDto, 
+		   			 @RequestParam(value = "menuImage", required = false) MultipartFile menuImage) throws Exception {
 	    //메뉴 정보 등록
 	    menuDao.insert(menuDto);
 	    int menuNo = menuDao.selectRecentMenu();
+	    if(menuImage != null) {
+	    	int attachNo = attachService.save(menuImage);
+	    	menuDao.connect(menuNo, attachNo);
+	    }
 	    return menuNo;
    }
 
@@ -137,53 +142,6 @@ public class MenuController {
 	      	
 		return "/WEB-INF/views/menu/customerMenuList.jsp";
    }
-   
-   /**
-    *  메뉴 파일 업로드
-    *  @param file
-    *  @param request
-    *  @param menuNo
-    *  @return redirect:list
-    */
-   @RequestMapping("/menuFileUpload")
-   @ResponseBody
-   public Boolean menuFileUpload(MultipartFile file, HttpServletRequest request, @RequestParam("menuNo") int menuNo) throws Exception {
-	   try {
-		   if(!file.isEmpty()) {
-			   int attachNo = attachService.save(file);
-			   menuDao.connect(menuNo, attachNo);
-		   }
-		   return true;
-	   } catch(Exception e) {
-		   return false;
-	   }
-   }
-   
-   /**
-    *  메뉴 파일 수정
-    *  @param file
-    *  @param request
-    *  @param menuNo
-    *  @return redirect:list
-    */
-   @RequestMapping("/menuFileUpdate")
-   @ResponseBody
-   public boolean menuFileUpdate(MultipartFile file, @RequestParam("menuNo") int menuNo) {
-	    try {
-	        if (file.isEmpty()) {
-	            return false;
-	        }
-	        int beforeAttachNo = menuDao.selectAttcahNo(menuNo);
-	        if (beforeAttachNo != 0) {
-	            attachDao.delete(beforeAttachNo);
-	        }
-	        int attachNo = attachService.save(file);
-	        menuDao.connect(menuNo, attachNo);
-	        return true;
-	    } catch (Exception e) {
-	        return false;
-	    }
-	} 
 
    /**
     *  메뉴 사진 찾기
@@ -235,8 +193,18 @@ public class MenuController {
     */   
    @PostMapping("/edit")
    @ResponseBody
-   public int edit(@ModelAttribute MenuDto menuDto) {
+   public int edit(@ModelAttribute MenuDto menuDto,
+		   		   @RequestParam(value = "menuImage", required = false) MultipartFile menuImage) throws Exception {
 	   menuDao.update(menuDto);
+	   if (menuImage != null) {
+		   int beforeAttachNo = menuDao.selectAttcahNo(menuDto.getMenuNo());
+	       if (beforeAttachNo != 0) {
+	           attachDao.delete(beforeAttachNo);
+	       }
+	       int attachNo = attachService.save(menuImage);
+	       menuDao.connect(menuDto.getMenuNo(), attachNo);
+       }
+       
 	   return menuDto.getMenuNo();
    }
    
