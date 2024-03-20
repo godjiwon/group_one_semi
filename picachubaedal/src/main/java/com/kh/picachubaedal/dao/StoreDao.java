@@ -238,7 +238,6 @@ public class StoreDao {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
 										+ "select * from store "
-//										+ "where instr("+column+", ?) > 0 "//대소문자 구별
 										+ "where instr(upper("+pageVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
 										+ "order by "+pageVO.getColumn()+" asc, store_no asc"
 									+ ")TMP"
@@ -293,7 +292,7 @@ public class StoreDao {
 		    return jdbcTemplate.query(sql, storeMapper, data);
 		}
 		
-
+	
 
 		// StoreDao.java
 
@@ -316,7 +315,7 @@ public class StoreDao {
 		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
 		    }
 		}
-
+		
 	
 		
 	

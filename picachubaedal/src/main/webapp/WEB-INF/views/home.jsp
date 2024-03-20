@@ -18,15 +18,20 @@
 </style>
 </head>
 <body>
-<div class="container center w-800">
-	<form action="#" method="get" autocomplete="off">
-	<div class="cell center my-50" style="position: relative; display: inline-block;">
-		<input type="text" class="tool w-80" size="25" placeholder="메뉴 검색">
-		<button type="button" class="btn tool menu_seach" style="background-color:rgb(254,210,61);">
-			<i class="fa-solid fa-magnifying-glass"></i>
-		</button>
-	</div>
-	</form>
+<div class="container center w-800"><br><br>
+	<%--메뉴&가게 검색창 --%>
+		<form action="list" method="get" autocomplete="off">
+	
+				<select name="column" class="tool">
+					<option value="store_name"
+						${param.column == 'store_name' ? 'selected' : ''}>메뉴이름</option>
+				</select> 
+				<input type="text" name="keyword" class="tool w-80" size="25" placeholder="검색어 입력">
+				<button type="button" class="btn tool menu_seach"
+					style="background-color: rgb(254, 210, 61);">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>	
+		</form><br>
 
 	<br><br>
 

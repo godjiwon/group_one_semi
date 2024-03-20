@@ -172,4 +172,15 @@ public class MenuDao {
        }
     }
 	
-}
+//	//홈화면에서 메뉴 검색키워드 
+//	public List<MenuDto> selectList(String column, String keyword) {
+//		String sql = "select * from menu "					
+//						+ "where instr(upper("+column+"), upper(?)) > 0 "//대소문자 무시
+//						+ "order by "+column+" asc, menu_no asc";
+//		Object[] data = {keyword};
+//		return jdbcTemplate.query(sql, menuMapper, data);
+	}
+	
+	
+
+

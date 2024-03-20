@@ -81,16 +81,16 @@ public class StoreController {
 		}
 	}
 	@PostMapping("/change")
-	public String change(@ModelAttribute StoreDto storeDto, @RequestParam MultipartFile attach)
+	public String change(@ModelAttribute StoreDto storeDto)
 			throws IllegalStateException, IOException {
 	    //가게 수정 등록
 		storeDao.update(storeDto);
 	  
-	    //첨부파일 등록
-	    if(!attach.isEmpty()) {
-	         int attachNo = attachService.save(attach);
-	         storeDao.connect(storeDto.getStoreNo(), attachNo);
-	      }
+//	    //첨부파일 등록
+//	    if(!attach.isEmpty()) {
+//	         int attachNo = attachService.save(attach);
+//	         storeDao.connect(storeDto.getStoreNo(), attachNo);
+//	      }
 	    return "redirect:/store/detail?storeNo=" + storeDto.getStoreNo();
 	}
 	@RequestMapping("/changeSuccess")
@@ -199,27 +199,22 @@ public class StoreController {
 		}
 
 
-		
-
-
-
-	
-	
-//	@RequestMapping("/list")
-//	public String list(@ModelAttribute PageVO pageVO, Model model) {
-//	    int count = storeDao.count(pageVO);
-//	    pageVO.setCount(count);
-//	    model.addAttribute("pageVO", pageVO);
-//
-//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-//	    //System.out.print(list);
-//	    model.addAttribute("list", list);
-//
-//	    return "/WEB-INF/views/store/list2.jsp";
-//	}
-	
+	//목록조회
 	@RequestMapping("/list")
-	public String list(Model model, HttpSession session) {
+	public String list(@ModelAttribute PageVO pageVO, Model model) {
+	    int count = storeDao.count(pageVO);
+	    pageVO.setCount(count);
+	    model.addAttribute("pageVO", pageVO);
+
+	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+	    //System.out.print(list);
+	    model.addAttribute("list", list);
+
+	    return "/WEB-INF/views/store/list2.jsp";
+	}
+	
+	@RequestMapping("/categoryList")
+	public String categoryList(Model model, HttpSession session) {
 	    // 세션에서 현재 로그인한 회원의 회원번호를 가져옵니다.
 		 Integer memberNo = (Integer) session.getAttribute("memberNo");
 
@@ -237,6 +232,8 @@ public class StoreController {
 	    // list2.jsp로 이동합니다.
 	    return "/WEB-INF/views/store/list2.jsp";
 	}
+	
+
 
 //	// 사진 반환
 //	@RequestMapping("/storePhoto")
