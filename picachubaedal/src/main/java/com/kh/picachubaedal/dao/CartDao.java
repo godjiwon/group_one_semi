@@ -31,4 +31,17 @@ public class CartDao {
         String sql = "select * from cart order by cart_no asc";
         return jdbcTemplate.query(sql, cartMapper);
     }
+	
+	//장바구니 개별 삭제
+	public boolean delete(int cartNo) {
+		String sql = "delete cart where cart_no=?";
+		Object[] data = {cartNo};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//장바구니 전체 삭제
+	public void deleteAll() {
+		String sql = "delete from cart";
+		jdbcTemplate.update(sql);
+	}
 }
