@@ -19,6 +19,7 @@ import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.EmailService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 //
 @Controller
@@ -303,4 +304,27 @@ public class MemberController {
 	public String findPwFail() {
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
+	
+	@GetMapping("/getMemberGrade")
+	public String getMemberGradeFromSession(HttpSession session) {
+	    // 세션에서 회원 번호를 가져옴
+	    int memberNo = (int) session.getAttribute("memberNo");
+	    
+	    // 회원 번호로부터 회원 등급을 조회하여 가져옴
+	    String memberGrade = memberDao.getMemberGradeByMemberNo(memberNo);
+	    
+	    // 회원 등급에 따라 다른 페이지로 이동
+	    if (memberGrade.equals("사장님")) {
+	        return "/WEB-INF/views/menu/ceoMenuList"; // 컨트롤러에 매핑된 URL 사용
+	    } else {
+	        return "/WEB-INF/views/menu/customerMenuList"; // 컨트롤러에 매핑된 URL 사용
+	    }
+	}
+
+
+	
+
+
+	
+	
 }

@@ -27,6 +27,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/store")
 public class StoreController {
 	
+	@Autowired
+	private StoreService storeService;
 	
 	@Autowired
 	private AttachService attachService;

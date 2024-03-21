@@ -83,16 +83,14 @@
 
 
 	<div class="container center w-800">
-		<form action="#" method="get" autocomplete="off">
-			<div class="cell center my-50"
-				style="position: relative; display: inline-block;">
-				<input type="text" class="tool w-80" size="25" placeholder="메뉴 검색">
-				<button type="button" class="btn tool menu_seach"
-					style="background-color: rgb(254, 210, 61);">
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-			</div>
-		</form>
+		<form action="/store/menuAndStoreList" method="get" autocomplete="off">
+    <div class="cell center my-50" style="position: relative; display: inline-block;">
+        <input type="text" class="tool w-80" size="25" placeholder="메뉴 검색" name="menuName">
+        <button type="submit" class="btn tool menu_search" style="background-color:rgb(254,210,61);">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+</form>
 		<br> <br> <a href="store/categoryList?storeCategory=치킨"
 			class="storeCategory"> 치킨 <img
 			src="https://media.discordapp.net/attachments/1187318496942628876/1218122788485992449/image0.jpg?ex=66068440&is=65f40f40&hm=ec7ef7954591f58f89ca309828ab4161c6f33b923b02051b2916dcf5b2041294&=&format=webp">
