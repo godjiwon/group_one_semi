@@ -111,7 +111,7 @@
 	<div class="cell center">
 
 					<h2>
-						<a class="link link-animation" href="/menu/ceoMenuList"> 메뉴
+						<a class="link link-animation" href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}"> 메뉴
 							리스트</a>
 					</h2>
 				</div>

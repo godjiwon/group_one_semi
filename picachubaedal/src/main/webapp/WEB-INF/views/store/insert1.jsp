@@ -21,16 +21,18 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-*{
-	font-family:빙그레 메로나체, sans-serif;
+* {
+	font-family: 빙그레 메로나체, sans-serif;
 }
+
 .container {
 	display: grid;
 	margin-top: 50px;
-	margin-bottom: 50px; padding : 60px;
+	margin-bottom: 50px;
+	padding: 60px;
 	border: 1px solid #ffffff;
 	background-color: #ffffff;
-	box-shadow: 0 0 5px 5px rgb(255,245,213);
+	box-shadow: 0 0 5px 5px rgb(255, 245, 213);
 	padding: 60px;
 }
 </style>
@@ -78,28 +80,7 @@
 	                    && this.memberNoValid;
 	        },
 	    };
-		
-	 // 사업자 등록번호 형식검사
-	    $(function(){
-	        $("[name=storeBusinessNumber]").blur(function(){
-	        	// 수정된 정규식: 정확히 10자리의 숫자만을 허용
-		        var regex = /^\d{10}$/;
-
-		        var isValidLength = storeBusinessNumber.length === 10; // 10자리인지 확인
-		        var isValidFormat = regex.test(storeBusinessNumber); // 숫자로만 이루어져 있는지 확인
-
-		        // 10자리이면서 숫자로만 이루어져 있을 때 success 반환
-		        var isValid = isValidLength && isValidFormat;
-		        
-	            if (isValid) {
-	                $(this).removeClass("success").addClass("fail");
-	            } else {
-	                $(this).removeClass("fail").addClass("success");
-	            }
-	        });
-	    });
-
-	    
+	
 	    //전화번호 형식검사
 	    $("[name=storeContact]").blur(function(){
 	    	var regex = /^\d{2,3}-\d{3,4}-\d{4}$/;
@@ -217,23 +198,10 @@
 	    $(".check-form").submit(function(){
 	        //$(this).find("[name], #pw-reinput").blur();
 	        //$(this).find(".tool").blur();//모든 창
-	     
-	        // 모든 입력란을 검사하여 형식이 올바른지 확인
-	        if (!state.ok()) {
-	            // 형식 검사 통과하지 못한 경우 폼 제출을 막고 알림창 표시
-	            event.preventDefault();
-	            alert('모든 입력란을 채워주세요.');
-	        } else {
-	            // 형식 검사를 통과한 경우 알림창을 표시하지 않고 폼을 제출
-	            alert('등록이 완료되었습니다.');
-	        }
 	        
 	        //입력창 중에서 success fail fail2가 없는 창
 	        $(this).find(".tool").not(".success, .fail, .fail2").blur();
 	        return state.ok();
-	        
-	     
-	     
 	    });
 	    
 	    var storeTypes = [];
@@ -260,6 +228,7 @@
 	        }
 	    }
 	    
+	    // 셀렉트 (음식 카테고리)
 	    function checkStoreCategory() {
 	        var selectedCategory = document.getElementById("storeCategory").value;
 	        var successFeedback = document.querySelector(".success-feedback");
@@ -276,6 +245,7 @@
 	        }
 	    }
 	    
+	    // 체크박스(휴무일)
 	    function checkStoreClosed() {
 	        var checkboxes = document.getElementsByName("storeClosed");
 	        var successFeedback = document.querySelector(".success-feedback");
@@ -298,16 +268,12 @@
 	            failFeedback.style.display = "block";
 	        }
 	    }
-		
-	 
-
-	    
-
 
 	});
 </script>
 <!-- 카카오 api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
     $(function(){
         $(".btn-address-search").click(function(){
@@ -343,54 +309,6 @@
         });
     });
     
-    
-    $(function(){
-        // form 전송 시 이벤트 처리 지도
-        $(".check-form").submit(function(event){
-            // 주소 입력란의 값 가져오기
-            var post = $("[name=storePost]").val();
-            var address1 = $("[name=storeAddress1]").val();
-            var address2 = $("[name=storeAddress2]").val();
-            
-            // 주소 입력 여부 확인
-            var isAddressEmpty = post.trim() === '' || address1.trim() === '' || address2.trim() === '';
-            
-            // 주소 입력 여부에 따라 처리
-            if (isAddressEmpty) {
-                // 주소 입력이 완료되지 않은 경우 폼 제출 막기
-                event.preventDefault();
-                // 알림창 표시
-                alert('주소를 모두 입력하세요.');
-            }
-        });
-    });
-
-    
-    
-    $(function(){
-        //음식카테고리, 배달/포장, 소개글, 휴무일, 배달가능지역 입력란의 blur 이벤트 설정
-        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery]").blur(function(){
-            // 입력된 값 가져오기
-            var value = $(this).val();
-            
-            // 입력값이 비어 있는지 확인
-            var isEmpty = value.trim() === '';
-
-            // 입력값이 비어 있으면 fail 클래스 추가하고 success 클래스 제거
-            // 입력값이 있으면 success 클래스 추가하고 fail 클래스 제거
-            if (isEmpty) {
-                $(this).removeClass("success").addClass("fail");
-            } else {
-                $(this).removeClass("fail").addClass("success");
-            }
-        });
-    });
-
-
-   
-
-
-    
 </script>
 
 
@@ -399,9 +317,10 @@
 <body>
 
 	<form action="insert1" method="post" enctype="multipart/form-data"
-		autocomplete="off" class="check-form" id="registerForm">
+		autocomplete="off" class="check-form">
 
-		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
+		<input type="text" name="memberNo" placeholder="멤버넘버"
+			value="<%=session.getAttribute("memberNo")%>">
 		<div class="container w-600">
 			<h2>가게 등록 페이지(임시)</h2>
 			<div class="cell">
@@ -469,18 +388,15 @@
 					</div>
 
 					<div class="cell">
-						<label> 배달/포장 가능 여부
-						<i class="fa-solid fa-asterisk red"></i>
+						<label> 배달/포장 가능 여부 <i class="fa-solid fa-asterisk red"></i>
 						</label>
 						<div class="cell">
 							<input type="checkbox" id="delivery" name="storeType"
 								class="storeType" value="배달"> 배달만 <input type="checkbox"
 								id="takeout" name="storeType" class="storeType" value="포장">
-							포장만
-							<input type="checkbox"
-								id="takeout" name="storeType" class="storeType" value="배달,포장">
-						 배달,포장 모두 가능
-							
+							포장만 <input type="checkbox" id="takeout" name="storeType"
+								class="storeType" value="배달,포장"> 배달,포장 모두 가능
+
 						</div>
 					</div>
 
@@ -520,19 +436,20 @@
 					class="fa-solid fa-asterisk red"></i>
 				</label> <input type="text" name="storeDtip" placeholder="ex.3,000원"
 					class="tool w-100">
-				
+
 			</div>
 			<div class="cell">
 				<label> 최소 주문 금액<!-- 포켓볼 사진 input에 추가  --> <i
 					class="fa-solid fa-asterisk red"></i>
 				</label> <input type="text" name="storeMinprice" placeholder="ex.12,000원"
 					class="tool w-100">
-				
+
 			</div>
 
 			<div class="cell">
 				<label> 영업시간 <i class="fa-solid fa-asterisk red"></i>
-				</label> <select class="tool w-100" id="storeOpenHour" name="storeOpenHour" onblur="checkStoreOpenHour()">
+				</label> <select class="tool w-100" id="storeOpenHour" name="storeOpenHour"
+					onblur="checkStoreOpenHour()">
 					<option value="">운영 시작 시간</option>
 					<option value="00:00">00:00</option>
 					<option value="01:00">01:00</option>
@@ -559,9 +476,8 @@
 					<option value="22:00">22:00</option>
 					<option value="23:00">23:00</option>
 					<option value="24:00">24:00</option>
-				</select> <span>부터</span>
-
-				<select class="tool w-100" id="storeCloseHour" name="storeCloseHour">
+				</select> <span>부터</span> <select class="tool w-100" id="storeCloseHour"
+					name="storeCloseHour">
 					<option value="">운영 종료 시간</option>
 					<option value="00:00">00:00</option>
 					<option value="01:00">01:00</option>
@@ -588,32 +504,24 @@
 					<option value="22:00">22:00</option>
 					<option value="23:00">23:00</option>
 					<option value="24:00">24:00</option>
-				</select> <span>까지
-					운영합니다.</span>
+				</select> <span>까지 운영합니다.</span>
 
 				<div class="cell" name="storeClosed">
 					<label> 휴무일 선택 </label>
 					<div class="cell center">
 						<input type="checkbox" id="monday" name="storeClosed" value="월요일">
-<label for="monday">월요일</label>
+						<label for="monday">월요일</label> <input type="checkbox"
+							id="tuesday" name="storeClosed" value="화요일"> <label
+							for="tuesday">화요일</label> <input type="checkbox" id="wednesday"
+							name="storeClosed" value="수요일"> <label for="wednesday">수요일</label>
 
-<input type="checkbox" id="tuesday" name="storeClosed" value="화요일">
-<label for="tuesday">화요일</label>
-
-<input type="checkbox" id="wednesday" name="storeClosed" value="수요일">
-<label for="wednesday">수요일</label>
-
-<input type="checkbox" id="thursday" name="storeClosed" value="목요일">
-<label for="thursday">목요일</label>
-
-<input type="checkbox" id="friday" name="storeClosed" value="금요일">
-<label for="friday">금요일</label>
-
-<input type="checkbox" id="saturday" name="storeClosed" value="토요일">
-<label for="saturday">토요일</label>
-
-<input type="checkbox" id="sunday" name="storeClosed" value="일요일">
-<label for="sunday">일요일</label>
+						<input type="checkbox" id="thursday" name="storeClosed"
+							value="목요일"> <label for="thursday">목요일</label> <input
+							type="checkbox" id="friday" name="storeClosed" value="금요일">
+						<label for="friday">금요일</label> <input type="checkbox"
+							id="saturday" name="storeClosed" value="토요일"> <label
+							for="saturday">토요일</label> <input type="checkbox" id="sunday"
+							name="storeClosed" value="일요일"> <label for="sunday">일요일</label>
 
 					</div>
 				</div>
@@ -624,20 +532,17 @@
 				</div>
 			</div>
 			<div class="cell">
-    <label> 사업자 등록번호 <i class="fa-solid fa-asterisk red"></i> </label>
-    <input type="text" name="storeBusinessNumber" id="storeBusinessNumber" placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100" onblur="checkBusinessNumber()">
-    <div class="success-feedback">정확한 입력값</div>
-    <div class="fail-feedback">
-        <i class="fa-solid fa-triangle-exclamation"></i> 올바른 형식이 아닙니다
-    </div>
-</div>
-		
+				<label> 사업자 등록번호 <i class="fa-solid fa-asterisk red"></i>
+				</label> <input type="text" name="storeBusinessNumber"
+					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100">
+			</div>
 
 
 
-		<div class="cell right">
-			<button class="btn positive w-100" type="submit">등록하기</button>
-		</div>
+
+			<div class="cell right">
+				<button class="btn positive w-100" type="submit">등록하기</button>
+			</div>
 		</div>
 	</form>
 
