@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -16,10 +16,65 @@
 	color: #2d3436;
 	padding: 30px;
 }
+
+.slider-container {
+	width: 100%;
+	overflow: hidden;
+}
+
+.slider {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+}
+
+.store-card {
+	width: 300px;
+	margin-right: 20px;
+}
 </style>
-<script>
-	
-</script>
+	<script>
+        // 가게 정보를 가져와 슬라이드바에 표시하는 함수
+        async function displayStores() {
+            try {
+                const response = await fetch('/store/list'); // 가게 목록을 가져오는 API 엔드포인트
+                const stores = await response.json(); // JSON 형식으로 변환
+                const slider = document.querySelector('.slider');
+
+                // 슬라이더에 가게 정보 카드를 추가합니다.
+                stores.forEach(store => {
+                    const storeCard = `
+                        <div class="store-card">
+                            <h2>${store.storeName}</h2>
+                            <img src="${store.storeImgLink}" alt="${store.storeName}">
+                        </div>
+                    `;
+                    slider.innerHTML += storeCard;
+                });
+
+                // 슬라이드바를 이동시키는 함수 호출
+                slide();
+            } catch (error) {
+                console.error('Error fetching store data:', error);
+            }
+        }
+
+        // 슬라이드바를 이동시키는 함수
+        function slide() {
+            const slider = document.querySelector('.slider');
+            let counter = 0;
+            setInterval(() => {
+                // 슬라이더를 오른쪽으로 이동합니다.
+                slider.style.transform = `translateX(-${counter * 320}px)`;
+                counter++;
+                if (counter === document.querySelectorAll('.store-card').length) {
+                    counter = 0;
+                }
+            }, 3000); // 3초마다 슬라이더가 이동합니다.
+        }
+
+        // 페이지 로드 시 가게 정보를 가져와 슬라이드바에 표시합니다.
+        window.onload = displayStores;
+    </script>
 
 </head>
 <body>
@@ -69,9 +124,12 @@
 	<br>
 	<br>
 	<br>
+
 	<div class="cell ">
 		<h1>이런 가게는 어때요?</h1>
 	</div>
+	
+	
 	<form action="list" method="get" autocomplete="off">
 		<div class="swiper-slide">
 			<img src="${storeDto.storeImgLink}">
@@ -79,15 +137,17 @@
 		</div>
 	</form>
 
-	 <div class="storelist">
+	<div class="storelist">
 		<c:forEach var="dto" items="${List}">
-		 <div onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;"></div>
-			<div>${dto.storeName}
+			<div onclick="window.location.href='detail?storeNo=${dto.storeNo}'"
+				style="cursor: pointer;"></div>
+			<div>${dto.storeName}</div>
+			<div>
+				<img src="${imagePath}" width="200" height="200">
 			</div>
-			<div><img src="${imagePath}" width="200" height="200"></div>
-	</c:forEach>
-		</div>
-			
+		</c:forEach>
+	</div>
+
 
 </body>
 </html>
