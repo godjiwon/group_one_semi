@@ -15,6 +15,8 @@ import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dao.MenuDao;
 import com.kh.picachubaedal.dto.CartDto;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -36,9 +38,12 @@ public class CartController {
 
 	//장바구니 목록
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model, HttpSession session) {
+		
+		int memberNo = (int)session.getAttribute("memberNo");
+		
 		List<CartDto> lllist;
-		lllist = cartDao.selectList();
+		lllist = cartDao.userCart(memberNo);
 		model.addAttribute("qwer", lllist);
 		return "/WEB-INF/views/cart/list.jsp";
 	}
