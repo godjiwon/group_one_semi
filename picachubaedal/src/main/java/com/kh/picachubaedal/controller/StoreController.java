@@ -200,7 +200,7 @@ public class StoreController {
 //
 //	    return "/WEB-INF/views/store/list2.jsp";
 //	}
-//	
+
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
 //	    int count = storeDao.count(pageVO);
@@ -310,6 +310,7 @@ public class StoreController {
 	}
 
 
+
 	@GetMapping("/menuAndStoreList")
 	public String getMenuAndStoreList(@RequestParam("menuName") String menuName, Model model) {
 	    // 메뉴 이름을 기반으로 가게를 검색하는 로직을 호출하여 결과를 가져옵니다.
@@ -322,9 +323,6 @@ public class StoreController {
 	    return "/WEB-INF/views/store/categoryList.jsp";
 	}
 
-
-	
-	
 
 	
 }

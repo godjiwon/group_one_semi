@@ -61,8 +61,6 @@
          Copyright BAECHU. All Rights Reserved.
       </p>
    </div>
-</div>
-    </main>
 
 </body>
 </html>
