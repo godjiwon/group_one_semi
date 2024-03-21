@@ -27,8 +27,8 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>찜한 가게 목록</h1>
+<div class="container center" >
+    <h1>찜 목록</h1>
     <c:if test="${not empty likeList}">
         <div class="cell">
 
