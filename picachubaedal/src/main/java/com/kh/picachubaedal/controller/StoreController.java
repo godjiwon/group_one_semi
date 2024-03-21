@@ -268,7 +268,7 @@ public class StoreController {
 	    model.addAttribute("pageVO", pageVO);
 	    
 	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-	    
+	    model.addAttribute("list", list);
 	    // 다른 처리 작업...
 	    
 	    // JSP 파일 이름 반환
