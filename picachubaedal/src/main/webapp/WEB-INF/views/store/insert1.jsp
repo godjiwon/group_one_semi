@@ -331,7 +331,9 @@
     $(function(){
         //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
     	// storeName 입력란의 blur 이벤트 설정
+
         $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery],[name=storeContact],[name=storeDtip],[name=storeIntro],[name=storeMinprice],[name=storeBusinessNumber]").blur(function(){
+
             // 입력된 가게 이름 가져오기
             var storeName = $(this).val();
             

@@ -26,8 +26,15 @@ public class StoreDto {
     private String storeBusinessNumber;
     private int memberNo;
     private String storeImgLink;
+    private String memberId;
     
     
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public int getStoreNo() {
 		return storeNo;
 	}

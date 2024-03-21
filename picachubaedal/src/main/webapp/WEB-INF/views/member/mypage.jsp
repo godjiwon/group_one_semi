@@ -36,6 +36,10 @@
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/profileEdit">개인정보 변경</a></h2>
 			</div>
+
+			<div class="cell center">
+				<h2><a class="link link-animation" href="http://localhost:8080/store/likeList">찜 목록</a></h2>
+			</div>
 			<div class="cell center">
 				<h2><a class="link link-animation" href="/member/delete_account" style="color:red";>회원 탈퇴</a></h2>
 			</div>
