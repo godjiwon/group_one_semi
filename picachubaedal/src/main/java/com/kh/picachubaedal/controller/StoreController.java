@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dto.StoreDto;
+import com.kh.picachubaedal.logic.DistanceCalculator;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.service.StoreService;
@@ -45,6 +46,9 @@ public class StoreController {
 	
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private DistanceCalculator distanceCalculator;
 	
 	@GetMapping("/insert1") //가게 등록
 	public String insert() {
@@ -259,12 +263,15 @@ public class StoreController {
 	 
 	//카테고리 전체 목록
 	@GetMapping("/categoryList")
-	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
+	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO,
+			HttpSession session) {
 	    // DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
+		
 	    List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
 	    List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(categoryList);
+	    List<StoreDto> distanceSetUpList = distanceCalculator.calculateDistanceBetweenAddresses(session ,imageSetUpList);
 	    
-	    model.addAttribute("categoryList", imageSetUpList);
+	    model.addAttribute("categoryList", distanceSetUpList);
 	    
 	    // 페이지 처리를 위한 작업
 	    int count = storeDao.count(pageVO);
