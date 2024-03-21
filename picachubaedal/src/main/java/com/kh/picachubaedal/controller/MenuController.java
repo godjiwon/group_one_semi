@@ -95,7 +95,7 @@ public class MenuController {
     *  @return /menu/ceoMenuList.jsp
     */
    @RequestMapping("/ceoMenuList")
-   public String ceoMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session, @RequestParam int storeNo) {
+   public String ceoMenuList(@ModelAttribute PageVO pageVO, Model model, @RequestParam int storeNo) {
 			  
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
@@ -121,7 +121,7 @@ public class MenuController {
     *  @return /menu/customerMenuList.jsp
     */     
    @RequestMapping("/customerMenuList")
-   public String customerMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session, @RequestParam int storeNo) {
+   public String customerMenuList(@ModelAttribute PageVO pageVO, Model model, @RequestParam int storeNo) {
 	   
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
@@ -163,9 +163,9 @@ public class MenuController {
     *  @return redirect:/menu/list
     */
    @GetMapping("/delete")
-   public String delete(@RequestParam int menuNo) {
-      menuDao.delete(menuNo);
-      return "redirect:/menu/ceoMenuList";
+   public String delete(Model model, @RequestParam int menuNo, @RequestParam int storeNo) {
+	   menuDao.delete(menuNo, storeNo);
+	   return "redirect:/menu/ceoMenuList?storeNo=" + storeNo;
    }
     
    /**

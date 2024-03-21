@@ -50,9 +50,9 @@ public class MenuDao {
    }
 	
 	//삭제
-	public boolean delete(int menuNo) {
-		String sql = "delete menu where menu_no=?";
-		Object[] data = {menuNo};
+	public boolean delete(int menuNo, int storeNo) {
+		String sql = "delete menu where menu_no=? and store_no=?";
+		Object[] data = {menuNo, storeNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
