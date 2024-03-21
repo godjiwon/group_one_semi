@@ -26,6 +26,7 @@
 
 	<%--메뉴&가게 검색창 --%>
 
+
 	<div class="container center w-800">
 		<form action="#" method="get" autocomplete="off">
 			<div class="cell center my-50"

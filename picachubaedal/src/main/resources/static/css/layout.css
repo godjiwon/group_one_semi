@@ -12,7 +12,7 @@ main {
     padding: 10px;
 }
 .section {
-    display: flex;
+/*     display: flex; */
     min-height: 400px;
 }
 .aside {

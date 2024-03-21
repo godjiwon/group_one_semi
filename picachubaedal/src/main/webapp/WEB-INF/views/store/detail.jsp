@@ -48,6 +48,7 @@
 					</h2>
 				</div>
 
+
 	<div class="cell center">
 					<h2>
 						<a class="link link-animation" href="/menu/ceoMenuList">
@@ -58,6 +59,7 @@
 						<a class="link link-animation" href="/store5/storeDelete"
 							style="color: red">가게 삭제</a></h2>
 							</div>
+
 
 				
 			</div>

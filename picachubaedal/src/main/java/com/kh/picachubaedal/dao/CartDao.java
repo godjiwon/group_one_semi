@@ -17,12 +17,18 @@ public class CartDao {
 	@Autowired
 	private CartMapper cartMapper;
 
+	//장바구니 등록
 	public void insert(CartDto cartDto) {
-
 		String sql = "insert into cart(cart_no, member_no, menu_no, " + "item_name, item_quantify, item_price) "
 				+ "values(cart9_seq.nextval, ?, ?, ?, ?, ?)";
 		Object[] data = { cartDto.getMemberNo(), cartDto.getMenuNo(), cartDto.getItemName(), cartDto.getItemQuantify(),
 				cartDto.getItemPrice() };
 		jdbcTemplate.update(sql, data);
 	}
+	
+	//장바구니 목록
+	public List<CartDto> selectList(){
+        String sql = "select * from cart order by cart_no asc";
+        return jdbcTemplate.query(sql, cartMapper);
+    }
 }
