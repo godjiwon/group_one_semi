@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,8 @@ import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dao.StoreLikeDao;
 import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
-import com.kh.picachubaedal.mapper.StoreMapper;
+import com.kh.picachubaedal.logic.DistanceCalculator;
+//github.com/godjiwon/group_one_semi.git
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.service.StoreService;
@@ -45,11 +45,12 @@ public class StoreController {
 	private StoreLikeDao storeLikeDao;
 	@Autowired
 	private ImageService imageService;
-	
+
 	@Autowired
-	private StoreMapper storeMapper;
+	private DistanceCalculator distanceCalculator;
 
 	@GetMapping("/insert1") // 가게 등록
+
 	public String insert() {
 		return "/WEB-INF/views/store/insert1.jsp";
 	}
@@ -255,11 +256,16 @@ public class StoreController {
 
 	// 카테고리 전체 목록
 	@GetMapping("/categoryList")
-	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
-
+	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO,
+			HttpSession session) {
 		// DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
+
 		List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
-		model.addAttribute("categoryList", categoryList);
+		List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(categoryList);
+		List<StoreDto> distanceSetUpList = distanceCalculator.calculateDistanceBetweenAddresses(session,
+				imageSetUpList);
+
+		model.addAttribute("categoryList", distanceSetUpList);
 
 		// 페이지 처리를 위한 작업
 		int count = storeDao.count(pageVO);
@@ -267,6 +273,8 @@ public class StoreController {
 		model.addAttribute("pageVO", pageVO);
 
 		List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+		model.addAttribute("list", list);
+		// 다른 처리 작업...
 
 		// JSP 파일 이름 반환
 		return "/WEB-INF/views/store/categoryList.jsp";
@@ -314,44 +322,38 @@ public class StoreController {
 		// 카테고리 리스트를 보여줄 JSP 파일의 경로를 반환합니다.
 		return "/WEB-INF/views/store/categoryList.jsp";
 	}
-	
+
 	// 찜한 가게 목록 불러오기
 	@GetMapping("/likeList")
-	public String likeList(HttpSession session, Model model,
-			@ModelAttribute PageVO pageVO) {
+	public String likeList(HttpSession session, Model model, @ModelAttribute PageVO pageVO) {
 		// 1. 세션에 저장된 아이디를 꺼낸다
 		String loginId = (String) session.getAttribute("loginId");
 		// 2. 아이디에 맞는 정보를 조회한다
 		MemberDto memberDto = memberDao.selectOne(loginId);
-		
+
 		// 3. 화면에 조회한 정보를 전달한다
 		model.addAttribute("memberDto", memberDto);
-		
-		model.addAttribute("memberId",memberDto.getMemberId());
-		
-		//현재 사용자가 찜한 가게 목록 조회
-		 List<StoreDto> likeList = storeDao.selectLikeStore(memberDto.getMemberId());		 
-		 model.addAttribute("likeList", likeList);
 
-		 for (StoreDto store : likeList) {
-			    // storeNo를 사용하여 가게 정보 조회
-			    StoreDto storeInfo = storeDao.selectStoreByStoreNo(store.getStoreNo());
-			    // 조회된 가게 정보를 현재 가게에 설정
-			    store.setStoreName(storeInfo.getStoreName());
-			    store.setStoreDtip(storeInfo.getStoreDtip());
-		 }
-		//페이징
+		model.addAttribute("memberId", memberDto.getMemberId());
+
+		// 현재 사용자가 찜한 가게 목록 조회
+		List<StoreDto> likeList = storeDao.selectLikeStore(memberDto.getMemberId());
+		model.addAttribute("likeList", likeList);
+
+		for (StoreDto store : likeList) {
+			// storeNo를 사용하여 가게 정보 조회
+			StoreDto storeInfo = storeDao.selectStoreByStoreNo(store.getStoreNo());
+			// 조회된 가게 정보를 현재 가게에 설정
+			store.setStoreName(storeInfo.getStoreName());
+			store.setStoreDtip(storeInfo.getStoreDtip());
+		}
+		// 페이징
 		int count = storeDao.count(pageVO);
 		pageVO.setCount(count);
 		model.addAttribute("pageVO", pageVO);
-		
+
 		List<StoreDto> list = storeDao.selectListByPaging(pageVO);
 		return "/WEB-INF/views/store/likeList.jsp";
 	}
 
-	
-	}
-	
-	
-
-
+}

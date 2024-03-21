@@ -83,6 +83,7 @@ private StoreDao storeDao;
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade());
 			session.setAttribute("memberNo", findDto.getMemberNo());
+			session.setAttribute("memberAddress1", findDto.getMemberAddress1());
 			// 최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
 
@@ -99,6 +100,7 @@ private StoreDao storeDao;
 		session.removeAttribute("loginId");// 세션의 값 삭제
 		session.removeAttribute("loginGrade");// 세션의 값 삭제
 		session.removeAttribute("memberNo");
+		session.removeAttribute("memberAddress1");
 		return "redirect:/";
 	}
 
