@@ -1,12 +1,11 @@
 package com.kh.picachubaedal.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -321,6 +320,13 @@ public class StoreDao {
 		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
 		    }
 		}
+		
+	
+
+
+	
+	    
+		
 		
 	
 		

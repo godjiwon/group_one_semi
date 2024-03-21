@@ -186,19 +186,19 @@ public class StoreController {
 		}
 
 
-	//목록조회
-	@RequestMapping("/list")
-	public String list(@ModelAttribute PageVO pageVO, Model model) {
-	    int count = storeDao.count(pageVO);
-	    pageVO.setCount(count);
-	    model.addAttribute("pageVO", pageVO);
-
-	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-	    //System.out.print(list);
-	    model.addAttribute("list", list);
-
-	    return "/WEB-INF/views/store/list2.jsp";
-	}
+//	//목록조회
+//	@RequestMapping("/list")
+//	public String list(@ModelAttribute PageVO pageVO, Model model) {
+//	    int count = storeDao.count(pageVO);
+//	    pageVO.setCount(count);
+//	    model.addAttribute("pageVO", pageVO);
+//
+//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+//	    //System.out.print(list);
+//	    model.addAttribute("list", list);
+//
+//	    return "/WEB-INF/views/store/list2.jsp";
+//	}
 	
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
@@ -307,11 +307,6 @@ public class StoreController {
 	    // 홈 페이지로 이동하는 코드 추가
 	    return "home"; // 홈 페이지로 이동하는 뷰의 이름을 반환
 	}
-
-
 	
-	
-	
-
 	
 }
