@@ -1,7 +1,6 @@
 package com.kh.picachubaedal.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dao.StoreDao;
-import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.service.StoreService;
 import com.kh.picachubaedal.vo.PageVO;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -38,9 +35,11 @@ public class StoreController {
 	private MemberDao memberDao;
 	@Autowired
 	private StoreDao storeDao;
-	@Autowired
-    private StoreService storeService;
-	
+
+//	@Autowired
+//    private StoreService storeService;
+
+
 	
 	@Autowired
 	private ImageService imageService;
@@ -324,5 +323,6 @@ public class StoreController {
 	}
 
 
+	
 	
 }

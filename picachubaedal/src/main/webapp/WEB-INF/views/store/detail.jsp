@@ -13,11 +13,69 @@
 	margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
 }
 </style>
+<c:if test="${sessionScope.loginId != null}">
+	<script type="text/javascript">
+		//좋아요 하트 클릭 이벤트
+		$(function() {
+			//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
+			//- 자바스크립트에서 파라미터를 읽어 번호를 추출
+			var params = new URLSearchParams(location.search);
+			var storeNo = params.get("storeNo");
 
-<script>
-	
+			//목표 : 하트를 클릭하면 좋아요 갱신처리
+			$(".store-like").find(".fa-heart").click(
+					function() {
+						$.ajax({
+							url : "/rest/store_like/toggle",//같은 서버이므로 앞 경로 생략
+							method : "post",
+							data : {
+								storeNo : storeNo
+							},
+							success : function(response) {
+								//console.log(response);
+
+								//response.state에 따라서 하트의 형태를 설정
+								$(".store-like").find(".fa-heart").removeClass(
+										"fa-solid fa-regular").addClass(
+										response.state ? "fa-solid"
+												: "fa-regular");
+
+								//response.count에 따라서 좋아요 개수를 표시
+								$(".store-like").find(".count").text(
+										response.count);
+							}
+						});
+					});
+		});
+	</script>
+</c:if>
+<script type="text/javascript">
+	//좋아요 최초 불러오기
+	$(function() {
+		//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
+		//- 자바스크립트에서 파라미터를 읽어 번호를 추출
+		var params = new URLSearchParams(location.search);
+		var storeNo = params.get("storeNo");
+
+		//최초에 표시될 화면을 위해 화면이 로딩되자마자 서버로 비동기통신 시도
+		$.ajax({
+			url : "/rest/store_like/check",
+			method : "post",
+			data : {
+				storeNo : storeNo
+			},
+			success : function(response) {
+				//response.state에 따라서 하트의 형태를 설정
+				$(".store-like").find(".fa-heart").removeClass(
+						"fa-solid fa-regular").addClass(
+						response.state ? "fa-solid" : "fa-regular");
+
+				//response.count에 따라서 좋아요 개수를 표시
+				$(".store-like").find(".count").text(response.count);
+			}
+		});
+	});
 </script>
-
 
 <div class="container w-1000">
 	<div class="cell">
@@ -28,7 +86,7 @@
 
 			<div class="col-md-3">
 				<div class="cell center">
-				<img class="storeImage" src="${storeDto.storeImgLink}">
+					<img class="storeImage" src="${storeDto.storeImgLink}">
 				</div>
 				<div class="cell center">
 					<h2>
@@ -49,19 +107,24 @@
 				</div>
 
 
+
 	<div class="cell center">
+
 					<h2>
-						<a class="link link-animation" href="/menu/ceoMenuList">
-							메뉴 리스트</a></h2>
-							</div>
+						<a class="link link-animation" href="/menu/ceoMenuList"> 메뉴
+							리스트</a>
+					</h2>
+				</div>
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation" href="/store5/storeDelete"
+
 							style="color: red">가게 삭제</a></h2>
 							</div>
 
 
 				
+
 			</div>
 		</div>
 		<div class="w-75">
@@ -111,7 +174,11 @@
 						</tr>
 						<tr>
 							<th>좋아요 수</th>
-							<td class="left">${storeDto.storeLike}</td>
+							<td class="left">${storeDto.storeLike}<span
+								class="store-like red"> <i class="fa-regular fa-heart"></i>
+									<span class="count"></span>
+							</span>
+							</td>
 						</tr>
 						<tr>
 							<th>영업 시간</th>

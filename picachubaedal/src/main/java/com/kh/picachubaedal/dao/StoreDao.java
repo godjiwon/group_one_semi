@@ -1,7 +1,6 @@
 package com.kh.picachubaedal.dao;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -326,7 +325,7 @@ public class StoreDao {
 		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
 		    }
 		}
-		
+
 
 
 
