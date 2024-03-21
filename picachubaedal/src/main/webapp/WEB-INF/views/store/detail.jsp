@@ -79,6 +79,8 @@
 
 <div class="container w-1000">
 	<div class="cell">
+		<input type="text" name="memberNo" placeholder="멤버넘버"
+			value="<%=session.getAttribute("memberNo")%>">
 		<h1>${storeDto.storeName}</h1>
 	</div>
 	<div class="cell floating-cell">
@@ -108,23 +110,36 @@
 
 
 
-	<div class="cell center">
-
-					<h2>
-						<a class="link link-animation" href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}"> 메뉴
-							리스트</a>
-					</h2>
+				<div class="cell center">
+					<c:choose>
+						<c:when
+							test="${sessionScope.loginId != null and sessionScope.memberGrade eq '사장님'}">
+							<h2>
+								<a class="link link-animation"
+									href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}"> 메뉴
+									리스트</a>
+							</h2>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${memberGrade == '사장님'}">
+									<a class="link link-animation" href="/menu/ceoMenuList.jsp">메뉴
+										리스트</a>
+								</c:when>
+								<c:otherwise>
+									<a class="link link-animation"
+										href="/menu/customerMenuList.jsp">메뉴 리스트</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation" href="/store5/storeDelete"
-
-							style="color: red">가게 삭제</a></h2>
-							</div>
-
-
-				
-
+							style="color: red">가게 삭제</a>
+					</h2>
+				</div>
 			</div>
 		</div>
 		<div class="w-75">

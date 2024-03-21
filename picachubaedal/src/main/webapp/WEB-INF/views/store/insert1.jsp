@@ -35,6 +35,36 @@
 	box-shadow: 0 0 5px 5px rgb(255, 245, 213);
 	padding: 60px;
 }
+
+  /* 
+            입력창 피드백 디자인 
+            - 입력창 뒤에 피드백 영역이 있다면 판정 결과에 따라 표시되도록 구현
+        */
+        .tool.success {
+            border-color: #00b894 !important;
+        }
+        .tool.fail {
+            border-color: #d63031 !important;
+        }
+        .success-feedback {
+            color: #00b894;
+            display: none;
+        }
+        .fail-feedback, 
+        .fail2-feedback,
+        .fail3-feedback
+        {
+            color: #d63031;
+            display: none;
+        }
+
+        .tool.success ~ .success-feedback,
+        .tool.fail ~ .fail-feedback,
+        .tool.fail2 ~ .fail2-feedback,
+        .tool.fail3 ~ .fail3-feedback 
+        { 
+            display: block; 
+        }
 </style>
 
 <!-- jquery cdn -->
@@ -47,39 +77,38 @@
 <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
 <script type="text/javascript">
 
-    $(function(){
-	    //상태객체(React의 state로 개념이 이어짐)
-	    var state = {
-	        //key : value
-	        storeNoValid : false,
-	        storeNameValid : false,
-	        storeAddress1Valid : false,
-	        storeAddress2Valid : false,
-	        storePostValid : false,
-	        storeCategoryValid : false,
-	        storeTypeValid : false,
-	        storeContactValid : false, //false 필수항목 true 선택항목
-	        storeIntroValid : false,
-	        storeDtipValid : false,
-	        storeMinpriceValid : false,
-	        storeOpenHourValid : false,
-	        storeCloseHourValid : false,
-	        storeBusinessNumberValid : false,
-	        storeClosedValid : false,
-	        memberNoValid : false,
-	        //객체에 함수를 변수처럼 생성할 수 있다
-	        //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
-	        ok : function(){
-	            return this.storeIdValid 
-	                    && this.storeNoValid && this.storeNameValid
-	                    && this.storeAddressValid && this.storeCategoryValid
-	                    && this.storeTypeValid && this.storeContactValid
-	                    && this.storeImageValid && this.storeIntroValid
-	                    && this.storeDtipValid && this.storeMinpriceValid
-	                    && this.storeHoursValid && this.storeClosedValid
-	                    && this.memberNoValid;
-	        },
-	    };
+$(function(){
+    // 상태 객체
+    var state = {
+        storeNoValid: false,
+        storeNameValid: false,
+        storeAddress1Valid: false,
+        storeAddress2Valid: false,
+        storePostValid: false,
+        storeCategoryValid: false,
+        storeTypeValid: false,
+        storeContactValid: false, // false: 필수항목, true: 선택항목
+        storeIntroValid: false,
+        storeDtipValid: false,
+        storeMinpriceValid: false,
+        storeOpenHourValid: false,
+        storeCloseHourValid: false,
+        storeBusinessNumberValid: false,
+        storeClosedValid: false,
+        memberNoValid: false,
+
+        // 전체 유효성 검사 함수
+        ok: function() {
+            return this.storeIdValid 
+                && this.storeNoValid && this.storeNameValid
+                && this.storeAddressValid && this.storeCategoryValid
+                && this.storeTypeValid && this.storeContactValid
+                && this.storeImageValid && this.storeIntroValid
+                && this.storeDtipValid && this.storeMinpriceValid
+                && this.storeHoursValid && this.storeClosedValid
+                && this.memberNoValid;
+        }
+    };
 	
 	    //전화번호 형식검사
 	    $("[name=storeContact]").blur(function(){
@@ -178,21 +207,21 @@
 	                    .addClass(state.storeContactValid ? "success" : "fail");
 	    
 	
-	    //주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
-	    $("[name=storeAddress2]").blur(function(){
-	        var post = $("[name=storePost]").val();
-	        var address1 = $("[name=storeAddress1]").val();
-	        var address2 = $("[name=storeAddress2]").val();
-	
-	        var isClear = post.length == 0 && address1.length == 0 && address2.length == 0;
-	        var isFill = post.length > 0 && address1.length > 0 && address2.length > 0;
-	
-	        state.storeAddressValid = isClear || isFill;
-	
-	        $("[name=storePost], [name=storeAddress1], [name=storeAddress2]")
+	     // 주소 형식 검사 함수
+	        function checkAddress() {
+	            var post = $("[name=storePost]").val();
+	            var address1 = $("[name=storeAddress1]").val();
+	            var address2 = $("[name=storeAddress2]").val();
+
+	            var isClear = post.length == 0 && address1.length == 0 && address2.length == 0;
+	            var isFill = post.length > 0 && address1.length > 0 && address2.length > 0;
+
+	            state.storeAddressValid = isClear || isFill;
+
+	            $("[name=storePost], [name=storeAddress1], [name=storeAddress2]")
 	                .removeClass("success fail")
 	                .addClass(state.storeAddressValid ? "success" : "fail");
-	    });
+	        }
 	
 	    //form 전송
 	    $(".check-form").submit(function(){
@@ -228,44 +257,39 @@
 	        }
 	    }
 	    
-	    // 셀렉트 (음식 카테고리)
+	 // 음식 카테고리 선택 검사 함수
 	    function checkStoreCategory() {
-	        var selectedCategory = document.getElementById("storeCategory").value;
-	        var successFeedback = document.querySelector(".success-feedback");
-	        var failFeedback = document.querySelector(".fail-feedback");
+	        var selectedCategory = $("#storeCategory").val();
+	        var successFeedback = $(".success-feedback");
+	        var failFeedback = $(".fail-feedback");
 
 	        if (selectedCategory !== "") {
 	            // 유효한 카테고리가 선택된 경우
-	            successFeedback.style.display = "block";
-	            failFeedback.style.display = "none";
+	            successFeedback.show();
+	            failFeedback.hide();
 	        } else {
 	            // 유효하지 않은 카테고리가 선택된 경우
-	            successFeedback.style.display = "none";
-	            failFeedback.style.display = "block";
+	            successFeedback.hide();
+	            failFeedback.show();
 	        }
 	    }
 	    
-	    // 체크박스(휴무일)
+	 // 휴무일 체크 검사 함수
 	    function checkStoreClosed() {
-	        var checkboxes = document.getElementsByName("storeClosed");
-	        var successFeedback = document.querySelector(".success-feedback");
-	        var failFeedback = document.querySelector(".fail-feedback");
+	        var checkboxes = $("input[name=storeClosed]");
+	        var successFeedback = $(".success-feedback");
+	        var failFeedback = $(".fail-feedback");
 
-	        var selectedDays = [];
-	        for (var i = 0; i < checkboxes.length; i++) {
-	            if (checkboxes[i].checked) {
-	                selectedDays.push(checkboxes[i].value);
-	            }
-	        }
+	        var selectedDays = checkboxes.filter(":checked");
 
 	        if (selectedDays.length > 0) {
 	            // 최소한 하나 이상의 요일이 선택된 경우
-	            successFeedback.style.display = "block";
-	            failFeedback.style.display = "none";
+	            successFeedback.show();
+	            failFeedback.hide();
 	        } else {
 	            // 어떤 요일도 선택되지 않은 경우
-	            successFeedback.style.display = "none";
-	            failFeedback.style.display = "block";
+	            successFeedback.hide();
+	            failFeedback.show();
 	        }
 	    }
 
@@ -327,124 +351,124 @@
 
 
 				<div class="cell">
-					<label> 가게 이름 <i class="fa-solid fa-asterisk red"></i>
-					</label> <input type="text" id="storeName" name="storeName"
-						placeholder="가게 이름을 작성해주세요" class="tool w-100"
-						onblur="checkstoreName()">
+                    <label> 가게 이름 <i class="fa-solid fa-asterisk red"></i>
+                    </label> <input type="text" id="storeName" name="storeName"
+                        placeholder="가게 이름을 작성해주세요" class="tool w-100"
+                        onblur="checkStoreName()">
 
-					<div class="fail-feedback">
-						<i class="fa-solid fa-triangle-exclamation"></i> 가게 이름을 반드시 입력하세요
-					</div>
+                    <div class="fail-feedback">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 가게 이름을 반드시 입력하세요
+                    </div>
 
-				</div>
+                </div>
 
-				<div class="cell page">
-					<!-- 주소 : 모두 입력하든가 입력하지 않든가 -->
-					<div class="cell">
-						<label>주소</label>
-					</div>
-					<div class="cell">
-						<input type="text" name="storePost" readonly placeholder="우편번호"
-							class="tool" size="6" maxlength="6">
-						<button type="button" class="btn positive btn-address-search">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</button>
-						<button type="button" class="btn negative btn-address-clear">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-					</div>
-					<div class="cell">
-						<input type="text" name="storeAddress1" placeholder="기본주소"
-							class="tool w-100" readonly>
-					</div>
-					<div class="cell">
-						<input type="text" name="storeAddress2" placeholder="상세주소"
-							class="tool w-100">
-						<div class="fail-feedback">주소를 모두 작성하세요</div>
-					</div>
-
-
-					<div class="cell">
-						<label> 음식 카테고리 <i class="fa-solid fa-asterisk red"></i>
-						</label> <select class="tool w-100" id="storeCategory"
-							name="storeCategory" onblur="checkStoreCategory()">
-							<option value="">선택하세요</option>
-							<option value="치킨">치킨</option>
-							<option value="피자/양식">피자/양식</option>
-							<option value="중국집">중국집</option>
-							<option value="한식">한식</option>
-							<option value="일식/돈까스">일식/돈까스</option>
-							<option value="족발/보쌈">족발/보쌈</option>
-							<option value="야식">야식</option>
-							<option value="분식">분식</option>
-							<option value="카페/디저트">카페/디저트</option>
-						</select>
-						<div class="success-feedback">
-							<i class="fa-solid fa-check"></i>
-						</div>
-						<div class="fail-feedback">
-							<i class="fa-solid fa-triangle-exclamation"></i> 음식 카테고리를 선택하세요
-						</div>
-					</div>
-
-					<div class="cell">
-						<label> 배달/포장 가능 여부 <i class="fa-solid fa-asterisk red"></i>
-						</label>
-						<div class="cell">
-							<input type="checkbox" id="delivery" name="storeType"
-								class="storeType" value="배달"> 배달만 <input type="checkbox"
-								id="takeout" name="storeType" class="storeType" value="포장">
-							포장만 <input type="checkbox" id="takeout" name="storeType"
-								class="storeType" value="배달,포장"> 배달,포장 모두 가능
-
-						</div>
-					</div>
+                <div class="cell page">
+                    <!-- 주소 : 모두 입력하든가 입력하지 않든가 -->
+                    <div class="cell">
+                        <label>주소</label>
+                    </div>
+                    <div class="cell">
+                        <input type="text" name="storePost" readonly placeholder="우편번호"
+                            class="tool" size="6" maxlength="6">
+                        <button type="button" class="btn positive btn-address-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button type="button" class="btn negative btn-address-clear">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="cell">
+                        <input type="text" name="storeAddress1" placeholder="기본주소"
+                            class="tool w-100" readonly>
+                    </div>
+                    <div class="cell">
+                        <input type="text" name="storeAddress2" placeholder="상세주소"
+                            class="tool w-100">
+                        <div class="fail-feedback">주소를 모두 작성하세요</div>
+                    </div>
 
 
-					<div class="cell">
-						<label> 가게 연락처 <i class="fa-solid fa-asterisk red"></i>
-						</label> <input type="text" name="storeContact"
-							placeholder=" - 제외 숫자만 입력하세요" class="tool w-100"
-							onblur="checkStoreContact()">
-						<div class="success-feedback">
-							<i class="fa-solid fa-check"></i>
-						</div>
-						<div class="fail-feedback">
-							<i class="fa-solid fa-triangle-exclamation"></i> 잘못된 전화번호 형식입니다
-						</div>
-					</div>
-				</div>
+                    <div class="cell">
+                        <label> 음식 카테고리 <i class="fa-solid fa-asterisk red"></i>
+                        </label> <select class="tool w-100" id="storeCategory"
+                            name="storeCategory" onblur="checkStoreCategory()">
+                            <option value="">선택하세요</option>
+                            <option value="치킨">치킨</option>
+                            <option value="피자/양식">피자/양식</option>
+                            <option value="중국집">중국집</option>
+                            <option value="한식">한식</option>
+                            <option value="일식/돈까스">일식/돈까스</option>
+                            <option value="족발/보쌈">족발/보쌈</option>
+                            <option value="야식">야식</option>
+                            <option value="분식">분식</option>
+                            <option value="카페/디저트">카페/디저트</option>
+                        </select>
+                        <div class="success-feedback">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div class="fail-feedback">
+                            <i class="fa-solid fa-triangle-exclamation"></i> 음식 카테고리를 선택하세요
+                        </div>
+                    </div>
 
-				<div class="cell">
-					<div class="cell">
-						<label>가게 이미지</label> <input type="file" name="attach"
-							class="tool w-100">
-					</div>
+                    <div class="cell">
+                        <label> 배달/포장 가능 여부 <i class="fa-solid fa-asterisk red"></i>
+                        </label>
+                        <div class="cell">
+                            <input type="checkbox" id="delivery" name="storeType"
+                                class="storeType" value="배달"> 배달만 <input type="checkbox"
+                                id="takeout" name="storeType" class="storeType" value="포장">
+                            포장만 <input type="checkbox" id="takeout" name="storeType"
+                                class="storeType" value="배달,포장"> 배달,포장 모두 가능
 
-					<div class="flex-cell"></div>
-				</div>
-			</div>
+                        </div>
+                    </div>
+
+
+                    <div class="cell">
+                        <label> 가게 연락처 <i class="fa-solid fa-asterisk red"></i>
+                        </label> <input type="text" name="storeContact"
+                            placeholder=" - 제외 숫자만 입력하세요" class="tool w-100"
+                            onblur="checkPhoneNumber()">
+                        <div class="success-feedback">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div class="fail-feedback">
+                            <i class="fa-solid fa-triangle-exclamation"></i> 잘못된 전화번호 형식입니다
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell">
+                    <div class="cell">
+                        <label>가게 이미지</label> <input type="file" name="attach"
+                            class="tool w-100">
+                    </div>
+
+                    <div class="flex-cell"></div>
+                </div>
+            </div>
 
 
 
-			<div class="cell storeIntro">
-				<label> 가게 소개글 </label>
-				<textarea class="tool w-100" name="storeIntro"></textarea>
-			</div>
-			<div class="cell">
-				<label> 배달팁<!-- 포켓볼 사진 input에 추가  --> <i
-					class="fa-solid fa-asterisk red"></i>
-				</label> <input type="text" name="storeDtip" placeholder="ex.3,000원"
-					class="tool w-100">
+            <div class="cell storeIntro">
+                <label> 가게 소개글 </label>
+                <textarea class="tool w-100" name="storeIntro"></textarea>
+            </div>
+            <div class="cell">
+                <label> 배달팁<!-- 포켓볼 사진 input에 추가  --> <i
+                    class="fa-solid fa-asterisk red"></i>
+                </label> <input type="text" name="storeDtip" placeholder="ex.3,000원"
+                    class="tool w-100" onblur="checkDeliveryTip()">
 
-			</div>
-			<div class="cell">
-				<label> 최소 주문 금액<!-- 포켓볼 사진 input에 추가  --> <i
-					class="fa-solid fa-asterisk red"></i>
-				</label> <input type="text" name="storeMinprice" placeholder="ex.12,000원"
-					class="tool w-100">
+            </div>
+            <div class="cell">
+                <label> 최소 주문 금액<!-- 포켓볼 사진 input에 추가  --> <i
+                    class="fa-solid fa-asterisk red"></i>
+                </label> <input type="text" name="storeMinprice" placeholder="ex.12,000원"
+                    class="tool w-100" onblur="checkMinOrderPrice()">
 
-			</div>
+            </div>
 
 			<div class="cell">
 				<label> 영업시간 <i class="fa-solid fa-asterisk red"></i>

@@ -152,6 +152,23 @@ public class MemberDao {
 		return jdbcTemplate.queryForObject(sql, String.class, data);
 
 	}
+	
+	
+	public String getMemberGradeByMemberNo(int memberNo) {
+	    String sql = "SELECT member_grade FROM member WHERE member_no = ?";
+	    try {
+	        return jdbcTemplate.queryForObject(sql, String.class, memberNo);
+	    } catch (EmptyResultDataAccessException e) {
+	        e.printStackTrace();
+	        return "일반회원";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
+	
+	
 }
    
 
