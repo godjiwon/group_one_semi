@@ -126,7 +126,7 @@
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList?storeNo=${storeNo}").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function(){
@@ -249,7 +249,7 @@
 				<a class="on">${i}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="ceoMenuList?page=${i}&${pageVO.getQueryString()}">${i}</a>
+				<a href="ceoMenuList?page=${i}&${pageVO.getQueryString()}&storeNo=${storeNo}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
