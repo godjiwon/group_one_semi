@@ -174,7 +174,7 @@
 						</tr>
 						<tr>
 							<th>좋아요 수</th>
-							<td class="left">${storeDto.storeLike}<span
+							<td class="left"><span
 								class="store-like red"> <i class="fa-regular fa-heart"></i>
 									<span class="count"></span>
 							</span>

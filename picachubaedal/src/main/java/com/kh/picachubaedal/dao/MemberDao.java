@@ -8,8 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.picachubaedal.dto.MemberDto;
+import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
 ///
+import com.kh.picachubaedal.mapper.StoreMapper;
 
 @Repository
 public class MemberDao {
@@ -19,7 +21,8 @@ public class MemberDao {
 	private MemberMapper mapper;
 	//@Autowired
 	//private StatMapper statMapper;
-
+@Autowired
+private StoreMapper storeMapper;
 	 //가입 (등록)/
 	public void insert(MemberDto memberDto) {
         String sql = "insert into member("
@@ -151,6 +154,14 @@ public class MemberDao {
 		Object[] data = {reviewBoardWriter};
 		return jdbcTemplate.queryForObject(sql, String.class, data);
 
+	}
+	
+	//좋아요 가게리스트 불러오기
+	public List<StoreDto> selectLikeStore(String memberId){
+		 String sql = "SELECT * FROM store WHERE store_no IN (SELECT store_no FROM store_like WHERE member_id = ?)";
+		 Object[] data = {memberId};
+	         List<StoreDto> list = jdbcTemplate.query(sql,storeMapper,data);
+	         return list;
 	}
 }
    

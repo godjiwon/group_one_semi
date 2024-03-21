@@ -1,8 +1,12 @@
 package com.kh.picachubaedal.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.kh.picachubaedal.dto.StoreDto;
 
 @Repository
 public class StoreLikeDao {
@@ -40,4 +44,6 @@ public class StoreLikeDao {
 			Object[] data = {storeNo};
 			return jdbcTemplate.queryForObject(sql, int.class, data);
 		}
+
+
 }
