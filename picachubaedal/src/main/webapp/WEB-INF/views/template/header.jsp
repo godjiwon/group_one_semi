@@ -15,7 +15,7 @@
 
     <!-- 내가 구현한 스타일 -->
    <link rel="stylesheet" type="text/css" href="/css/commons.css">
-   <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
+<!--    <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
    <link rel="stylesheet" type="text/css" href="/css/layout.css">
     
     <!-- font awesome 아이콘 CDN -->
@@ -29,6 +29,9 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
    
    <style> 
+ 		* {
+ 			font-family : 빙그레 메로나체, sans-serif;
+ 		}
        .header_wrap {
 		    display: flex;
 		    align-items: flex-end;  
@@ -54,7 +57,6 @@
     	background: #fed23d;
       }
    </style>
-   
    <script>
    
    </script>
@@ -70,7 +72,6 @@
    - 로고, 검색창, 각종 메뉴들을 배치   
    - div는 투명한 영역
 --%>
-
 <body>
    <main>  
    <div class="header">
@@ -82,6 +83,9 @@
          <div class="header_sideMenu right">
               <c:choose>
 						<c:when test="${sessionScope.loginId != null}">
+							<div class="cell header_sideMenu">
+								<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
+							</div>
 							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
 								${sessionScope.loginId}
 							</a>

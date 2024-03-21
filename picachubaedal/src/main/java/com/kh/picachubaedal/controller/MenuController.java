@@ -95,10 +95,7 @@ public class MenuController {
     *  @return /menu/ceoMenuList.jsp
     */
    @RequestMapping("/ceoMenuList")
-   public String ceoMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session) {
-	   
-		// 테스트 데이터 storeNo 3번
-		int storeNo = 3;
+   public String ceoMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session, @RequestParam int storeNo) {
 			  
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);

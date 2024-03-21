@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.picachubaedal.dto.MemberDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
+import com.kh.picachubaedal.mapper.MenuMapper;
 import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
@@ -31,6 +32,11 @@ public class StoreDao {
 
     @Autowired
 	private MemberMapper memberMapper;
+    
+    @Autowired
+    private MenuDao menuDao;
+    @Autowired
+    private MenuMapper menuMapper;
 
 
     //가게등록
@@ -319,7 +325,29 @@ public class StoreDao {
 		        return null; // 해당 멤버에게 연결된 가게 정보가 없는 경우
 		    }
 		}
-		
+
+
+
+
+		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
+		public List<StoreDto> searchStoresByMenuName(String menuName) {
+
+		    String sql = "SELECT DISTINCT s.* " +
+		                 "FROM store s " +
+		                 "INNER JOIN menu m ON s.store_no = m.store_no " +
+		                 "WHERE INSTR(UPPER(m.menu_name), UPPER(?)) > 0 " +
+		                 "ORDER BY s.store_no ASC";
+
+		    // ? 에 대한 값을 설정하여 SQL 쿼리 실행
+		    Object[] data = { menuName };
+		    List<StoreDto> list = jdbcTemplate.query(sql, storeMapper, data);
+
+		    return list;
+		}
+
+
+
+
 		
 	
 }

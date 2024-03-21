@@ -11,6 +11,9 @@ import com.kh.picachubaedal.dto.StoreDto;
 @Service
 public interface StoreService {
 
-	List<StoreDto> getStoresByCategory(String category);
+    List<StoreDto> getStoresByCategory(String category);
+
+    List<StoreDto> searchStoresByMenuName(String menuName);
+
 }
 
