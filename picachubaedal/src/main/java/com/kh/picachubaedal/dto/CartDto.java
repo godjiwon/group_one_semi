@@ -8,9 +8,18 @@ public class CartDto {
 	private String itemName;
 	private int itemPrice;
 	private int itemQuantify;
+	private String storeName;
 
 	
 	
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
 	public int getMenuNo() {
 		return menuNo;
 	}

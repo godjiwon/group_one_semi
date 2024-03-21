@@ -53,4 +53,21 @@ public class CartDao {
         return jdbcTemplate.query(sql, cartMapper ,data);
 		
 	}
+	
+	//메뉴테이블에서 메뉴번호를 주고 가게번호검색
+	public int getStoreNo(int menuNo) {
+
+		String sql = "select STORE_NO from MENU where MENU_NO = ?";
+		Object[] data = {menuNo};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+
+	public String getStoreName(int storeNo) {
+
+		String sql = "select store_name from store where store_no = ?";
+		Object[] data = {storeNo};
+		return jdbcTemplate.queryForObject(sql, String.class, data);
+	}
+	
+	
 }
