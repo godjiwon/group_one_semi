@@ -48,9 +48,9 @@ public class MenuController {
     */
    //GET 요청을 처리하는 핸들러 메서드로, 메뉴 등록 폼을 보여줌
    @GetMapping("/insert")
-   public String insert(Model model) {//Model 객체를 사용하여 뷰로 데이터를 전달
+   public String insert(Model model, @RequestParam int storeNo) {//Model 객체를 사용하여 뷰로 데이터를 전달
 	  //가게번호 test
-	  model.addAttribute("storeNo", 3);// 가게 번호를 모델에 추가
+	  model.addAttribute("storeNo", storeNo);// 가게 번호를 모델에 추가
       return "/WEB-INF/views/menu/insert.jsp";
    }
 
@@ -102,7 +102,7 @@ public class MenuController {
 		model.addAttribute("storeDto", storeDto);
 		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
-		int count = menuDao.count(pageVO);
+		int count = menuDao.count(pageVO, storeNo);
 		pageVO.setCount(count);
 		model.addAttribute("pageVO", pageVO);
 		List<MenuDto> list = menuDao.selectListByPaging(pageVO, storeNo);
@@ -121,17 +121,14 @@ public class MenuController {
     *  @return /menu/customerMenuList.jsp
     */     
    @RequestMapping("/customerMenuList")
-   public String customerMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session) {
+   public String customerMenuList(@ModelAttribute PageVO pageVO, Model model, HttpSession session, @RequestParam int storeNo) {
 	   
-		// 테스트 데이터 storeNo 3번
-		int storeNo = 3;
-			  
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
 		model.addAttribute("storeDto", storeDto);
 		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
-		int count = menuDao.count(pageVO);
+		int count = menuDao.count(pageVO, storeNo);
 		pageVO.setCount(count);
 		model.addAttribute("pageVO", pageVO);
 		List<MenuDto> list = menuDao.selectListByPaging(pageVO, storeNo);

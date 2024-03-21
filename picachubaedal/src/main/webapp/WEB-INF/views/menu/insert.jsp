@@ -84,7 +84,8 @@ function insertMenu(file) {//유효성 검사 후 유효하지 않으면 경고�
 	    contentType: false,
         processData: false,
 	    success: function(response) {
-	        window.location.href = "/menu/ceoMenuList";
+	    	var storeNo = response;
+	          window.location.href = "/menu/ceoMenuList?storeNo="+storeNo;
 	    }
     });  
 }
