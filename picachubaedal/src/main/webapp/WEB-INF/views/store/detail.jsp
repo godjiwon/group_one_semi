@@ -79,6 +79,8 @@
 
 <div class="container w-1000">
 	<div class="cell">
+		<input type="text" name="memberNo" placeholder="멤버넘버"
+			value="<%=session.getAttribute("memberNo")%>">
 		<h1>${storeDto.storeName}</h1>
 	</div>
 	<div class="cell floating-cell">
@@ -108,23 +110,19 @@
 
 
 
-	<div class="cell center">
-
-					<h2>
-						<a class="link link-animation" href="/menu/ceoMenuList"> 메뉴
-							리스트</a>
+				<div class="cell center">
+					
+						<h2>
+						<a class="link link-animation" href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}">
+						메뉴 리스트</a>
 					</h2>
 				</div>
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation" href="/store5/storeDelete"
-
-							style="color: red">가게 삭제</a></h2>
-							</div>
-
-
-				
-
+							style="color: red">가게 삭제</a>
+					</h2>
+				</div>
 			</div>
 		</div>
 		<div class="w-75">

@@ -156,6 +156,7 @@ private StoreMapper storeMapper;
 
 	}
 	
+
 	//좋아요 가게리스트 불러오기
 	public List<StoreDto> selectLikeStore(String memberId){
 		 String sql = "SELECT * FROM store WHERE store_no IN (SELECT store_no FROM store_like WHERE member_id = ?)";
@@ -163,6 +164,24 @@ private StoreMapper storeMapper;
 	         List<StoreDto> list = jdbcTemplate.query(sql,storeMapper,data);
 	         return list;
 	}
+
+	
+	public String getMemberGradeByMemberNo(int memberNo) {
+	    String sql = "SELECT member_grade FROM member WHERE member_no = ?";
+	    try {
+	        return jdbcTemplate.queryForObject(sql, String.class, memberNo);
+	    } catch (EmptyResultDataAccessException e) {
+	        e.printStackTrace();
+	        return "일반회원";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
+	
+	
+
 }
    
 
