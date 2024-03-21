@@ -260,7 +260,9 @@ public class StoreController {
 	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
 	    // DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
 	    List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
-	    model.addAttribute("categoryList", categoryList);
+	    List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(categoryList);
+	    
+	    model.addAttribute("categoryList", imageSetUpList);
 	    
 	    // 페이지 처리를 위한 작업
 	    int count = storeDao.count(pageVO);
