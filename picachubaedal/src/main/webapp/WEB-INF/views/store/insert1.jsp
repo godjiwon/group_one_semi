@@ -78,7 +78,28 @@
 	                    && this.memberNoValid;
 	        },
 	    };
-	
+		
+	 // 사업자 등록번호 형식검사
+	    $(function(){
+	        $("[name=storeBusinessNumber]").blur(function(){
+	        	// 수정된 정규식: 정확히 10자리의 숫자만을 허용
+		        var regex = /^\d{10}$/;
+
+		        var isValidLength = storeBusinessNumber.length === 10; // 10자리인지 확인
+		        var isValidFormat = regex.test(storeBusinessNumber); // 숫자로만 이루어져 있는지 확인
+
+		        // 10자리이면서 숫자로만 이루어져 있을 때 success 반환
+		        var isValid = isValidLength && isValidFormat;
+		        
+	            if (isValid) {
+	                $(this).removeClass("success").addClass("fail");
+	            } else {
+	                $(this).removeClass("fail").addClass("success");
+	            }
+	        });
+	    });
+
+	    
 	    //전화번호 형식검사
 	    $("[name=storeContact]").blur(function(){
 	    	var regex = /^\d{2,3}-\d{3,4}-\d{4}$/;
@@ -196,10 +217,23 @@
 	    $(".check-form").submit(function(){
 	        //$(this).find("[name], #pw-reinput").blur();
 	        //$(this).find(".tool").blur();//모든 창
+	     
+	        // 모든 입력란을 검사하여 형식이 올바른지 확인
+	        if (!state.ok()) {
+	            // 형식 검사 통과하지 못한 경우 폼 제출을 막고 알림창 표시
+	            event.preventDefault();
+	            alert('모든 입력란을 채워주세요.');
+	        } else {
+	            // 형식 검사를 통과한 경우 알림창을 표시하지 않고 폼을 제출
+	            alert('등록이 완료되었습니다.');
+	        }
 	        
 	        //입력창 중에서 success fail fail2가 없는 창
 	        $(this).find(".tool").not(".success, .fail, .fail2").blur();
 	        return state.ok();
+	        
+	     
+	     
 	    });
 	    
 	    var storeTypes = [];
@@ -264,8 +298,9 @@
 	            failFeedback.style.display = "block";
 	        }
 	    }
+		
+	 
 
-	    
 	    
 
 
@@ -308,29 +343,51 @@
         });
     });
     
+    
     $(function(){
-        //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
-    	// storeName 입력란의 blur 이벤트 설정
-        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery]").blur(function(){
-            // 입력된 가게 이름 가져오기
-            var storeName = $(this).val();
+        // form 전송 시 이벤트 처리 지도
+        $(".check-form").submit(function(event){
+            // 주소 입력란의 값 가져오기
+            var post = $("[name=storePost]").val();
+            var address1 = $("[name=storeAddress1]").val();
+            var address2 = $("[name=storeAddress2]").val();
             
-            // 여기서 추가적으로 수행할 작업을 작성합니다.
-            // 예를 들어, 가게 이름이 입력되었는지 확인하거나 다른 유효성 검사를 수행할 수 있습니다.
+            // 주소 입력 여부 확인
+            var isAddressEmpty = post.trim() === '' || address1.trim() === '' || address2.trim() === '';
             
-            // 예시: 가게 이름이 비어 있지 않은 경우에만 유효성 검사 통과 처리
-            if(storeName.trim() !== '') {
-                // 가게 이름이 비어 있지 않은 경우 success 클래스 추가
-                $(this).addClass("success");
-                // 다른 작업 수행 가능
-            } else {
-                // 가게 이름이 비어 있는 경우 fail 클래스 추가
-                $(this).addClass("fail");
-                // 다른 작업 수행 가능
+            // 주소 입력 여부에 따라 처리
+            if (isAddressEmpty) {
+                // 주소 입력이 완료되지 않은 경우 폼 제출 막기
+                event.preventDefault();
+                // 알림창 표시
+                alert('주소를 모두 입력하세요.');
             }
         });
     });
 
+    
+    
+    $(function(){
+        //음식카테고리, 배달/포장, 소개글, 휴무일, 배달가능지역 입력란의 blur 이벤트 설정
+        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery]").blur(function(){
+            // 입력된 값 가져오기
+            var value = $(this).val();
+            
+            // 입력값이 비어 있는지 확인
+            var isEmpty = value.trim() === '';
+
+            // 입력값이 비어 있으면 fail 클래스 추가하고 success 클래스 제거
+            // 입력값이 있으면 success 클래스 추가하고 fail 클래스 제거
+            if (isEmpty) {
+                $(this).removeClass("success").addClass("fail");
+            } else {
+                $(this).removeClass("fail").addClass("success");
+            }
+        });
+    });
+
+
+   
 
 
     
@@ -342,7 +399,7 @@
 <body>
 
 	<form action="insert1" method="post" enctype="multipart/form-data"
-		autocomplete="off" class="check-form">
+		autocomplete="off" class="check-form" id="registerForm">
 
 		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
 		<div class="container w-600">
@@ -567,10 +624,13 @@
 				</div>
 			</div>
 			<div class="cell">
-				<label> 사업자 등록번호 <i class="fa-solid fa-asterisk red"></i>
-				</label> <input type="text" name="storeBusinessNumber"
-					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100">
-			</div>
+    <label> 사업자 등록번호 <i class="fa-solid fa-asterisk red"></i> </label>
+    <input type="text" name="storeBusinessNumber" id="storeBusinessNumber" placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100" onblur="checkBusinessNumber()">
+    <div class="success-feedback">정확한 입력값</div>
+    <div class="fail-feedback">
+        <i class="fa-solid fa-triangle-exclamation"></i> 올바른 형식이 아닙니다
+    </div>
+</div>
 		
 
 
