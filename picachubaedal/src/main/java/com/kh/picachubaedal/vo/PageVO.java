@@ -23,6 +23,8 @@ public class PageVO {
 	public String getKeyword() {
 		if(keyword == null) return "";
 		return keyword;
+		
+		
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;

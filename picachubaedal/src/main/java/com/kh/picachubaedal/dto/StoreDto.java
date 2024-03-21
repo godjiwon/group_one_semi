@@ -30,7 +30,7 @@ public class StoreDto {
 	private double UserDistance;
 
 	public double getUserDistance() {
-		
+
 		return Math.round(UserDistance * 100.0) / 100.0;
 	}
 
