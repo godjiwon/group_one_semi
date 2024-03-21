@@ -74,7 +74,7 @@ public class MenuController {
 	    	int attachNo = attachService.save(menuImage);
 	    	menuDao.connect(menuNo, attachNo);
 	    }
-	    return menuNo;
+	    return menuDto.getStoreNo();
    }
 
    /**
@@ -202,7 +202,7 @@ public class MenuController {
 	       menuDao.connect(menuDto.getMenuNo(), attachNo);
        }
        
-	   return menuDto.getMenuNo();
+	   return menuDto.getStoreNo();
    }
    
    /**
