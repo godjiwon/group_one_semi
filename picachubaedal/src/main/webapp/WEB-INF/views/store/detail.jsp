@@ -111,28 +111,11 @@
 
 
 				<div class="cell center">
-					<c:choose>
-						<c:when
-							test="${sessionScope.loginId != null and sessionScope.memberGrade eq '사장님'}">
-							<h2>
-								<a class="link link-animation"
-									href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}"> 메뉴
-									리스트</a>
-							</h2>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${memberGrade == '사장님'}">
-									<a class="link link-animation" href="/menu/ceoMenuList.jsp">메뉴
-										리스트</a>
-								</c:when>
-								<c:otherwise>
-									<a class="link link-animation"
-										href="/menu/customerMenuList.jsp">메뉴 리스트</a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
+					
+						<h2>
+						<a class="link link-animation" href="/menu/ceoMenuList?storeNo=${storeDto.storeNo}">
+						메뉴 리스트</a>
+					</h2>
 				</div>
 				<div class="cell center">
 					<h2>
