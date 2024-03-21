@@ -77,7 +77,7 @@ $(function () {
 				<div class="cell pb-50 ps-50 pe-50">
 					<c:forEach var="ppp" items="${qwer}">
 						<div class="cell basketBox">
-							<h3>(가게 이름)</h3>
+							<h3>${ppp.storeName}</h3>
 							<hr style="border-top: 1px solid rgb(255, 227, 118)">
 							<div class="cell flex-cell">
 
