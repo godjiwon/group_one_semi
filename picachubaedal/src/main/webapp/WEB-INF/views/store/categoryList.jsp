@@ -50,36 +50,36 @@
         </table>
         
         <%-- 네비게이터 --%>
-        <div class="page-navigator" id="pageNavigator">
+        <div class="page-navigator">
             <%-- 이전 버튼 --%>
             <c:choose>
-                <c:when test="${storeVO.isFirstBlock()}">
+                <c:when test="${pageVO.isFirstBlock()}">
                     <a class="off">&lt;이전</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="list?page=${storeVO.getPrevBlock()}&${storeVO.getQueryString()}">&lt;이전</a>
+                    <a href="list?page=${pageVO.getPrevBlock()}&${pageVO.getQueryString()}">&lt;이전</a>
                 </c:otherwise>
             </c:choose>
             
             <%-- 페이지 숫자 --%>
-            <c:forEach var="pageNumber" begin="${storeVO.getBeginBlock()}" end="${storeVO.getEndBlock()}" step="1">
+            <c:forEach var="i" begin="${pageVO.getBeginBlock()}" end="${pageVO.getEndBlock()}" step="1">
                 <c:choose>
-                    <c:when test="${storeVO.isCurrentPage(pageNumber)}">
-                        <a class="on">${pageNumber}</a>
+                    <c:when test="${pageVO.isCurrentPage(pageNumber)}">
+                        <a class="on">${i}</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="list?page=${pageNumber}&${storeVO.getQueryString()}">${pageNumber}</a>
+                        <a href="categoryList?page=${i}&${pageVO.getQueryString()}">${i}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
             
             <%-- 다음 버튼 --%>
             <c:choose>
-                <c:when test="${storeVO.isLastBlock()}">
+                <c:when test="${pageVO.isLastBlock()}">
                     <a class="off">다음&gt;</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="list?page=${storeVO.getNextBlock()}&${storeVO.getQueryString()}">다음&gt;</a> 
+                    <a href="categoryList?page=${pageVO.getNextBlock()-1}&${pageVO.getQueryString()}">다음&gt;</a> 
                 </c:otherwise>
             </c:choose>
         </div>
@@ -94,8 +94,9 @@
     var pageNavigator = document.getElementById("pageNavigator");
     pageNavigator.style.display = "none"; // 일단 숨기기
 
-    // 페이지가 10개를 넘을 때만 네비게이터를 표시
-    if (${storeVO.getTotalPage()} > 10) {
+    // 페이지가 1개를 넘을 때만 네비게이터를 표시
+    if (${pageVO.getTotalPage()} > 1) {
         pageNavigator.style.display = "block"; // 표시하기
     }
 </script>
+
