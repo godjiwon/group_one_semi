@@ -1,6 +1,7 @@
 package com.kh.picachubaedal.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -328,6 +329,7 @@ public class StoreDao {
 		
 
 
+
 		// 가게 목록 및 검색 (메뉴 이름에 해당하는 가게)
 		public List<StoreDto> searchStoresByMenuName(String menuName) {
 
@@ -343,6 +345,7 @@ public class StoreDao {
 
 		    return list;
 		}
+
 
 
 
