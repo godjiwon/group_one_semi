@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +17,9 @@ import com.kh.picachubaedal.dao.MemberDao;
 import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dao.StoreLikeDao;
 import com.kh.picachubaedal.dto.MemberDto;
-import com.kh.picachubaedal.dto.StoreDto;<<<<<<<HEAD
-import com.kh.picachubaedal.logic.DistanceCalculator;=======
-import com.kh.picachubaedal.mapper.StoreMapper;>>>>>>>branch'main'of https://github.com/godjiwon/group_one_semi.git
+import com.kh.picachubaedal.dto.StoreDto;
+import com.kh.picachubaedal.logic.DistanceCalculator;
+//github.com/godjiwon/group_one_semi.git
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.service.StoreService;
@@ -257,35 +256,16 @@ public class StoreController {
 
 	// 카테고리 전체 목록
 	@GetMapping("/categoryList")
-<<<<<<< HEAD
 	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO,
 			HttpSession session) {
-	    // DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
-		
-	    List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
-	    List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(categoryList);
-	    List<StoreDto> distanceSetUpList = distanceCalculator.calculateDistanceBetweenAddresses(session ,imageSetUpList);
-	    
-	    model.addAttribute("categoryList", distanceSetUpList);
-	    
-	    // 페이지 처리를 위한 작업
-	    int count = storeDao.count(pageVO);
-	    pageVO.setCount(count);
-	    model.addAttribute("pageVO", pageVO);
-	    
-	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-	    model.addAttribute("list", list);
-	    // 다른 처리 작업...
-	    
-	    // JSP 파일 이름 반환
-	    return "/WEB-INF/views/store/categoryList.jsp";
-=======
-
-	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
-
 		// DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
+
 		List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
-		model.addAttribute("categoryList", categoryList);
+		List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(categoryList);
+		List<StoreDto> distanceSetUpList = distanceCalculator.calculateDistanceBetweenAddresses(session,
+				imageSetUpList);
+
+		model.addAttribute("categoryList", distanceSetUpList);
 
 		// 페이지 처리를 위한 작업
 		int count = storeDao.count(pageVO);
@@ -293,11 +273,12 @@ public class StoreController {
 		model.addAttribute("pageVO", pageVO);
 
 		List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+		model.addAttribute("list", list);
+		// 다른 처리 작업...
 
 		// JSP 파일 이름 반환
 		return "/WEB-INF/views/store/categoryList.jsp";
 
->>>>>>> branch 'main' of https://github.com/godjiwon/group_one_semi.git
 	}
 
 	// 사진 반환
