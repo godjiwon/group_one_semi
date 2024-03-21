@@ -50,9 +50,9 @@ public class MenuDao {
    }
 	
 	//삭제
-	public boolean delete(int menuNo) {
-		String sql = "delete menu where menu_no=?";
-		Object[] data = {menuNo};
+	public boolean delete(int menuNo, int storeNo) {
+		String sql = "delete menu where menu_no=? and store_no=?";
+		Object[] data = {menuNo, storeNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
@@ -113,10 +113,11 @@ public class MenuDao {
 									+ "select tb1.* from menu tb1 "
 									+ "left outer join store tb2 "
 									+ "on tb1.store_no = tb2.store_no " 
+									+ "where tb1.store_no = ? "
 									+ "order by menu_no asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
-			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
+			Object[] data = {storeNo, pageVO.getBeginRow(), pageVO.getEndRow()};
 			return jdbcTemplate.query(sql, menuMapper, data);
 		}
 	}
@@ -130,14 +131,30 @@ public class MenuDao {
 	}	
 	
 	//카운트(목록일 경우와 검색일 경우를 각각 구현)
-	public int count(PageVO pageVO) {
-		if(pageVO.getColumn() != "" && pageVO.getKeyword() != "") {//검색
-			String sql = "select count(*) from menu where instr("+pageVO.getColumn()+", ?) > 0";
-			Object[] data = {pageVO.getKeyword()};
+	public int count(PageVO pageVO, int storeNo) {
+		if(!pageVO.getColumn().isEmpty()) {
+			String sql = "SELECT count(*) FROM menu tb1 "
+					   + "LEFT OUTER JOIN store tb2 "
+					   + "ON tb1.store_no = tb2.store_no "
+					   + "WHERE menu_category = ? " 
+					   + "AND tb1.store_no = ? "; 
+			Object[] data = {pageVO.getColumn(), storeNo};
 			return jdbcTemplate.queryForObject(sql, int.class, data);
-		} else {//목록
-			String sql = "select count(*) from menu";
-			return jdbcTemplate.queryForObject(sql, int.class);
+		} else if(!pageVO.getKeyword().isEmpty()) {
+			String sql = "SELECT count(*) FROM menu tb1 "
+					   + "LEFT OUTER JOIN store tb2 "
+					   + "ON tb1.store_no = tb2.store_no "
+					   + "WHERE instr(upper(tb1.menu_name), upper(?)) > 0 "
+					   + "AND tb2.store_no = ? ";
+			Object[] data = {pageVO.getKeyword(), storeNo};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
+		} else {
+			String sql = "select count(*) from menu tb1 "
+					   + "left outer join store tb2 "
+					   + "on tb1.store_no = tb2.store_no " 
+					   + "where tb1.store_no = ? ";
+			Object[] data = {storeNo};
+			return jdbcTemplate.queryForObject(sql, int.class, storeNo);
 		}
 	}
 	

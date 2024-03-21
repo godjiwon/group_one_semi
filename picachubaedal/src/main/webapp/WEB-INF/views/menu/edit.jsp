@@ -83,7 +83,8 @@ function updateMenu(file) {
 	    contentType: false,
         processData: false,
 	    success: function(response) {
-	    	window.location.href = "/menu/ceoMenuList";
+	    	var storeNo = response;
+	          window.location.href = "/menu/ceoMenuList?storeNo="+storeNo;
 	    }
     });  
 }
