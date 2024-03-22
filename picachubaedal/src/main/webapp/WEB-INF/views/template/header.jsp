@@ -71,23 +71,25 @@
 
 .image-test {
     position: absolute;
-    top: 0.5%;
-    left: 700px; /* 시작 위치를 오른쪽으로 100px로 설정 */
+    top: 3%;
+    right: 1200px; /* 시작 위치를 오른쪽으로 설정 */
     animation-name: moveRightToLeft;
     animation-timing-function: linear;
-    animation-duration: 5s;
+    animation-duration: 7s;
     animation-iteration-count: infinite;
     box-shadow: inherit;
 }
 
 @keyframes moveRightToLeft {
     from {
-        left: 700px; /* 시작 위치를 오른쪽으로 100px로 설정 */
+        left: 1200px; /* 시작 위치를 오른쪽으로 설정 */
     }
     to {
         left: 400px; /* 종료 위치를 왼쪽으로 이동 */
     }
 }
+
+
 
 </style>
 <script>
@@ -126,7 +128,7 @@
 
 
 							<div class="header_sideMenu right">
-								<a href="/store/list">내가게</a>&nbsp; <a href="/member/mypage">마이페이지</a>&nbsp;
+
 								<a href="/member/logout">로그아웃</a>
 						</c:when>
 						<c:otherwise>
