@@ -215,4 +215,20 @@ public class MenuController {
 	   return "/WEB-INF/views/menu/editFail.jsp";
    }
    
+   /**
+    *  메뉴 사진 찾기
+    *  @param menuNo
+    *  @return redirect:/download?attachNo="+attachNo
+    *  @return redirect:/image/default.png
+    */    
+   @RequestMapping("/homeBannerImage")
+   public String homeBannerImage(@RequestParam int storeNo) {
+	   try {
+		   int attachNo = menuDao.findBannerAttachNo(storeNo);
+		   return "redirect:/download?attachNo="+attachNo;
+	   } catch(Exception e) {
+		   return "redirect:/image/default.png";
+	   }
+   }   
+   
 }

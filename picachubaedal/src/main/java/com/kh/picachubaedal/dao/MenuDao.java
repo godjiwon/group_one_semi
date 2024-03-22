@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.picachubaedal.dto.MenuDto;
+import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.MenuMapper;
+import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.vo.PageVO;
 
 @Repository
@@ -18,6 +20,9 @@ public class MenuDao {
 	
 	@Autowired
 	private MenuMapper menuMapper;
+	
+	@Autowired
+    private StoreMapper storeMapper;
 	
 	//등록
 	public void insert(MenuDto menuDto) {
@@ -165,6 +170,12 @@ public class MenuDao {
 		return jdbcTemplate.queryForObject(sql, int.class, data);
 	}
 	
+	//홈 배너 이미지 연결
+	public int findBannerAttachNo(int storeNo) {
+		String sql = "select attach_no from store_attach where store_no = ?";
+		Object[] data = {storeNo};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}	
 	
 	public void connect(int menuNo, int attachNo) {
 		String sql = "insert into menu_attach(menu_no, attach_no) "
@@ -197,7 +208,26 @@ public class MenuDao {
 		} catch(Exception e) {
 			return 0;
 		}
-	}	
+	}
+	
+	public List<StoreDto> selectHomeBanner() {
+		String sql = " SELECT * "
+				   + " FROM (SELECT * " 
+				   + " FROM store "
+				   + " ORDER BY dbms_random.value) "
+				   + " WHERE rownum <= 5 ";
+		List<StoreDto> list = jdbcTemplate.query(sql, storeMapper);
+		return list;
+	}
+	
+	public List<StoreDto> selectHomeBannerPickData() {
+		String sql = " SELECT * "
+				   + " FROM store " 
+				   + " WHERE rownum <= 7 "
+				   + " ORDER BY dbms_random.value ";
+		List<StoreDto> list = jdbcTemplate.query(sql, storeMapper);
+		return list;
+	}
 	
 }
 

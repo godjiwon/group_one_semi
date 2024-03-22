@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,70 +12,117 @@
 <meta charset="UTF-8">
 <title>가게 목록</title>
 <style>
-.category {
-	text-decoration: none;
-	color: #2d3436;
-	padding: 30px;
-}
-
-.slider-container {
-	width: 100%;
-	overflow: hidden;
-}
-
-.slider {
-	display: flex;
-	transition: transform 0.5s ease-in-out;
-}
-
-.store-card {
-	width: 300px;
-	margin-right: 20px;
-}
+	.banner-wrap {
+	    display: flex;
+	    justify-content: center;	
+	}
+	.banner_slide {
+	    width: 1040px;
+	}
+	.banner_image {
+		width: 100%;
+		height: 200px;
+		border-radius: 25px;
+		margin-bottom: 10px;
+	}
+	.bannerList-top {
+		display: flex;
+		margin-bottom: 3px;
+		> p {
+			margin: 0;
+		}
+	}
+	.banner-List {
+	    display: flex !important;
+	    flex-direction: column;
+	    padding: 20px;
+	    /* border: black solid;
+	    border-radius: 50px; */
+	    
+		.banner_name {
+	    	margin-right: 5px;
+	    	font-size: 18px;
+	    	font-weight: bold;
+		}	    
+	    > p {
+	    	margin: 3px 0px 3px 0px;
+	    	font-size: 16px;
+	    }
+	}
+	.slick-prev {
+	    position: absolute;
+	    width: 50px;
+	    height: 50px;
+	    top: 40%;
+	    left: -7%;
+	    background-image: url(/image/left-arrow.png);
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    text-indent: -10000px;
+	    border: none;
+	    background-color: transparent;
+	    cursor: pointer; 
+	}
+	.slick-next {
+	    position: absolute;
+	    width: 50px;
+	    height: 50px;
+	    top: 40%;
+	    right: -5%;
+	    background-image: url(/image/right-arrow.png);
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    text-indent: -10000px;
+	    border: none;
+	    background-color: transparent;
+	    cursor: pointer;    
+	}
+	.banner_type {
+		display: inline-block;
+	    width: fit-content;
+	    font-size: 13px !important;
+	    font-weight: 600;
+	    background-color: #f0f0f0;
+	    padding: 5px;
+	    border-radius: 6px;
+	}
 </style>
-	<script>
-        // 가게 정보를 가져와 슬라이드바에 표시하는 함수
-        async function displayStores() {
-            try {
-                const response = await fetch('/store/list'); // 가게 목록을 가져오는 API 엔드포인트
-                const stores = await response.json(); // JSON 형식으로 변환
-                const slider = document.querySelector('.slider');
-
-                // 슬라이더에 가게 정보 카드를 추가합니다.
-                stores.forEach(store => {
-                    const storeCard = `
-                        <div class="store-card">
-                            <h2>${store.storeName}</h2>
-                            <img src="${store.storeImgLink}" alt="${store.storeName}">
-                        </div>
-                    `;
-                    slider.innerHTML += storeCard;
-                });
-
-                // 슬라이드바를 이동시키는 함수 호출
-                slide();
-            } catch (error) {
-                console.error('Error fetching store data:', error);
-            }
-        }
-
-        // 슬라이드바를 이동시키는 함수
-        function slide() {
-            const slider = document.querySelector('.slider');
-            let counter = 0;
-            setInterval(() => {
-                // 슬라이더를 오른쪽으로 이동합니다.
-                slider.style.transform = `translateX(-${counter * 320}px)`;
-                counter++;
-                if (counter === document.querySelectorAll('.store-card').length) {
-                    counter = 0;
-                }
-            }, 3000); // 3초마다 슬라이더가 이동합니다.
-        }
-
-        // 페이지 로드 시 가게 정보를 가져와 슬라이드바에 표시합니다.
-        window.onload = displayStores;
-    </script>
+<script>	
+ 	$( document ).ready(function() {
+		$('.banner_slide').slick({
+			slidesToShow: 5,
+			slidesToScroll: 1,
+			arrows: true,
+			//autoplay: true,
+		    //autoplaySpeed: 2000, 
+			responsive: [
+				    {
+				      breakpoint: 1024,
+				      settings: {
+				        slidesToShow: 3,
+				        slidesToScroll: 3,
+				        infinite: true,
+				        dots: true
+				      }
+				    },
+				    {
+				      breakpoint: 600,
+				      settings: {
+				        slidesToShow: 2,
+				        slidesToScroll: 2
+				      }
+				    },
+				    {
+				      breakpoint: 480,
+				      settings: {
+				        slidesToShow: 1,
+				        slidesToScroll: 1
+				      }
+				    }
+				  ]			
+		});
+	});
+</script>
 
 </head>
 <body>
@@ -126,28 +174,28 @@
 
 	<div class="cell ">
 		<h1>이런 가게는 어때요?</h1>
-	</div>
-	
-	
-	<form action="list" method="get" autocomplete="off">
-		<div class="swiper-slide">
-			<img src="${storeDto.storeImgLink}">
-
-		</div>
-	</form>
-
-	<div class="storelist">
-		<c:forEach var="dto" items="${List}">
-			<div onclick="window.location.href='detail?storeNo=${dto.storeNo}'"
-				style="cursor: pointer;"></div>
-			<div>${dto.storeName}</div>
-			<div>
-				<img src="${imagePath}" width="200" height="200">
+		<div class="banner-wrap">
+			<div class="banner_slide">
+				<c:set var="idx" value="0" />
+				<c:forEach var="bannerList" items="${bannerList}">
+					<c:set var="idx" value="${ idx+1 }" />
+					<div class="banner-List">
+						<%-- <img class="banner_image" alt="배너이미지" src="/menu/homeBannerImage?storeNo=${bannerList.storeNo}"> --%>
+						<img class="banner_image" alt="배너이미지" src="/image/test_image${idx}.jpg">
+						<div class="bannerList-top">
+							<p class="banner_name">${bannerList.storeName}</p>
+							<p><i class="fa-solid fa-heart red" style="margin-right: 5px;"></i>${bannerList.storeLike}</p>
+						</div>
+						<p class="banner_category">배달팁 <fmt:formatNumber value="${bannerList.storeDtip}" pattern="#,##0"></fmt:formatNumber>원</p>
+						<p class="banner_contact">최소주문금액 <fmt:formatNumber value="${bannerList.storeMinprice}" pattern="#,##0"></fmt:formatNumber>원</p>
+						<p class="banner_type">
+							${bannerList.storeType}
+						</p>
+					</div>
+				</c:forEach>
 			</div>
-		</c:forEach>
+		</div>
 	</div>
-
-
 </body>
 </html>
 
