@@ -12,6 +12,26 @@
 <meta charset="UTF-8">
 <title>가게 목록</title>
 <style>
+	.storeCategory {
+        display: inline-block;
+        margin: 20px;
+        text-align: center;
+        border-radius: 10px;
+        overflow: hidden; /* 이미지 크기 고정을 위한 설정 */
+    }
+
+    .storeCategory img {
+        width: 100px; /* 이미지 크기 조절 */
+        height: 100px;
+        border-radius: 10px;
+        transition: transform 0.3s ease; /* 호버링 효과 적용을 위한 설정 */
+    }
+
+    .storeCategory:hover img {
+        transform: scale(1.1); /* 호버링시 약간 커지는 효과 */
+        
+    }
+
 	.food-category {
 		text-align: center;
 		font-size: 20px;
@@ -113,8 +133,8 @@
 			slidesToShow: 5,
 			slidesToScroll: 1,
 			arrows: true,
-			//autoplay: true,
-		    //autoplaySpeed: 2000, 
+			autoplay: true,
+		    autoplaySpeed: 2000, 
 			responsive: [
 				    {
 				      breakpoint: 1024,

@@ -17,6 +17,8 @@
 <link rel="stylesheet" type="text/css" href="../css/commons.css">
 <link rel="stylesheet" type="text/css" href="../css/test.css">
 
+
+
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -33,6 +35,8 @@
 	box-shadow: 0 0 5px 5px rgb(255,245,213);
 	padding: 60px;
 }
+
+
 </style>
 
 <!-- jquery cdn -->
@@ -43,6 +47,14 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+
+ <!-- 부트스트랩 번들 및 팝퍼 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 여러분의 사용자 정의 스크립트 -->
+    <script type="text/javascript"></script>
+
 <script type="text/javascript">
 
     $(function(){
@@ -367,9 +379,9 @@
 	<form action="insert1" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
 
-		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
-		<div class="container w-600">
-			<h2>가게 등록 페이지(임시)</h2>
+		<input type="hidden" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
+		<div class="container w-700">
+			<h2>가게 등록</h2>
 			<div class="cell">
 
 

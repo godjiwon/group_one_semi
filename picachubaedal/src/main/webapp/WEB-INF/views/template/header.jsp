@@ -72,7 +72,7 @@
 .image-test {
     position: absolute;
     top: 0.5%;
-    left: 700px; /* 시작 위치를 오른쪽으로 100px로 설정 */
+    left: 900px; /* 시작 위치를 오른쪽으로 100px로 설정 */
     animation-name: moveRightToLeft;
     animation-timing-function: linear;
     animation-duration: 5s;
@@ -82,10 +82,10 @@
 
 @keyframes moveRightToLeft {
     from {
-        left: 700px; /* 시작 위치를 오른쪽으로 100px로 설정 */
+        left: 900px; /* 시작 위치를 오른쪽으로 100px로 설정 */
     }
     to {
-        left: 400px; /* 종료 위치를 왼쪽으로 이동 */
+        left: 650px; /* 종료 위치를 왼쪽으로 이동 */
     }
 }
 
