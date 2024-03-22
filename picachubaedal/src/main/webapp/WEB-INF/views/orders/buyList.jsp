@@ -8,6 +8,9 @@
 * {
 	font-family: 빙그레 메로나체, sans-serif;
 }
+li {
+    list-style-type: none; /* 리스트 아이템의 마커(점)을 없앰 */
+}
 .container {
 	display: grid;
 	margin-top: 50px;
@@ -79,22 +82,24 @@ div, ul, li, header, nav, section, aside, article, footer {
 				<hr class="listBox-hr">
 			</div>
 			<div class="cell flex-cell">
-				<div class="cell w-30 ms-20">가게사진
-				<img src="${order.storeImageLink}">
+				<div class="cell w-30 ms-20">
+				<img src="${order.storeImageLink}" width="140px;" height="140px;">
 				</div>
 				<div class="width-fill">
-					<div class="cell date">가게이름${order.storeName}</div>
-					<div class="cell text-info">${order.ordersItemName}</div>
-					<div class="cell text-info ms-20">
-					<fmt:formatNumber value="${order.ordersTotal}" pattern="#,##0"></fmt:formatNumber>원
-					</div>
+					<ul>
+						<li class="cell date">${order.storeName}</li>
+						<li class="cell text-info">${order.ordersItemName}</li>
+						<li class="cell text-info ms-20">
+						<fmt:formatNumber value="${order.ordersTotal}" pattern="#,##0"></fmt:formatNumber>원
+						</li>
+					</ul>
 					<hr class="listBox-hr">
 					<div class="cell flex-cell">
 						<div class="cell w-65 right"> 
 							<a href="#" class="detailBox">상세보기</a>
 						</div>
 						<div class="cell w-30 right" style="flex-grow: 1;">
-							<a href="#" class="write"> <i
+							<a href="/review-board/write" class="write"> <i
 								class="fa-solid fa-pen-to-square"></i> 리뷰쓰기
 							</a>
 						</div>
