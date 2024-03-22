@@ -30,7 +30,6 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/store")
 public class StoreController {
-
 	@Autowired
 	private AttachService attachService;
 
@@ -257,6 +256,7 @@ public class StoreController {
 	// 카테고리 전체 목록
 	@GetMapping("/categoryList")
 	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
+
 		// DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
 		List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
 		model.addAttribute("categoryList", categoryList);
@@ -270,6 +270,7 @@ public class StoreController {
 
 		// JSP 파일 이름 반환
 		return "/WEB-INF/views/store/categoryList.jsp";
+
 	}
 
 	// 사진 반환

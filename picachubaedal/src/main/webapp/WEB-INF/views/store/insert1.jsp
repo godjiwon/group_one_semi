@@ -168,12 +168,32 @@
 	    });
 	    
         
-	    $("[name=storeDelivery]").blur(function(){
-	    	var regex = /^[가-힣]+$/;
+	    $("[name=storeDelivery]").on("blur focus", function(){
+	        var regex = /^[가-힣]+$/;
 	        var value = $(this).val();
 	        state.storeContactValid = value.length == 0 || regex.test(value);
-	        $(this).removeClass("success fail")
-	                    .addClass(state.storeContactValid ? "success" : "fail");
+	        
+	        // 피드백 클래스 모두 지우기
+	        $(this).removeClass("success fail");
+	        
+	        // 새로운 피드백 클래스 추가
+	        $(this).addClass(state.storeContactValid ? "success" : "fail");
+	    });
+
+	    $("[name=storeBusinessNumber]").on("blur focus", function(){
+	        var regex = /^\d{10}$/; // 정규표현식을 변수에 할당
+	        var value = $(this).val();
+	        var isValid = value.length == 0 || regex.test(value); // 변수를 사용하여 테스트
+	        
+	        // 피드백 클래스 모두 지우기
+	        $(this).removeClass("success fail");
+	        
+	        // 새로운 피드백 클래스 추가
+	        $(this).addClass(isValid ? "success" : "fail");
+	    });
+
+
+
 	    
 	
 	    //주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
@@ -311,7 +331,9 @@
     $(function(){
         //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
     	// storeName 입력란의 blur 이벤트 설정
-        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery],[name=storeContact],[name=storeDtip]").blur(function(){
+
+        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery],[name=storeContact],[name=storeDtip],[name=storeIntro],[name=storeMinprice],[name=storeBusinessNumber]").blur(function(){
+
             // 입력된 가게 이름 가져오기
             var storeName = $(this).val();
             
@@ -569,7 +591,13 @@
 			<div class="cell">
 				<label> 사업자 등록번호 <i class="fa-solid fa-asterisk red"></i>
 				</label> <input type="text" name="storeBusinessNumber"
-					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100">
+					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100" onblur="checkStoreBusinessNumber()">
+					<div class="success-feedback">
+							<i class="fa-solid fa-check"></i>
+						</div>
+						<div class="fail-feedback">
+							<i class="fa-solid fa-triangle-exclamation"></i> 잘못된 전화번호 형식입니다
+						</div>
 			</div>
 		
 

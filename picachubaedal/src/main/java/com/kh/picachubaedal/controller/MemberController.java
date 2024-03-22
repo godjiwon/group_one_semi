@@ -21,6 +21,7 @@ import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.EmailService;
 import com.kh.picachubaedal.vo.PageVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 //
 @Controller
@@ -308,6 +309,5 @@ private StoreDao storeDao;
 	}
 	
 	
-
 	
 }
