@@ -209,6 +209,7 @@ function checkMenuPrice() {
 <div class="form-wrap">
    <form method="post" id="update_form" action="edit" autocomplete="off">
       <input type="hidden" name="menuNo" value="${menuDto.menuNo}">
+      <input type="hidden" name="storeNo" value="${menuDto.storeNo}">
       <section>
           <div class="menuArea container">
               <div id="drop-area">
