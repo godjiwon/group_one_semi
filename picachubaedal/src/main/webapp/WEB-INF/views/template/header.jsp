@@ -70,8 +70,8 @@
 }
 
 .image-test {
-    position: fixed;
-    top: 1%;
+    position: absolute;
+    top: 1px; /* 화면 위에서 50px 지점까지는 고정됨 */
     right: 1200px; /* 시작 위치를 오른쪽으로 설정 */
     animation-name: moveRightToLeft;
     animation-timing-function: linear;
