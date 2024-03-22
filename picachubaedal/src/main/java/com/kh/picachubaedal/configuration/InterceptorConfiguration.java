@@ -37,22 +37,22 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 //		- 주소를 설정할 때 **와 *를 사용할 수 있다
 //		- **는 하위 엔드포인트까지 모두 포함하여 설정할 때 사용 (후손)
 //		- *는 동일 엔드포인트까지만 포함하여 설정할 때 사용 (자식)
-		registry.addInterceptor(memberInterceptor)
-					.addPathPatterns(
-						"/member/**",
-						"/store/list/*",
-						"/store/categoryList"
-						
-					
-					)
-					.excludePathPatterns(
-					"/store/**"
-						
-					);
-		
-		//관리자 인터셉터 등록
-		registry.addInterceptor(ceoInterceptor)
-					.addPathPatterns("/**");
+//		registry.addInterceptor(memberInterceptor)
+//					.addPathPatterns(
+//						"/member/**",
+//						"/store/list/*",
+//						"/store/categoryList"
+//						
+//					
+//					)
+//					.excludePathPatterns(
+//					"/store/**"
+//						
+//					);
+//		
+//		//관리자 인터셉터 등록
+//		registry.addInterceptor(ceoInterceptor)
+//					.addPathPatterns("/**");
 		
 		//내글 또는 관리자만 수정 삭제하는 인터셉터 등록
 //		registry.addInterceptor(ceoMenuInterceptor)
