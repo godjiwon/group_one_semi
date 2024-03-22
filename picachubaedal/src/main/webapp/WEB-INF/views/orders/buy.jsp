@@ -167,7 +167,8 @@
 		<div class="cell buyBox">
 			<div class="cell flex-cell">
 				<label class="storeName">${dto.storeName}</label>
-				<input type="hidden" value="storeName" value="${dto.storeName}">
+				<input type="hidden" name="storeNo" value="${dto.storeNo}">
+				<input type="hidden" name="memberId" value="<%=session.getAttribute("loginId")%>">
 			</div>
 			<hr style="border-top: 1px solid rgb(255, 227, 118);">
 			<div class="cell flex-cell">
@@ -189,6 +190,7 @@
 					<h3 class="ms-20">
 						총 결제 금액 :
 						<fmt:formatNumber value="${dto.total}" pattern="#,##0"></fmt:formatNumber>원
+						<input type="hidden" name="ordersTotal" value="${dto.total}">
 					</h3>
 			</div>
 		</div>
