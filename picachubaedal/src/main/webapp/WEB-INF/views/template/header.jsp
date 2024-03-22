@@ -71,18 +71,18 @@
 
 .image-test {
     position: absolute;
-    top: 0.5%;
-    right: 900px; /* 시작 위치를 오른쪽으로 설정 */
+    top: 3%;
+    right: 1200px; /* 시작 위치를 오른쪽으로 설정 */
     animation-name: moveRightToLeft;
     animation-timing-function: linear;
-    animation-duration: 3s;
+    animation-duration: 7s;
     animation-iteration-count: infinite;
     box-shadow: inherit;
 }
 
 @keyframes moveRightToLeft {
     from {
-        left: 700px; /* 시작 위치를 오른쪽으로 설정 */
+        left: 1200px; /* 시작 위치를 오른쪽으로 설정 */
     }
     to {
         left: 400px; /* 종료 위치를 왼쪽으로 이동 */
