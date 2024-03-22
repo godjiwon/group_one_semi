@@ -36,15 +36,15 @@
 		text-align: center;
 		font-size: 20px;
          > a {
-            color: black !important;
+            color: #939393 !important;
               text-decoration: none;         
          }
 	}
 	.food-category a {
         display: inline-block; /* 인라인 요소로 배치 */
         margin: 30px; /* 좌우 여백 설정 */
-        text-align: center; /* 텍스트를 가운데 정렬 */
         padding: 0 30px 0 30px;
+        text-align: center; /* 텍스트를 가운데 정렬 */
     }
     .food-category img {
         display: block; /* 이미지를 블록 요소로 설정하여 아래 텍스트와 수직 정렬 */
@@ -126,6 +126,25 @@
 	    padding: 5px;
 	    border-radius: 6px;
 	}
+	.search-box {
+	    width: 500px;
+	    margin-top: 50px;
+    	margin-bottom: 30px;
+    	
+    	> input {
+    		border-radius: 10px; /* 모서리를 둥글게 설정 */
+			overflow: hidden; /* 내부 요소가 모서리를 넘어가지 않도록 설정 */
+    		height: 40px;
+    		width: 80%;
+    	}
+    	
+    	> button {
+	    	border-radius: 10px; /* 모서리를 둥글게 설정 */
+			overflow: hidden; /* 내부 요소가 모서리를 넘어가지 않도록 설정 */
+    		height: 40px;
+    		width: 10%;
+    	}
+	}
 </style>
 <script>	
  	$( document ).ready(function() {
@@ -170,7 +189,7 @@
 	<%--메뉴&가게 검색창 --%>
 	<div class="container center w-800">
 		<form action="/store/menuAndStoreList" method="get" autocomplete="off">
-		    <div class="cell center my-50" style="position: relative; display: inline-block;">
+		    <div class="cell center search-box" style="position: relative; display: inline-block;">
 		        <input type="text" class="tool w-80" size="25" placeholder="메뉴 검색" name="menuName">
 		        <button type="submit" class="btn tool menu_search" style="background-color:rgb(254,210,61);">
 		            <i class="fa-solid fa-magnifying-glass"></i>
@@ -181,7 +200,9 @@
 	<div>
 		<div class="food-category cell center">
 			<a href="store/categoryList?storeCategory=치킨" class="storeCategory"> 
-				<img src="https://media.discordapp.net/attachments/1187318496942628876/1218122788485992449/image0.jpg?ex=66068440&is=65f40f40&hm=ec7ef7954591f58f89ca309828ab4161c6f33b923b02051b2916dcf5b2041294&=&format=webp">
+				<div>
+					<img src="https://media.discordapp.net/attachments/1187318496942628876/1218122788485992449/image0.jpg?ex=66068440&is=65f40f40&hm=ec7ef7954591f58f89ca309828ab4161c6f33b923b02051b2916dcf5b2041294&=&format=webp">
+				</div>
 				<p>치킨</p>
 			</a> 
 			<a href="store/categoryList?storeCategory=피자/양식" class="storeCategory"> 
