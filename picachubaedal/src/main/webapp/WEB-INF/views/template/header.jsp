@@ -70,8 +70,8 @@
 }
 
 .image-test {
-    position: absolute;
-    top: 3%;
+    position: fixed;
+    top: 1%;
     right: 1200px; /* 시작 위치를 오른쪽으로 설정 */
     animation-name: moveRightToLeft;
     animation-timing-function: linear;
