@@ -2,70 +2,81 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- 템플릿 페이지를 불러오는 코드 --%>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+    .btn {
+        background-color: rgb(254, 210, 61);
+        color: black;
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-<div class="container w-800">
-    <div class="cell center">
-        <h1>가게 목록</h1>
+    .btn:hover {
+        background-color: rgb(239, 64, 54);
+        color: white;
+    }
+</style>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="mb-4">가게 목록</h1>
+        </div>
     </div>
     
+
     <div class="cell right">
     	<!-- 사장님일 경우만 신규가게등록 보여주기 -->
 					<c:if test="${sessionScope.loginGrade == '사장님'}">
     
         <h2><a class="link link-animation" href="insert1">신규 가게 등록</a></h2>
+
     </div>
     </c:if>
 
-    <div class="cell">
-        <!-- 목록 출력 -->
-        <table class="table table-horizontal">
-            <thead>
-                <tr>
-                    <th>가게번호</th>
-                    <th>가게이름</th>
-                    <th>이미지</th>
-                    <th>주소</th>
-                    <th>음식 카테고리</th>
-                    <th>배달 or 포장</th>
-                    <th>연락처</th>
-                    <th>가게 운영시간</th>
-                    <th>배달 가능지역</th>
-                    <th>가게 휴무일</th>
-                    <th>가게거리</th>
-                </tr>
-            </thead>
-            <tbody align="center">
-                <c:forEach var="dto" items="${categoryList}">
-                    <tr onclick="window.location.href='/menu/customerMenuList?storeNo=${dto.storeNo}'" style="cursor: pointer;">
-                        <td>${dto.storeNo}</td>
-                        <td>${dto.storeName}</td>
-                        <td><img src="${dto.storeImgLink}" width="40" height="40"></td>
-                        <td>${dto.storeAddress1}</td>
-                        <td>${dto.storeCategory}</td>
-                        <td>${dto.storeType}</td>
-                        <td>${dto.storeContact}</td>
-                        <td>${dto.storeOpenHour} - ${dto.storeCloseHour}</td>
-                        <td>${dto.storeDelivery}</td>
-                        <td>${dto.storeClosed}</td>
-                        <td>${dto.userDistance}km</td>
-                    </tr>
-                </c:forEach>
-            
-          </tbody>
-        </table>
-              
-   
-            <div class="cell">
+    <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <c:forEach var="dto" items="${categoryList}">
+            <div class="col">
+                <div class="card">
+                    <img src="${dto.storeImgLink}" class="card-img-top" alt="${dto.storeName}" style="width: 100%; height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">${dto.storeName}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">주소 : ${dto.storeAddress1}</p>
+                        <li class="list-group-item text-center">음식 카테고리 : ${dto.storeCategory}</p>
+                        <li class="list-group-item text-center">${dto.storeType}</li>
+                        <li class="list-group-item text-center">연락처 : ${dto.storeContact}</li>
+                        <li class="list-group-item text-center">운영시간 : ${dto.storeOpenHour} - ${dto.storeCloseHour}</li>
+                        <li class="list-group-item text-center">배달 가능 지역 : ${dto.storeDelivery}</li>
+                        <li class="list-group-item text-center">휴무일 : ${dto.storeClosed}</li>
+                        <li class="list-group-item text-center">가게 거리 : ${dto.userDistance}km</li>
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="/menu/customerMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">메뉴 보기</a>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+
+<div class="cell">
 		<%-- 네비게이터 --%>
 		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include> 
 	</div>
-        
-  
+	
+	</div>
 
-<%-- 템플릿 페이지를 불러오는 코드 --%>
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-
-

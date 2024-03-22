@@ -12,140 +12,176 @@
 <meta charset="UTF-8">
 <title>가게 목록</title>
 <style>
-.food-category {
-	text-align: center;
-	font-size: 20px; > a { color : black !important;
-	text-decoration: none;
-}
 
-}
-.food-category a {
-	display: inline-block; /* 인라인 요소로 배치 */
-	margin: 30px; /* 좌우 여백 설정 */
-	text-align: center; /* 텍스트를 가운데 정렬 */
-	padding: 0 30px 0 30px;
-}
+	.storeCategory {
+        display: inline-block;
+        margin: 20px;
+        text-align: center;
+        border-radius: 10px;
+        overflow: hidden; /* 이미지 크기 고정을 위한 설정 */
+    }
 
-.food-category img {
-	display: block; /* 이미지를 블록 요소로 설정하여 아래 텍스트와 수직 정렬 */
-	margin: 0 auto 30px; /* 가로 가운데 정렬 및 아래 여백 추가 */
-	vertical-align: middle; /* 이미지와 텍스트 수직 정렬 */
-}
+    .storeCategory img {
+        width: 100px; /* 이미지 크기 조절 */
+        height: 100px;
+        border-radius: 10px;
+        transition: transform 0.3s ease; /* 호버링 효과 적용을 위한 설정 */
+    }
 
-.banner-wrap {
-	display: flex;
-	justify-content: center;
-}
+    .storeCategory:hover img {
+        transform: scale(0.9); /* 호버링시 약간 커지는 효과 */
+        
+    }
 
-.banner_slide {
-	width: 1040px;
-}
-
-.banner_image {
-	width: 100%;
-	height: 200px;
-	border-radius: 25px;
-	margin-bottom: 10px;
-}
-
-.bannerList-top {
-	display: flex;
-	margin-bottom: 3px;
-	>
-	p
-	{
-	margin
-	:
-	0;
-}
-
-}
-.banner-List {
-	display: flex !important;
-	flex-direction: column;
-	padding: 20px;
-	/* border: black solid;
-	    border-radius: 50px; */ . banner_name { margin-right : 5px;
-	font-size: 18px;
-	font-weight: bold;
-}
-
->
-p {
-	margin: 3px 0px 3px 0px;
-	font-size: 16px;
-}
-
-}
-.slick-prev {
-	position: absolute;
-	width: 50px;
-	height: 50px;
-	top: 40%;
-	left: -7%;
-	background-image: url(/image/left-arrow.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-	text-indent: -10000px;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-}
-
-.slick-next {
-	position: absolute;
-	width: 50px;
-	height: 50px;
-	top: 40%;
-	right: -5%;
-	background-image: url(/image/right-arrow.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-	text-indent: -10000px;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-}
-
-.banner_type {
-	display: inline-block;
-	width: fit-content;
-	font-size: 13px !important;
-	font-weight: 600;
-	background-color: #f0f0f0;
-	padding: 5px;
-	border-radius: 6px;
-}
+	.food-category {
+		text-align: center;
+		font-size: 20px;
+         > a {
+            color: #939393 !important;
+              text-decoration: none;         
+         }
+	}
+	.food-category a {
+        display: inline-block; /* 인라인 요소로 배치 */
+        margin: 30px; /* 좌우 여백 설정 */
+        padding: 0 30px 0 30px;
+        text-align: center; /* 텍스트를 가운데 정렬 */
+    }
+    .food-category img {
+        display: block; /* 이미지를 블록 요소로 설정하여 아래 텍스트와 수직 정렬 */
+        margin: 0 auto 30px; /* 가로 가운데 정렬 및 아래 여백 추가 */
+        vertical-align: middle; /* 이미지와 텍스트 수직 정렬 */
+    }
+	
+	.banner-wrap {
+	    display: flex;
+	    justify-content: center;	
+	}
+	.banner_slide {
+	    width: 1040px;
+	}
+	.banner_image {
+		width: 100%;
+		height: 200px;
+		border-radius: 25px;
+		margin-bottom: 10px;
+	}
+	.bannerList-top {
+		display: flex;
+		margin-bottom: 3px;
+		> p {
+			margin: 0;
+		}
+	}
+	.banner-List {
+	    display: flex !important;
+	    flex-direction: column;
+	    padding: 20px;
+	    /* border: black solid;
+	    border-radius: 50px; */
+	    
+		.banner_name {
+	    	margin-right: 5px;
+	    	font-size: 18px;
+	    	font-weight: bold;
+		}	    
+	    > p {
+	    	margin: 3px 0px 3px 0px;
+	    	font-size: 16px;
+	    }
+	}
+	.slick-prev {
+	    position: absolute;
+	    width: 50px;
+	    height: 50px;
+	    top: 40%;
+	    left: -7%;
+	    background-image: url(/image/left-arrow.png);
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    text-indent: -10000px;
+	    border: none;
+	    background-color: transparent;
+	    cursor: pointer; 
+	}
+	.slick-next {
+	    position: absolute;
+	    width: 50px;
+	    height: 50px;
+	    top: 40%;
+	    right: -5%;
+	    background-image: url(/image/right-arrow.png);
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    text-indent: -10000px;
+	    border: none;
+	    background-color: transparent;
+	    cursor: pointer;    
+	}
+	.banner_type {
+		display: inline-block;
+	    width: fit-content;
+	    font-size: 13px !important;
+	    font-weight: 600;
+	    background-color: #f0f0f0;
+	    padding: 5px;
+	    border-radius: 6px;
+	}
+	.search-box {
+	    width: 500px;
+	    margin-top: 50px;
+    	margin-bottom: 30px;
+    	
+    	> input {
+    		border-radius: 10px; /* 모서리를 둥글게 설정 */
+			overflow: hidden; /* 내부 요소가 모서리를 넘어가지 않도록 설정 */
+    		height: 40px;
+    		width: 80%;
+    	}
+    	
+    	> button {
+	    	border-radius: 10px; /* 모서리를 둥글게 설정 */
+			overflow: hidden; /* 내부 요소가 모서리를 넘어가지 않도록 설정 */
+    		height: 40px;
+    		width: 10%;
+    	}
+	}
 </style>
 <script>
 	$(document).ready(function() {
 		$('.banner_slide').slick({
-			slidesToShow : 5,
-			slidesToScroll : 1,
-			arrows : true,
-			//autoplay: true,
-			//autoplaySpeed: 2000, 
-			responsive : [ {
-				breakpoint : 1024,
-				settings : {
-					slidesToShow : 3,
-					slidesToScroll : 3,
-					infinite : true,
-					dots : true
-				}
-			}, {
-				breakpoint : 600,
-				settings : {
-					slidesToShow : 2,
-					slidesToScroll : 2
-				}
-			}, {
-				breakpoint : 480,
-				settings : {
-					slidesToShow : 1,
-					slidesToScroll : 1
-				}
-			} ]
+
+			slidesToShow: 5,
+			slidesToScroll: 1,
+			arrows: true,
+			autoplay: true,
+		    autoplaySpeed: 2000, 
+			responsive: [
+				    {
+				      breakpoint: 1024,
+				      settings: {
+				        slidesToShow: 3,
+				        slidesToScroll: 3,
+				        infinite: true,
+				        dots: true
+				      }
+				    },
+				    {
+				      breakpoint: 600,
+				      settings: {
+				        slidesToShow: 2,
+				        slidesToScroll: 2
+				      }
+				    },
+				    {
+				      breakpoint: 480,
+				      settings: {
+				        slidesToShow: 1,
+				        slidesToScroll: 1
+				      }
+				    }
+				  ]			
+
 		});
 	});
 </script>
@@ -157,6 +193,7 @@ p {
 
 		<%--메뉴&가게 검색창 --%>
 		<form action="/store/menuAndStoreList" method="get" autocomplete="off">
+
 	<div class="cell">
 	<h2>현재위치 ${memberDto.memberAddress1} ${memberDto.memberAddress2}</h2>
 </div>
@@ -169,13 +206,16 @@ p {
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>
+
 		</form>
 	</div>
 	<div>
 		<div class="food-category cell center">
-			<a href="store/categoryList?storeCategory=치킨" class="storeCategory">
-				<img
-				src="https://media.discordapp.net/attachments/1187318496942628876/1218122788485992449/image0.jpg?ex=66068440&is=65f40f40&hm=ec7ef7954591f58f89ca309828ab4161c6f33b923b02051b2916dcf5b2041294&=&format=webp">
+			<a href="store/categoryList?storeCategory=치킨" class="storeCategory"> 
+				<div>
+					<img src="https://media.discordapp.net/attachments/1187318496942628876/1218122788485992449/image0.jpg?ex=66068440&is=65f40f40&hm=ec7ef7954591f58f89ca309828ab4161c6f33b923b02051b2916dcf5b2041294&=&format=webp">
+				</div>
+
 				<p>치킨</p>
 			</a> <a href="store/categoryList?storeCategory=피자/양식"
 				class="storeCategory"> <img
