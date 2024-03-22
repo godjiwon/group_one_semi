@@ -131,16 +131,24 @@
 		});
 	}
 	//결제하기 때 알림창
-	$(function() {
-		$(".buy").click(function() {
-			var message = $(this).data("message");
-			if (message == undefined) {
-				message = "결제 하시겠습니까?"
-			}
-			var choice = window.confirm(message);
-			return choice;
-		});
-	});
+    $(function () {
+        $(".buy").click(function () {
+            var message = $(this).data("message");
+            if (message == undefined) {
+                message = "결제 하시겠습니까?"
+            }
+            var yesChoice = window.confirm(message);
+            if(yesChoice == true){
+                alert("결제가 완료되었습니다.");
+                return yesChoice;
+            }
+            else{
+                alert("결제가 취소되었습니다.");
+                return false;
+            }
+        });
+    });
+
 	//요청사항 글자 수 (100글자까지)
     function lengthCheck(){
         var request = document.querySelector(".request");

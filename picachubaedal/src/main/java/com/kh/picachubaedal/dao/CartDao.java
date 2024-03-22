@@ -39,10 +39,16 @@ public class CartDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
-	//장바구니 전체 삭제 -- 임시
-	public void deleteAll() {
-		String sql = "delete from cart";
-		jdbcTemplate.update(sql);
+//	//장바구니 전체 삭제 -- 임시
+//	public void deleteAll() {
+//		String sql = "delete from cart";
+//		jdbcTemplate.update(sql);
+//	}
+	//유저별 장바구니 전체삭제
+	public boolean userDeleteAll(int memberNo) {
+		String sql = "delete from cart where member_no = ?";
+		Object[] data = {memberNo};
+		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
 	//유저번호검색한 장바구니리스트

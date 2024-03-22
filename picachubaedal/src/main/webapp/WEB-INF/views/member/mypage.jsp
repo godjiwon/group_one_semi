@@ -99,10 +99,6 @@
 						<td class="left">${memberDto.memberGrade}</td>
 					</tr>
 					<tr>
-						<th>포켓볼</th>
-						<td class="left">${memberDto.memberPoint}개</td>
-					</tr>
-					<tr>
 						<th>가입일시</th>
 						<td class="left"><fmt:formatDate
 								value="${memberDto.memberJoin}" pattern="y년 M월 d일 H시 m분 s초" /></td>
@@ -116,37 +112,7 @@
 				</table>
 			</div>
 
-			<div class="cell">
-				<h2>주문 내역</h2>
-			</div>
-			<div class="cell">
-				<table class="table table-horizontal">
-					<thead>
-						<tr>
-							<th>가게</th>
-							<th>메뉴</th>
-							<th>수량</th>
-							<th>총 금액</th>
-							<th>구매일시</th>
-							<th>리뷰</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="ordersDto" items="${ordersList}">
-							<tr>
-								<td>${ordersDto.storeName}</td>
-								<td>${ordersDto.menuName}</td>
-								<td>${ordersDto.ordersqty}</td>
-								<td><fmt:formatNumber value="${ordersDto.ordersTotal}"
-										pattern="#,##0" /></td>
-								<td><fmt:formatDate value="${ordersDto.ordersTime}"
-										pattern="yyyy-MM-dd HH:mm" /></td>
-								<td><i class="fa-regular fa-pen-to-square"></i></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+			
 		</div>
 	</div>
 

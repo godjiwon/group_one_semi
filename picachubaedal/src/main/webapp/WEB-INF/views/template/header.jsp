@@ -112,7 +112,10 @@
 						<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
 							${sessionScope.loginId}
 						</a>
+						&nbsp;
 						<a href="/member/logout">로그아웃</a>&nbsp;
+						<a href="/orders/buyList"><i class="fa-solid fa-clipboard-list"></i></a>
+						&nbsp;
 						<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
 					</div>
 				</c:when>
