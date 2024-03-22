@@ -8,7 +8,6 @@
 * {
 	font-family: 빙그레 메로나체, sans-serif;
 }
-
 .container {
 	display: grid;
 	margin-top: 50px;
@@ -19,22 +18,18 @@
 	box-shadow: 0 0 5px 5px rgb(255, 245, 213);
 	padding: 60px;
 }
-
 .w-20 {
 	width: 20%;
 }
-
 .w-30 {
 	width: 30%;
 }
-
 .w-40 {
 	width: 40%;
 }
 .w-65 {
 	width:65%;
 }
-
 .listBox {
 	border: 1px solid rgb(254, 210, 61);
 	border-radius: 8px;
@@ -53,7 +48,6 @@
 	color: #2d3436;
 	background-color: rgb(255, 230, 142);
 }
-
 .write {
 	text-decoration: none;
 	color: #2d3436;
@@ -72,15 +66,10 @@ div, ul, li, header, nav, section, aside, article, footer {
 }
 --%>
 </style>
-
-
-
 <div class="container w-600">
 	<div class="cell center">
 		<h1>구매 내역</h1>
 	</div>
-
-
 	<c:forEach var="order" items="${buyList}">
 		<div class="cell listBox">
 			<div class="cell">
@@ -89,10 +78,10 @@ div, ul, li, header, nav, section, aside, article, footer {
 				</div>
 				<hr class="listBox-hr">
 			</div>
-
 			<div class="cell flex-cell">
-				<div class="cell w-30 ms-20">가게사진</div>
-
+				<div class="cell w-30 ms-20">가게사진
+				<img src="${order.storeImageLink}">
+				</div>
 				<div class="width-fill">
 					<div class="cell date">가게이름${order.storeName}</div>
 					<div class="cell text-info">${order.ordersItemName}</div>
@@ -115,7 +104,4 @@ div, ul, li, header, nav, section, aside, article, footer {
 		</div>
 	</c:forEach>
 </div>
-
-
-
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

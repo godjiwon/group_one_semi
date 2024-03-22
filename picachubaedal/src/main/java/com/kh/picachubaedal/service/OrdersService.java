@@ -17,6 +17,8 @@ public class OrdersService {
 	private CartDao cartDao;
 	@Autowired
 	private OrdersDao ordersDao;
+	@Autowired
+	private ImageService imageService;
 
 	// 메뉴번호받고 가게번호 반환
 	public int getStoreNo(int menuNo) {
@@ -84,6 +86,20 @@ public class OrdersService {
 		finalOrders.setTotal(totalPrice);
 		
 		return finalOrders;
+	}
+	
+	public List<OrdersDto> orderHistorySet(List<OrdersDto> list){
+		List<OrdersDto> setUpList = list;
+		
+		for(OrdersDto dto : setUpList) {
+			String imageLink = imageService.getStoreImgLink(dto.getStoreNo());
+			dto.setStoreImageLink(imageLink);
+			
+			String storeName = getStoreName(dto.getStoreNo());
+			dto.setStoreName(storeName);
+		}
+		
+		return setUpList;
 	}
 
 }
