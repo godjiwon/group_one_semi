@@ -12,8 +12,12 @@
     </div>
     
     <div class="cell right">
+    	<!-- 사장님일 경우만 신규가게등록 보여주기 -->
+					<c:if test="${sessionScope.loginGrade == '사장님'}">
+    
         <h2><a class="link link-animation" href="insert1">신규 가게 등록</a></h2>
     </div>
+    </c:if>
 
     <div class="cell">
         <!-- 목록 출력 -->
