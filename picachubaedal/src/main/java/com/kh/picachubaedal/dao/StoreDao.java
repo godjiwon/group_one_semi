@@ -16,6 +16,7 @@ import com.kh.picachubaedal.mapper.MenuMapper;
 import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
+import com.kh.picachubaedal.vo.StoreVO;
 
 @Repository
 public class StoreDao {
@@ -214,6 +215,7 @@ public class StoreDao {
 		Object[] data = {keyword};
 		return jdbcTemplate.query(sql, storeMapper, data);
 	}
+	
 	public StoreDto selectOne(int storeNo) {
 	    String sql = "select * from store where store_no = ?";
 	    Object[] data = { storeNo };
@@ -231,20 +233,20 @@ public class StoreDao {
 	
 	
 	//페이징을 위한 목록/검색/카운트 구현
-		public List<StoreDto> selectListByPaging(PageVO pageVO) {
-			System.out.println(pageVO);
-			if(pageVO.isSearch()) {
+		public List<StoreDto> selectListByPaging(StoreVO storeVO) {
+			System.out.println(storeVO);
+			if(storeVO.isSearch()) {
 				String sql = "select * from ("
 									+ "select rownum rn, TMP.* from ("
 										+ "select * from store "
-										+ "where instr(upper("+pageVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
-										+ "order by "+pageVO.getColumn()+" asc, store_no asc"
+										+ "where instr(upper("+storeVO.getColumn()+"), upper(?)) > 0 "//대소문자 무시
+										+ "order by "+storeVO.getColumn()+" asc, store_no asc"
 									+ ")TMP"
 								+ ") where rn between ? and ?";
 				Object[] data = {
-					pageVO.getKeyword(), 
-					pageVO.getBeginRow(), 
-					pageVO.getEndRow()
+						storeVO.getKeyword(), 
+						storeVO.getBeginRow(), 
+						storeVO.getEndRow()
 				};
 				return jdbcTemplate.query(sql, storeMapper, data);
 			}
@@ -254,15 +256,15 @@ public class StoreDao {
 										+ "select * from store order by store_no asc"
 									+ ")TMP"
 								+ ") where rn between ? and ?";
-				Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
+				Object[] data = {storeVO.getBeginRow(), storeVO.getEndRow()};
 				return jdbcTemplate.query(sql, storeMapper, data);
 			}
 		}
-		public int count(PageVO pageVO) {
-			if(pageVO.isSearch()) {
+		public int count(StoreVO storeVO) {
+			if(storeVO.isSearch()) {
 				String sql = "select count(*) from store "
-						+ "where instr("+pageVO.getColumn()+", ?) > 0";
-				Object[] data = {pageVO.getKeyword()};
+						+ "where instr("+storeVO.getColumn()+", ?) > 0";
+				Object[] data = {storeVO.getKeyword()};
 				return jdbcTemplate.queryForObject(sql, int.class, data);
 			}
 			else {

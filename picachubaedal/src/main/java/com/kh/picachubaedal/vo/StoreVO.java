@@ -13,6 +13,18 @@ public class StoreVO {
 	private int page=1;
 	private int size=15;
 	private int blockSize=10;
+	private String storeCategory;
+	
+	
+	
+	
+	public String getStoreCategory() {
+		return storeCategory;
+	}
+	public void setStoreCategory(String storeCategory) {
+		this.storeCategory = storeCategory;
+	}
+	
 	
 	public String getColumn() {
 		return column;

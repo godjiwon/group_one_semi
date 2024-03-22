@@ -20,6 +20,7 @@ import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.service.StoreService;
 import com.kh.picachubaedal.vo.PageVO;
+import com.kh.picachubaedal.vo.StoreVO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -259,7 +260,7 @@ public class StoreController {
 	 
 	//카테고리 전체 목록
 	@GetMapping("/categoryList")
-	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
+	public String yourHandlerMethod(Model model, @RequestParam String storeCategory, @ModelAttribute StoreVO storeVO) {
 	    // DAO에서 특정 카테고리의 가게 목록을 조회하여 모델에 추가
 	    List<StoreDto> categoryList = storeDao.selectListCategory(storeCategory);
 	    List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(categoryList);
@@ -267,11 +268,11 @@ public class StoreController {
 	    model.addAttribute("categoryList", imageSetUpList);
 	    
 	    // 페이지 처리를 위한 작업
-	    int count = storeDao.count(pageVO);
-	    pageVO.setCount(count);
-	    model.addAttribute("pageVO", pageVO);
+	    int count = storeDao.count(storeVO);
+	    storeVO.setCount(count);
+	    model.addAttribute("storeVO", storeVO);
 	    
-	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+	    List<StoreDto> list = storeDao.selectListByPaging(storeVO);
 	    model.addAttribute("list", list);
 	    // 다른 처리 작업...
 	    
