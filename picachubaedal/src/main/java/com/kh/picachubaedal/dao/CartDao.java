@@ -62,6 +62,7 @@ public class CartDao {
 		return jdbcTemplate.queryForObject(sql, int.class, data);
 	}
 
+	//스토어네임 반환
 	public String getStoreName(int storeNo) {
 
 		String sql = "select store_name from store where store_no = ?";

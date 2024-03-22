@@ -5,6 +5,7 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+
 <div class="container w-800">
     <div class="cell center">
         <h1>가게 목록</h1>
@@ -48,57 +49,19 @@
                         <td>${dto.userDistance}km</td>
                     </tr>
                 </c:forEach>
-            </tbody>
+            
+          </tbody>
         </table>
+              
+   
+            <div class="cell">
+		<%-- 네비게이터 --%>
+		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include> 
+	</div>
         
-        <%-- 네비게이터 --%>
-        <div class="page-navigator">
-            <%-- 이전 버튼 --%>
-            <c:choose>
-                <c:when test="${pageVO.isFirstBlock()}">
-                    <a class="off">&lt;이전</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="list?page=${pageVO.getPrevBlock()}&${pageVO.getQueryString()}">&lt;이전</a>
-                </c:otherwise>
-            </c:choose>
-            
-            <%-- 페이지 숫자 --%>
-            <c:forEach var="i" begin="${pageVO.getBeginBlock()}" end="${pageVO.getEndBlock()}" step="1">
-                <c:choose>
-                    <c:when test="${pageVO.isCurrentPage(pageNumber)}">
-                        <a class="on">${i}</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="categoryList?page=${i}&${pageVO.getQueryString()}">${i}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-            
-            <%-- 다음 버튼 --%>
-            <c:choose>
-                <c:when test="${pageVO.isLastBlock()}">
-                    <a class="off">다음&gt;</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="categoryList?page=${pageVO.getNextBlock()-1}&${pageVO.getQueryString()}">다음&gt;</a> 
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </div>
-</div>
+  
 
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
-<script>
-    // 네비게이터를 현재 페이지에만 표시하도록 설정
-    var pageNavigator = document.getElementById("pageNavigator");
-    pageNavigator.style.display = "none"; // 일단 숨기기
-
-    // 페이지가 1개를 넘을 때만 네비게이터를 표시
-    if (${pageVO.getTotalPage()} > 1) {
-        pageNavigator.style.display = "block"; // 표시하기
-    }
-</script>
 

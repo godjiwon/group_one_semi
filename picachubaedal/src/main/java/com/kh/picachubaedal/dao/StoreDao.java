@@ -14,6 +14,7 @@ import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.mapper.MemberMapper;
 import com.kh.picachubaedal.mapper.MenuMapper;
 import com.kh.picachubaedal.mapper.StoreLikeMapper;
+import com.kh.picachubaedal.mapper.StoreListMapper;
 import com.kh.picachubaedal.mapper.StoreMapper;
 import com.kh.picachubaedal.service.AttachService;
 import com.kh.picachubaedal.vo.PageVO;
@@ -38,6 +39,8 @@ public class StoreDao {
 	private MenuDao menuDao;
 	@Autowired
 	private MenuMapper menuMapper;
+	@Autowired
+	private StoreListMapper storeListMapper;
 
 	// 가게등록
 	public void insert(StoreDto storeDto, MultipartFile attach) throws IllegalStateException, IOException {
@@ -182,24 +185,79 @@ public class StoreDao {
 		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	
+	//목록+페이징
+	//- page는 현재 조회할 페이지 번호
+	//- size는 조회할 페이지의 출력개수
+	//- 위 두개를 이용하여 시작행(beginRow)과 종료행(endRow)를 계산
+	public List<StoreDto> selectListByPaging(int page, int size) {
+		int endRow = page * size;
+		int beginRow = endRow - (size-1);
+		
+		String sql = "select * from ("
+							+ "select rownum rn, TMP.* from ("
+								+ "select "
+									+ "store_no, store_name, store_img_link, "
+									+ "store_address1, store_category, store_dtip "
+								+ "from store order by store_no desc"
+							+ ")TMP"
+						+ ") where rn between ? and ?";
+		Object[] data = {beginRow, endRow};
+		return jdbcTemplate.query(sql, storeListMapper, data);
+	}
+	
+	//검색+페이징
+	public List<StoreDto> selectListByPaging(
+			String column, String keyword, int page, int size){
+		int endRow = page * size;
+		int beginRow = endRow - (size-1);
+		
+		String sql = "select * from ("
+							+ "select rownum rn, TMP.* from ("
+								+ "select "
+									+ "store_no, store_name, store_img_link, "
+									+ "store_address1, store_category, store_type, store_contact, store_open_hour, store_close, store_delivery, store_closed, User_distance "
+								+ "from store "
+								+ "where instr("+column+", ?) > 0 "
+								+ "order by store_no desc"
+							+ ")TMP"
+						+ ") where rn between ? and ?";
+		Object[] data = {keyword, beginRow, endRow};
+		return jdbcTemplate.query(sql, storeListMapper, data);
+	}
 
 	// 페이징을 위한 목록/검색/카운트 구현
 	public List<StoreDto> selectListByPaging(PageVO pageVO) {
-		System.out.println(pageVO);
+		
 		if (pageVO.isSearch()) {
 			String sql = "select * from (" + "select rownum rn, TMP.* from (" + "select * from store "
 					+ "where instr(upper(" + pageVO.getColumn() + "), upper(?)) > 0 "// 대소문자 무시
 					+ "order by " + pageVO.getColumn() + " asc, store_no asc" + ")TMP" + ") where rn between ? and ?";
+			
 			Object[] data = { pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow() };
-			return jdbcTemplate.query(sql, storeMapper, data);
+			return jdbcTemplate.query(sql, storeListMapper, data);
+			
 		} else {
 			String sql = "select * from (" + "select rownum rn, TMP.* from ("
 					+ "select * from store order by store_no asc" + ")TMP" + ") where rn between ? and ?";
 			Object[] data = { pageVO.getBeginRow(), pageVO.getEndRow() };
-			return jdbcTemplate.query(sql, storeMapper, data);
+			return jdbcTemplate.query(sql, storeListMapper, data);
 		}
 	}
 
+	public int count() {
+		String sql = "select count(*) from s";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	
+	public int count(String column, String keyword) {
+		String sql = "select count(*) from store "
+						+ "where instr("+column+", ?) > 0";
+		Object[] data = {keyword};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+	
 	public int count(PageVO pageVO) {
 		if (pageVO.isSearch()) {
 			String sql = "select count(*) from store " + "where instr(" + pageVO.getColumn() + ", ?) > 0";

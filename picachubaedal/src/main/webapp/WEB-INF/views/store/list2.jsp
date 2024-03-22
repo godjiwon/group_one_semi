@@ -30,6 +30,7 @@
                 <th>가게 운영시간</th>
                 <th>배달 가능지역</th>
                 <th>가게 휴무일</th>
+                <th>가게거리</th>
             </tr>
         </thead>
 <tbody align="center">
@@ -46,15 +47,30 @@
                 <td>${dto.storeOpenHour} - ${dto.storeCloseHour}</td>
                 <td>${dto.storeDelivery}</td>
                 <td>${dto.storeClosed}</td>
+                <td>${dto.userDistance}km</td>
             </tr>
         </c:if>
     </c:forEach>
 </tbody>
     </table>
-    <br><br><br>
+    
+<div class="cell">
+		<%-- 네비게이터 --%>
+		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include> 
+	</div>
     
 </div>
 </div>
 
+<script>
+    // 네비게이터를 현재 페이지에만 표시하도록 설정
+    var pageNavigator = document.getElementById("pageNavigator");
+    pageNavigator.style.display = "none"; // 일단 숨기기
+
+    // 페이지가 1개를 넘을 때만 네비게이터를 표시
+    if (${storeVO.getTotalPage()} > 1) {
+        pageNavigator.style.display = "block"; // 표시하기
+    }
+</script>
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

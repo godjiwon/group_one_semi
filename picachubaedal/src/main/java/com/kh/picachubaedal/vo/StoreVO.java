@@ -11,7 +11,7 @@ public class StoreVO {
 	private String column, keyword;
 	private int count;
 	private int page=1;
-	private int size=15;
+	private int size=10;
 	private int blockSize=10;
 	
 	public String getColumn() {
