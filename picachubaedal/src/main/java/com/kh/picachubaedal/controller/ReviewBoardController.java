@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.picachubaedal.dao.ReviewBoardDao;
 import com.kh.picachubaedal.dto.ReviewBoardDto;
@@ -35,7 +36,7 @@ public class ReviewBoardController {
 	
 	//리뷰작성
 	@GetMapping("/write")
-	public String write() {
+	public String write(@RequestParam int storeNo) {
 		
 		return "/WEB-INF/views/reviewBoard/write.jsp";
 	}
