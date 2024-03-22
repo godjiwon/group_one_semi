@@ -66,7 +66,7 @@ public class OrdersService {
 		int storeNo = getStoreNo(list.get(0).getMenuNo());
 		String storeName = getStoreName(storeNo);
 		finalOrders.setStoreName(storeName);
-		
+		finalOrders.setStoreNo(storeNo);
 		
 		//주문목록 세팅
 		String purchaseList = purchaseList(list);
