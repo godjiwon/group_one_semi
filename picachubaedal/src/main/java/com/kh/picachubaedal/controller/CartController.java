@@ -68,7 +68,7 @@ public class CartController {
 	}
 	
 	//장바구니 전체 삭제  -- 수정필요 이거하면 장바구니 전체삭제 됌 멤버 넘버 검색후 나오는것만 삭제로 변경필요
-	//아직안한상태
+	//아직안한상태,,
 //	@RequestMapping("/deleteAll")
 //	public String deleteAll() {
 //		cartDao.deleteAll();
