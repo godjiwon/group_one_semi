@@ -339,14 +339,18 @@ public class StoreController {
 		// 현재 사용자가 찜한 가게 목록 조회
 		List<StoreDto> likeList = storeDao.selectLikeStore(memberDto.getMemberId());
 		model.addAttribute("likeList", likeList);
-
+		
 		for (StoreDto store : likeList) {
 			// storeNo를 사용하여 가게 정보 조회
 			StoreDto storeInfo = storeDao.selectStoreByStoreNo(store.getStoreNo());
 			// 조회된 가게 정보를 현재 가게에 설정
 			store.setStoreName(storeInfo.getStoreName());
+			store.setStoreCategory(storeInfo.getStoreCategory());
+			store.setStoreMinprice(storeInfo.getStoreMinprice());
 			store.setStoreDtip(storeInfo.getStoreDtip());
+			
 		}
+		
 		// 페이징
 		int count = storeDao.count(pageVO);
 		pageVO.setCount(count);
