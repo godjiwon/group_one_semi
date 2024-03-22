@@ -19,7 +19,15 @@ public class OrdersDto {
 	private String storeName;
 	private String purchaseList;
 	
+	private String storeImageLink;
 	
+	
+	public String getStoreImageLink() {
+		return storeImageLink;
+	}
+	public void setStoreImageLink(String storeImageLink) {
+		this.storeImageLink = storeImageLink;
+	}
 	public int getTotal() {
 		return total;
 	}

@@ -61,6 +61,26 @@
     	height: 3px;
     	background: #fed23d;
       }
+
+	.image-test {
+	    position: absolute;
+	    top: 1px; /* 화면 위에서 50px 지점까지는 고정됨 */
+	    right: 1200px; /* 시작 위치를 오른쪽으로 설정 */
+	    animation-name: moveRightToLeft;
+	    animation-timing-function: linear;
+	    animation-duration: 7s;
+	    animation-iteration-count: infinite;
+	    box-shadow: inherit;
+	}
+
+	@keyframes moveRightToLeft {
+	    from {
+	        left: 1200px; /* 시작 위치를 오른쪽으로 설정 */
+	    }
+	    to {
+	        left: 400px; /* 종료 위치를 왼쪽으로 이동 */
+	    }
+	}
    </style>
    <script>
    

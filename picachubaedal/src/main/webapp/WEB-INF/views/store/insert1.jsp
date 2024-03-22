@@ -17,6 +17,8 @@
 <link rel="stylesheet" type="text/css" href="../css/commons.css">
 <link rel="stylesheet" type="text/css" href="../css/test.css">
 
+
+
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -33,6 +35,8 @@
 	box-shadow: 0 0 5px 5px rgb(255,245,213);
 	padding: 60px;
 }
+
+
 </style>
 
 <!-- jquery cdn -->
@@ -43,6 +47,14 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+
+ <!-- 부트스트랩 번들 및 팝퍼 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 여러분의 사용자 정의 스크립트 -->
+    <script type="text/javascript"></script>
+
 <script type="text/javascript">
 
     $(function(){
@@ -330,28 +342,29 @@
     
     $(function(){
         //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
-    	// storeName 입력란의 blur 이벤트 설정
-
+        // storeName 입력란의 blur 이벤트 설정
         $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery],[name=storeContact],[name=storeDtip],[name=storeIntro],[name=storeMinprice],[name=storeBusinessNumber]").blur(function(){
-
             // 입력된 가게 이름 가져오기
             var storeName = $(this).val();
-            
-            // 여기서 추가적으로 수행할 작업을 작성합니다.
-            // 예를 들어, 가게 이름이 입력되었는지 확인하거나 다른 유효성 검사를 수행할 수 있습니다.
-            
-            // 예시: 가게 이름이 비어 있지 않은 경우에만 유효성 검사 통과 처리
+            // 이전에 남아있는 피드백 제거
+            $(this).siblings('.feedback').remove();
+            // 예를 들어, 가게 이름이 비어 있지 않은 경우에만 유효성 검사 통과 처리
             if(storeName.trim() !== '') {
                 // 가게 이름이 비어 있지 않은 경우 success 클래스 추가
                 $(this).addClass("success");
+                // 새로운 success-feedback 추가
+                $(this).after("<div class='feedback success-feedback'>V</div>");
                 // 다른 작업 수행 가능
             } else {
                 // 가게 이름이 비어 있는 경우 fail 클래스 추가
                 $(this).addClass("fail");
+                // 새로운 fail-feedback 추가
+                $(this).after("<div class='feedback fail-feedback'>잘못된 입력 값입니다</div>");
                 // 다른 작업 수행 가능
             }
         });
     });
+
 
 
 
@@ -366,21 +379,18 @@
 	<form action="insert1" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
 
-		<input type="text" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
-		<div class="container w-600">
-			<h2>가게 등록 페이지(임시)</h2>
+		<input type="hidden" name="memberNo" placeholder="멤버넘버"  value="<%=session.getAttribute("memberNo")%>">
+		<div class="container w-700">
+			<h2>가게 등록</h2>
 			<div class="cell">
 
 
 				<div class="cell">
 					<label> 가게 이름 <i class="fa-solid fa-asterisk red"></i>
 					</label> <input type="text" id="storeName" name="storeName"
-						placeholder="가게 이름을 작성해주세요" class="tool w-100"
-						onblur="checkstoreName()">
+						placeholder="가게 이름을 작성해주세요" class="tool w-100">
 
-					<div class="fail-feedback">
-						<i class="fa-solid fa-triangle-exclamation"></i> 가게 이름을 반드시 입력하세요
-					</div>
+					
 
 				</div>
 
@@ -425,12 +435,8 @@
 							<option value="분식">분식</option>
 							<option value="카페/디저트">카페/디저트</option>
 						</select>
-						<div class="success-feedback">
-							<i class="fa-solid fa-check"></i>
-						</div>
-						<div class="fail-feedback">
-							<i class="fa-solid fa-triangle-exclamation"></i> 음식 카테고리를 선택하세요
-						</div>
+						
+						
 					</div>
 
 					<div class="cell">
@@ -461,9 +467,7 @@
 						<div class="success-feedback">
 							<i class="fa-solid fa-check"></i>
 						</div>
-						<div class="fail-feedback">
-							<i class="fa-solid fa-triangle-exclamation"></i> 잘못된 전화번호 형식입니다
-						</div>
+						
 					</div>
 				</div>
 
@@ -595,12 +599,7 @@
 				<label> 사업자 등록번호 <i class="fa-solid fa-asterisk red"></i>
 				</label> <input type="text" name="storeBusinessNumber"
 					placeholder="ex.'-'(하이픈) 없이 입력" class="tool w-100" onblur="checkStoreBusinessNumber()">
-					<div class="success-feedback">
-							<i class="fa-solid fa-check"></i>
-						</div>
-						<div class="fail-feedback">
-							<i class="fa-solid fa-triangle-exclamation"></i> 잘못된 전화번호 형식입니다
-						</div>
+					
 			</div>
 		
 
