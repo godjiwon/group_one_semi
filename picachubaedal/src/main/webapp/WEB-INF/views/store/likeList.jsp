@@ -27,21 +27,25 @@
     </style>
 </head>
 <body>
-<div class="container center" >
+<div class="container" >
+<div class="cell center">
     <h1>찜 목록</h1>
+    </div>
     <c:if test="${not empty likeList}">
         <div class="cell">
 
             <c:forEach items="${likeList}" var="store">
                 <div class="store-box" > 
-                     <img class="store-img" src="${imagePath}" style="width:150px; height:150px;">
+                  <a href="/menu/ceoMenuList?storeNo=${store.storeNo}">
+                     <img class="store-img" src="${imagePath}" style="width:150px; height:170px;">
                     <div>
-                        <h3>${store.storeName}</h3>
-                        <p>${store.storeCategory}</p> 
-                        <p>최소주문  ${store.storeMinprice}</p>
-                        <p>배달팁 ${store.storeDtip}</p> 
+                        <h2>${store.storeName}</h2>          
+                        <p>${store.storeCategory}</p>
+                         <p>최소주문금액 ${store.storeMinprice}원</p>
+                        <p>배달팁 ${store.storeDtip}원</p> 
                     </div>
                 </div> 
+                </a>
             </c:forEach>
         </div>
     </c:if>

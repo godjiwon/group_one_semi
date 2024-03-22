@@ -218,7 +218,7 @@
 	        //$(this).find(".tool").blur();//모든 창
 	        
 	        //입력창 중에서 success fail fail2가 없는 창
-	        $(this).find(".tool").not(".success, .fail, .fail2").blur();
+	        $(this).find(".tool").not(".fail, .fail2").blur();
 	        return state.ok();
 	    });
 	    
@@ -447,6 +447,9 @@
 						 배달,포장 모두 가능
 							
 						</div>
+						
+						
+						
 					</div>
 
 
