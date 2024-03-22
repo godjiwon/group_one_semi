@@ -34,7 +34,7 @@
             </thead>
             <tbody align="center">
                 <c:forEach var="dto" items="${categoryList}">
-                    <tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
+                    <tr onclick="window.location.href='/menu/customerMenuList?storeNo=${dto.storeNo}'" style="cursor: pointer;">
                         <td>${dto.storeNo}</td>
                         <td>${dto.storeName}</td>
                         <td><img src="${dto.storeImgLink}" width="40" height="40"></td>

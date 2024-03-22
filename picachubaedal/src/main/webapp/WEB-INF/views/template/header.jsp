@@ -87,25 +87,23 @@
            <div class="cell center header-font-style">배츄</div>
          <div class="header_sideMenu right">
               <c:choose>
-						<c:when test="${sessionScope.loginId != null}">
-							<div class="cell header_sideMenu">
-								<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
-							</div>
-							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
-								${sessionScope.loginId}
-							</a>
-
-							
-							<div class="header_sideMenu right">
-							<a href="/store/list">내가게</a>&nbsp;
-								<a href="/member/mypage">마이페이지</a>&nbsp;
-								<a href="/member/logout">로그아웃</a>
-						</c:when>
-						<c:otherwise>
-							<a class="pe-10" href="/member/signin">로그인</a>
-							<a href="/member/signup">회원가입</a>
-						</c:otherwise>
-					</c:choose>
+				<c:when test="${sessionScope.loginId != null}">
+					<div class="cell header_sideMenu">
+						<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
+					</div>
+					
+					<div class="header_sideMenu right">&nbsp;
+						<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
+							${sessionScope.loginId}
+						</a>
+						<a href="/member/logout">로그아웃</a>
+				</c:when>
+				
+				<c:otherwise>
+					<a class="pe-10" href="/member/signin">로그인</a>
+					<a href="/member/signup">회원가입</a>
+				</c:otherwise>
+			</c:choose>
         </div>           
        </div>
    </div>

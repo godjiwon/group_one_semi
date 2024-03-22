@@ -16,7 +16,7 @@
 		text-align: center;
 		font-size: 20px;
          > a {
-            color: #939393 !important;
+            color: black !important;
               text-decoration: none;         
          }
 	}
@@ -24,6 +24,7 @@
         display: inline-block; /* 인라인 요소로 배치 */
         margin: 30px; /* 좌우 여백 설정 */
         text-align: center; /* 텍스트를 가운데 정렬 */
+        padding: 0 30px 0 30px;
     }
     .food-category img {
         display: block; /* 이미지를 블록 요소로 설정하여 아래 텍스트와 수직 정렬 */
