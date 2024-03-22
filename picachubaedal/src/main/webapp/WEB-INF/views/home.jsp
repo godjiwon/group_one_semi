@@ -10,14 +10,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<!-- 부트스트랩 CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- 부트스트랩 JS 및 jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>가게 목록</title>
 <style>
 	.storeCategory {
@@ -176,17 +168,15 @@
 <body>
 
 	<%--메뉴&가게 검색창 --%>
-	<div class="container d-flex justify-content-center my-5">
-		<form action="/store/menuAndStoreList" method="get" autocomplete="off" class="form-inline">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="메뉴 검색" name="menuName">
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-warning">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
+	<div class="container center w-800">
+		<form action="/store/menuAndStoreList" method="get" autocomplete="off">
+		    <div class="cell center my-50" style="position: relative; display: inline-block;">
+		        <input type="text" class="tool w-80" size="25" placeholder="메뉴 검색" name="menuName">
+		        <button type="submit" class="btn tool menu_search" style="background-color:rgb(254,210,61);">
+		            <i class="fa-solid fa-magnifying-glass"></i>
+		        </button>
+		    </div>
+		</form>
 	</div>
 	<div>
 		<div class="food-category cell center">
