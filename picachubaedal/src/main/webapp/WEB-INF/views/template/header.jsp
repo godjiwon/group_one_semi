@@ -77,6 +77,7 @@
     animation-timing-function: linear;
     animation-duration: 5s;
     animation-iteration-count: infinite;
+    box-shadow: inherit;
 }
 
 @keyframes moveRightToLeft {
@@ -105,6 +106,7 @@
    - div는 투명한 영역
 --%>
 <body>
+
 	<main>
 		<div class="header">
 			<div class="header_wrap">
@@ -137,6 +139,7 @@
 		</div>
 
 		<hr class="hr hr-border header-hr">
+
 
 
 		<div class="section">

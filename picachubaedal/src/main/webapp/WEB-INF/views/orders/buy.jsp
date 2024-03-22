@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
@@ -22,11 +23,14 @@
 .buyBox {
 	border: 2px solid rgb(255, 227, 118);
 	border-radius: 10px;
-	padding: 10px;
+	padding-left: 10px;
 }
 
 .ms-100 {
 	margin-left: 100px;
+}
+.w-80{
+	width:80%;
 }
 
 .typeTool {
@@ -53,6 +57,29 @@
 	text-align: center;
 	cursor: pointer;
 	border: none;
+}
+.storeName {
+	font-weight: bold;
+	font-size : 26px;
+	margin-left : 20px;
+}
+.menuName {
+	font-weight: bold;
+	font-size : 20px;
+	margin-left : 20px;
+}
+.onlydelivery{
+	font-weight: bold;
+	font-size : 18px;
+	margin-left : 20px;
+	color : rgb(233,88,43);
+}
+.tool {
+	font-size: 16px;
+    padding: -0.5em 1em;
+    outline: none; /*선택 시 자동 강조효과 제거*/
+    border: 1px solid rgb(254, 210, 61);
+    border-radius: 5px;
 }
 </style>
 
@@ -114,77 +141,89 @@
 			return choice;
 		});
 	});
+	//요청사항 글자 수 (100글자까지)
+    function lengthCheck(){
+        //에디터 읽기
+        var request = document.querySelector(".request");
+        var count = request.value.length;
+
+        //심화
+        //- IME 방식의 경우까지 고려해서 글자 수 초과를 막는 방법은 없다
+        //- input 이벤트 발생 시 실제 값을 불러와서 원하는 구간까지 잘라낸 뒤 재설정
+        while(count > 100) {
+            //1글자 자르는 코드
+            var content = request.value;
+            request.value = content.substring(0, content.length-1);
+            count--;
+        }
+    };
 </script>
 
 <div class="container w-600">
 	<div class="cell center">
-		<h1>결제페이지</h1>
+		<h1>결제</h1>
 	</div>
 	<form action="buy" method="post">
 		<div class="cell buyBox">
 			<div class="cell flex-cell">
-				가게 이름<input type="text" name="storeNo" value="${dto.storeName}"
-					readonly>
+				<label class="storeName">${dto.storeName}</label>
+				<input type="hidden" value="storeName" value="${dto.storeName}">
 			</div>
 			<hr style="border-top: 1px solid rgb(255, 227, 118);">
 			<div class="cell flex-cell">
-				<div class="cell w-50">
-					메뉴이름<input type="text" name="ordersItemName"
-						value="${dto.purchaseList}" readonly>
+				<div class="cell">
+					<label class="menuName">${dto.purchaseList}</label>
+					<input type="hidden" name="ordersItemName" value="${dto.purchaseList}">
 				</div>
-
 			</div>
 			<div class="cell flex-cell">
-				<div class="cell w-50">
-					총 가격<input type="text" name="ordersTotal" value="${dto.total}"
-						readonly>
-				</div>
 				<div class="cell">
-					<i class="fa-solid fa-plus" style="color: #2d3436;"></i>
-				</div>
-				<div class="cell ms-10">
-					배달비(스토어정보)<input type="text" name="storeDtip"
-						value="${dto.storeDtip}" readonly>
+					<label style="font-weight: bold;">
+						<i class="fa-solid fa-motorcycle gray ms-20"></i>
+						배달비
+						<fmt:formatNumber value="${dto.storeDtip}" pattern="#,##0"></fmt:formatNumber>원
+					</label>
 				</div>
 			</div>
 			<div class="cell mt-20">
-				<label>
-					<h3>
-						총 금액<input type="text" name="ordersTotal" value="${dto.total}"
-							readonly>
+					<h3 class="ms-20">
+						총 결제 금액 :
+						<fmt:formatNumber value="${dto.total}" pattern="#,##0"></fmt:formatNumber>원
 					</h3>
-				</label>
 			</div>
 		</div>
 
-		<div class="cell">
-			<label>회원 주소</label><br> 주소 1<input type="text"
-				name="memberAddress1" value="<%=session.getAttribute("memberAddress1")%>">
-			<br> 주소 2<input type="text" name="memberAddress2"
-				value="<%=session.getAttribute("memberAddress2")%>">
+		<div class="cell ms-20">
+			<label>
+				<i class="fa-solid fa-house-user"></i>
+				회원 주소
+			</label> <br>
+			<input type="text" class="tool w-80"
+				name="memberAddress1" value="<%=session.getAttribute("memberAddress1")%>" readonly>
+			<br>
+			<input type="text" name="memberAddress2" class="tool w-80"
+				value="<%=session.getAttribute("memberAddress2")%>" readonly>
 		</div>
 
 		<%-- store type이 배달,포장일 때 선택하게 보이기 / 둘 중 하나만 있으면 출력해서 보여주기만. --%>
-		<div class="cell">
-			<select class="typeTool" name="ordersType">
-				<option value="">주문 타입</option>
-				<option value="배달">배달</option>
-				<option value="포장">포장</option>
-			</select>
-
-			<%-- 선택 안되면 타입 선택하게 onblur ? --%>
-			<div class="fail-feedback">주문 타입을 선택하세요.</div>
+		<div class="cell ms-20">
+			<i class="fa-regular fa-clipboard"></i>
+			<label>주문 타입</label> <br>
+			<input type="text"  class="tool" style="width:10%" value="배달" readonly>
+			<input type="hidden"  name="ordersType" value="배달">
+			<label class="onlydelivery">지금은 배달 주문만 가능합니다.</label>
 		</div>
 
 
-		<div class="cell">
-			<label>요청사항</label> <input type="text" class="typeTool w-100"
-				name="ordersRequest" placeholder="요청사항을 입력하세요.(최대 **글자)">
+		<div class="cell ms-20">
+			<label>요청사항</label>
+			<input type="text" class="tool typeTool w-80 request" oninput="lengthCheck();"
+				name="ordersRequest" placeholder="요청사항을 입력하세요.(최대 100글자)">
 		</div>
-		<div class="cell">
-			<h2>
+		<div class="cell ms-20">
+			<h3>
 				결제 수단 선택 <i class="fa-solid fa-asterisk red"></i>
-			</h2>
+			</h3>
 			<div class="cell flex-cell my-30">
 				<div class="w-50">
 					<span> <input type="radio" class="cardCheck check-required"
@@ -215,40 +254,6 @@
 		</div>
 	</form>
 </div>
-<%-- 
-<h1>테스트용 구매페이지</h1>
-<form action="buy" method="post">
-	멤버넘버 임시(나중에히든) <input type="text" name="memberNo"
-		value="<%=session.getAttribute("memberNo")%>">
-	<div>
-		가게 번호<input type="text" name="storeNo">
-	</div>
-	<div>
-		메뉴이름및수량 <input type="text" name="ordersItemName">
-	</div>
-	<div>
-		요청사항<input type="text" name="ordersRequest">
-	</div>
-	<div>
-		<label>타입</label> <select name="ordersType">
-			<option value="">배달,포장</option>
-			<option value="배달">배달</option>
-			<option value="포장">포장</option>
-		</select>
-	</div>
-	<div>
-		총금액<input type="text" name="ordersTotal">
-	</div>
-	<div>
-		<label>결제수단</label> <select name="ordersPay">
-			<option value="">결제수단</option>
-			<option value="카드">카드</option>
-			<option value="계좌이체">계좌이체</option>
-		</select>
-	</div>
-	<button>결제</button>
-</form>
---%>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
