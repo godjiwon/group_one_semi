@@ -123,32 +123,35 @@
 	<form action="buy" method="post">
 		<div class="cell buyBox">
 			<div class="cell flex-cell">
-				가게 번호 (이름으로 대체해야함)<input type="text" name="storeNo">
+				가게 이름<input type="text" name="storeNo" value="${dto.storeName}"
+					readonly>
 			</div>
 			<hr style="border-top: 1px solid rgb(255, 227, 118);">
 			<div class="cell flex-cell">
 				<div class="cell w-50">
-					메뉴이름<input type="text" name="ordersItemName">
+					메뉴이름<input type="text" name="ordersItemName"
+						value="${dto.purchaseList}" readonly>
 				</div>
-				<div class="cell w-50">
-					수량(카트정보)<input type="text" name="itemQuantify">
-				</div>
+
 			</div>
 			<div class="cell flex-cell">
 				<div class="cell w-50">
-					총 메뉴가격<input type="text" name="ordersTotal">
+					총 가격<input type="text" name="ordersTotal" value="${dto.total}"
+						readonly>
 				</div>
 				<div class="cell">
 					<i class="fa-solid fa-plus" style="color: #2d3436;"></i>
 				</div>
 				<div class="cell ms-10">
-					배달비(스토어정보)<input type="text" name="storeDtip">
+					배달비(스토어정보)<input type="text" name="storeDtip"
+						value="${dto.storeDtip}" readonly>
 				</div>
 			</div>
 			<div class="cell mt-20">
 				<label>
 					<h3>
-						총 금액<input type="text" name="ordersTotal">
+						총 금액<input type="text" name="ordersTotal" value="${dto.total}"
+							readonly>
 					</h3>
 				</label>
 			</div>
@@ -156,8 +159,9 @@
 
 		<div class="cell">
 			<label>회원 주소</label><br> 주소 1<input type="text"
-				name="memberAddress1"> <br> 주소 2<input type="text"
-				name="memberAddress2">
+				name="memberAddress1" value="<%=session.getAttribute("memberAddress1")%>">
+			<br> 주소 2<input type="text" name="memberAddress2"
+				value="<%=session.getAttribute("memberAddress2")%>">
 		</div>
 
 		<%-- store type이 배달,포장일 때 선택하게 보이기 / 둘 중 하나만 있으면 출력해서 보여주기만. --%>

@@ -14,7 +14,36 @@ public class OrdersDto {
 	private String ordersPay;
 	private Date ordersDate;
 	
+	private int total;
+	private int storeDtip;
+	private String storeName;
+	private String purchaseList;
 	
+	
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public int getStoreDtip() {
+		return storeDtip;
+	}
+	public void setStoreDtip(int storeDtip) {
+		this.storeDtip = storeDtip;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public String getPurchaseList() {
+		return purchaseList;
+	}
+	public void setPurchaseList(String purchaseList) {
+		this.purchaseList = purchaseList;
+	}
 	public OrdersDto() {
 		super();
 	}
