@@ -28,7 +28,7 @@ public class OrdersDao {
 		Object[] data = {
 				ordersDto.getMemberId(), ordersDto.getStoreNo(), 
 				ordersDto.getOrdersItemName(), ordersDto.getOrdersRequest(),
-				ordersDto.getOrdersType(), ordersDto.getTotal(), ordersDto.getOrdersPay()
+				ordersDto.getOrdersType(), ordersDto.getOrdersTotal(), ordersDto.getOrdersPay()
 		};
 		jdbcTemplate.update(sql, data);
 	}
