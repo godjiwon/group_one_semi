@@ -12,8 +12,12 @@
     </div>
     
     <div class="cell right">
+    	<!-- 사장님일 경우만 신규가게등록 보여주기 -->
+					<c:if test="${sessionScope.loginGrade == '사장님'}">
+    
         <h2><a class="link link-animation" href="insert1">신규 가게 등록</a></h2>
     </div>
+    </c:if>
 
     <div class="cell">
         <!-- 목록 출력 -->
@@ -35,7 +39,7 @@
             </thead>
             <tbody align="center">
                 <c:forEach var="dto" items="${categoryList}">
-                    <tr onclick="window.location.href='detail?storeNo=${dto.storeNo}'" style="cursor: pointer;">
+                    <tr onclick="window.location.href='/menu/customerMenuList?storeNo=${dto.storeNo}'" style="cursor: pointer;">
                         <td>${dto.storeNo}</td>
                         <td>${dto.storeName}</td>
                         <td><img src="${dto.storeImgLink}" width="40" height="40"></td>

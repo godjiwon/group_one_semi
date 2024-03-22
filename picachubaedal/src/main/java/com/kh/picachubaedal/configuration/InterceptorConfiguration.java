@@ -6,15 +6,18 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.kh.picachubaedal.interceptor.CeoInterceptor;
+import com.kh.picachubaedal.interceptor.Member2Interceptor;
 import com.kh.picachubaedal.interceptor.MemberInterceptor;
 
 @Configuration
 public class InterceptorConfiguration implements WebMvcConfigurer {
 
 	@Autowired
-	private MemberInterceptor memberInterceptor;
+	private Member2Interceptor member2Interceptor;
 	@Autowired
 	private CeoInterceptor ceoInterceptor;
+	@Autowired
+	private MemberInterceptor memberIntercepter;
 
 	
 	@Override
@@ -37,22 +40,63 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 //		- 주소를 설정할 때 **와 *를 사용할 수 있다
 //		- **는 하위 엔드포인트까지 모두 포함하여 설정할 때 사용 (후손)
 //		- *는 동일 엔드포인트까지만 포함하여 설정할 때 사용 (자식)
-//		registry.addInterceptor(memberInterceptor)
-//					.addPathPatterns(
-//						"/member/**",
-//						"/store/list/*",
-//						"/store/categoryList"
+//		registry.addInterceptor(member2Interceptor)
+//					.addPathPatterns( 
+//							"/store/**",
+//							"/member/**"
+//							
+//							
 //						
 //					
 //					)
-//					.excludePathPatterns(
-//					"/store/**"
-//						
+//					.excludePathPatterns( //인터셉터 제외
+//					
+//							"/member/signin*",
+//							"/member/signup", "/member/signupFinish",
+//							"/member/find*"
+//							
 //					);
-//		
-//		//관리자 인터셉터 등록
-//		registry.addInterceptor(ceoInterceptor)
-//					.addPathPatterns("/**");
+		
+		
+		
+		//사장님 인터셉터 등록
+		registry.addInterceptor(ceoInterceptor)
+					.addPathPatterns(
+							"/store/list",
+							"/store/insert1",
+							"/menu/ceoMenuList**",
+							"/menu/edit/**","/menu/insert/**",
+							"/store/detail","/store/change**","/store/delete**"
+							
+							
+						
+							
+							)
+					.excludePathPatterns( //인터셉터 제외
+						
+						
+						
+						
+							
+					);
+		//모든회원 인터셉터 등록
+				registry.addInterceptor(memberIntercepter)
+							.addPathPatterns(
+									"/store/**",
+									"/member/**"
+								
+									
+									)
+							.excludePathPatterns( //인터셉터 제외
+									"/member/signin*",
+									"/member/signup", "/member/signupFinish",
+									"/member/find*","/member/pw**/"
+								
+								
+									
+							);
+		
+		
 		
 		//내글 또는 관리자만 수정 삭제하는 인터셉터 등록
 //		registry.addInterceptor(ceoMenuInterceptor)
