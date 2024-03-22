@@ -22,6 +22,7 @@ import com.kh.picachubaedal.service.EmailService;
 import com.kh.picachubaedal.vo.PageVO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 //
 @Controller
@@ -294,6 +295,7 @@ private StoreDao storeDao;
 		if (isValid) {
 			model.addAttribute("foundPw", findDto.getMemberPw());
 			model.addAttribute("memberId", findDto.getMemberId()); // memberId를 모델에 추가
+			model.addAttribute("kakaoLogin",findDto.getMemberId());
 			return "/WEB-INF/views/member/findPwSuccess.jsp";
 
 		} else {
@@ -312,6 +314,6 @@ private StoreDao storeDao;
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
 	
-	
+
 	
 }
