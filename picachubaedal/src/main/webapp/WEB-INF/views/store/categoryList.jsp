@@ -29,6 +29,7 @@
                     <th>가게 운영시간</th>
                     <th>배달 가능지역</th>
                     <th>가게 휴무일</th>
+                    <th>가게거리</th>
                 </tr>
             </thead>
             <tbody align="center">
@@ -44,6 +45,7 @@
                         <td>${dto.storeOpenHour} - ${dto.storeCloseHour}</td>
                         <td>${dto.storeDelivery}</td>
                         <td>${dto.storeClosed}</td>
+                        <td>${dto.userDistance}km</td>
                     </tr>
                 </c:forEach>
             </tbody>
