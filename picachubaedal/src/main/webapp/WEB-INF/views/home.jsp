@@ -146,6 +146,20 @@
     		width: 10%;
     	}
 	}
+	
+	.information {
+        position: relative; /* 상대 위치 설정 */
+        top: 50px; /* 위로 조금 이동 */
+        display: flex; /* flex를 사용하여 아이콘과 텍스트를 가로로 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        justify-content: center;
+    }
+
+    .information i {
+        margin-right: 5px; /* 아이콘과 텍스트 사이 간격 조정 */
+        color: rgb(253, 185, 30); /* 글자색 설정 */
+    }
+	
 </style>
 <script>
 	$(document).ready(function() {
@@ -190,13 +204,13 @@
 <body>
 	<div class="container center w-800">
 		<%--로그인한 회원의 위치정보 --%>
-
+<div class="cell information">
+	<i class="fa-solid fa-location-dot"></i> ${memberDto.memberAddress1} ${memberDto.memberAddress2}
+</div>
 		<%--메뉴&가게 검색창 --%>
 		<form action="/store/menuAndStoreList" method="get" autocomplete="off">
 
-	<div class="cell">
-	<h2>현재위치 ${memberDto.memberAddress1} ${memberDto.memberAddress2}</h2>
-</div>
+	
 			<div class="cell center my-50"
 				style="position: relative; display: inline-block;">
 				<input type="text" class="tool w-80" size="25" placeholder="메뉴 검색"
