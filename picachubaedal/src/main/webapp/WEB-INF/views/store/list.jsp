@@ -59,7 +59,7 @@
         </a>
     </h3>
     <div class="storelist">
-        <c:forEach var="dto" items="${list}">
+        <c:forEach var="storeDto" items="${list}">
             <div class="cell flex-cell card storeCard">
                 <div class="w-25 flex-cell middle">
                     <img class="storeImage" src="${storeDto.storeImgLink}" width="80">
