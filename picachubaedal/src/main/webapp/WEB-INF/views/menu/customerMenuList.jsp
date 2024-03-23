@@ -207,6 +207,12 @@ li {
 	        alert("메뉴가 장바구니에 추가되었습니다.");
 	    });
 	});
+	$(function(){
+	    $(".soldOut").click(function(){
+	        alert("메뉴가 품절입니다.");
+	        return false;
+	    });
+	});
 </script>
 <form class="menuCategoryBar" name="menuForm" action="customerMenuList"
 	method="get">
@@ -293,20 +299,28 @@ li {
 
 					<div class="text-center pt-30">
 						<form action="/cart/insert" method="post" autocomplete="off">
-							<input type="hidden" name="memberNo" class="tool w-100"
-								value="<%=session.getAttribute("memberNo")%>"> <input
-								type="hidden" name="menuNo" placeholder="메뉴번호써라"
-								class="tool w-100" value="${menuDto.menuNo}"> <input
-								type="hidden" name="itemName" placeholder="아이템이름(메뉴이름)"
-								class="tool w-100" value="${menuDto.menuName}"> <input
-								type="hidden" name="itemPrice" placeholder="아이템가격(메뉴가격)"
-								class="tool w-100" value="${menuDto.menuPrice}"> <input
-								type="hidden" name="itemQuantify" placeholder="아이템수량(메뉴수량)"
-								class="tool w-100" value="1">
-
-							<button class="btn btn-gradient orange pt-20 addCart">
-								메뉴담기</button>
-
+						
+						<c:choose>
+	                        <c:when test="${menuDto.menuState == 'N'}">
+	                        	<button class="btn btn-gradient orange pt-20 soldOut">메뉴 담기</button>
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" name="memberNo" class="tool w-100"
+									value="<%=session.getAttribute("memberNo")%>"> <input
+									type="hidden" name="menuNo" placeholder="메뉴번호써라"
+									class="tool w-100" value="${menuDto.menuNo}"> <input
+									type="hidden" name="itemName" placeholder="아이템이름(메뉴이름)"
+									class="tool w-100" value="${menuDto.menuName}"> <input
+									type="hidden" name="itemPrice" placeholder="아이템가격(메뉴가격)"
+									class="tool w-100" value="${menuDto.menuPrice}"> <input
+									type="hidden" name="itemQuantify" placeholder="아이템수량(메뉴수량)"
+									class="tool w-100" value="1">
+	
+								<button class="btn btn-gradient orange pt-20 addCart">
+									메뉴담기</button>
+							</c:otherwise>
+						</c:choose>
+						
 						</form>
 					</div>
 

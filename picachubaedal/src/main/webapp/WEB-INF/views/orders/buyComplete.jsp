@@ -67,9 +67,9 @@
 
 <div class="container w-600">
 
-        <div class="cell center flex-cell my-50">
+        <div class="cell center flex-cell">
             <div class="cell right width-fill">
-                <h3 class="text-out">배달기사 찾는중...</h3>
+                <h2 class="text-out">피카라이더 찾는중...</h2>
             </div>
             <div class="cell left w-40">
                 <img src="/image/pocketball.png" class="rotateball text-out" width="20%;">
@@ -78,7 +78,7 @@
         </div>
         <div class="cell">
             <img src="/image/pica.png" class="delivery" width="50%;">
-            <h3 class="text text-with-border">기사가 배츄(배차)되었습니다.</h3>
+            <h3 class="text text-with-border">피카라이더가 음식을 픽업하였습니다.</h3>
         </div>
     </div>
     
