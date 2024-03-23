@@ -224,15 +224,18 @@
 	                .addClass(state.storeAddressValid ? "success" : "fail");
 	    });
 	
-	    //form 전송
-	    $(".check-form").submit(function(){
-	        //$(this).find("[name], #pw-reinput").blur();
-	        //$(this).find(".tool").blur();//모든 창
-	        
-	        //입력창 중에서 success fail fail2가 없는 창
-	        $(this).find(".tool").not(".fail, .fail2").blur();
-	        return state.ok();
+	 // 폼 전송
+	    $(".check-form").submit(function(e) {
+	        // 입력창 중에서 success fail fail2가 없는 창
+	        $(this).find(".tool").not(".success, .fail, .fail2").blur();
+	        if (state.ok()) {
+	            e.preventDefault(); // 폼 전송을 막음
+	            var errorMessage = "<div style='color: red;'>모든 입력 항목을 올바르게 작성해주세요.</div>";
+	            $(this).append(errorMessage); // 폼 아래에 빨간색 메시지 추가
+	        }
 	    });
+
+	});
 	    
 	    var storeTypes = [];
 	    $(".storeType").change(function() {
@@ -303,8 +306,7 @@
 
 	});
 </script>
-<!-- 카카오 api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script type="text/javascript">
     $(function(){
         $(".btn-address-search").click(function(){
@@ -343,7 +345,7 @@
     $(function(){
         //음식카테고리,배달/포장,소개글,휴무일,배달가능지역
         // storeName 입력란의 blur 이벤트 설정
-        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery],[name=storeContact],[name=storeDtip],[name=storeIntro],[name=storeMinprice],[name=storeBusinessNumber]").blur(function(){
+        $("[name=storeName],[name=storeCategory],[name=storeType],[name=storeIntro],[name=storeClosed],[name=storeDelivery],[name=storeContact],[name=storeDtip],[name=storeIntro],[name=storeMinprice],[name=storeBusinessNumber],[name=storePost],[name=storeAddress1],[name=storeAddress2]").blur(function(){
             // 입력된 가게 이름 가져오기
             var storeName = $(this).val();
             // 이전에 남아있는 피드백 제거
@@ -353,7 +355,7 @@
                 // 가게 이름이 비어 있지 않은 경우 success 클래스 추가
                 $(this).addClass("success");
                 // 새로운 success-feedback 추가
-                $(this).after("<div class='feedback success-feedback'>V</div>");
+               
                 // 다른 작업 수행 가능
             } else {
                 // 가게 이름이 비어 있는 경우 fail 클래스 추가
@@ -401,7 +403,7 @@
 					</div>
 					<div class="cell">
 						<input type="text" name="storePost" readonly placeholder="우편번호"
-							class="tool" size="6" maxlength="6">
+							class="tool" size="6" maxlength="6"  onblur="storePost()">
 						<button type="button" class="btn positive btn-address-search">
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</button>
@@ -411,12 +413,12 @@
 					</div>
 					<div class="cell">
 						<input type="text" name="storeAddress1" placeholder="기본주소"
-							class="tool w-100" readonly>
+							class="tool w-100" readonly onblur="storeAddress1()">
 					</div>
 					<div class="cell">
 						<input type="text" name="storeAddress2" placeholder="상세주소"
 							class="tool w-100">
-						<div class="fail-feedback">주소를 모두 작성하세요</div>
+						<div class="fail-feedback" onblur="storeAddress2()">주소를 모두 작성하세요</div>
 					</div>
 
 

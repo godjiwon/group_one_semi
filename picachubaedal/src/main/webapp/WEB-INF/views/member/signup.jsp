@@ -165,6 +165,24 @@
 					}
 				});
 
+		   $("[name=memberEmail]").blur(function(){
+		        var regex = /^[a-z0-9]{8,20}@[a-z0-9\.]{1,20}$/;
+		        var value = $(this).val();
+		        
+		        var isValid = regex.test(value);
+		        
+		        if(isValid == false) {
+		        	state.memberEmailValid = false;
+		        }
+		        
+		        $(this).removeClass("success fail")
+		                    .addClass(isValid ? "success" : "fail");
+		        //뒤에 있는 보내기버튼을 활성화 또는 비활성화
+		        $(this).next(".btn-send-cert").prop("disabled", !isValid)
+		        			.removeClass("positive negative")
+		        			.addClass(isValid ? "positive" : "negative");
+		    });
+		   
 		$("[name=memberContact]").blur(
 				function() {
 					var regex = /^010[1-9][0-9]{7}$/;
@@ -208,9 +226,10 @@
 			//입력창 중에서 success fail fail2가 없는 창
 			$(this).find(".tool").not(".success, .fail, .fail2").blur();
 			if (state.ok()) {
-				e.preventDefault(); // 폼 전송을 막음
-				alert("모든 입력 항목을 올바르게 작성해주세요.");
-			}
+				   e.preventDefault(); // 폼 전송을 막음
+		            var errorMessage = "<div style='color: red;'>모든 입력 항목을 올바르게 작성해주세요.</div>";
+		            $(this).append(errorMessage); // 폼 아래에 빨간색 메시지 추가
+		        }
 		});
 	});
 	

@@ -60,7 +60,7 @@
 						</h2>
 						
 							<h2>
-								<a class="link link-animation" href="insert1">신규 가게 등록</a>
+								<a class="link link-animation" href="http://localhost:8080/store/insert1">신규 가게 등록</a>
 							</h2>
 						
 					</c:if>
