@@ -45,10 +45,13 @@ public class OrdersController {
 		model.addAttribute("dto", dto);
 		return "/WEB-INF/views/orders/buy.jsp";
 	}
-
+	//구매 , 구매완료되면 장바구니 내역 삭제
 	@PostMapping("/buy")
-	public String buy(@ModelAttribute OrdersDto ordersDto) {
+	public String buy(@ModelAttribute OrdersDto ordersDto, HttpSession session) {
+		int memberNo = (int)session.getAttribute("memberNo");
+		
 		ordersDao.insert(ordersDto);
+		cartDao.userDeleteAll(memberNo);
 		return "redirect:buyComplete";
 	}
 
