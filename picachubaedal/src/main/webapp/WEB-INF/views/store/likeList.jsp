@@ -33,7 +33,7 @@
                 <div class="col-md-4">
                     <div class="card store-card">
                     <a href="/menu/ceoMenuList?storeNo=${store.storeNo}">
-                        <img src="${imagePath}" width="100" height="100" class="card-img-top store-img"></a>
+                        <img src="${imagePath}" width="150" height="100" class="card-img-top store-img"></a>
                         <div class="card-body">
                             <h5 class="card-title center">${store.storeName}</h5>
                         </div>
