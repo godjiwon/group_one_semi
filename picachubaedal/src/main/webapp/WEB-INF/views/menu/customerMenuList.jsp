@@ -123,7 +123,7 @@ li {
 }
 </style>
 <!-- 찜 -->
-	<c:if test="${sessionScope.loginId != null}">
+<c:if test="${sessionScope.loginId != null}">
 	<script type="text/javascript">
 		//좋아요 하트 클릭 이벤트
 		$(function() {
@@ -158,8 +158,8 @@ li {
 					});
 		});
 	</script>
-	</c:if>
-	<script type="text/javascript">
+</c:if>
+<script type="text/javascript">
 	//좋아요 최초 불러오기
 	$(function() {
 		//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
@@ -189,23 +189,24 @@ li {
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/customerMenuList").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action",
+				"/menu/customerMenuList").submit();
 	}
 	$(function() {
-		$('.main_search').on("click", function(){
-		    var searchGroup = $('.search_group');
-		    if (searchGroup.css("display") === "block") {
-		        searchGroup.css("display", "none");
-		    } else {
-		        searchGroup.css("display", "block");
-		    }
+		$('.main_search').on("click", function() {
+			var searchGroup = $('.search_group');
+			if (searchGroup.css("display") === "block") {
+				searchGroup.css("display", "none");
+			} else {
+				searchGroup.css("display", "block");
+			}
 		});
 	});
 
-	$(function(){
-	    $(".addCart").click(function(){
-	        alert("메뉴가 장바구니에 추가되었습니다.");
-	    });
+	$(function() {
+		$(".addCart").click(function() {
+			alert("메뉴가 장바구니에 추가되었습니다.");
+		});
 	});
 </script>
 <form class="menuCategoryBar" name="menuForm" action="customerMenuList"
@@ -231,7 +232,7 @@ li {
 				value="${pageVO.totalPage}">
 		</ul>
 	</div>
-	
+
 </form>
 <div class="cell">
 	<div class="cell center store_name_design">
@@ -240,28 +241,27 @@ li {
 	</div>
 	<div class="col-md-3">
 		<div class="cell center storelist">
-			
-				<onclick="window.location.href='detail?storeNo=${storeDto.storeNo}'"
+
+			<onclick ="window.location.href='detail?storeNo=${storeDto.storeNo}'
+				"
 					style="cursor: pointer;"></onclick>
-					<div>
-						<img src="${imagePath}" width="700" height="300">
-					</div>
-					<div>
-					<span>운영시간 ${storeDto.storeOpenHour}</span>
-					<span> -	${storeDto.storeCloseHour}</span>
-					<span>휴무일: ${storeDto.storeClosed}</span>
-					</div>
-					<div>
-					<span>배달/포장 : ${storeDto.storeType}</span>
-					<span>배달팁: ${storeDto.storeDtip}원</span>
-							<span
-								class="store-like red">찜 <i class="fa-regular fa-heart"></i>
-									<span class="count">${storeDto.storeLike}</span>
-							</span>
-							<div>
-							<span>사장님 한마디</span>
-							<form>${storeDto.storeIntro}</form>
-							</div>
+			<div>
+				<img src="${imagePath}" width="700" height="300">
+			</div>
+			<div>
+				<span>운영시간 ${storeDto.storeOpenHour}</span> <span> -
+					${storeDto.storeCloseHour}</span> <span>휴무일:
+					${storeDto.storeClosed}</span>
+			</div>
+			<div>
+				<span>배달/포장 : ${storeDto.storeType}</span> <span>배달팁:
+					${storeDto.storeDtip}원</span> <span class="store-like red">찜 <i
+					class="fa-regular fa-heart"></i> <span class="count">${storeDto.storeLike}</span>
+				</span>
+				<div>
+					<span>사장님 한마디</span>
+					<form>${storeDto.storeIntro}</form>
+				</div>
 			</div>
 
 		</div>
@@ -302,7 +302,8 @@ li {
 								type="hidden" name="itemPrice" placeholder="아이템가격(메뉴가격)"
 								class="tool w-100" value="${menuDto.menuPrice}"> <input
 								type="hidden" name="itemQuantify" placeholder="아이템수량(메뉴수량)"
-								class="tool w-100" value="1">
+								class="tool w-100" value="1"> <input type="hidden"
+								name="storeNo" class="tool w-100" value="${param.storeNo}">
 
 							<button class="btn btn-gradient orange pt-20 addCart">
 								메뉴담기</button>
