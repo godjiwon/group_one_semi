@@ -56,7 +56,7 @@
 
 <form action="profileEdit" method="post" autocomplete="off">
 
-<div class="container w-600">
+<div class="container w-500">
 	<div class="cell center"><h1>개인정보 변경</h1></div>
 	<div class="cell">
 		<label>닉네임<b style="color:red">*</b></label>

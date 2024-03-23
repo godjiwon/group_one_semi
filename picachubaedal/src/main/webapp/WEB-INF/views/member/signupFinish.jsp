@@ -6,6 +6,9 @@
 *{
 	font-family: 빙그레 메로나체, sans-serif;
 }
+.imgRadius {
+	border-radius : 15px;
+}
 </style>
 
 <div class="cell container center">
@@ -14,7 +17,7 @@
 		<h1>가입해 주셔서 감사합니다!</h1>
 	</div>		
 	<div class="cell my-50">
-		<img class="img center" src=https://media.giphy.com/media/sdR7KXjYmKegU/giphy.gif><br><br>
+		<img class="img center imgRadius" src=https://media.giphy.com/media/sdR7KXjYmKegU/giphy.gif><br><br>
 	</div>
 </div>
 

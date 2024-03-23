@@ -5,29 +5,6 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제목을 설정하세요</title>
-
-<!-- 구글 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
-
-<!-- 내가 구현한 스타일 -->
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
-<link rel="stylesheet" type="text/css" href="/css/test.css">
-
-<!-- font awesome 아이콘 CDN -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 <style>
 .container {
 	display: grid;
@@ -39,17 +16,6 @@
 	padding: 60px;
 }
 </style>
-<!--jquery CDN-->
-<script
-	src="
-    https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
-<!-- lightpick CDN-->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/css/lightpick.min.css">
-<script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/lightpick@1.6.2/lightpick.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -305,7 +271,7 @@
 					<label> 비밀번호 확인 <i class="fa-solid fa-asterisk red"></i>
 					</label>
 					<!-- 비밀번호 확인은 백엔드로 전송되지 않도록 이름을 부여하지 않는다 -->
-					<input type="password" placeholder="" id="pw-reinput"
+					<input type="password" placeholder="비밀번호 확인" id="pw-reinput"
 						class="tool w-100">
 					<div class="success-feedback">비밀번호가 일치합니다</div>
 					<div class="fail-feedback">비밀번호가 일치하지 않습니다</div>

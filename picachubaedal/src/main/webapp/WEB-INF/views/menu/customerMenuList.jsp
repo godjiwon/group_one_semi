@@ -210,7 +210,7 @@ li {
 	});
 	$(function() {
 		$(".soldOut").click(function() {
-			alert("메뉴가 품절입니다.");
+			alert("품절된 상품입니다.");
 			return false;
 		});
 	});

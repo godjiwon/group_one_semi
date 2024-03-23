@@ -10,12 +10,12 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<div class="container w-800 my-50 p-50" >
+<div class="container w-500 my-50 p-50" >
 	<div class="cell center">
-		<h1 style="font-family: 빙그레 메로나체, sans-serif;">비밀번호 변경을 완료하였습니다.</h1>
+		<h2 style="font-family: 빙그레 메로나체, sans-serif;">비밀번호 변경을 완료하였습니다.</h2>
 	</div>
 	<div class="cell center my-50">
-		<img  class="success" src="/image/pocketball.png" width="100px">
+		<img  class="success" src="/image/pocketball.png" width="20%">
 	</div>
 	<div class="cell right">
 		<a href="/member/mypage" class="link">
