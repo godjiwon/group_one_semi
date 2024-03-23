@@ -15,15 +15,8 @@
 </style>
 
 <div class="container w-1000 my-50">
-	<div class="cell information">
-		<div class="cell w-50"></div>
-		<div class="cell right w-50">
-			<h1>${memberDto.memberId}님의정보</h1>
-		</div>
-		<div class="cell w-50">
-			<img src="/image/transparent-cute-pikachu.png" width="25%;">
-		</div>
-	</div>
+
+		
 	<div class="cell floating-cell">
 		<div class="w-25 row">
 			<div class="col-md-3">
@@ -74,6 +67,16 @@
 			</div>
 		</div>
 		<div class="w-75">
+		
+		<div class="cell flex-cell">
+		<div class="cell right w-50">
+			<h1>${memberDto.memberId}님의정보</h1>
+		</div>
+		<div class="cell w-50">
+			<img src="/image/transparent-cute-pikachu.png" width="25%;">
+		</div>
+		</div>
+		
 			<div class="cell">
 				<table class="table table-horizontal">
 					<tr>
@@ -111,7 +114,12 @@
 					</tr>
 				</table>
 			</div>
-
+			<div class="cell right">
+				<a href="/orders/buyList" class="link">
+				<i class="fa-solid fa-clipboard-list"></i>
+				구매 내역
+				</a>
+			</div>
 			
 		</div>
 	</div>
