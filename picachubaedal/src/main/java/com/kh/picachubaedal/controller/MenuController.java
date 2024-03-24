@@ -130,6 +130,9 @@ public class MenuController {
 	   
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
+		String storeImageLink = imageService.getStoreImgLink(storeNo);
+
+		storeDto.setStoreImgLink(storeImageLink);
 		model.addAttribute("storeDto", storeDto);
 		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 

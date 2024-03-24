@@ -258,7 +258,7 @@ li {
 				"
 					style="cursor: pointer;"></onclick>
 			<div>
-				<img src="${imagePath}" width="700" height="300">
+				<img class="storeImage" src="${storeDto.storeImgLink}" width="700" height="300">
 			</div>
 			<div>
 				<span>운영시간 ${storeDto.storeOpenHour}</span> 
