@@ -198,7 +198,7 @@ function checkMenuPrice() {
               </div>
               <div id="input-area">
                <input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요">
-               <input type="text" name="menuPrice" placeholder="몬스터볼 개수를 입력하세요">
+               <input type="text" name="menuPrice" placeholder="판매 가격을 입력하세요">
                <select name="menuCategory">
                    <option>메뉴 카테고리</option>
                    <option value="추천메뉴">추천메뉴</option>
