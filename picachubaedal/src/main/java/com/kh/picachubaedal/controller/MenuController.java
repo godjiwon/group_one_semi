@@ -19,6 +19,7 @@ import com.kh.picachubaedal.dao.StoreDao;
 import com.kh.picachubaedal.dto.MenuDto;
 import com.kh.picachubaedal.dto.StoreDto;
 import com.kh.picachubaedal.service.AttachService;
+import com.kh.picachubaedal.service.ImageService;
 import com.kh.picachubaedal.vo.PageVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +41,9 @@ public class MenuController {
    
    @Autowired
    private AttachService attachService;
-   
+  
+   @Autowired
+	private ImageService imageService;
    /**
     *  메뉴 등록 페이지
     *  @mappig get
@@ -99,8 +102,10 @@ public class MenuController {
 			  
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
+		String storeImageLink = imageService.getStoreImgLink(storeNo);
+
+		storeDto.setStoreImgLink(storeImageLink);
 		model.addAttribute("storeDto", storeDto);
-		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
 		int count = menuDao.count(pageVO, storeNo);
 		pageVO.setCount(count);
@@ -125,6 +130,9 @@ public class MenuController {
 	   
 		//가게이름 가져오기
 		StoreDto storeDto = storeDao.selectOne(storeNo);
+		String storeImageLink = imageService.getStoreImgLink(storeNo);
+
+		storeDto.setStoreImgLink(storeImageLink);
 		model.addAttribute("storeDto", storeDto);
 		
 	    //	세부 계산은 클래서에서 수행/ count(설정해주지 않으면 페이지가 끝나지 않음), list만 처리 
