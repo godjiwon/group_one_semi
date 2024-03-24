@@ -229,7 +229,6 @@
 <div class="cell">
    <div class="cell center store_name_design">
    	  <div>
-   	  <div>
    	  	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i>
    	  </div>	
    	  <div class="cell center storelist">
