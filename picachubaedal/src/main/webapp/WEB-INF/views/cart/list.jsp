@@ -71,7 +71,7 @@ $(function () {
 
 				<%-- 전체삭제 버튼 --%>
 				<div class="cell ms-50">
-					<a href="deleteAll" class="btn btn-deleteAll cart-delete" data-message="전체 삭제 하시겠습니까?">전체 삭제</a>
+					<a href="deleteAll?memberNo=${sessionScope.memberNo}" class="btn btn-deleteAll cart-delete" data-message="장바구니를 비우시겠습니까?">전체 삭제</a>
 				</div>
 
 				<div class="cell pb-50 ps-50 pe-50">

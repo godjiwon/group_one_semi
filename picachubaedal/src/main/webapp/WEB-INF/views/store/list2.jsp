@@ -38,10 +38,11 @@
 
     <div class="container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <c:forEach var="dto" items="${categoryList}">
+        <c:forEach var="dto" items="${list}">
             <div class="col">
                 <div class="card">
-                    <img src="${dto.storeImgLink}" class="card-img-top" alt="${dto.storeName}" style="width: 100%; height: 250px; object-fit: cover;">
+                <a href="/menu/ceoMenuList?storeNo=${dto.storeNo}">
+                    <img src="${dto.storeImgLink}" width="150" height="100" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title text-center">${dto.storeName}</h5>
                     </div>

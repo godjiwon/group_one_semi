@@ -5,27 +5,6 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>배츄 로그인</title>
-
-<!-- 구글 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
-
-<!-- 내가 구현한 스타일 -->
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
-<link rel="stylesheet" type="text/css" href="/css/test.css">
-
-<!-- font awesome 아이콘 CDN -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 <style>
 .container {
 	display: grid;
@@ -109,7 +88,7 @@
           success: function (response) {
         	  console.log(response);
               // 로그인 성공 시 화면 이동
-              window.location.href = "http://localhost:8080/member/mypage.jsp"; // 이동할 페이지 경로
+              window.location.href = "http://localhost:8080/member/mypage"; // 이동할 페이지 경로
             },
           fail: function (error) {
             console.log(error);
@@ -168,7 +147,9 @@
 			<div class="cell center">
 
 				<a href="findId" style="text-decoration-line: none;">아이디 찾기</a>
+				&nbsp;|&nbsp;
 				<a href="findPw" style="text-decoration-line: none;">비밀번호 찾기</a>
+				&nbsp;|&nbsp;
 				<a href="signup" style="text-decoration-line: none;">회원가입</a>
 			</div>
 			<c:if test="${param.error != null}">

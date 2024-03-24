@@ -230,7 +230,7 @@ public class StoreController {
 
 		// 조회된 가게 리스트를 모델에 추가합니다.
 		model.addAttribute("list", list);
-
+			System.out.println("가게리스트"+list);
 		// list2.jsp로 이동합니다.
 		return "/WEB-INF/views/store/list2.jsp";
 	}

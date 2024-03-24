@@ -3,59 +3,63 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>찜한 가게 목록</title>
     <style>
-        .store-box {
-            border: 1px solid #ccc;
+        .store-card {
+            width: 18rem;
             margin: 10px;
-            padding: 10px;
-            width: 500px;
-            display: inline-block;
-            float: left;
         }
         .store-img {
             max-width: 100%;
             height: auto;
-            float: left;
-            margin-right: 10px; 
-           /* 이미지 오른쪽 여백 추가 */
         }
     </style>
 </head>
 <body>
-<div class="container" >
-<div class="cell center">
-    <h1>찜 목록</h1>
+<div class="container">
+    <div class="center">
+        <h1>찜 목록</h1>
     </div>
     <c:if test="${not empty likeList}">
-        <div class="cell">
-
+        <div class="row">
             <c:forEach items="${likeList}" var="store">
-                <div class="store-box" > 
-                  <a href="/menu/ceoMenuList?storeNo=${store.storeNo}">
-                     <img class="store-img" src="${imagePath}" style="width:150px; height:170px;">
-                    <div>
-                        <h2>${store.storeName}</h2>          
-                        <p>${store.storeCategory}</p>
-                         <p>최소주문금액 ${store.storeMinprice}원</p>
-                        <p>배달팁 ${store.storeDtip}원</p> 
+                <div class="col-md-4">
+                    <div class="card store-card">
+                    <a href="/menu/ceoMenuList?storeNo=${store.storeNo}">
+                        <img src="${imagePath}" width="150" height="100" class="card-img-top store-img"></a>
+                        <div class="card-body">
+                            <h5 class="card-title center">${store.storeName}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-center">찜 ${store.storeLike} </li>
+                            <li class="list-group-item text-center">음식 카테고리 : ${store.storeCategory}</li>
+                            <li class="list-group-item text-center">최소주문금액 ${store.storeMinprice}원</li>
+                            <li class="list-group-item text-center">배달팁 ${store.storeDtip}원</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link"></a>
+                       
+                        </div>
                     </div>
-                </div> 
-                </a>
+                </div>
+                
             </c:forEach>
         </div>
     </c:if>
-    <div>
     <c:if test="${empty likeList}">
-        <p>찜한 가게가 없습니다.</p>
+        <div class="center">
+            <p>찜한 가게가 없습니다.</p>
+        </div>
     </c:if>
-    </div>
-    </div>
+</div>
 </body>
-</html><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</html>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

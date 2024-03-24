@@ -131,25 +131,29 @@
 		});
 	}
 	//결제하기 때 알림창
-	$(function() {
-		$(".buy").click(function() {
-			var message = $(this).data("message");
-			if (message == undefined) {
-				message = "결제 하시겠습니까?"
-			}
-			var choice = window.confirm(message);
-			return choice;
-		});
-	});
+    $(function () {
+        $(".buy").click(function () {
+            var message = $(this).data("message");
+            if (message == undefined) {
+                message = "결제 하시겠습니까?"
+            }
+            var yesChoice = window.confirm(message);
+            if(yesChoice == true){
+                alert("결제가 완료되었습니다.");
+                return yesChoice;
+            }
+            else{
+                alert("결제가 취소되었습니다.");
+                return false;
+            }
+        });
+    });
+
 	//요청사항 글자 수 (100글자까지)
     function lengthCheck(){
-        //에디터 읽기
         var request = document.querySelector(".request");
         var count = request.value.length;
 
-        //심화
-        //- IME 방식의 경우까지 고려해서 글자 수 초과를 막는 방법은 없다
-        //- input 이벤트 발생 시 실제 값을 불러와서 원하는 구간까지 잘라낸 뒤 재설정
         while(count > 100) {
             //1글자 자르는 코드
             var content = request.value;

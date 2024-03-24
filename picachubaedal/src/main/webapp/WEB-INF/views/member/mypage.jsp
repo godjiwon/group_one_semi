@@ -15,15 +15,8 @@
 </style>
 
 <div class="container w-1000 my-50">
-	<div class="cell information">
-		<div class="cell w-50"></div>
-		<div class="cell right w-50">
-			<h1>${memberDto.memberId}님의정보</h1>
-		</div>
-		<div class="cell w-50">
-			<img src="/image/transparent-cute-pikachu.png" width="25%;">
-		</div>
-	</div>
+
+		
 	<div class="cell floating-cell">
 		<div class="w-25 row">
 			<div class="col-md-3">
@@ -60,7 +53,7 @@
 						</h2>
 						
 							<h2>
-								<a class="link link-animation" href="insert1">신규 가게 등록</a>
+								<a class="link link-animation" href="http://localhost:8080/store/insert1">신규 가게 등록</a>
 							</h2>
 						
 					</c:if>
@@ -74,6 +67,16 @@
 			</div>
 		</div>
 		<div class="w-75">
+		
+		<div class="cell flex-cell">
+		<div class="cell right w-50">
+			<h1>${memberDto.memberId}님의정보</h1>
+		</div>
+		<div class="cell w-50">
+			<img src="/image/transparent-cute-pikachu.png" width="25%;">
+		</div>
+		</div>
+		
 			<div class="cell">
 				<table class="table table-horizontal">
 					<tr>
@@ -99,10 +102,6 @@
 						<td class="left">${memberDto.memberGrade}</td>
 					</tr>
 					<tr>
-						<th>포켓볼</th>
-						<td class="left">${memberDto.memberPoint}개</td>
-					</tr>
-					<tr>
 						<th>가입일시</th>
 						<td class="left"><fmt:formatDate
 								value="${memberDto.memberJoin}" pattern="y년 M월 d일 H시 m분 s초" /></td>
@@ -115,38 +114,13 @@
 					</tr>
 				</table>
 			</div>
-
-			<div class="cell">
-				<h2>주문 내역</h2>
+			<div class="cell right">
+				<a href="/orders/buyList" class="link">
+				<i class="fa-solid fa-clipboard-list"></i>
+				구매 내역
+				</a>
 			</div>
-			<div class="cell">
-				<table class="table table-horizontal">
-					<thead>
-						<tr>
-							<th>가게</th>
-							<th>메뉴</th>
-							<th>수량</th>
-							<th>총 금액</th>
-							<th>구매일시</th>
-							<th>리뷰</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="ordersDto" items="${ordersList}">
-							<tr>
-								<td>${ordersDto.storeName}</td>
-								<td>${ordersDto.menuName}</td>
-								<td>${ordersDto.ordersqty}</td>
-								<td><fmt:formatNumber value="${ordersDto.ordersTotal}"
-										pattern="#,##0" /></td>
-								<td><fmt:formatDate value="${ordersDto.ordersTime}"
-										pattern="yyyy-MM-dd HH:mm" /></td>
-								<td><i class="fa-regular fa-pen-to-square"></i></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+			
 		</div>
 	</div>
 

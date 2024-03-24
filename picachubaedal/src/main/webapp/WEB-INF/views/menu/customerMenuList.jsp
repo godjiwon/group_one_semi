@@ -123,7 +123,7 @@ li {
 }
 </style>
 <!-- 찜 -->
-	<c:if test="${sessionScope.loginId != null}">
+<c:if test="${sessionScope.loginId != null}">
 	<script type="text/javascript">
 		//좋아요 하트 클릭 이벤트
 		$(function() {
@@ -158,8 +158,8 @@ li {
 					});
 		});
 	</script>
-	</c:if>
-	<script type="text/javascript">
+</c:if>
+<script type="text/javascript">
 	//좋아요 최초 불러오기
 	$(function() {
 		//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
@@ -189,23 +189,30 @@ li {
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/customerMenuList").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action",
+				"/menu/customerMenuList").submit();
 	}
 	$(function() {
-		$('.main_search').on("click", function(){
-		    var searchGroup = $('.search_group');
-		    if (searchGroup.css("display") === "block") {
-		        searchGroup.css("display", "none");
-		    } else {
-		        searchGroup.css("display", "block");
-		    }
+		$('.main_search').on("click", function() {
+			var searchGroup = $('.search_group');
+			if (searchGroup.css("display") === "block") {
+				searchGroup.css("display", "none");
+			} else {
+				searchGroup.css("display", "block");
+			}
 		});
 	});
 
-	$(function(){
-	    $(".addCart").click(function(){
-	        alert("메뉴가 장바구니에 추가되었습니다.");
-	    });
+	$(function() {
+		$(".addCart").click(function() {
+			alert("메뉴가 장바구니에 추가되었습니다.");
+		});
+	});
+	$(function() {
+		$(".soldOut").click(function() {
+			alert("품절된 상품입니다.");
+			return false;
+		});
 	});
 </script>
 <form class="menuCategoryBar" name="menuForm" action="customerMenuList" method="get">
@@ -229,7 +236,7 @@ li {
 				value="${pageVO.totalPage}">
 		</ul>
 	</div>
-	
+
 </form>
 <div class="cell">
 	<div class="cell center store_name_design">
@@ -237,9 +244,7 @@ li {
 			class="fa-solid fa-quote-right"></i>가게 정보
 	</div>
 	<div class="col-md-3">
-		<div class="cell center storelist">
-			
-				<onclick="window.location.href='detail?storeNo=${storeDto.storeNo}' style="cursor: pointer;"></onclick>
+		<div class="cell center storelist" onclick="window.location.href='detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
 					<div>
 						<img src="${imagePath}" width="700" height="300">
 					</div>
@@ -290,19 +295,31 @@ li {
 
 					<div class="text-center pt-30">
 						<form action="/cart/insert" method="post" autocomplete="off">
-							<input type="hidden" name="memberNo" class="tool w-100"
-								value="<%=session.getAttribute("memberNo")%>"> <input
-								type="hidden" name="menuNo" placeholder="메뉴번호써라"
-								class="tool w-100" value="${menuDto.menuNo}"> <input
-								type="hidden" name="itemName" placeholder="아이템이름(메뉴이름)"
-								class="tool w-100" value="${menuDto.menuName}"> <input
-								type="hidden" name="itemPrice" placeholder="아이템가격(메뉴가격)"
-								class="tool w-100" value="${menuDto.menuPrice}"> <input
-								type="hidden" name="itemQuantify" placeholder="아이템수량(메뉴수량)"
-								class="tool w-100" value="1">
 
-							<button class="btn btn-gradient orange pt-20 addCart">
-								메뉴담기</button>
+
+							<c:choose>
+								<c:when test="${menuDto.menuState == 'N'}">
+									<button class="btn btn-gradient orange pt-20 soldOut">메뉴
+										담기</button>
+								</c:when>
+								<c:otherwise>
+									<input type="hidden" name="memberNo" class="tool w-100"
+										value="<%=session.getAttribute("memberNo")%>">
+									<input type="hidden" name="menuNo" placeholder="메뉴번호써라"
+										class="tool w-100" value="${menuDto.menuNo}">
+									<input type="hidden" name="itemName" placeholder="아이템이름(메뉴이름)"
+										class="tool w-100" value="${menuDto.menuName}">
+									<input type="hidden" name="itemPrice" placeholder="아이템가격(메뉴가격)"
+										class="tool w-100" value="${menuDto.menuPrice}">
+									<input type="hidden" name="itemQuantify"
+										placeholder="아이템수량(메뉴수량)" class="tool w-100" value="1">
+									<input type="hidden" name="storeNo" class="tool w-100"
+										value="${param.storeNo}">
+
+									<button class="btn btn-gradient orange pt-20 addCart">
+										메뉴담기</button>
+								</c:otherwise>
+							</c:choose>
 
 						</form>
 					</div>
