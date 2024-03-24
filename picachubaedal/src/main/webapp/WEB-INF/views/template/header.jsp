@@ -104,7 +104,9 @@
            <a href="/">
                <img class="image-test" src="/image/pica.png" width="110" height="110">
            </a>
-           <div class="cell center header-font-style">배츄</div>
+           <div class="cell center header-font-style">
+           	   <a href="/" style="color:black; text-decoration: none;">배츄</a>
+           </div>
          <div class="header_sideMenu right">
               <c:choose>
 				<c:when test="${sessionScope.loginId != null}">

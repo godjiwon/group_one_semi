@@ -199,8 +199,7 @@ li {
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action",
-				"/menu/customerMenuList").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/customerMenuList").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function() {
@@ -225,15 +224,13 @@ li {
 		});
 	});
 </script>
-<form class="menuCategoryBar" name="menuForm" action="customerMenuList"
-	method="get">
+<form class="menuCategoryBar" name="menuForm" action="customerMenuList" method="get">
 	<div>
 		<ul>
 			<li class="main_search"><i
 				class="fa-solid fa-magnifying-glass fa-images"></i></li>
 			<div class="search_group">
-				<input type="search" class="inputKeyword" name="keyword"
-					placeholder="메뉴를 검색해보세요."">
+				<input type="search" class="inputKeyword" name="keyword" placeholder="메뉴를 검색해보세요.">
 			</div>
 			<li value="추천메뉴" onclick='searchMenuCategory("추천메뉴")'>추천메뉴</li>
 			<li value="식사메뉴" onclick='searchMenuCategory("식사메뉴")'>식사메뉴</li>
@@ -243,16 +240,16 @@ li {
 			<li value="디저트" onclick='searchMenuCategory("디저트")'>디저트</li>
 			<li value="음료/ 주류" onclick='searchMenuCategory("음료/ 주류")'>음료/ 주류</li>
 			<input type="hidden" name="column">
-			<input type="hidden" name="page" class="currentPage" value="1">
-			<input type="hidden" name="page" class="totalPage"
-				value="${pageVO.totalPage}">
+			<input type="hidden" name="storeNo" value="${storeDto.storeNo}">
+			<input type="hidden" name="page" class="currentPage" value="1" />
+			<input type="hidden" name="page" class="totalPage" value="${pageVO.totalPage}" />
 		</ul>
 	</div>
 
 </form>
 <div class="cell">
 	<div class="cell center store_name_design">
-		${storeDto.storeName}
+	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i>
 	</div>
 	<div class="col-md-3">
 		<div class="cell center storelist">
@@ -280,6 +277,7 @@ li {
 					</div>
 					<form>${storeDto.storeIntro}</form>
 				</div>
+
 			</div>
 
 		</div>
@@ -304,7 +302,7 @@ li {
 							</div>
 							<div>
 								<span><fmt:formatNumber value="${menuDto.menuPrice}"
-										pattern="#,##0"></fmt:formatNumber>개</span>
+										pattern="#,##0"></fmt:formatNumber>원</span>
 							</div>
 						</div>
 					</div>
