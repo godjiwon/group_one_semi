@@ -229,18 +229,20 @@
 <div class="cell">
    <div class="cell center store_name_design">
    	  <div>
-   	  <div>
    	  	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i>
    	  </div>	
    	  <div class="cell center storelist">
+   	  <div class="cell">
+		
 				<div onclick="window.location.href='/store/detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
 					<div>
-							<img src="${imagePath}" width="700" height="300">
+							<img class="storeImage" src="${storeDto.storeImgLink}" width="700" height="300">
 					</div>
 					<div>
 						<span>운영시간 ${storeDto.storeOpenHour}</span>
 						<span> -	${storeDto.storeCloseHour}</span>
 						<span>휴무일: ${storeDto.storeClosed}</span>
+						<span>최소주문금액: ${storeDto.storeMinprice}</span>
 					</div>
 					<div>
 							<span>배달/포장 : ${storeDto.storeType}</span>
