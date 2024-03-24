@@ -28,8 +28,11 @@
 	border-radius: 5px;
 	background-color: rgb(236, 109, 70);
 	color: white;
-	width:80px;
-	height:25px;
+}
+.bth-order {
+	background-color: rgb(254, 210, 61); 
+	font-size: 20px;
+	border-radius : 5px;
 }
 .w-20{
 	width:20%;
@@ -112,9 +115,7 @@ $(function () {
 
 				<div class="cell center">
 					<form action="/orders/buy" method="get">
-						<button class="btn"
-							style="width: 20%; height: 50px; background-color: rgb(254, 210, 61); font-size: 20px;">
-							주문하기</button>
+						<button class="btn bth-order">주문하기</button>
 					</form>
 				</div>
 			</c:when>

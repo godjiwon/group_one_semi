@@ -74,8 +74,8 @@
     - 버튼 - .btn
 */
 .tool , .btn {
-    font-size: 16px;
-    padding: -0.5em 1em;
+    font-size: 18px;
+    padding: 0.5em 1em;
     outline: none; /*선택 시 자동 강조효과 제거*/
     border: 1px solid #808e9b;
     border-radius: 0.1em;
