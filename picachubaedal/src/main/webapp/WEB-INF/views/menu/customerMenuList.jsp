@@ -239,7 +239,7 @@ li {
 </form>
 <div class="cell">
 	<div class="cell center store_name_design">
-		${storeDto.storeName}
+	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i>
 	</div>
 	<div class="col-md-3">
 		<div class="cell center storelist" >
@@ -286,7 +286,7 @@ li {
 							</div>
 							<div>
 								<span><fmt:formatNumber value="${menuDto.menuPrice}"
-										pattern="#,##0"></fmt:formatNumber>개</span>
+										pattern="#,##0"></fmt:formatNumber>원</span>
 							</div>
 						</div>
 					</div>

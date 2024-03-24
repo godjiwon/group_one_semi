@@ -229,38 +229,33 @@
 <div class="cell">
    <div class="cell center store_name_design">
    	  <div>
-   	  	${storeDto.storeName} 
-   	  	<div class="cell right" style="color:red">
-   	  	<i class="fa-solid fa-plus" ></i><a href="/store/storeDelete">가게삭제</a>
-   	  	<i class="fa-solid fa-plus" ></i><a href="/store/change">가게수정</a>
-   	  </div>
+   	  <div>
+   	  	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i>
+   	  </div>	
    	  <div class="cell center storelist">
-			
-				<onclick="window.location.href='detail?storeNo=${storeDto.storeNo}'"
-					style="cursor: pointer;"></onclick>
+				<div onclick="window.location.href='/store/detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
 					<div>
-						<img src="${imagePath}" width="700" height="300">
+							<img src="${imagePath}" width="700" height="300">
 					</div>
 					<div>
-					<span>운영시간 ${storeDto.storeOpenHour}</span>
-					<span> -	${storeDto.storeCloseHour}</span>
-					<span>휴무일: ${storeDto.storeClosed}</span>
+						<span>운영시간 ${storeDto.storeOpenHour}</span>
+						<span> -	${storeDto.storeCloseHour}</span>
+						<span>휴무일: ${storeDto.storeClosed}</span>
 					</div>
 					<div>
-					<span>배달/포장 : ${storeDto.storeType}</span>
-					<span>배달팁: ${storeDto.storeDtip}원</span>
-					<a>리뷰게시판</a>
+							<span>배달/포장 : ${storeDto.storeType}</span>
+							<span>배달팁: ${storeDto.storeDtip}원</span>
+							<a>리뷰게시판</a>
 							<span
 								class="store-like red">찜 <i class="fa-regular fa-heart"></i>
 									<span class="count">${storeDto.storeLike}</span>
 							</span>
 							<div>
-							
-							<span>사장님 한마디</span>
-							<form>${storeDto.storeIntro}</form>
+								<span>사장님 한마디</span>
+								<form>${storeDto.storeIntro}</form>
 							</div>
-			</div>
-
+					</div>
+				</div>
 		</div>
 	</div>
    	  
@@ -293,7 +288,7 @@
 		                        </c:if>
 		                  </div>  
 		                    <div>
-								<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>개</span>
+								<span><fmt:formatNumber value="${menuDto.menuPrice}" pattern="#,##0"></fmt:formatNumber>원</span>
 		                    </div>
 		                    <div class="menu-info-style right gray">
 							    <span>등록일 ${menuDto.menuTime}</span>
