@@ -244,7 +244,7 @@ li {
 			class="fa-solid fa-quote-right"></i>가게 정보
 	</div>
 	<div class="col-md-3">
-		<div class="cell center storelist" onclick="window.location.href='detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
+		<div class="cell center storelist" >
 					<div>
 						<img src="${imagePath}" width="700" height="300">
 					</div>
