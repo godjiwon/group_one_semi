@@ -271,10 +271,11 @@ li {
 					class="fa-regular fa-heart"></i> <span class="count">${storeDto.storeLike}</span>
 				</span>
 				<div>
-					<span>사장님 한마디</span>
+					
 					<div>					
 					<a href="/review-board/list?storeNo=${param.storeNo}" class="review-link">리뷰 보러가기</a>
 					</div>
+					<span>사장님 한마디</span>
 					<form>${storeDto.storeIntro}</form>
 				</div>
 
