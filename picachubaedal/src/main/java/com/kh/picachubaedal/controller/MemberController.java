@@ -176,8 +176,7 @@ public class MemberController {
 
 	// 개인정보 변경
 	@GetMapping("/profileEdit")
-	public String change(Model model, HttpSession session)
-			 {
+	public String change(Model model, HttpSession session) {
 		// 사용자 아이디를 세션에서 추출
 		String loginId = (String) session.getAttribute("loginId");
 
@@ -186,31 +185,30 @@ public class MemberController {
 
 		// 모델에 정보 추가
 		model.addAttribute("memberDto", memberDto);
-		
 
 		return "/WEB-INF/views/member/profileEdit.jsp";
 	}
 
 	@PostMapping("/profileEdit")
-	public String change(@ModelAttribute MemberDto memberDto, HttpSession session,
-			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		//첨부파일 등록
+	public String change(@ModelAttribute MemberDto memberDto, HttpSession session, @RequestParam MultipartFile attach)
+			throws IllegalStateException, IOException {
+		
+		
+		String loginId = (String) session.getAttribute("loginId");
+		// memberDto에 아이디 설정
+		memberDto.setMemberId(loginId);
+		// 첨부파일 등록
 		if (!attach.isEmpty()) {
 			int attachNo = attachService.save(attach);
 			memberDao.connect(memberDto.getMemberId(), attachNo);
-		}// 세션에서 아이디 추출
-		String loginId = (String) session.getAttribute("loginId");
-
-		// memberDto에 아이디 설정
-		memberDto.setMemberId(loginId);
-
-		// DB정보 조회
+			System.out.println("이미지번호"+attachNo);
+		} 
+		//회원정보 업데이트
+		memberDao.updateMember(memberDto);
+		//회원정보 조회
 		MemberDto findDto = memberDao.selectOne(loginId);
-
 		// 판정
 		boolean isValid = memberDto.getMemberPw().equals(findDto.getMemberPw());
-
-		// 변경 요청
 		if (isValid) {
 			memberDao.updateMember(memberDto);
 			return "redirect:mypage";

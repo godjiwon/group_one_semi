@@ -36,6 +36,7 @@ private StoreMapper storeMapper;
                                 memberDto.getMemberGrade()};
         jdbcTemplate.update(sql, data);
     }
+	
 
 	//목록(조회, Read)
 	public List<MemberDto> selectList() {
@@ -108,6 +109,8 @@ private StoreMapper storeMapper;
 		Object[] data = {memberId, attachNo};
 		jdbcTemplate.update(sql, data);
 	}
+	
+
 
 	public int findAttachNo(String memberId) {
 		String sql = "select attach_no from member_attach where member_id = ?";
