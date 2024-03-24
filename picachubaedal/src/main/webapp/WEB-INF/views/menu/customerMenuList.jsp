@@ -121,6 +121,16 @@ li {
 .menu-info-style {
 	font-size: 15px;
 }
+.review-link {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold; /* 글자 두껍게 */
+}
+
+.review-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
 </style>
 <!-- 찜 -->
 <c:if test="${sessionScope.loginId != null}">
@@ -242,26 +252,32 @@ li {
 	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i>
 	</div>
 	<div class="col-md-3">
-		<div class="cell center storelist" >
-					<div>
-						<img src="${imagePath}" width="700" height="300">
+		<div class="cell center storelist">
+
+			<onclick ="window.location.href='detail?storeNo=${storeDto.storeNo}'
+				"
+					style="cursor: pointer;"></onclick>
+			<div>
+				<img src="${imagePath}" width="700" height="300">
+			</div>
+			<div>
+				<span>운영시간 ${storeDto.storeOpenHour}</span> <span> -
+					${storeDto.storeCloseHour}</span> <span>휴무일:
+					${storeDto.storeClosed}</span>
+			</div>
+			<div>
+				<span>배달/포장 : ${storeDto.storeType}</span> <span>배달팁:
+					${storeDto.storeDtip}원</span> <span class="store-like red">찜 <i
+					class="fa-regular fa-heart"></i> <span class="count">${storeDto.storeLike}</span>
+				</span>
+				<div>
+					<span>사장님 한마디</span>
+					<div>					
+					<a href="/review-board/list?storeNo=${param.storeNo}" class="review-link">리뷰 보러가기</a>
 					</div>
-					<div>
-					<span>운영시간 ${storeDto.storeOpenHour}</span>
-					<span> -	${storeDto.storeCloseHour}</span>
-					<span>휴무일: ${storeDto.storeClosed}</span>
-					</div>
-					<div>
-					<span>배달/포장 : ${storeDto.storeType}</span>
-					<span>배달팁: ${storeDto.storeDtip}원</span>
-							<span
-								class="store-like red">찜 <i class="fa-regular fa-heart"></i>
-									<span class="count">${storeDto.storeLike}</span>
-							</span>
-							<div>
-							<span>사장님 한마디</span>
-							<form>${storeDto.storeIntro}</form>
-							</div>
+					<form>${storeDto.storeIntro}</form>
+				</div>
+
 			</div>
 
 		</div>

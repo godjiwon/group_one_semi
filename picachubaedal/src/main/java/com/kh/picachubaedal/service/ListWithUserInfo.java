@@ -19,8 +19,10 @@ public class ListWithUserInfo {
 	private MemberDao memberDao; 
 	
 	
-	public List<ReviewBoardDto> listWithUserInfo() {
-	    List<ReviewBoardDto> list = reviewBoardDao.listAll();
+	public List<ReviewBoardDto> listWithUserInfo(int storeNo) {
+		/* List<ReviewBoardDto> list = reviewBoardDao.listAll(); */
+		
+		List<ReviewBoardDto> list = reviewBoardDao.selectList(storeNo);
 
 	    for (ReviewBoardDto dto : list) {
 	        String userImgLink = getUserImgLink(dto.getReviewBoardWriter()); 

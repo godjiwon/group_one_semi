@@ -34,6 +34,7 @@ input[type="text"], textarea {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box; /* So padding doesn't affect the width */
+    min-height: 180px;
 }
 button {
     background-color: #007BFF;
@@ -62,15 +63,21 @@ h1 {
 	<img src="/image/pica.png" width="250px" height="250px">
 	</div>
 	
-	<div class="cell1 center"><h1>리뷰글쓰기 테스트용</h1></div>
+	<div class="cell1 center"><h1>리뷰는 사장님에게 힘이 됩니다</h1></div>
 	
 	<form action="write" method="post" autocomplete="off">
-	<div class="cell1 center">
-	<input type="text" name="reviewBoardStoreNo" required placeholder="가게번호입력해라(임시)">
-	</div>
 	
 	<div class="cell1 center">
 		<textarea name="reviewBoardContent" required placeholder="리뷰내용"></textarea>
+	</div>
+	
+	<div class="cell1 center">
+	<input type="hidden" name="reviewBoardStoreNo" required placeholder="가게번호입력해라(임시)"
+	value="${param.storeNo}">
+	</div>
+	
+	<input type="hidden" name="reviewBoardWriter" required placeholder=" 회원번호 임시"
+	value="<%=session.getAttribute("loginId")%>">
 	</div>
 	
 	<div class="cell1 center"><button>작성하기</button></div>
