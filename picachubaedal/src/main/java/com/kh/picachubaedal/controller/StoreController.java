@@ -56,8 +56,7 @@ public class StoreController {
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
-	
-	
+
 	@GetMapping("/insert1") // 가게 등록
 
 	public String insert() {
@@ -88,23 +87,21 @@ public class StoreController {
 	@GetMapping("/change")
 	public String change(Model model, @RequestParam int storeNo) {
 		StoreDto dto = storeDao.selectOne(storeNo);
-		
-		
-		if(dto == null) {
+
+		if (dto == null) {
 			return "redirect:changeFail";
-		}
-		else {
-			model.addAttribute("dto",dto);
+		} else {
+			model.addAttribute("dto", dto);
 			return "/WEB-INF/views/store/change.jsp";
 		}
 	}
 
 	@PostMapping("/change")
 	public String change(@ModelAttribute StoreDto dto) {
-		
-	    storeDao.update(dto);
+
 		storeDao.update(dto);
-	
+		storeDao.update(dto);
+
 		return "redirect:/store/detail?storeNo=" + dto.getStoreNo();
 	}
 
@@ -204,7 +201,7 @@ public class StoreController {
 //	@RequestMapping("/list")
 //	public String list(@ModelAttribute PageVO pageVO, Model model) {
 //	    int count = storeDao.count(pageVO);
-//	    pageVO.setCount(count);
+//	    pageVO.setCount(count);F
 //	    model.addAttribute("pageVO", pageVO);
 //
 //	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
@@ -245,13 +242,15 @@ public class StoreController {
 
 		// 현재 로그인한 회원의 회원번호를 사용하여 해당 회원이 소유한 가게 리스트를 조회합니다.
 		List<StoreDto> list = storeDao.selectListByMemberNo(memberNo);
+		List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(list);
 
 		// 조회된 가게 리스트를 모델에 추가합니다.
-		model.addAttribute("list", list);
+		model.addAttribute("list", imageSetUpList);
 			
 		// list2.jsp로 이동합니다.
 		return "/WEB-INF/views/store/list2.jsp";
 	}
+
 
 //	//전체 목록
 //	 @GetMapping("/categoryList")
@@ -357,7 +356,7 @@ public class StoreController {
 		// 현재 사용자가 찜한 가게 목록 조회
 		List<StoreDto> likeList = storeDao.selectLikeStore(memberDto.getMemberId());
 		model.addAttribute("likeList", likeList);
-		
+
 		for (StoreDto store : likeList) {
 			// storeNo를 사용하여 가게 정보 조회
 			StoreDto storeInfo = storeDao.selectStoreByStoreNo(store.getStoreNo());
@@ -366,9 +365,10 @@ public class StoreController {
 			store.setStoreCategory(storeInfo.getStoreCategory());
 			store.setStoreMinprice(storeInfo.getStoreMinprice());
 			store.setStoreDtip(storeInfo.getStoreDtip());
-			
+			store.setStoreLike(storeInfo.getStoreLike());
+
 		}
-		
+
 		// 페이징
 		int count = storeDao.count(pageVO);
 		pageVO.setCount(count);
