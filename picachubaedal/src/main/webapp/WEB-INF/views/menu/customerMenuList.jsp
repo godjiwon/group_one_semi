@@ -189,8 +189,7 @@ li {
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action",
-				"/menu/customerMenuList").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/customerMenuList").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function() {
@@ -231,9 +230,9 @@ li {
 			<li value="디저트" onclick='searchMenuCategory("디저트")'>디저트</li>
 			<li value="음료/ 주류" onclick='searchMenuCategory("음료/ 주류")'>음료/ 주류</li>
 			<input type="hidden" name="column">
-			<input type="hidden" name="page" class="currentPage" value="1">
-			<input type="hidden" name="page" class="totalPage"
-				value="${pageVO.totalPage}">
+			<input type="hidden" name="storeNo" value="${storeDto.storeNo}">
+			<input type="hidden" name="page" class="currentPage" value="1" />
+			<input type="hidden" name="page" class="totalPage" value="${pageVO.totalPage}" />
 		</ul>
 	</div>
 
