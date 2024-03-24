@@ -366,6 +366,7 @@ public class StoreController {
 			store.setStoreCategory(storeInfo.getStoreCategory());
 			store.setStoreMinprice(storeInfo.getStoreMinprice());
 			store.setStoreDtip(storeInfo.getStoreDtip());
+			store.setStoreLike(storeInfo.getStoreLike());
 			
 		}
 		
