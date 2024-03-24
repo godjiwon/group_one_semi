@@ -183,15 +183,13 @@
 		        			.addClass(isValid ? "positive" : "negative");
 		    });
 		   
-		$("[name=memberContact]").blur(
-				function() {
-					var regex = /^010[1-9][0-9]{7}$/;
-					var value = $(this).val();
-					state.memberContactValid = value.length == 0
-							|| regex.test(value);
-					$(this).removeClass("success fail").addClass(
-							state.memberContactValid ? "success" : "fail");
-				});
+		   $("[name=memberContact]").blur(function(){
+		        var regex = /^010[1-9][0-9]{7}$/;
+		        var value = $(this).val();
+		        state.memberContactValid = value.length == 0 || regex.test(value);
+		        $(this).removeClass("success fail")
+		                    .addClass(state.memberContactValid ? "success" : "fail");
+		    });
 
 		//주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
 		$("[name=memberAddress2]")

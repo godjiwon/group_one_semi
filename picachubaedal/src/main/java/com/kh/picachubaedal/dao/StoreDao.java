@@ -227,7 +227,7 @@ public class StoreDao {
 		return jdbcTemplate.query(sql, storeListMapper, data);
 	}
 
-	// 페이징을 위한 목록/검색/카운트 구현
+	//통합+페이징
 	public List<StoreDto> selectListByPaging(PageVO pageVO) {
 		
 		if (pageVO.isSearch()) {
@@ -245,18 +245,6 @@ public class StoreDao {
 			return jdbcTemplate.query(sql, storeListMapper, data);
 		}
 	}
-
-	public int count() {
-		String sql = "select count(*) from s";
-		return jdbcTemplate.queryForObject(sql, int.class);
-	}
-	
-	public int count(String column, String keyword) {
-		String sql = "select count(*) from store "
-						+ "where instr("+column+", ?) > 0";
-		Object[] data = {keyword};
-		return jdbcTemplate.queryForObject(sql, int.class, data);
-	}
 	
 	public int count(PageVO pageVO) {
 		if (pageVO.isSearch()) {
@@ -269,6 +257,20 @@ public class StoreDao {
 		}
 	}
 
+
+	public int count() {
+		String sql = "select count(*) from store";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	//카운트 - 목록일 경우와 검색일 경우를 각각 구현
+	public int count(String column, String keyword) {
+		String sql = "select count(*) from store "
+						+ "where instr("+column+", ?) > 0";
+		Object[] data = {keyword};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+
+	
 	// 백업 03.19
 	public MemberDto selectByMemberNo(int memberNo) {
 		String sql = "select * from store where member_no=?";

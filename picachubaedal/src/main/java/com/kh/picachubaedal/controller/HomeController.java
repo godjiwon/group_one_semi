@@ -28,6 +28,7 @@ public class HomeController {
 		String loginId = (String) session.getAttribute("loginId");
 		MemberDto memberDto = memberDao.selectOne(loginId);
 		model.addAttribute("memberDto", memberDto);
+		
 		List<StoreDto> bannerList = menuDao.selectHomeBannerPickData();
 		model.addAttribute("bannerList", bannerList);
 		

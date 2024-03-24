@@ -32,7 +32,7 @@
     
     <div class="row">
         <div class="col-12 text-end mb-4">
-            <a href="insert1" class="btn btn-primary">신규 가게 등록</a>
+            <a class="link link-animation" href="insert1" class="btn btn-primary">신규 가게 등록</a>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
                         <li class="list-group-item text-center">가게 거리 : ${dto.userDistance}km</li>
                     </ul>
                     <div class="card-body text-center">
-                        <a href="/menu/customerMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">메뉴 보기</a>
+                        <a href="/menu/customerMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">가게 보기</a>
                     </div>
                 </div>
             </div>
