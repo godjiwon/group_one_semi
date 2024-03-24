@@ -121,6 +121,16 @@ li {
 .menu-info-style {
 	font-size: 15px;
 }
+.review-link {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold; /* 글자 두껍게 */
+}
+
+.review-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
 </style>
 <!-- 찜 -->
 <c:if test="${sessionScope.loginId != null}">
@@ -265,6 +275,9 @@ li {
 				</span>
 				<div>
 					<span>사장님 한마디</span>
+					<div>					
+					<a href="/review-board/list?storeNo=${param.storeNo}" class="review-link">리뷰 보러가기</a>
+					</div>
 					<form>${storeDto.storeIntro}</form>
 				</div>
 			</div>
