@@ -126,7 +126,7 @@
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
-		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList?storeNo=${storeNo}").submit();
+		$("form[name='menuForm']").attr("method", "POST").attr("action", "/menu/ceoMenuList?storeNo=${storeDto.storeNo}").submit();
 	}
 	$(function() {
 		$('.main_search').on("click", function(){
@@ -147,7 +147,7 @@
 				<i class="fa-solid fa-magnifying-glass fa-images"></i>
 			</li>
 			<div class="search_group">
-				<input type="search" class="inputKeyword" name="keyword" placeholder="메뉴를 검색해보세요."">
+				<input type="search" class="inputKeyword" name="keyword" placeholder="메뉴를 검색해보세요.">
 			</div>			
 			<li value="추천메뉴" onclick='searchMenuCategory("추천메뉴")'>추천메뉴</li>
 			<li value="식사메뉴" onclick='searchMenuCategory("식사메뉴")'>식사메뉴</li>

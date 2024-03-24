@@ -208,15 +208,13 @@ li {
 	    });
 	});
 </script>
-<form class="menuCategoryBar" name="menuForm" action="customerMenuList"
-	method="get">
+<form class="menuCategoryBar" name="menuForm" action="customerMenuList" method="get">
 	<div>
 		<ul>
 			<li class="main_search"><i
 				class="fa-solid fa-magnifying-glass fa-images"></i></li>
 			<div class="search_group">
-				<input type="search" class="inputKeyword" name="keyword"
-					placeholder="메뉴를 검색해보세요."">
+				<input type="search" class="inputKeyword" name="keyword" placeholder="메뉴를 검색해보세요.">
 			</div>
 			<li value="추천메뉴" onclick='searchMenuCategory("추천메뉴")'>추천메뉴</li>
 			<li value="식사메뉴" onclick='searchMenuCategory("식사메뉴")'>식사메뉴</li>
@@ -241,8 +239,7 @@ li {
 	<div class="col-md-3">
 		<div class="cell center storelist">
 			
-				<onclick="window.location.href='detail?storeNo=${storeDto.storeNo}'"
-					style="cursor: pointer;"></onclick>
+				<onclick="window.location.href='detail?storeNo=${storeDto.storeNo}' style="cursor: pointer;"></onclick>
 					<div>
 						<img src="${imagePath}" width="700" height="300">
 					</div>
