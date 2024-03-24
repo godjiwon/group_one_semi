@@ -190,32 +190,38 @@ public class MemberController {
 	}
 
 	@PostMapping("/profileEdit")
-	public String change(@ModelAttribute MemberDto memberDto, HttpSession session, @RequestParam MultipartFile attach)
-			throws IllegalStateException, IOException {
+	public String change(@ModelAttribute MemberDto memberDto, HttpSession session,
+			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		
-		
+		//세션에 아이디 갖고오기
 		String loginId = (String) session.getAttribute("loginId");
 		// memberDto에 아이디 설정
 		memberDto.setMemberId(loginId);
-		// 첨부파일 등록
-		if (!attach.isEmpty()) {
-			int attachNo = attachService.save(attach);
-			memberDao.connect(memberDto.getMemberId(), attachNo);
-			System.out.println("이미지번호"+attachNo);
-		} 
-		//회원정보 업데이트
-		memberDao.updateMember(memberDto);
-		//회원정보 조회
+		// DB정보 조회
 		MemberDto findDto = memberDao.selectOne(loginId);
 		// 판정
 		boolean isValid = memberDto.getMemberPw().equals(findDto.getMemberPw());
+		//정보 업데이트
+		memberDao.updateMember(memberDto);
+		
+		//첨부파일이 있다면 기존꺼 삭제하고 새로 등록
+		if(!attach.isEmpty()) {
+			try {
+				int attachNo = memberDao.findAttachNo(memberDto.getMemberId());
+				attachService.remove(attachNo);
+			}
+			catch(Exception e) {}
+				int attachNo = attachService.save(attach);
+				memberDao.connect(memberDto.getMemberId(), attachNo);	
+		}
+		// 변경 요청
 		if (isValid) {
 			memberDao.updateMember(memberDto);
 			return "redirect:mypage";
 		} else {
 			// 이전 페이지로 리다이렉트
 			return "redirect:profileEdit?error";
-		}
+		}	
 	}
 
 	// 회원 탈퇴

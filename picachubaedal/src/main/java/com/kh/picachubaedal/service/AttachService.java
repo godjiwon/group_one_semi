@@ -34,5 +34,11 @@ public class AttachService {
 		return attachNo;
 	}
 	
-
+	//삭제
+	public void remove(int attachNo) {
+		File dir = new File(System.getProperty("user.home"), "upload");
+		File target = new File (dir, String.valueOf(attachNo));
+		target.delete();
+		attachDao.delete(attachNo);
+		}
 }
