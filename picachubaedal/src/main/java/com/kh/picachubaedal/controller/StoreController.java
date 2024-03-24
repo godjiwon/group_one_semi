@@ -242,9 +242,10 @@ public class StoreController {
 
 		// 현재 로그인한 회원의 회원번호를 사용하여 해당 회원이 소유한 가게 리스트를 조회합니다.
 		List<StoreDto> list = storeDao.selectListByMemberNo(memberNo);
+		List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(list);
 
 		// 조회된 가게 리스트를 모델에 추가합니다.
-		model.addAttribute("list", list);
+		model.addAttribute("list", imageSetUpList);
 			
 		// list2.jsp로 이동합니다.
 		return "/WEB-INF/views/store/list2.jsp";
