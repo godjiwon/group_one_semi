@@ -65,7 +65,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 							"/store/list",
 							"/store/insert1",
 							"/menu/ceoMenuList**",
-							"/menu/edit/**","/menu/insert/**",
+							"/menu/edit/**","/menu/insert**",
 							"/store/detail","/store/change**","/store/delete**"
 							
 							
@@ -83,7 +83,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 				registry.addInterceptor(memberIntercepter)
 							.addPathPatterns(
 									"/store/**",
-									"/member/**"
+									"/member/**",
+									"/menu/**"
+									
 								
 									
 									)

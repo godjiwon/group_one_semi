@@ -122,7 +122,70 @@
 		font-size: 15px;
 	}
 </style>
+<!-- 찜 -->
+	<c:if test="${sessionScope.loginId != null}">
+	<script type="text/javascript">
+		//좋아요 하트 클릭 이벤트
+		$(function() {
+			//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
+			//- 자바스크립트에서 파라미터를 읽어 번호를 추출
+			var params = new URLSearchParams(location.search);
+			var storeNo = params.get("storeNo");
 
+			//목표 : 하트를 클릭하면 좋아요 갱신처리
+			$(".store-like").find(".fa-heart").click(
+					function() {
+						$.ajax({
+							url : "/rest/store_like/toggle",//같은 서버이므로 앞 경로 생략
+							method : "post",
+							data : {
+								storeNo : storeNo
+							},
+							success : function(response) {
+								//console.log(response);
+
+								//response.state에 따라서 하트의 형태를 설정
+								$(".store-like").find(".fa-heart").removeClass(
+										"fa-solid fa-regular").addClass(
+										response.state ? "fa-solid"
+												: "fa-regular");
+
+								//response.count에 따라서 좋아요 개수를 표시
+								$(".store-like").find(".count").text(
+										response.count);
+							}
+						});
+					});
+		});
+	</script>
+	</c:if>
+	<script type="text/javascript">
+	//좋아요 최초 불러오기
+	$(function() {
+		//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
+		//- 자바스크립트에서 파라미터를 읽어 번호를 추출
+		var params = new URLSearchParams(location.search);
+		var storeNo = params.get("storeNo");
+
+		//최초에 표시될 화면을 위해 화면이 로딩되자마자 서버로 비동기통신 시도
+		$.ajax({
+			url : "/rest/store_like/check",
+			method : "post",
+			data : {
+				storeNo : storeNo
+			},
+			success : function(response) {
+				//response.state에 따라서 하트의 형태를 설정
+				$(".store-like").find(".fa-heart").removeClass(
+						"fa-solid fa-regular").addClass(
+						response.state ? "fa-solid" : "fa-regular");
+
+				//response.count에 따라서 좋아요 개수를 표시
+				$(".store-like").find(".count").text(response.count);
+			}
+		});
+	});
+</script>
 <script type="text/javascript">
 	function searchMenuCategory(menuCategory) {
 		$('[name=column]').val(menuCategory)
@@ -166,8 +229,41 @@
 <div class="cell">
    <div class="cell center store_name_design">
    	  <div>
-   	  	<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i class="fa-solid fa-quote-right"></i> 메뉴 리스트
+   	  	${storeDto.storeName} 
+   	  	<div class="cell right" style="color:red">
+   	  	<i class="fa-solid fa-plus" ></i><a href="/store/storeDelete">가게삭제</a>
+   	  	<i class="fa-solid fa-plus" ></i><a href="/store/change">가게수정</a>
    	  </div>
+   	  <div class="cell center storelist">
+			
+				<onclick="window.location.href='detail?storeNo=${storeDto.storeNo}'"
+					style="cursor: pointer;"></onclick>
+					<div>
+						<img src="${imagePath}" width="700" height="300">
+					</div>
+					<div>
+					<span>운영시간 ${storeDto.storeOpenHour}</span>
+					<span> -	${storeDto.storeCloseHour}</span>
+					<span>휴무일: ${storeDto.storeClosed}</span>
+					</div>
+					<div>
+					<span>배달/포장 : ${storeDto.storeType}</span>
+					<span>배달팁: ${storeDto.storeDtip}원</span>
+					<a>리뷰게시판</a>
+							<span
+								class="store-like red">찜 <i class="fa-regular fa-heart"></i>
+									<span class="count">${storeDto.storeLike}</span>
+							</span>
+							<div>
+							
+							<span>사장님 한마디</span>
+							<form>${storeDto.storeIntro}</form>
+							</div>
+			</div>
+
+		</div>
+	</div>
+   	  
    	  <div>
 		  <h3 class="menu-button-style">
 			  <a class="list-button-style gray" href="insert?storeNo=${storeNo}">

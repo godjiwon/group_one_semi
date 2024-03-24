@@ -38,7 +38,7 @@
     	<!-- 사장님일 경우만 신규가게등록 보여주기 -->
 					<c:if test="${sessionScope.loginGrade == '사장님'}">
     
-        <h2><a class="link link-animation" href="insert1">신규 가게 등록</a></h2>
+        <h2><a class="link link-animation" href="insert1" class="btn btn-primary">신규 가게 등록</a></h2>
 
     </div>
     </c:if>
@@ -48,7 +48,7 @@
         <c:forEach var="dto" items="${categoryList}">
             <div class="col">
                 <div class="card">
-                    <img src="${dto.storeImgLink}" class="card-img-top" alt="${dto.storeName}" style="width: 100%; height: 250px; object-fit: cover;">
+                    <img src="${dto.storeImgLink}" class="card-img-top"style="width: 100%; height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title text-center">${dto.storeName}</h5>
                     </div>
@@ -63,7 +63,7 @@
                         <li class="list-group-item text-center">가게 거리 : ${dto.userDistance}km</li>
                     </ul>
                     <div class="card-body text-center">
-                        <a href="/menu/customerMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">메뉴 보기</a>
+                        <a href="/menu/customerMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">가게 보기</a>
                     </div>
                 </div>
             </div>

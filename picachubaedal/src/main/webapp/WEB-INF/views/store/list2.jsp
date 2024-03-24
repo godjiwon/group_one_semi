@@ -32,7 +32,7 @@
     
     <div class="row">
         <div class="col-12 text-end mb-4">
-            <a href="insert1" class="btn btn-primary">신규 가게 등록</a>
+            <a class="link link-animation" href="insert1" class="btn btn-primary">신규 가게 등록</a>
         </div>
     </div>
 
