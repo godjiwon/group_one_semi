@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +52,12 @@ public class StoreController {
 	@Autowired
 	private DistanceCalculator distanceCalculator;
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
+	
+	
 	@GetMapping("/insert1") // 가게 등록
 
 	public String insert() {
@@ -79,19 +88,23 @@ public class StoreController {
 	@GetMapping("/change")
 	public String change(Model model, @RequestParam int storeNo) {
 		StoreDto dto = storeDao.selectOne(storeNo);
-
-		if (dto == null) {
+		
+		
+		if(dto == null) {
 			return "redirect:changeFail";
-		} else {
-			model.addAttribute("dto", dto);
+		}
+		else {
+			model.addAttribute("dto",dto);
 			return "/WEB-INF/views/store/change.jsp";
 		}
 	}
 
 	@PostMapping("/change")
-
 	public String change(@ModelAttribute StoreDto dto) {
+		
+	    storeDao.update(dto);
 		storeDao.update(dto);
+	
 		return "redirect:/store/detail?storeNo=" + dto.getStoreNo();
 	}
 
@@ -216,10 +229,15 @@ public class StoreController {
 
 //		목록
 	@RequestMapping("/list")
-	public String list(Model model, HttpSession session) {
-		// 세션에서 현재 로그인한 회원의 회원번호를 가져옵니다.
+	public String list(@ModelAttribute PageVO pageVO, Model model, HttpSession session) {
+		int count = storeDao.count(pageVO);
+		pageVO.setCount(count);
+		model.addAttribute("pageVO", pageVO);
+		
+		//List<StoreDto> list = storeDao.selectListByPaging(pageVO);
+		// 세션에서 현재 로그인한 회원의 번호를 가져옵니다.
 		Integer memberNo = (Integer) session.getAttribute("memberNo");
-
+		
 		// 현재 로그인한 회원의 회원번호가 세션에 없으면 로그인 페이지로 리다이렉트합니다.
 		if (memberNo == null) {
 			return "redirect:/login"; // 로그인 페이지 URL로 변경하세요.
@@ -230,7 +248,7 @@ public class StoreController {
 
 		// 조회된 가게 리스트를 모델에 추가합니다.
 		model.addAttribute("list", list);
-			System.out.println("가게리스트"+list);
+			
 		// list2.jsp로 이동합니다.
 		return "/WEB-INF/views/store/list2.jsp";
 	}

@@ -24,6 +24,7 @@ import com.kh.picachubaedal.vo.PageVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 //
 @Controller
 @RequestMapping("/member")
@@ -37,8 +38,9 @@ public class MemberController {
 
 	@Autowired
 	private AttachService attachService;
-@Autowired
-private StoreDao storeDao;
+	@Autowired
+	private StoreDao storeDao;
+
 	// 회원가입페이지
 	@GetMapping("/signup")
 	public String signup() {
@@ -132,11 +134,6 @@ private StoreDao storeDao;
 		// 3. 화면에 조회한 정보를 전달한다
 		model.addAttribute("memberDto", memberDto);
 
-		// (추가) 현재 사용자의 구매내역을 첨부
-		// model.addAttribute("buyList", buyDao.selectList(loginId));
-
-		// (추가) 현재 사용자의 작성 글 내역을 첨부
-
 		// 4. 연결될 화면을 반환한다
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
@@ -179,7 +176,8 @@ private StoreDao storeDao;
 
 	// 개인정보 변경
 	@GetMapping("/profileEdit")
-	public String change(Model model, HttpSession session) {
+	public String change(Model model, HttpSession session)
+			 {
 		// 사용자 아이디를 세션에서 추출
 		String loginId = (String) session.getAttribute("loginId");
 
@@ -188,14 +186,19 @@ private StoreDao storeDao;
 
 		// 모델에 정보 추가
 		model.addAttribute("memberDto", memberDto);
+		
 
 		return "/WEB-INF/views/member/profileEdit.jsp";
 	}
 
-
 	@PostMapping("/profileEdit")
-	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
-		// 세션에서 아이디 추출
+	public String change(@ModelAttribute MemberDto memberDto, HttpSession session,
+			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		//첨부파일 등록
+		if (!attach.isEmpty()) {
+			int attachNo = attachService.save(attach);
+			memberDao.connect(memberDto.getMemberId(), attachNo);
+		}// 세션에서 아이디 추출
 		String loginId = (String) session.getAttribute("loginId");
 
 		// memberDto에 아이디 설정
@@ -222,6 +225,7 @@ private StoreDao storeDao;
 	public String delete_account() {
 		return "/WEB-INF/views/member/delete_account.jsp";
 	}
+
 	@PostMapping("/delete_account")
 	public String delete_account(@RequestParam String memberPw, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
@@ -251,7 +255,6 @@ private StoreDao storeDao;
 		return "/WEB-INF/views/member/delete_account_success.jsp";
 	}
 
-	
 	// 아이디 찾기
 	@GetMapping("/findId")
 	public String findId() {
@@ -260,15 +263,16 @@ private StoreDao storeDao;
 
 	@PostMapping("/findId")
 	public String findId(@ModelAttribute MemberDto memberDto, Model model) {
-		 String memberId = memberDao.findMemberIdByNick(memberDto.getMemberNick());
-		    if(memberId != null) {
-		        model.addAttribute("memberId", memberId);
-		        model.addAttribute("memberNick", memberDto.getMemberNick());
-		        return "/WEB-INF/views/member/findIdSuccess.jsp";
-		    } else {
-		        return "redirect:findIdFail";
-		    }
+		String memberId = memberDao.findMemberIdByNick(memberDto.getMemberNick());
+		if (memberId != null) {
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("memberNick", memberDto.getMemberNick());
+			return "/WEB-INF/views/member/findIdSuccess.jsp";
+		} else {
+			return "redirect:findIdFail";
+		}
 	}
+
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {
 		return "/WEB-INF/views/member/findIdSuccess.jsp";
@@ -279,7 +283,6 @@ private StoreDao storeDao;
 		return "/WEB-INF/views/member/findIdFail.jsp";
 	}
 
-	
 	// 비밀번호 찾기
 	@GetMapping("/findPw")
 	public String findPw() {
@@ -295,7 +298,7 @@ private StoreDao storeDao;
 		if (isValid) {
 			model.addAttribute("foundPw", findDto.getMemberPw());
 			model.addAttribute("memberId", findDto.getMemberId()); // memberId를 모델에 추가
-			model.addAttribute("kakaoLogin",findDto.getMemberId());
+			model.addAttribute("kakaoLogin", findDto.getMemberId());
 			return "/WEB-INF/views/member/findPwSuccess.jsp";
 
 		} else {
@@ -313,7 +316,5 @@ private StoreDao storeDao;
 	public String findPwFail() {
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
-	
 
-	
 }

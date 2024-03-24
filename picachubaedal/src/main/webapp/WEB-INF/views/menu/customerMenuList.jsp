@@ -242,8 +242,7 @@ li {
 </form>
 <div class="cell">
 	<div class="cell center store_name_design">
-		<i class="fa-solid fa-quote-left"></i>${storeDto.storeName}<i
-			class="fa-solid fa-quote-right"></i>가게 정보
+		${storeDto.storeName}
 	</div>
 	<div class="col-md-3">
 		<div class="cell center storelist">
