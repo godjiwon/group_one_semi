@@ -15,7 +15,7 @@
         .delivery {
             position: relative;
             left: 400px;
-            animation-duration: 5s;
+            animation-duration: 4s;
             animation-name: delivery;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
