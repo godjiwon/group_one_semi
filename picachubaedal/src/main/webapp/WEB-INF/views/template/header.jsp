@@ -105,7 +105,7 @@
                <img class="image-test" src="/image/pica.png" width="110" height="110">
            </a>
            <div class="cell center header-font-style">
-           	   <a href="/" style="color:black; text-decoration: none;">배츄</a>
+           	   <a href="/" style="color:black; text-decoration: none;"><img src="/image/baedal_logo4_1.png" width="150px;"></a>
            </div>
          <div class="header_sideMenu right">
               <c:choose>
