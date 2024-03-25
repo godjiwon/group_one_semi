@@ -1,31 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>가게 수정 페이지</title>
+	
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<!-- 구글 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
-<!-- 내가 구현한 스타일 -->
-<link rel="stylesheet" type="text/css" href="../css/commons.css">
-<link rel="stylesheet" type="text/css" href="../css/test.css">
-<!-- font awesome 아이콘 CDN -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-</style>
-<!-- jquery cdn -->
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+
 <script type="text/javascript">
 $(function(){
     //상태객체(React의 state로 개념이 이어짐)
@@ -308,7 +286,6 @@ $(function(){
 	});
 
 	//기존 운영시간 불러오기
-	<script>
 	const dto = $
 	{
 		dto
@@ -345,10 +322,9 @@ $(function(){
 <body>
 	<form action="change" method="post" enctype="multipart/form-data"
 		autocomplete="off" class="check-form">
-		<input type="text" name="storeNo" placeholder="스토어넘버"  value="${dto.storeNo}">
-		<div class="container w-600">
-		
+		<input type="hidden" name="storeNo" placeholder="스토어넘버"  value="${dto.storeNo}">
 		<div class="container w-550">
+		
 			<h2>가게 정보 수정</h2>
 			<div class="cell">
 				<div class="cell">
@@ -575,6 +551,7 @@ $(function(){
 							${dto.storeCloseHour == '24:00' ? 'selected' : ''}>24:00</option>
 					</select> <span>까지 운영합니다.</span>
 				</div>
+				</div>
 <div class="cell" name="storeClosed">
     <label>휴무일 선택 <i class="fa-solid fa-asterisk red"></i></label>
     <div class="cell center">
@@ -592,7 +569,6 @@ $(function(){
         <label for="saturday">토요일</label>
         <input type="checkbox" id="sunday" name="storeClosed" value="일요일" ${dto.storeClosed == '일요일'?'checked' : ''}>
         <label for="sunday">일요일</label>
-
     </div>
 </div>
 				<div class="cell">
@@ -613,3 +589,8 @@ $(function(){
 			</div>
 		</div>
 	</form>
+	</div>
+	</body>
+	
+	
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
