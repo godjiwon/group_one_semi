@@ -76,7 +76,7 @@
 }
 .tool {
 	font-size: 16px;
-    padding: -0.5em 1em;
+    padding: 0.5em 1em;
     outline: none; /*선택 시 자동 강조효과 제거*/
     border: 1px solid rgb(254, 210, 61);
     border-radius: 5px;
@@ -215,7 +215,7 @@
 		<div class="cell ms-20">
 			<i class="fa-regular fa-clipboard"></i>
 			<label>주문 타입</label> <br>
-			<input type="text"  class="tool" style="width:10%" value="배달" readonly>
+			<input type="text"  class="tool" style="width:20%" value="배달" readonly>
 			<input type="hidden"  name="ordersType" value="배달">
 			<label class="onlydelivery">지금은 배달 주문만 가능합니다.</label>
 		</div>
@@ -256,7 +256,14 @@
 		</div>
 
 		<div class="cell center mt-50">
-			<button class="btn btn-notpay buy" disabled>결제하기</button>
+			<c:choose>
+	            <c:when test="${dto.total < dto.storeMinprice}">
+	                <h2 style="color:rgb(232,79,31);"><fmt:formatNumber value="${dto.storeMinprice}" pattern="#,##0"></fmt:formatNumber>원부터 주문할 수 있습니다.</h2>
+	            </c:when>
+	            <c:otherwise>
+	                <button class="btn btn-notpay buy" disabled>결제하기</button>
+	            </c:otherwise>
+       		</c:choose>
 		</div>
 	</form>
 </div>
