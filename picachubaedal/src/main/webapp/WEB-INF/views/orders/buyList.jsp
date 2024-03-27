@@ -96,7 +96,7 @@ div, ul, li, header, nav, section, aside, article, footer {
 					<hr class="listBox-hr">
 					<div class="cell flex-cell">
 						<div class="cell w-65 right"> 
-							<a href="#" class="detailBox">상세보기</a>
+							<a href="#" class="detailBox">상세보기(미구현)</a>
 						</div>
 						<div class="cell w-30 right" style="flex-grow: 1;">
 							<a href="/review-board/write?storeNo=${order.storeNo}" class="write"> <i

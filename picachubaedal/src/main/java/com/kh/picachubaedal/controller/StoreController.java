@@ -329,12 +329,15 @@ public class StoreController {
 	}
 
 	@GetMapping("/menuAndStoreList")
-	public String getMenuAndStoreList(@RequestParam("menuName") String menuName, Model model) {
+	public String getMenuAndStoreList(@RequestParam("menuName") String menuName, Model model , HttpSession session) {
 		// 메뉴 이름을 기반으로 가게를 검색하는 로직을 호출하여 결과를 가져옵니다.
 		List<StoreDto> storeList = storeService.searchStoresByMenuName(menuName);
+		List<StoreDto> imageSetUpList = imageService.storePhotoUrlSetUp(storeList);
+		List<StoreDto> distanceSetUpList = distanceCalculator.calculateDistanceBetweenAddresses(session,
+				imageSetUpList);
 
 		// 검색 결과를 모델에 추가하여 JSP 파일에서 사용할 수 있도록 합니다.
-		model.addAttribute("categoryList", storeList);
+		model.addAttribute("categoryList", distanceSetUpList);
 
 		// 카테고리 리스트를 보여줄 JSP 파일의 경로를 반환합니다.
 		return "/WEB-INF/views/store/categoryList.jsp";
