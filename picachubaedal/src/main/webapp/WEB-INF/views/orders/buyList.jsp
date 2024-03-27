@@ -99,7 +99,7 @@ div, ul, li, header, nav, section, aside, article, footer {
 							<a href="#" class="detailBox">상세보기(미구현)</a>
 						</div>
 						<div class="cell w-30 right" style="flex-grow: 1;">
-							<a href="/review-board/write?storeNo=${order.storeNo}" class="write"> <i
+							<a href="${pageContext.request.contextPath}/review-board/write?storeNo=${order.storeNo}" class="write"> <i
 								class="fa-solid fa-pen-to-square"></i> 리뷰쓰기
 							</a>
 						</div>
