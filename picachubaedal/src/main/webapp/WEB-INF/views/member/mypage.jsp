@@ -39,7 +39,7 @@
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation"
-							href="http://localhost:8080/store/likeList">찜 목록</a>
+							href="/store/likeList">찜 목록</a>
 					</h2>
 				</div>
 
@@ -49,11 +49,11 @@
 
 						<h2>
 							<a class="link link-animation"
-								href="http://localhost:8080/store/list">내 가게</a>
+								href="/store/list">내 가게</a>
 						</h2>
 						
 							<h2>
-								<a class="link link-animation" href="http://localhost:8080/store/insert1">신규 가게 등록</a>
+								<a class="link link-animation" href="/store/insert1">신규 가게 등록</a>
 							</h2>
 						
 					</c:if>
