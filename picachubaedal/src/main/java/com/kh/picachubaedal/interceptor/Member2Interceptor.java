@@ -16,7 +16,6 @@ public class Member2Interceptor implements HandlerInterceptor {
 		String loginGrade = (String)session.getAttribute("loginGrade");
 		
 		boolean isAdmin = loginGrade != null && loginGrade.equals("일반회원");
-		System.out.println("등급="+loginGrade);
 		if(isAdmin) {
 			return true;
 		}

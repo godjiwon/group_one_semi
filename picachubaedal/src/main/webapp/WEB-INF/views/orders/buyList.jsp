@@ -96,10 +96,10 @@ div, ul, li, header, nav, section, aside, article, footer {
 					<hr class="listBox-hr">
 					<div class="cell flex-cell">
 						<div class="cell w-65 right"> 
-							<a href="#" class="detailBox">상세보기</a>
+							<a href="#" class="detailBox">#</a>
 						</div>
 						<div class="cell w-30 right" style="flex-grow: 1;">
-							<a href="/review-board/write?storeNo=${order.storeNo}" class="write"> <i
+							<a href="${pageContext.request.contextPath}/review-board/write?storeNo=${order.storeNo}" class="write"> <i
 								class="fa-solid fa-pen-to-square"></i> 리뷰쓰기
 							</a>
 						</div>

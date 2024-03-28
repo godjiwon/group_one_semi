@@ -36,7 +36,7 @@
 			$(".store-like").find(".fa-heart").click(
 					function() {
 						$.ajax({
-							url : "/rest/store_like/toggle",//같은 서버이므로 앞 경로 생략
+							url : "${pageContext.request.contextPath}/rest/store_like/toggle",//같은 서버이므로 앞 경로 생략
 							method : "post",
 							data : {
 								storeNo : storeNo
@@ -69,7 +69,7 @@
 
 		//최초에 표시될 화면을 위해 화면이 로딩되자마자 서버로 비동기통신 시도
 		$.ajax({
-			url : "/rest/store_like/check",
+			url : "${pageContext.request.contextPath}/rest/store_like/check",
 			method : "post",
 			data : {
 				storeNo : storeNo
@@ -97,7 +97,7 @@
             <c:forEach items="${likeList}" var="store">
                 <div class="col-md-4">
                     <div class="card store-card">
-                    <a href="/menu/customerMenuList?storeNo=${store.storeNo}">
+                    <a href="${pageContext.request.contextPath}/menu/customerMenuList?storeNo=${store.storeNo}">
                         <img src="${imagePath}" width="150" height="100" class="card-img-top store-img"></a>
                         <div class="card-body">
                             <h5 class="card-title center">${store.storeName}</h5>

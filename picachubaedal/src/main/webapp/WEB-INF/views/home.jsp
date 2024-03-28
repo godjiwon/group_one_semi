@@ -213,7 +213,7 @@
 	
 			<div class="cell center my-50"
 				style="position: relative; display: inline-block;">
-				<input type="text" class="tool w-80" size="25" placeholder="메뉴 검색"
+				<input type="text" class="tool w-80" size="25" placeholder="메뉴명을 검색하세요"
 					name="menuName">
 				<button type="submit" class="btn tool menu_search"
 					style="background-color: rgb(254, 210, 61);">

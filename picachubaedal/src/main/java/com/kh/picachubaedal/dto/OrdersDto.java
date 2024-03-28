@@ -20,8 +20,16 @@ public class OrdersDto {
 	private String purchaseList;
 	
 	private String storeImageLink;
+	private int storeMinprice;
 	
 	
+	
+	public int getStoreMinprice() {
+		return storeMinprice;
+	}
+	public void setStoreMinprice(int storeMinprice) {
+		this.storeMinprice = storeMinprice;
+	}
 	public String getStoreImageLink() {
 		return storeImageLink;
 	}

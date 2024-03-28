@@ -48,9 +48,6 @@ public class PointController {
 		pointDao.insert(pointDto);
 		
 		if(!attach.isEmpty()) {//파일이 있으면
-			System.out.println("파일명="+attach.getOriginalFilename());
-			System.out.println("파일유형="+attach.getContentType());
-			System.out.println("파일크기="+attach.getSize());
 			int attachNo = attachService.save(attach);
 			pointDao.connect(pointNo, attachNo);
 		}		

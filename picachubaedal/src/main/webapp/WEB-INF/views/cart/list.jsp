@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
@@ -98,7 +98,7 @@ $(function () {
 									<label> <i class="fa-solid fa-coins"
 										style="color: rgb(254, 210, 61)"></i> 가격
 									</label>
-									<h3>${ppp.itemPrice}원</h3>
+									<h3><fmt:formatNumber value="${ppp.itemPrice}" pattern="#,##0"></fmt:formatNumber>원</h3>
 								</div>
 
 								<%-- 개별 삭제 창 --%>
@@ -125,7 +125,7 @@ $(function () {
 					<h2>장바구니가 비었습니다.</h2>
 				</div>
 				<div class="cell center mt-50">
-					<a href="/" class="link"> <i class="fa-solid fa-utensils gray"></i>
+					<a href="${pageContext.request.contextPath}" class="link"> <i class="fa-solid fa-utensils gray"></i>
 						주문하러 가기
 					</a>
 				</div>

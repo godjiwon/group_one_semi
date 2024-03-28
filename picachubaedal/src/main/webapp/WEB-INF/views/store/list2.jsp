@@ -41,7 +41,7 @@
         <c:forEach var="dto" items="${list}">
             <div class="col">
                 <div class="card">
-                <a href="/menu/ceoMenuList?storeNo=${dto.storeNo}">
+                <a href="${pageContext.request.contextPath}/menu/ceoMenuList?storeNo=${dto.storeNo}">
                     <img src="${dto.storeImgLink}" width="150" height="100" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title text-center">${dto.storeName}</h5>
@@ -57,7 +57,7 @@
                         <li class="list-group-item text-center">가게 거리 : ${dto.userDistance}km</li>
                     </ul>
                     <div class="card-body text-center">
-                        <a href="/menu/ceoMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">메뉴 보기</a>
+                        <a href="${pageContext.request.contextPath}/menu/ceoMenuList?storeNo=${dto.storeNo}" class="btn btn-primary">메뉴 보기</a>
                     </div>
                 </div>
             </div>
@@ -65,10 +65,7 @@
     </div>
 </div>
     
-<div class="cell">
-		<%-- 네비게이터 --%>
-		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include> 
-	</div>
+
     
 </div>
 

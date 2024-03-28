@@ -40,6 +40,12 @@ public class OrdersService {
 		int storeDtip = ordersDao.getStoreDtip(storeNo);
 		return storeDtip;
 	}
+	
+	//가게 번호 받고 최소주문금액 반환
+    public int getStoreMinprice(int storeNo) {
+        int storeMinprice = ordersDao.getStoreMinprice(storeNo);
+        return storeMinprice;
+    }
 
 	// 아이템가격계산
 	public int itemTotalPrice(List<CartDto> list) {
@@ -77,6 +83,10 @@ public class OrdersService {
 		//배달팁 set
 		int storeDtip = getStoreDtip(storeNo);
 		finalOrders.setStoreDtip(storeDtip);
+		
+		//최소주문금액 set
+		int storeMinprice = getStoreMinprice(storeNo);
+		finalOrders.setStoreMinprice(storeMinprice);
 		
 		//최종가격 set
 		int totalPrice = 0;

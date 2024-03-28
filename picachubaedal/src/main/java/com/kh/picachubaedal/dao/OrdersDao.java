@@ -25,6 +25,13 @@ public class OrdersDao {
 		Object[] data = { storeNo };
 		return jdbcTemplate.queryForObject(sql, int.class, data);
 	}
+	
+	//가게 번호 받고 가게 최소주문금액 반환
+    public int getStoreMinprice(int storeNo) {
+        String sql = "select store_minprice from store where store_no = ?";
+        Object[] data = {storeNo};
+        return jdbcTemplate.queryForObject(sql, int.class, data);
+    }
 
 	// 구매 등록
 	public void insert(OrdersDto ordersDto) {

@@ -51,7 +51,7 @@
 			if (state.ok()) {
 				var formData = $(this).serialize();
 				$.ajax({
-					url : "http://localhost:8080/point/regist",
+					url : "${pageContext.request.contextPath}/point/regist",
 					method : "post",
 					data : {formData : value},
 					success : function(response) {
