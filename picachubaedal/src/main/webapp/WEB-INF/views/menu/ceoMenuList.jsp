@@ -234,7 +234,7 @@
    	  <div class="cell center storelist">
    	  <div class="cell">
 		
-				<div onclick="window.location.href='/store/detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
+				<div onclick="window.location.href='${pageContext.request.contextPath}/store/detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
 					<div>
 							<img class="storeImage" src="${storeDto.storeImgLink}" width="700" height="300">
 					</div>
@@ -263,7 +263,7 @@
    	  
    	  <div>
 		  <h3 class="menu-button-style">
-			  <a class="list-button-style gray" href="insert?storeNo=${storeNo}">
+			  <a class="list-button-style gray" href="${pageContext.request.contextPath}/insert?storeNo=${storeNo}">
 			     <i class="fa-solid fa-plus"></i>
 			       메뉴등록
 			  </a>
@@ -301,12 +301,12 @@
 	                 </div>     
 	                     
 	                 <div class="right">
-		                  <a class="list-button-style blue" href="/menu/edit?menuNo=${menuDto.menuNo}">
+		                  <a class="list-button-style blue" href="${pageContext.request.contextPath}/menu/edit?menuNo=${menuDto.menuNo}">
 		                     <i class="fa-solid fa-pencil"></i>
 		                     수정
 		                  </a>
 		                  <span> | </span>
-		                  <a class="list-button-style gray" href="/menu/delete?menuNo=${menuDto.menuNo}&storeNo=${menuDto.storeNo}" onclick="return confirm('삭제하시겠습니까?');">
+		                  <a class="list-button-style gray" href="${pageContext.request.contextPath}/menu/delete?menuNo=${menuDto.menuNo}&storeNo=${menuDto.storeNo}" onclick="return confirm('삭제하시겠습니까?');">
 		                     <i class="fa-solid fa-minus"></i>
 		                     삭제
 		                  </a>               
@@ -343,7 +343,7 @@
 				<a class="on">${i}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="ceoMenuList?page=${i}&${pageVO.getQueryString()}&storeNo=${storeNo}">${i}</a>
+				<a href="${pageContext.request.contextPath}/ceoMenuList?page=${i}&${pageVO.getQueryString()}&storeNo=${storeNo}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
