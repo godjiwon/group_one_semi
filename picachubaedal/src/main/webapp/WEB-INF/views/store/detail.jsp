@@ -26,7 +26,7 @@
 			$(".store-like").find(".fa-heart").click(
 					function() {
 						$.ajax({
-							url : "/rest/store_like/toggle",//같은 서버이므로 앞 경로 생략
+							url : "${pageContext.request.contextPath}/rest/store_like/toggle",//같은 서버이므로 앞 경로 생략
 							method : "post",
 							data : {
 								storeNo : storeNo
@@ -59,7 +59,7 @@
 
 		//최초에 표시될 화면을 위해 화면이 로딩되자마자 서버로 비동기통신 시도
 		$.ajax({
-			url : "/rest/store_like/check",
+			url : "${pageContext.request.contextPath}/rest/store_like/check",
 			method : "post",
 			data : {
 				storeNo : storeNo

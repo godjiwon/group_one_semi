@@ -22,7 +22,7 @@
 </div>
 </form>
 <div class="cell center my-50">
-	<a href="/member/findPw" class="link">
+	<a href="${pageContext.request.contextPath}/member/findPw" class="link">
 		<i class="fa-solid fa-reply"></i>
 		다시 시도
 	</a>

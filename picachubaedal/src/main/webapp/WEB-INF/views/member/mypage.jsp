@@ -115,7 +115,7 @@
 				</table>
 			</div>
 			<div class="cell right">
-				<a href="/orders/buyList" class="link">
+				<a href="${pageContext.request.contextPath}/orders/buyList" class="link">
 				<i class="fa-solid fa-clipboard-list"></i>
 				구매 내역
 				</a>

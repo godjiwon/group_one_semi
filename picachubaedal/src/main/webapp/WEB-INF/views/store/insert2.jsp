@@ -88,7 +88,7 @@
 	
 	        if(regex.test(value)) {//전화번호 형식 검사를 통과했다면
 	            $.ajax({
-	                url : "/rest/store/checkstoreContact",
+	                url : "${pageContext.request.contextPath}/rest/store/checkstoreContact",
 	                method : "post",
 	                data: {
 	                    storeId : value
@@ -142,7 +142,7 @@
 	
 	        if(regex.test(value)) {
 	            $.ajax({
-	                url:"/rest/store/checkstoreMinprice",
+	                url:"${pageContext.request.contextPath}/rest/store/checkstoreMinprice",
 	                method:"post",
 	                data : { storeNick : value },
 	                success:function(response){

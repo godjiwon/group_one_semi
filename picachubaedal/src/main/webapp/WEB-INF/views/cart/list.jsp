@@ -125,7 +125,7 @@ $(function () {
 					<h2>장바구니가 비었습니다.</h2>
 				</div>
 				<div class="cell center mt-50">
-					<a href="/" class="link"> <i class="fa-solid fa-utensils gray"></i>
+					<a href="${pageContext.request.contextPath}" class="link"> <i class="fa-solid fa-utensils gray"></i>
 						주문하러 가기
 					</a>
 				</div>

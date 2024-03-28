@@ -78,7 +78,7 @@ function insertMenu(file) {//유효성 검사 후 유효하지 않으면 경고�
         menuForm.append('menuImage', file);
     }
     $.ajax({
-	    url: "/menu/insert",
+	    url: "${pageContext.request.contextPath}/menu/insert",
 	    type: "POST",
 	    data: menuForm,
 	    contentType: false,
