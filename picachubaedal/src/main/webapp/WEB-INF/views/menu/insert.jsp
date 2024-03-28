@@ -78,7 +78,7 @@ function insertMenu(file) {//유효성 검사 후 유효하지 않으면 경고�
         menuForm.append('menuImage', file);
     }
     $.ajax({
-	    url: "/menu/insert",
+	    url: "${pageContext.request.contextPath}/menu/insert",
 	    type: "POST",
 	    data: menuForm,
 	    contentType: false,
@@ -86,7 +86,7 @@ function insertMenu(file) {//유효성 검사 후 유효하지 않으면 경고�
 	    success: function(response) {
 	    	var storeNo = response;
 	    	console.log(storeNo);
-	          window.location.href = "/menu/ceoMenuList?storeNo="+storeNo;
+	          window.location.href = "${pageContext.request.contextPath}/menu/ceoMenuList?storeNo="+storeNo;
 	    }
     });  
 }
@@ -184,7 +184,7 @@ function checkMenuPrice() {
    <h1>메뉴 등록</h1>
 </div>
 <div class="form-wrap">
-   <form method="post" id="insert_form" action="/menu/insert" autocomplete="off" onsubmit="return checkForm();">
+   <form method="post" id="insert_form" action="${pageContext.request.contextPath}/menu/insert" autocomplete="off" onsubmit="return checkForm();">
       <input type="hidden" name="storeNo" value="${storeNo}">
       <section>
           <div class="menuArea container">
