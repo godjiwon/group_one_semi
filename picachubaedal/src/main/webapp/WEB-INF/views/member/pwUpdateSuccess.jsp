@@ -18,7 +18,7 @@
 		<img  class="success" src="/image/pocketball.png" width="20%">
 	</div>
 	<div class="cell right">
-		<a href="/member/mypage" class="link">
+		<a href="${pageContext.request.contextPath}/member/mypage" class="link">
 			<i class="fa-solid fa-user"></i>
 			내 정보
 		</a>

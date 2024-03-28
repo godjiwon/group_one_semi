@@ -19,7 +19,7 @@
 	</div>
 	</c:if>
 	<div class="cell center my-50">
-		<a href="/member/findId" class="link">
+		<a href="${pageContext.request.contextPath}/member/findId" class="link">
 			<i class="fa-solid fa-reply"></i>
 			다시 시도
 		</a>
