@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.picachubaedal.configuration.FilePathProperties;
 import com.kh.picachubaedal.dao.AttachDao;
 import com.kh.picachubaedal.dto.AttachDto;
 
@@ -25,6 +26,9 @@ public class FileDownloadController {
 	
 	@Autowired
 	private AttachDao attachDao;
+	
+	@Autowired
+	private FilePathProperties filePathProperties;
 	
 	@RequestMapping
 	@ResponseBody
@@ -38,7 +42,7 @@ public class FileDownloadController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		File dir = new File(System.getProperty("user.home"), "kh13A");
+		File dir = new File(filePathProperties.getPath());
 		File target = new File(dir, String.valueOf(attachDto.getAttachNo()));
 		
 		byte[] data = FileUtils.readFileToByteArray(target);
