@@ -166,14 +166,7 @@ public class StoreController {
 		// 데이터베이스에서 해당 사업자 등록번호에 해당하는 가게 정보 조회
 		StoreDto storeDto = storeDao.selectByBusinessNumber(storeBusinessNumber);
 
-		// 콘솔에 입력된 사업자 등록번호와 해당하는 가게 정보 출력
-		System.out.println("입력된 사업자 등록번호: " + storeBusinessNumber);
-		if (storeDto != null) {
-			System.out.println("DB에서 조회된 가게 정보: " + storeDto.toString());
-		} else {
-			System.out.println("DB에서 해당 사업자 등록번호에 해당하는 가게 정보가 없습니다.");
-		}
-
+		
 		// 조회된 가게가 있고, 입력한 사업자 등록번호와 일치하는 경우에만 삭제
 		if (storeDto != null && storeBusinessNumber.equals(storeDto.getStoreBusinessNumber())) {
 			// 가게 삭제 처리
@@ -197,32 +190,6 @@ public class StoreController {
 		return "/WEB-INF/views/store/storeDeleteFail.jsp";
 	}
 
-//	//목록조회
-//	@RequestMapping("/list")
-//	public String list(@ModelAttribute PageVO pageVO, Model model) {
-//	    int count = storeDao.count(pageVO);
-//	    pageVO.setCount(count);F
-//	    model.addAttribute("pageVO", pageVO);
-//
-//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-//	    //System.out.print(list);
-//	    model.addAttribute("list", list);
-//
-//	    return "/WEB-INF/views/store/list2.jsp";
-//	}
-
-//	@RequestMapping("/list")
-//	public String list(@ModelAttribute PageVO pageVO, Model model) {
-//	    int count = storeDao.count(pageVO);
-//	    pageVO.setCount(count);
-//	    model.addAttribute("pageVO", pageVO);
-//
-//	    List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-//	    //System.out.print(list);
-//	    model.addAttribute("list", list);
-//
-//	    return "/WEB-INF/views/store/list2.jsp";
-//	}
 
 //		목록
 	@RequestMapping("/list")
@@ -252,24 +219,7 @@ public class StoreController {
 	}
 
 
-//	//전체 목록
-//	 @GetMapping("/categoryList")
-//	    public String yourHandlerMethod(Model model,@RequestParam String storeCategory, @ModelAttribute PageVO pageVO) {
-//	        // DAO에서 전체 목록을 조회하여 모델에 추가
-//	        List<StoreDto> categoryList = storeDao.selectListAll();
-//	        model.addAttribute("categoryList", categoryList);
-//	        
-//	        int count = storeDao.count(pageVO);
-//	        pageVO.setCount(count);
-//	        model.addAttribute("pageVO", pageVO);
-//	        
-//	        List<StoreDto> list = storeDao.selectListByPaging(pageVO);
-//	        
-//	        // 다른 처리 작업...
-//
-//	        // JSP 파일 이름 반환
-//	        return "/WEB-INF/views/store/categoryList.jsp";
-//	    }
+
 
 	// 카테고리 전체 목록
 	@GetMapping("/categoryList")

@@ -49,7 +49,7 @@
 
 					if (regex.test(value)) {//아이디 형식 검사를 통과했다면
 						$.ajax({
-							url : "/rest/member/checkId",
+							url : "${pageContext.request.contextPath}/rest/member/checkId",
 							method : "post",
 							data : {
 								memberId : value
@@ -104,7 +104,7 @@
 
 					if (regex.test(value)) {
 						$.ajax({
-							url : "/rest/member/checkMemberNick",
+							url : "${pageContext.request.contextPath}/rest/member/checkMemberNick",
 							method : "post",
 							data : {
 								memberNick : value

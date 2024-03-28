@@ -77,7 +77,7 @@ function updateMenu(file) {
         menuForm.append('menuImage', file);
     }
     $.ajax({
-	    url: "/menu/edit",
+	    url: "${pageContext.request.contextPath}/menu/edit",
 	    type: "POST",
 	    data: menuForm,
 	    contentType: false,
