@@ -84,7 +84,7 @@ function updateMenu(file) {
         processData: false,
 	    success: function(response) {
 	    	var storeNo = response;
-	          window.location.href = "/menu/ceoMenuList?storeNo="+storeNo;
+	          window.location.href = "${pageContext.request.contextPath}/menu/ceoMenuList?storeNo="+storeNo;
 	    }
     });  
 }
@@ -207,7 +207,7 @@ function checkMenuPrice() {
    <h1>메뉴 수정</h1>
 </div>
 <div class="form-wrap">
-   <form method="post" id="update_form" action="edit" autocomplete="off">
+   <form method="post" id="update_form" action="${pageContext.request.contextPath}/edit" autocomplete="off">
       <input type="hidden" name="menuNo" value="${menuDto.menuNo}">
       <input type="hidden" name="storeNo" value="${menuDto.storeNo}">
       <section>
@@ -218,7 +218,7 @@ function checkMenuPrice() {
                       <p>클릭하여 메뉴 사진을 첨부해주세요</p>
                       <input type="file" name="menuFileImage" id="file-input" accept="image/*" style="display: none;">
                   </div>
-                  <img id="image-preview" src="menuPhoto?menuNo=${menuDto.menuNo}" alt="업로드이미지">
+                  <img id="image-preview" src="${pageContext.request.contextPath}/menuPhoto?menuNo=${menuDto.menuNo}" alt="업로드이미지">
               </div>
               <div id="input-area">
 				<input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요" value="${menuDto.menuName}">

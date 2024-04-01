@@ -273,7 +273,7 @@
 				<c:forEach var="bannerList" items="${bannerList}">
 					<c:set var="idx" value="${ idx+1 }" />
 					<div class="banner-List">
-						<a href="/menu/customerMenuList?storeNo=${bannerList.storeNo}">
+						<a href="${pageContext.request.contextPath}/menu/customerMenuList?storeNo=${bannerList.storeNo}">
 							<%-- <img class="banner_image" alt="배너이미지" src="/menu/homeBannerImage?storeNo=${bannerList.storeNo}"> --%>
 							<img class="banner_image" alt="배너이미지"
 							src="/image/test_image${idx}.jpg">

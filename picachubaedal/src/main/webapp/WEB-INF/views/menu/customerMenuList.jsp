@@ -254,7 +254,7 @@ li {
 	<div class="col-md-3">
 		<div class="cell center storelist">
 
-			<onclick ="window.location.href='detail?storeNo=${storeDto.storeNo}'
+			<onclick ="window.location.href='${pageContext.request.contextPath}/detail?storeNo=${storeDto.storeNo}'
 				"
 					style="cursor: pointer;"></onclick>
 			<div>
@@ -274,7 +274,7 @@ li {
 				<div>
 					
 					<div>					
-					<a href="/review-board/list?storeNo=${param.storeNo}" class="review-link">리뷰 보러가기</a>
+					<a href="${pageContext.request.contextPath}/review-board/list?storeNo=${param.storeNo}" class="review-link">리뷰 보러가기</a>
 					</div>
 					<span>사장님 한마디</span>
 					<form>${storeDto.storeIntro}</form>
@@ -292,7 +292,7 @@ li {
 				<div class="cell flex-cell card menuCard">
 					<div class="w-25 flex-cell middle">
 						<div class="img_wrap">
-							<img src="menuPhoto?menuNo=${menuDto.menuNo}" width="80">
+							<img src="${pageContext.request.contextPath}/menuPhoto?menuNo=${menuDto.menuNo}" width="80">
 						</div>
 					</div>
 					<div class="content-wrapper width-fill p-10 menuSubCard">
