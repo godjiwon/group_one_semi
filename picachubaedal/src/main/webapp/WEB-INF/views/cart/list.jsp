@@ -114,14 +114,14 @@ $(function () {
 
 
 				<div class="cell center">
-					<form action="/orders/buy" method="get">
+					<form action="${pageContext.request.contextPath}/orders/buy" method="get">
 						<button class="btn bth-order">주문하기</button>
 					</form>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="cell center my-20">
-					<img src="/image/pikachu-dduk.png" style="width: 40%">
+					<img src="${pageContext.request.contextPath}/image/pikachu-dduk.png" style="width: 40%">
 					<h2>장바구니가 비었습니다.</h2>
 				</div>
 				<div class="cell center mt-50">

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/commons.css">
 </head>
 
 <style>
@@ -60,7 +60,7 @@ h1 {
 	<div class="container1 w-1000">
 	
 	<div class="cell1 center">
-	<img src="/image/pica.png" width="250px" height="250px">
+	<img src="${pageContext.request.contextPath}/image/pica.png" width="250px" height="250px">
 	</div>
 	
 	<div class="cell1 center"><h1>리뷰는 사장님에게 힘이 됩니다</h1></div>

@@ -14,9 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- 내가 구현한 스타일 -->
-   <link rel="stylesheet" type="text/css" href="/css/commons.css">
+   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/commons.css">
 <!--    <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
-   <link rel="stylesheet" type="text/css" href="/css/layout.css">
+   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/layout.css">
     
     <!-- font awesome 아이콘 CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -87,8 +87,9 @@
    </script>
    
    <!-- 내가 만든 JS -->
-   <script src="/js/commons.js"></script>
-   
+   <script src="${pageContext.request.contextPath}/js/commons.js"></script>
+
+
 </head>
 
 <%-- 
@@ -98,46 +99,52 @@
    - div는 투명한 영역
 --%>
 <body>
-   <main>  
-   <div class="header">
-       <div class="header_wrap">
-           <a href="/">
-               <img class="image-test" src="/image/pica.png" width="110" height="110">
-           </a>
-           <div class="cell center header-font-style">
-           	   <a href="/" style="color:black; text-decoration: none;"><img src="/image/baedal_logo4_1.png" width="150px;"></a>
-           </div>
-         <div class="header_sideMenu right">
-              <c:choose>
-				<c:when test="${sessionScope.loginId != null}">
-					<div class="header_sideMenu right">
-						<a href="/member/mypage"> <i class="fa-solid fa-user"></i>
-							${sessionScope.loginId}
-						</a>
-						&nbsp;
-						<a href="/member/logout">로그아웃</a>&nbsp;
-						<a href="/orders/buyList"><i class="fa-solid fa-clipboard-list"></i></a>
-						&nbsp;
-						<a href="/cart/list"><i class="fa-solid fa-cart-shopping"></i></a>
-					</div>
-				</c:when>
-				
-				<c:otherwise>
-					<a class="pe-10" href="/member/signin">로그인</a>
-					<a href="/member/signup">회원가입</a>
-				</c:otherwise>
-			</c:choose>
-        </div>           
-       </div>
-   </div>
-   
-   <hr class="hr hr-border header-hr">
+	<main>
+		<div class="header">
+			<div class="header_wrap">
+				<a href="${pageContext.request.contextPath}/"> <img
+					class="image-test"
+					src="${pageContext.request.contextPath}/image/pica.png" width="110"
+					height="110">
+				</a>
+				<div class="cell center header-font-style">
+					<a href="${pageContext.request.contextPath}/"
+						style="color: black; text-decoration: none;"><img
+						src="${pageContext.request.contextPath}/image/baedal_logo4_1.png"
+						width="150px;"></a>
+				</div>
+				<div class="header_sideMenu right">
+					<c:choose>
+						<c:when test="${sessionScope.loginId != null}">
+							<div class="header_sideMenu right">
+								<a href="${pageContext.request.contextPath}/member/mypage">
+									<i class="fa-solid fa-user"></i> ${sessionScope.loginId}
+								</a> &nbsp; <a
+									href="${pageContext.request.contextPath}/member/logout">로그아웃</a>&nbsp;
+								<a href="${pageContext.request.contextPath}/orders/buyList"><i
+									class="fa-solid fa-clipboard-list"></i></a> &nbsp; <a
+									href="${pageContext.request.contextPath}/cart/list"><i
+									class="fa-solid fa-cart-shopping"></i></a>
+							</div>
+						</c:when>
+
+						<c:otherwise>
+							<a class="pe-10"
+								href="${pageContext.request.contextPath}/member/signin">로그인</a>
+							<a href="${pageContext.request.contextPath}/member/signup">회원가입</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+		</div>
+
+		<hr class="hr hr-border header-hr">
 
 
-        <div class="section">
-<!--             <div class="aside"></div> -->
-            <div class="article">
-   <%-- 
+		<div class="section">
+			<!--             <div class="aside"></div> -->
+			<div class="article">
+				<%-- 
       중단 영역
       - 실질적인 홈페이지의 내용이 표시되는 영역
       - 크기는 무제한으로 늘어날 수 있음

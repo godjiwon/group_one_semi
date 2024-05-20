@@ -29,7 +29,8 @@ public class MemberInterceptor implements HandlerInterceptor {
 		else {//회원이 아니면
 			//단순히 차단만 하는게 아니라 사용자에게 보여줄 화면을 준비
 			//[1] 로그인 화면으로 강제이동(리다이렉트)
-			response.sendRedirect("/member/signin");
+			response.sendRedirect(request.getContextPath() + "/member/signin");
+
 			
 			//[2] HTTP 상태번호를 반환 (Unauthorized)
 			//response.sendError(401);

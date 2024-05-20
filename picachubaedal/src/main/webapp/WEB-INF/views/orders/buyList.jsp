@@ -83,7 +83,7 @@ div, ul, li, header, nav, section, aside, article, footer {
 			</div>
 			<div class="cell flex-cell">
 				<div class="cell w-30 ms-20">
-				<img src="${order.storeImageLink}" width="140px;" height="140px;">
+				<img src="${pageContext.request.contextPath}${order.storeImageLink}" width="140px;" height="140px;">
 				</div>
 				<div class="width-fill">
 					<ul>

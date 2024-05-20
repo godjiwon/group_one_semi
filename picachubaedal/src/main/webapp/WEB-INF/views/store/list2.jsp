@@ -42,7 +42,7 @@
             <div class="col">
                 <div class="card">
                 <a href="${pageContext.request.contextPath}/menu/ceoMenuList?storeNo=${dto.storeNo}">
-                    <img src="${dto.storeImgLink}" width="150" height="100" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
+                    <img src="${pageContext.request.contextPath}${dto.storeImgLink}" width="150" height="100" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title text-center">${dto.storeName}</h5>
                     </div>

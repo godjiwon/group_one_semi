@@ -236,7 +236,7 @@
 		
 				<div onclick="window.location.href='${pageContext.request.contextPath}/store/detail?storeNo=${storeDto.storeNo}'" style="cursor: pointer;">
 					<div>
-							<img class="storeImage" src="${storeDto.storeImgLink}" width="700" height="300">
+							<img class="storeImage" src="${pageContext.request.contextPath}${storeDto.storeImgLink}" width="700" height="300">
 					</div>
 					<div>
 						<span>운영시간 ${storeDto.storeOpenHour}</span>
@@ -263,7 +263,7 @@
    	  
    	  <div>
 		  <h3 class="menu-button-style">
-			  <a class="list-button-style gray" href="${pageContext.request.contextPath}/insert?storeNo=${storeNo}">
+			  <a class="list-button-style gray" href="${pageContext.request.contextPath}/menu/insert?storeNo=${storeNo}">
 			     <i class="fa-solid fa-plus"></i>
 			       메뉴등록
 			  </a>

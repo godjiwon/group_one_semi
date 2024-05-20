@@ -26,12 +26,12 @@
 
 				<div class="cell center">
 					<h2>
-						<a class="link link-animation" href="/member/pwUpdate">비밀번호 변경</a>
+						<a class="link link-animation" href="${pageContext.request.contextPath}/member/pwUpdate">비밀번호 변경</a>
 					</h2>
 				</div>
 				<div class="cell center">
 					<h2>
-						<a class="link link-animation" href="/member/profileEdit">개인정보
+						<a class="link link-animation" href="${pageContext.request.contextPath}/member/profileEdit">개인정보
 							변경</a>
 					</h2>
 				</div>
@@ -39,7 +39,7 @@
 				<div class="cell center">
 					<h2>
 						<a class="link link-animation"
-							href="/store/likeList">찜 목록</a>
+							href="${pageContext.request.contextPath}/store/likeList">찜 목록</a>
 					</h2>
 				</div>
 
@@ -49,18 +49,18 @@
 
 						<h2>
 							<a class="link link-animation"
-								href="/store/list">내 가게</a>
+								href="${pageContext.request.contextPath}/store/list">내 가게</a>
 						</h2>
 						
 							<h2>
-								<a class="link link-animation" href="/store/insert1">신규 가게 등록</a>
+								<a class="link link-animation" href="${pageContext.request.contextPath}/store/insert1">신규 가게 등록</a>
 							</h2>
 						
 					</c:if>
 				</div>
 				<div class="cell center">
 					<h2>
-						<a class="link link-animation" href="/member/delete_account"
+						<a class="link link-animation" href="${pageContext.request.contextPath}/member/delete_account"
 							style="color: red";>회원 탈퇴</a>
 					</h2>
 				</div>
@@ -73,7 +73,7 @@
 			<h1>${memberDto.memberId}님의정보</h1>
 		</div>
 		<div class="cell w-50">
-			<img src="/image/transparent-cute-pikachu.png" width="25%;">
+			<img src="${pageContext.request.contextPath}/image/transparent-cute-pikachu.png" width="25%;">
 		</div>
 		</div>
 		

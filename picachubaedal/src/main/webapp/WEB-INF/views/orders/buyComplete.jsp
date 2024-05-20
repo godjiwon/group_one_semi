@@ -72,12 +72,12 @@
                 <h2 class="text-out">피카라이더 찾는중...</h2>
             </div>
             <div class="cell left w-40">
-                <img src="/image/pocketball.png" class="rotateball text-out" width="20%;">
+                <img src="${pageContext.request.contextPath}/image/pocketball.png" class="rotateball text-out" width="20%;">
             </div>
 
         </div>
         <div class="cell">
-            <img src="/image/pica.png" class="delivery" width="50%;">
+            <img src="${pageContext.request.contextPath}/image/pica.png" class="delivery" width="50%;">
             <h3 class="text text-with-border">피카라이더가 음식을 픽업하였습니다.</h3>
         </div>
     </div>
