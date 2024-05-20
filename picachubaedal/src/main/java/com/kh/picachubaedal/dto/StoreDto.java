@@ -24,6 +24,7 @@ public class StoreDto {
 	private Date storeTime;
 	private Date storeUpdate;
 	private String storeBusinessNumber;
+	
 	private int memberNo;
 	private String storeImgLink;
 	private String memberId;

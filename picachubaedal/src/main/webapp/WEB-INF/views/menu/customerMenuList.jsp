@@ -258,7 +258,7 @@ li {
 				"
 					style="cursor: pointer;"></onclick>
 			<div>
-				<img class="storeImage" src="${storeDto.storeImgLink}" width="700" height="300">
+				<img class="storeImage" src="${pageContext.request.contextPath}${storeDto.storeImgLink}" width="700" height="300">
 			</div>
 			<div>
 				<span>운영시간 ${storeDto.storeOpenHour}</span> 
@@ -292,7 +292,7 @@ li {
 				<div class="cell flex-cell card menuCard">
 					<div class="w-25 flex-cell middle">
 						<div class="img_wrap">
-							<img src="${pageContext.request.contextPath}/menuPhoto?menuNo=${menuDto.menuNo}" width="80">
+							<img src="${pageContext.request.contextPath}/menu/menuPhoto?menuNo=${menuDto.menuNo}" width="80">
 						</div>
 					</div>
 					<div class="content-wrapper width-fill p-10 menuSubCard">
@@ -309,7 +309,7 @@ li {
 						</div>
 					</div>
 <div class="text-center pt-30">
-    <form action="/cart/insert" method="post" autocomplete="off">
+    <form action="${pageContext.request.contextPath}/cart/insert" method="post" autocomplete="off">
         <c:choose>
 	                        <c:when test="${menuDto.menuState == 'N'}">
 	                        	<button class="btn btn-gradient orange pt-20 soldOut">메뉴 담기</button>

@@ -84,7 +84,7 @@ h1 {
 			<div class="cell">
 				<div class="review w-100">
 					<div class="profile-picture">
-						<img src="${reviewBoardDto.userImgLink}">
+						<img src="${pageContext.request.contextPath}${reviewBoardDto.userImgLink}">
 					</div>
 
 					<div class="review-content">

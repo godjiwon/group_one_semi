@@ -96,7 +96,7 @@
 	    height: 50px;
 	    top: 40%;
 	    left: -7%;
-	    background-image: url(/image/left-arrow.png);
+	    background-image: url(${pageContext.request.contextPath}/image/left-arrow.png);
 	    background-size: cover;
 	    background-repeat: no-repeat;
 	    text-indent: -10000px;
@@ -110,7 +110,7 @@
 	    height: 50px;
 	    top: 40%;
 	    right: -5%;
-	    background-image: url(/image/right-arrow.png);
+	    background-image: url(${pageContext.request.contextPath}/image/right-arrow.png);
 	    background-size: cover;
 	    background-repeat: no-repeat;
 	    text-indent: -10000px;
@@ -208,7 +208,7 @@
 	<i class="fa-solid fa-location-dot"></i> ${memberDto.memberAddress1} ${memberDto.memberAddress2}
 </div>
 		<%--메뉴&가게 검색창 --%>
-		<form action="/store/menuAndStoreList" method="get" autocomplete="off">
+		<form action="${pageContext.request.contextPath}/store/menuAndStoreList" method="get" autocomplete="off">
 
 	
 			<div class="cell center my-50"
@@ -276,7 +276,7 @@
 						<a href="${pageContext.request.contextPath}/menu/customerMenuList?storeNo=${bannerList.storeNo}">
 							<%-- <img class="banner_image" alt="배너이미지" src="/menu/homeBannerImage?storeNo=${bannerList.storeNo}"> --%>
 							<img class="banner_image" alt="배너이미지"
-							src="/image/test_image${idx}.jpg">
+							src="${pageContext.request.contextPath}/image/test_image${idx}.jpg">
 						</a>
 						<div class="bannerList-top">
 							<p class="banner_name">${bannerList.storeName}</p>
